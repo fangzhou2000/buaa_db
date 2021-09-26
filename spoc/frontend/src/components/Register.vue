@@ -1,9 +1,10 @@
 <template>
-  <div class="welcome">
-    <h1>Welcome to spoc</h1>
-    <br>
-    <button @click="goToLogin">进入</button>
-  </div>
+  <h1>
+    这是注册页面
+    <p>
+      <button v-on:click="goToLogin">返回</button>
+    </p>
+  </h1>
 </template>
 
 <script>
