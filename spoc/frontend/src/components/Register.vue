@@ -18,5 +18,8 @@ export default {
 </script>
 
 <style scoped>
-
+ p{
+   display: block;
+   background-color: #2c3e50;
+ }
 </style>
