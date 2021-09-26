@@ -5,9 +5,9 @@
 
 ## 计划
 
-python，Django写后端（gmm）
+vue架构、前后端接口（tqj）
 
-vue写前端（tqj、oyk）
+vue样式（oyk）
 
-mysql数据库（all）
+mysql数据库、数据库上线（gmm）
 
