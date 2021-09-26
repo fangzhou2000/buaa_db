@@ -1,13 +1,33 @@
-# buaa_db
+# BUAA DB
+
 2021北航数据库大作业
 
-测试
+//bage 1 use what frame
+//
 
-## 计划
+## Description
 
-vue架构、前后端接口（tqj）
+## Task List
 
-vue样式（oyk）
+vue架构、前后端接口(tqj)
 
-mysql数据库、数据库上线（gmm）
+vue样式(oyk)
+
+<details>
+
+<summary>mysql数据库、数据库上线(gmm)</summary>
+
+<br/>
+
+[] 公用数据库
+
+</br>
+
+</details>
+
+## Team
+
+## License
+
+
 
