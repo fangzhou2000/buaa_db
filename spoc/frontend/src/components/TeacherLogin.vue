@@ -1,35 +1,35 @@
 <template>
-  <div class="login">
+  <div class="TeacherLogin">
     <h1>
-      这是登录页面
+      老师登录页面
     </h1>
     <p>
-      <input type="text" placeholder="请输入用户名" ref="userName">
+      <input type="text" placeholder="请输入工号" ref="userName">
     </p>
     <p>
       <input type="text" placeholder="请输入密码" ref="userPassWord">
     </p>
-    <button v-on:click="goToHead">登录</button>
-    <button v-on:click="goToRegister">注册</button>
+    <button v-on:click="goToTeacherHead">登录</button>
+    <button v-on:click="goToTeacherRegister">注册</button>
   </div>
 </template>
 
 <script>
 /* eslint-disable */
 export default {
-  name: 'Login',
+  name: 'TeacherLogin',
   data: function () {
     return {
       status: -1
     }
   },
   methods: {
-    goToHead: function () {
+    goToTeacherHead: function () {
       let _this = this
       let userName = _this.$refs.userName.value
       let userPassWord = _this.$refs.userPassWord.value
       this.$http.request({
-        url: _this.$url + 'Login/',
+        url: _this.$url + 'TeacherLogin/',
         method: 'get',
         params: {
           userName,
@@ -39,9 +39,14 @@ export default {
         console.log(response)
         _this.status = response.data
         if (_this.status === 0) {
-          _this.$router.replace('Head/')
+          _this.$router.push({
+            name: 'TeacherHead',
+            params: {
+              userName: _this.userName
+            }
+          })
         } else if (_this.status === 1) {
-          alert('用户名不存在')
+          alert('工号不存在')
         } else if (_this.status === 2) {
           alert('密码错误')
         }
@@ -49,8 +54,10 @@ export default {
         console.log(error)
       })
     },
-    goToRegister: function () {
-      this.$router.replace('/Register')
+    goToTeacherRegister: function () {
+      this.$router.push({
+        name: 'TeacherRegister'
+      })
     }
   }
 }

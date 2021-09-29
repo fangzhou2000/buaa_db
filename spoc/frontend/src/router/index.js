@@ -1,9 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '../components/HelloWorld'
-import Login from '../components/Login'
-import Register from '../components/Register'
-import Head from '../components/Head'
+import StudentLogin from '../components/StudentLogin'
+import StudentRegister from '../components/StudentRegister'
+import StudentHead from '../components/StudentHead'
+import TeacherLogin from '../components/TeacherLogin'
+import TeacherHead from '../components/TeacherHead'
+import TeacherRegister from '../components/TeacherRegister'
 
 Vue.use(Router)
 
@@ -15,19 +18,34 @@ export default new Router({
       component: HelloWorld
     },
     {
-      path: '/Login',
-      name: 'Login',
-      component: Login
+      path: '/StudentLogin',
+      name: 'StudentLogin',
+      component: StudentLogin
     },
     {
-      path: '/Register',
-      name: 'Register',
-      component: Register
+      path: '/StudentRegister',
+      name: 'StudentRegister',
+      component: StudentRegister
     },
     {
-      path: '/Head',
-      name: 'Head',
-      component: Head
+      path: '/StudentHead',
+      name: 'StudentHead',
+      component: StudentHead
+    },
+    {
+      path: '/TeacherLogin',
+      name: 'TeacherLogin',
+      component: TeacherLogin
+    },
+    {
+      path: '/TeacherHead',
+      name: 'TeacherHead',
+      component: TeacherHead
+    },
+    {
+      path: '/TeacherRegister',
+      name: 'TeacherRegister',
+      component: TeacherRegister
     }
   ]
 })

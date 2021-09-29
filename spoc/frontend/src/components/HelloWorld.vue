@@ -2,15 +2,24 @@
   <div class="welcome">
     <h1>Welcome to spoc</h1>
     <br>
-    <button @click="goToLogin">进入</button>
+    <button @click="goToStudentLogin">我是学生</button>
+    <br>
+    <button @click="goToTeacherLogin">我是老师</button>
   </div>
 </template>
 
 <script>
 export default {
   methods: {
-    goToLogin () {
-      this.$router.replace('/Login')
+    goToStudentLogin () {
+      this.$router.push({
+        name: 'StudentLogin'
+      })
+    },
+    goToTeacherLogin () {
+      this.$router.push({
+        name: 'TeacherLogin'
+      })
     }
   }
 }
