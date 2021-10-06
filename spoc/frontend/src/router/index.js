@@ -1,12 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '../components/HelloWorld'
-import StudentLogin from '../components/StudentLogin'
-import StudentRegister from '../components/StudentRegister'
-import StudentHead from '../components/StudentHead'
-import TeacherLogin from '../components/TeacherLogin'
-import TeacherHead from '../components/TeacherHead'
-import TeacherRegister from '../components/TeacherRegister'
+import StudentLogin from '../components/Student/StudentLogin'
+import StudentRegister from '../components/Student/StudentRegister'
+import StudentHead from '../components/Student/StudentHead'
+import TeacherLogin from '../components/Teacher/TeacherLogin'
+import TeacherHead from '../components/Teacher/TeacherHead'
+import TeacherRegister from '../components/Teacher/TeacherRegister'
+import SelectCourse from '../components/Student/SelectCourse'
+import StudentCourse from '../components/Student/StudentCourse'
+import BuildCourse from '../components/Teacher/BuildCourse'
+import TeacherCourse from '../components/Teacher/TeacherCourse'
 
 Vue.use(Router)
 
@@ -46,6 +50,26 @@ export default new Router({
       path: '/TeacherRegister',
       name: 'TeacherRegister',
       component: TeacherRegister
+    },
+    {
+      path: '/SelectCourse',
+      name: 'SelectCourse',
+      component: SelectCourse
+    },
+    {
+      path: '/StudentCourse',
+      name: 'StudentCourse',
+      component: StudentCourse
+    },
+    {
+      path: '/BuildCourse',
+      name: 'BuildCourse',
+      component: BuildCourse
+    },
+    {
+      path: '/TeacherCourse',
+      name: 'TeacherCourse',
+      component: TeacherCourse
     }
   ]
 })

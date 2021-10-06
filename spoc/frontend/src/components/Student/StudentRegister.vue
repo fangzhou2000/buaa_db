@@ -30,12 +30,12 @@ export default {
     }
   },
   methods: {
-    goToStudentLogin: function() {
+    goToStudentLogin: function () {
       this.$router.push({
         name: 'StudentLogin'
       })
     },
-    Register: function() {
+    Register: function () {
       let _this = this
       let userName = _this.$refs.userName.value
       let userPassWord = _this.$refs.userPassWord.value

@@ -1,62 +1,62 @@
 <template>
-  <div class="TeacherLogin">
-    <h1>
-      老师登录页面
-    </h1>
+  <h1>
+    老师注册页面
     <p>
-      <input type="text" placeholder="请输入工号" ref="userName">
+      <input type="text" placeholder="请输入学号" ref="userName">
     </p>
     <p>
       <input type="text" placeholder="请输入密码" ref="userPassWord">
     </p>
-    <button v-on:click="goToTeacherHead">登录</button>
-    <button v-on:click="goToTeacherRegister">注册</button>
-  </div>
+    <p>
+      <input type="text" placeholder="请确认密码" ref="userPassWord2">
+    </p>
+    <p>
+        <button v-on:click="Register">确认</button>
+    </p>
+    <p>
+        <button v-on:click="goToTeacherLogin">返回</button>
+    </p>
+  </h1>
 </template>
 
 <script>
-/* eslint-disable */
 export default {
-  name: 'TeacherLogin',
-  data: function () {
-    return {
-      status: -1
-    }
-  },
   methods: {
-    goToTeacherHead: function () {
+    goToTeacherLogin() {
+      this.$router.push({
+        name: 'TeacherLogin'
+      })
+    },
+    Register: function () {
       let _this = this
       let userName = _this.$refs.userName.value
       let userPassWord = _this.$refs.userPassWord.value
+      let userPassWord2 = _this.$refs.userPassWord2.value
       this.$http.request({
-        url: _this.$url + 'TeacherLogin/',
+        url: _this.$url + 'StudentRegister/',
         method: 'get',
         params: {
           userName,
-          userPassWord
+          userPassWord,
+          userPassWord2
         }
       }).then(function (response) {
         console.log(response)
         _this.status = response.data
         if (_this.status === 0) {
           _this.$router.push({
-            name: 'TeacherHead',
+            name: 'StudentLogin',
             params: {
               userName: _this.userName
             }
           })
         } else if (_this.status === 1) {
-          alert('工号不存在')
+          alert('工号已存在')
         } else if (_this.status === 2) {
-          alert('密码错误')
+          alert('密码不一致')
         }
       }).catch(function (error) {
         console.log(error)
-      })
-    },
-    goToTeacherRegister: function () {
-      this.$router.push({
-        name: 'TeacherRegister'
       })
     }
   }

@@ -24,35 +24,50 @@ export default {
   name: 'StudentLogin',
   data: function () {
     return {
+      userName: '',
+      userPassWord: '',
       status: -1
     }
   },
   methods: {
     goToStudentHead: function () {
-      let _this = this
-      let userName = _this.$refs.userName.value
-      let userPassWord = _this.$refs.userPassWord.value
+      let that = this
+      that.userName = that.$refs.userName.value
+      that.userPassWord = that.$refs.userPassWord.value
+      /*if (that.userName === 'admin' && that.userPassWord === '123456') {
+        that.$router.push({
+            name: 'StudentHead',
+            params: {
+              userName: that.userName
+            }
+          })
+        console.log('from:' + that.userName)
+      } else {
+        alert('!')
+      }*/
       this.$http.request({
-        url: _this.$url + 'StudentLogin/',
+        url: that.$url + 'StudentLogin/',
         method: 'get',
         params: {
-          userName,
-          userPassWord
+          userName: that.userName,
+          userPassWord: that.userPassWord
         }
       }).then(function (response) {
         console.log(response)
-        _this.status = response.data
-        if (_this.status === 0) {
-          _this.$router.push({
+        that.status = response.data
+        if (that.status === 0) {
+          that.$router.push({
             name: 'StudentHead',
             params: {
-              userName: _this.userName
+              userName: that.userName
             }
           })
-        } else if (_this.status === 1) {
+        } else if (that.status === 1) {
           alert('学号不存在')
-        } else if (_this.status === 2) {
+        } else if (that.status === 2) {
           alert('密码错误')
+        } else {
+          alert('请输入学号')
         }
       }).catch(function (error) {
         console.log(error)
