@@ -16,7 +16,13 @@
         </el-menu>
       </el-aside>
       <el-main>
-        选课内容
+        <el-table :data="courseList">
+          <el-table-column label="课程ID" prop="id"></el-table-column>
+          <el-table-column label="课程名称" prop="name"></el-table-column>
+          <el-table-column label="选课"> <template slot-scope="scope">
+        <el-button v-on:click="selectCourse(scope.$index)">选课</el-button>
+      </template></el-table-column>
+        </el-table>
       </el-main>
     </el-container>
   </div>
@@ -31,10 +37,14 @@
     line-height: 60px;
   }
   .el-aside {
+    width: 20%;
     text-align: center;
   }
   .el-menu-item {
     font-size: 18px;
+  }
+  .el-main {
+    width: 80%;
   }
 </style>
 
@@ -44,13 +54,35 @@ export default {
   data: function () {
     return {
       userName: '',
-      courseList: []
+      courseList: [{
+        id: '1',
+        name: 'C语言程序设计'
+      }, {
+        id: '2',
+        name: '数学分析（1）'
+      }]
     }
   },
   mounted: function () {
     this.userName = this.$route.params.userName
+    this.getCourseList()
   },
   methods: {
+    getCourseList: function () {
+      let that = this
+      this.$http.request({
+        url: that.$url + 'GetCourseList/',
+        method: 'get'
+      }).then(function (response) {
+        console.log(response.data)
+        that.courseList = response.data
+      }).catch(function (error) {
+        console.log(error)
+      })
+    },
+    selectCourse (index) {
+      console.log(index)
+    },
     goToStudentHead: function () {
       this.$router.push({
         name: 'StudentHead',

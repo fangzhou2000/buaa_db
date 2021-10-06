@@ -76,3 +76,10 @@ class TeacherRegister(APIView):
         userPassWord2 = str(request.GET.get('userPassWord2', None))
         print("TacherRegister得到的工号和密码和确认密码是 " + userName + " " + userPassWord + " " + userPassWord2)
         # 下面仅仅是模拟测试，需要从教师用户的表中查询和写入，已存在工号返回1，密码不一致返回2，登录成功返回0
+
+
+class GetCourseList(APIView):
+    def get(self, requset):
+        # 从课程表里查询所有课程，返回一个字典的列表，字典中key值为 'name'
+        print("GetCourseList")
+        return Response([{'id': '3', 'name': '数据结构'}, {'id': '4', 'name': '线性代数'}])

@@ -53,7 +53,7 @@ export default {
           userPassWord: that.userPassWord
         }
       }).then(function (response) {
-        console.log(response)
+        console.log(response.data)
         that.status = response.data
         if (that.status === 0) {
           that.$router.push({

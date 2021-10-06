@@ -22,7 +22,7 @@
 <script>
 export default {
   methods: {
-    goToTeacherLogin() {
+    goToTeacherLogin: function () {
       this.$router.push({
         name: 'TeacherLogin'
       })
