@@ -2,24 +2,32 @@
 
 ## Description
 
+[![](https://img.shields.io/badge/backend-Django-informational)](https://www.djangoproject.com/)[![](https://img.shields.io/badge/frontend-Vue.js-informational)](https://vuejs.org/)
+
 2021年北航数据库大作业
+
+### build and run：
+
+```shell
+$ cd spoc
+$ python manage.py runserver
+```
 
 ## Task List
 
-vue架构、前后端接口 (tqj)
+Vue架构、前后端接口 (tqj)
 
-vue样式 (oyk)
+Vue样式 (oyk)
 
 <details>
-
-<summary>mysql数据库、数据库上线 (gmm)</summary>
+<summary>Django、MySQL (gmm)</summary>
 
 <br/>
 
 - [x]  公用数据库
+- [x]  转移models至pymysql
 
 </br>
-
 </details>
 
 ## Database
@@ -34,7 +42,7 @@ vue样式 (oyk)
 
 ## Team
 
-
+[@fangzhou0216](https://github.com/fangzhou0216), [@imingx](https://github.com/imingx), [@Mike-Smith-rem](https://github.com/Mike-Smith-rem).
 
 ## License
 
