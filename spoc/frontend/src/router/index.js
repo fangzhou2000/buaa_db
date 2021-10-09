@@ -11,6 +11,8 @@ import SelectCourse from '../components/Student/SelectCourse'
 import StudentCourse from '../components/Student/StudentCourse'
 import BuildCourse from '../components/Teacher/BuildCourse'
 import TeacherCourse from '../components/Teacher/TeacherCourse'
+import StudentChange from '../components/Student/StudentChange'
+import TeacherChange from '../components/Teacher/TeacherChange'
 
 Vue.use(Router)
 
@@ -70,6 +72,16 @@ export default new Router({
       path: '/TeacherCourse',
       name: 'TeacherCourse',
       component: TeacherCourse
+    },
+    {
+      path: '/StudentChange',
+      name: 'StudentChange',
+      component: StudentChange
+    },
+    {
+      path: '/TeacherChange',
+      name: 'TeacherChange',
+      component: TeacherChange
     }
   ]
 })

@@ -2,17 +2,18 @@
   <div>
     <el-container>
       <el-header>
-        <span>{{userName}} 学生选课</span>
+        <span>{{userName}}  学生选课</span>
       </el-header>
     </el-container>
 
     <el-container>
       <el-aside>
-        <el-menu default-active="/" router="true">
-          <el-menu-item v-on:click="goToStudentHead">首页</el-menu-item>
-          <el-menu-item index="/">学生选课</el-menu-item>
-          <el-menu-item v-on:click="goToStudentCourse">我的课程</el-menu-item>
-          <el-menu-item v-on:click="goToHelloWorld">退出登录</el-menu-item>
+        <el-menu default-active=2 router="true">
+          <el-menu-item index=1 v-on:click="goToStudentHead">首页</el-menu-item>
+          <el-menu-item index=2 v-on:click="goToSelectCourse">学生选课</el-menu-item>
+          <el-menu-item index=3 v-on:click="goToStudentCourse">我的课程</el-menu-item>
+          <el-menu-item index=4 v-on:click="goToStudentChange">修改密码</el-menu-item>
+          <el-menu-item index=5 v-on:click="goToHelloWorld">退出登录</el-menu-item>
         </el-menu>
       </el-aside>
       <el-main>
@@ -20,7 +21,7 @@
           <el-table-column label="课程ID" prop="id"></el-table-column>
           <el-table-column label="课程名称" prop="name"></el-table-column>
           <el-table-column label="选课"> <template slot-scope="scope">
-        <el-button v-on:click="selectCourse(scope.$index)">选课</el-button>
+        <el-button v-on:click="selectCourse(scope.$index)" type="primary" plain="true">选课</el-button>
       </template></el-table-column>
         </el-table>
       </el-main>
@@ -92,7 +93,7 @@ export default {
         } else if (status === 1) {
           alert('已选择该课程')
         } else {
-          alert('错误')
+          alert('!')
         }
       })
     },
@@ -115,6 +116,14 @@ export default {
     goToHelloWorld: function () {
       this.$router.push({
         name: 'HelloWorld'
+      })
+    },
+    goToStudentChange: function () {
+      this.$router.push({
+        name: 'StudentChange',
+        params: {
+          userName: this.userName
+        }
       })
     },
     goToStudentCourse: function () {

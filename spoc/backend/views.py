@@ -153,3 +153,30 @@ class DropCourse(APIView):
         id = str(request.GET.get('id', None))
         myCourses = []  # 字典列表
         return Response(myCourses)
+
+
+class StudentChange(APIView):
+    def get(self, request):
+        userName = str(request.GET.get('userName', None))  # 学号
+        userPassWord0 = str(request.GET.get('userPassWord0', None))  # 原密码
+        userPassWord1 = str(request.GET.get('userPassWord1', None))  # 新密码
+        userPassWord2 = str(request.GET.get('userPassWord2', None))  # 确认新密码
+        # 从学生用户表里查， 如果原密码不正确返回1，如果正确，如果新密码不一致返回2，如果一致，在学生用户表里修改密码，返回0.
+        return Response(0)
+
+
+class TeacherChange(APIView):
+    def get(self, request):
+        userName = str(request.GET.get('userName', None))  # 学号
+        userPassWord0 = str(request.GET.get('userPassWord0', None))  # 原密码
+        userPassWord1 = str(request.GET.get('userPassWord1', None))  # 新密码
+        userPassWord2 = str(request.GET.get('userPassWord2', None))  # 确认新密码
+        # 从教师用户表里查， 如果原密码不正确返回1，如果正确，如果新密码不一致返回2，如果一致，在教师用户表里修改密码，返回0.
+        return Response(0)
+
+
+class BuildCourse(APIView):
+    def get(self, request):
+        userName = str(request.GET.get('userName', None))
+        courseName = str(request.GET.get('userName', None))
+        # 从课程表里新建课程，这里只提供了课程名称，需要在数据库里分配一个对于该课程唯一的id

@@ -1,23 +1,41 @@
 <template>
-  <div class="StudentRegister">
-    <h1>
-      学生注册页面
-    </h1>
-    <p>
-      <input type="text" placeholder="请输入学号" ref="userName">
-    </p>
-    <p>
-      <input type="text" placeholder="请输入密码" ref="userPassWord">
-    </p>
-    <p>
-      <input type="text" placeholder="请确认密码" ref="userPassWord2">
-    </p>
-    <p>
-        <button v-on:click="Register">确认</button>
-    </p>
-    <p>
-        <button v-on:click="goToStudentLogin">返回</button>
-    </p>
+  <div class="TeacherRegister">
+    <br>
+    <div class="first_block">
+      <p class="head">Spoc</p>
+    </div>
+    <div class="register_block">
+      <div class="register_head">
+        <p>学生注册</p>
+      </div>
+      <el-form>
+        <div id="register-name">
+          <el-form-item>
+            <el-input class="inputs" type="text" placeholder="请输入学号" v-model="userName"></el-input>
+          </el-form-item>
+        </div>
+        <div id="register-password">
+          <el-form-item>
+            <el-input class="inputs" type="text" placeholder="请输入密码" v-model="userPassWord" show-password></el-input>
+          </el-form-item>
+        </div>
+        <div id="confirm-password">
+          <el-form-item>
+            <el-input class="inputs" type="text" placeholder="请确认密码" v-model="userPassWord2" show-password></el-input>
+          </el-form-item>
+        </div>
+        <div class="confirm-button">
+            <el-button id="button_in" type="primary" size="small" v-on:click="Register">
+              确认
+            </el-button>
+        </div>
+        <div class="return-button">
+            <el-button id="button_re" type="primary" plain="true" size="small" v-on:click="goToStudentLogin">
+              返回
+            </el-button>
+        </div>
+      </el-form>
+    </div>
   </div>
 </template>
 
@@ -26,7 +44,10 @@ export default {
   name: 'StudentRegister',
   data: function () {
     return {
-      status: -1
+      status: -1,
+      userName: '',
+      userPassWord: '',
+      userPassWord2: ''
     }
   },
   methods: {
@@ -36,31 +57,28 @@ export default {
       })
     },
     Register: function () {
-      let _this = this
-      let userName = _this.$refs.userName.value
-      let userPassWord = _this.$refs.userPassWord.value
-      let userPassWord2 = _this.$refs.userPassWord2.value
+      let that = this
       this.$http.request({
-        url: _this.$url + 'StudentRegister/',
+        url: that.$url + 'StudentRegister/',
         method: 'get',
         params: {
-          userName,
-          userPassWord,
-          userPassWord2
+          userName: that.userName,
+          userPassWord: that.userPassWord,
+          userPassWord2: that.userPassWord2
         }
       }).then(function (response) {
         console.log(response)
-        _this.status = response.data
-        if (_this.status === 0) {
-          _this.$router.push({
+        that.status = response.data
+        if (that.status === 0) {
+          that.$router.push({
             name: 'StudentLogin',
             params: {
-              userName: _this.userName
+              userName: that.userName
             }
           })
-        } else if (_this.status === 1) {
+        } else if (that.status === 1) {
           alert('学号已存在')
-        } else if (_this.status === 2) {
+        } else if (that.status === 2) {
           alert('密码不一致')
         }
       }).catch(function (error) {
@@ -72,5 +90,66 @@ export default {
 </script>
 
 <style scoped>
+  body,
+  .TeacherRegister{
+    background-color: white;
+    background-image: linear-gradient(0deg, #f8f1ea 0%, #ffffff 30%);
+    height: 100vh;
+    font-family: 'Roboto Mono', monospace;
+  }
+  .first_block{
+    height: 45px;
+    border: 3px hidden;
+    background-color: whitesmoke;
+    text-align: center;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-bottom: 20px;
+  }
+  .head{
+    text-align: center;
+    margin-top: 1px;
+    font-size: 30px;
+    font-family: '华文仿宋', serif;
+  }
+  .register_block{
+    background-color: rgba(255, 255, 255, 0.15);
+    position: center;
+    margin-top: 50px;
+    margin-left: 40%;
+    width: 20%;
+    height: 400px;
+    border-color: #a8a8a8;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 20px;
+    opacity: 0.8;
+  }
+  .register_head{
+    text-align: center;
+    margin-top: 10%;
+    font-family: "微软雅黑", serif;
+    color: black;
+    font-size: 30px;
+  }
+  #register-name, #register-password, #confirm-password{
+    padding-left: 10%;
+  }
+  .confirm-button{
+    margin-top: 25px;
+    padding-left: 10%;
+  }
+  .return-button{
+    margin-top: 15px;
+    padding-left: 10%;
+  }
+  .inputs{
+    width: 90%;
+    height: 20px;
+    border: none;
+  }
+  #button_in, #button_re{
+    width: 90%;
+  }
 
 </style>

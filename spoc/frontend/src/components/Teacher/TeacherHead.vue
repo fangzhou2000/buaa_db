@@ -8,11 +8,12 @@
 
     <el-container>
       <el-aside>
-        <el-menu default-active="/" router="true">
-          <el-menu-item index="/">首页</el-menu-item>
-          <el-menu-item v-on:click="goToBuildCourse">开设课程</el-menu-item>
-          <el-menu-item v-on:click="goToTeacherCourse">我的课程</el-menu-item>
-          <el-menu-item v-on:click="goToHelloWorld">退出登录</el-menu-item>
+        <el-menu default-active=1 router="true">
+          <el-menu-item index=1 v-on:click="goToTeacherHead">首页</el-menu-item>
+          <el-menu-item index=2 v-on:click="goToBuildCourse">开设课程</el-menu-item>
+          <el-menu-item index=3 v-on:click="goToTeacherCourse">查看课程</el-menu-item>
+          <el-menu-item index=4 v-on:click="goToTeacherChange">修改密码</el-menu-item>
+          <el-menu-item index=5 v-on:click="goToHelloWorld">退出登录</el-menu-item>
         </el-menu>
       </el-aside>
       <el-main>
@@ -69,6 +70,14 @@ export default {
     goToTeacherCourse: function () {
       this.$router.push({
         name: 'TeacherCourse',
+        params: {
+          userName: this.userName
+        }
+      })
+    },
+    goToTeacherChange: function () {
+      this.$router.push({
+        name: 'TeacherChange',
         params: {
           userName: this.userName
         }

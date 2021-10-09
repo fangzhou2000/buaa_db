@@ -2,13 +2,13 @@
   <div>
     <el-container>
       <el-header>
-        <span>{{userName}}  我的课程</span>
+        <span>{{userName}}  修改密码</span>
       </el-header>
     </el-container>
 
     <el-container>
       <el-aside>
-        <el-menu default-active=3 router="true">
+        <el-menu default-active=4 router="true">
           <el-menu-item index=1 v-on:click="goToStudentHead">首页</el-menu-item>
           <el-menu-item index=2 v-on:click="goToSelectCourse">学生选课</el-menu-item>
           <el-menu-item index=3 v-on:click="goToStudentCourse">我的课程</el-menu-item>
@@ -17,13 +17,29 @@
         </el-menu>
       </el-aside>
       <el-main>
-        <el-table :data="myCourseList">
-          <el-table-column label="课程ID" prop="id"></el-table-column>
-          <el-table-column label="课程名称" prop="name"></el-table-column>
-          <el-table-column label="退课"> <template slot-scope="scope">
-        <el-button v-on:click="dropCourse(scope.$index)" type="primary" plain="true">退课</el-button>
-      </template></el-table-column>
-        </el-table>
+        <el-form label-width="100px">
+          <el-form-item label="原密码">
+            <el-col span="6">
+              <el-input placeholder="请输入原密码" v-model="userPassWord0" show-password></el-input>
+            </el-col>
+          </el-form-item>
+          <el-form-item label="新密码">
+            <el-col span="6">
+              <el-input placeholder="请输入新密码" v-model="userPassWord1" show-password></el-input>
+            </el-col>
+          </el-form-item>
+          <el-form-item label="确认新密码">
+            <el-col span="6">
+              <el-input placeholder="请确认新密码" v-model="userPassWord2" show-password></el-input>
+            </el-col>
+          </el-form-item>
+          <el-form-item>
+            <el-col span="6">
+              <el-button v-on:click="changePassWord" type="primary" >确认</el-button>
+            </el-col>
+          </el-form-item>
+        </el-form>
+
       </el-main>
     </el-container>
   </div>
@@ -38,59 +54,59 @@
     line-height: 60px;
   }
   .el-aside {
+    width: 20%;
     text-align: center;
   }
   .el-menu-item {
     font-size: 18px;
   }
+  .el-main {
+  }
 </style>
 
 <script>
 export default {
-  name: 'StudentCourse',
+  name: 'StudentChange',
   data: function () {
     return {
       userName: '',
-      myCourseList: [{
-        id: '1',
-        name: 'Java程序设计'
-      }]
+      userPassWord0: '',
+      userPassWord1: '',
+      userPassWord2: ''
     }
   },
   mounted: function () {
     this.userName = this.$route.params.userName
-    this.getMyCourseList()
   },
   methods: {
-    getMyCourseList: function () {
+    changePassWord: function () {
       let that = this
       this.$http.request({
-        url: that.$url + 'GetMyCourseList/',
+        url: that.$url + 'StudentChange/',
         method: 'get',
         params: {
-          userName: that.userName
+          userPassWord0: that.userPassWord0,
+          userPassWord1: that.userPassWord1,
+          userPassWord2: that.userPassWord2
         }
       }).then(function (response) {
         console.log(response.data)
-        that.courseList = response.data
-      }).catch(function (error) {
-        console.log(error)
-      })
-    },
-    dropCourse: function (index) {
-      console.log(index)
-      let that = this
-      this.$http.request({
-        url: that.$url + 'DropCourse/',
-        method: 'get',
-        params: {
-          userName: that.userName,
-          id: that.myCourseList[index].id
+        that.status = response.data
+        if (that.status === 0) {
+          alert('修改成功')
+          that.$router.push({
+            name: 'StudentLogin',
+            params: {
+              userName: that.userName
+            }
+          })
+        } else if (that.status === 1) {
+          alert('原密码错误')
+        } else if (that.status === 2) {
+          alert('新密码不一致')
+        } else {
+          alert('!')
         }
-      }).then(function (response) {
-        console.log(response.data)
-        that.myCourseList = response.data
-        alert('退课成功')
       }).catch(function (error) {
         console.log(error)
       })
@@ -135,3 +151,7 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+</style>
