@@ -169,8 +169,14 @@ class DropCourse(APIView):
         drop_student_course(userName, id)
 
         myCourses = []  # 字典列表
-<<<<<<< HEAD
+
+        result = get_student_course(userName)
+
+        for item in result:
+            myCourses.append(dict([("id", item[0]), ("name", item[1])]))
+
         return Response(myCourses)
+
 
 
 class StudentChange(APIView):
@@ -198,12 +204,3 @@ class BuildCourse(APIView):
         userName = str(request.GET.get('userName', None))
         courseName = str(request.GET.get('userName', None))
         # 从课程表里新建课程，这里只提供了课程名称，需要在数据库里分配一个对于该课程唯一的id
-=======
-
-        result = get_student_course(userName)
-
-        for item in result:
-            myCourses.append(dict([("id", item[0]), ("name", item[1])]))
-
-        return Response(myCourses)
->>>>>>> 8268281e15739c7fc63b7baf2bf8d5152b58bc07
