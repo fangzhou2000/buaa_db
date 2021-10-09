@@ -15,7 +15,7 @@ class StudentLogin(APIView):
         flag = not not result
 
         if flag:
-            print("请求登录的学生账号是%s,其正确密码是%s"%(result[0][0], result[0][1]))
+            print("请求登录的学生账号是%s,其正确密码是%s" % (result[0][0], result[0][1]))
         else:
             print("找不到该学生")
 
@@ -66,7 +66,7 @@ class TeacherLogin(APIView):
         flag = not not result
 
         if flag:
-            print("请求登录的教师账号是%s,其正确密码是%s"%(result[0][0], result[0][1]))
+            print("请求登录的教师账号是%s,其正确密码是%s" % (result[0][0], result[0][1]))
         else:
             print("找不到该教师")
 
@@ -114,11 +114,11 @@ class TeacherRegister(APIView):
 class GetCourseList(APIView):
     def get(self, requset):
         # 从课程表里查询所有课程，返回一个字典的列表，字典中key值为 'id' 和 'name', id为主码
-        result = get_course()
+        result = get_all_course()
         print("GetCourseList")
-        courses = [] # 字典列表
+        courses = []  # 字典列表
         for item in result:
-            courses.append(dict([('id', item[0]),('name', item[1])]))
+            courses.append(dict([('id', item[0]), ('name', item[1])]))
         return Response(courses)
 
 
@@ -127,6 +127,16 @@ class SelectCourse(APIView):
         # 从课程表里选择课程，先在学生选课表里查询该学生是否已经选了这个课程（通过userName和id），如果已有该课程，直接返回1，如果没有，则在学生选课表中添加该学生和该课程，并返回1
         userName = str(request.GET.get('userName', None))
         id = str(request.GET.get('id', None))
+
+        result = find_student_course(userName, id)
+        flag = not not result
+        # flag 表示是否有选课记录，True表示有选课记录。
+
+        if flag:
+            return Response(1)
+        else:
+            select_course(userName, id)
+            return Response(0)
         # if 没选:
         #     return Response(0);
         # elif 选了:
@@ -134,7 +144,7 @@ class SelectCourse(APIView):
         # else:
         #     //错误
         #     return Response(2);
-        # 以下仅用于测试
+        # 以上仅用于测试
         return Response(0)
 
 
@@ -142,7 +152,13 @@ class GetMyCourseList(APIView):
     def get(self, request):
         # 从学生选课表里查询该学生选的课
         userName = str(request.GET.get('userName', None))
+        print('6666666666666666666')
+        # 得到学生课程列表ok
+        result = get_student_course(userName)
         myCourses = []  # 字典列表
+        for item in result:
+            myCourses.append(dict([("id", item[0]), ("name", item[1])]))
+        print(myCourses)
         return Response(myCourses)
 
 
@@ -151,7 +167,16 @@ class DropCourse(APIView):
         # 从学生选课表里删除该课程，然后再从学生选课表里查询该学生选的课，这里也可以考虑不返回，直接从前端删除，这个再讨论
         userName = str(request.GET.get('userName', None))
         id = str(request.GET.get('id', None))
+
+        drop_student_course(userName, id)
+
         myCourses = []  # 字典列表
+
+        result = get_student_course(userName)
+
+        for item in result:
+            myCourses.append(dict([("id", item[0]), ("name", item[1])]))
+
         return Response(myCourses)
 
 

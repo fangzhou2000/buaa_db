@@ -72,7 +72,7 @@ export default {
         }
       }).then(function (response) {
         console.log(response.data)
-        that.courseList = response.data
+        that.myCourseListList = response.data
       }).catch(function (error) {
         console.log(error)
       })
