@@ -157,6 +157,7 @@ class GetMyCourseList(APIView):
         myCourses = []  # 字典列表
         for item in result:
             myCourses.append(dict([("id", item[0]), ("name", item[1])]))
+        print(myCourses)
         return Response(myCourses)
 
 
@@ -176,7 +177,6 @@ class DropCourse(APIView):
             myCourses.append(dict([("id", item[0]), ("name", item[1])]))
 
         return Response(myCourses)
-
 
 
 class StudentChange(APIView):
