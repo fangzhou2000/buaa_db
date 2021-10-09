@@ -1,10 +1,10 @@
 # BUAA DB
 
-## Description
-
-[![](https://img.shields.io/badge/backend-Django-informational)](https://www.djangoproject.com/)[![](https://img.shields.io/badge/frontend-Vue.js-informational)](https://vuejs.org/)
-
 2021年北航数据库大作业
+
+
+## Description 
+ [![](https://img.shields.io/badge/frontend-Vue.js-informational)](https://vuejs.org/)   [![](https://img.shields.io/badge/backend-Django-informational)](https://www.djangoproject.com/) 
 
 ### build and run：
 
@@ -20,7 +20,7 @@ Vue架构、前后端接口 (tqj)
 Vue样式 (oyk)
 
 <details>
-<summary>Django、MySQL (gmm)</summary>
+<summary>Django后端、MySQL (gmm)</summary>
 
 <br/>
 
@@ -42,7 +42,7 @@ Vue样式 (oyk)
 
 ## Team
 
-[@fangzhou0216](https://github.com/fangzhou0216), [@imingx](https://github.com/imingx), [@Mike-Smith-rem](https://github.com/Mike-Smith-rem).
+[@fangzhou0216](https://github.com/fangzhou0216), [@Mike-Smith-rem](https://github.com/Mike-Smith-rem), [@imingx](https://github.com/imingx).
 
 ## License
 

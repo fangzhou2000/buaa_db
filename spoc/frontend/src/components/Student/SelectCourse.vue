@@ -54,13 +54,7 @@ export default {
   data: function () {
     return {
       userName: '',
-      courseList: [{
-        id: '1',
-        name: 'C语言程序设计'
-      }, {
-        id: '2',
-        name: '数学分析（1）'
-      }]
+      courseList: []
     }
   },
   mounted: function () {
@@ -82,6 +76,25 @@ export default {
     },
     selectCourse (index) {
       console.log(index)
+      let that = this
+      this.$http.request({
+        url: that.$url + 'SelectCourse/',
+        method: 'get',
+        params: {
+          userName: that.userName,
+          id: that.courseList[index].id
+        }
+      }).then(function (response) {
+        console.log(response.data)
+        var status = response.data
+        if (status === 0) {
+          alert('选课成功')
+        } else if (status === 1) {
+          alert('已选择该课程')
+        } else {
+          alert('错误')
+        }
+      })
     },
     goToStudentHead: function () {
       this.$router.push({

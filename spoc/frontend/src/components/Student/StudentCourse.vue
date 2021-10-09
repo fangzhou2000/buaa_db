@@ -16,7 +16,13 @@
         </el-menu>
       </el-aside>
       <el-main>
-        我的课程
+        <el-table :data="myCourseList">
+          <el-table-column label="课程ID" prop="id"></el-table-column>
+          <el-table-column label="课程名称" prop="name"></el-table-column>
+          <el-table-column label="退课"> <template slot-scope="scope">
+        <el-button v-on:click="dropCourse(scope.$index)">退课</el-button>
+      </template></el-table-column>
+        </el-table>
       </el-main>
     </el-container>
   </div>
@@ -44,13 +50,50 @@ export default {
   data: function () {
     return {
       userName: '',
-      courseList: []
+      myCourseList: [{
+        id: '1',
+        name: 'Java程序设计'
+      }]
     }
   },
   mounted: function () {
     this.userName = this.$route.params.userName
+    this.getMyCourseList()
   },
   methods: {
+    getMyCourseList: function () {
+      let that = this
+      this.$http.request({
+        url: that.$url + 'GetMyCourseList/',
+        method: 'get',
+        params: {
+          userName: that.userName
+        }
+      }).then(function (response) {
+        console.log(response.data)
+        that.courseList = response.data
+      }).catch(function (error) {
+        console.log(error)
+      })
+    },
+    dropCourse: function (index) {
+      console.log(index)
+      let that = this
+      this.$http.request({
+        url: that.$url + 'DropCourse/',
+        method: 'get',
+        params: {
+          userName: that.userName,
+          id: that.myCourseList[index].id
+        }
+      }).then(function (response) {
+        console.log(response.data)
+        that.myCourseList = response.data
+        alert('退课成功')
+      }).catch(function (error) {
+        console.log(error)
+      })
+    },
     goToStudentHead: function () {
       this.$router.push({
         name: 'StudentHead',

@@ -33,7 +33,7 @@ export default {
       let userPassWord = _this.$refs.userPassWord.value
       let userPassWord2 = _this.$refs.userPassWord2.value
       this.$http.request({
-        url: _this.$url + 'StudentRegister/',
+        url: _this.$url + 'TeacherRegister/',
         method: 'get',
         params: {
           userName,
@@ -45,7 +45,7 @@ export default {
         _this.status = response.data
         if (_this.status === 0) {
           _this.$router.push({
-            name: 'StudentLogin',
+            name: 'TeacherLogin',
             params: {
               userName: _this.userName
             }

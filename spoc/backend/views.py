@@ -28,7 +28,6 @@ class StudentLogin(APIView):
             return Response(1)
 
 
-
 class StudentRegister(APIView):
     def get(self, request):
         userName = str(request.GET.get('userName', None))
@@ -114,10 +113,43 @@ class TeacherRegister(APIView):
 
 class GetCourseList(APIView):
     def get(self, requset):
-        # 从课程表里查询所有课程，返回一个字典的列表，字典中key值为 'name'
+        # 从课程表里查询所有课程，返回一个字典的列表，字典中key值为 'id' 和 'name', id为主码
         result = get_course()
         print("GetCourseList")
         courses = [] # 字典列表
         for item in result:
             courses.append(dict([('id', item[0]),('name', item[1])]))
         return Response(courses)
+
+
+class SelectCourse(APIView):
+    def get(self, request):
+        # 从课程表里选择课程，先在学生选课表里查询该学生是否已经选了这个课程（通过userName和id），如果已有该课程，直接返回1，如果没有，则在学生选课表中添加该学生和该课程，并返回1
+        userName = str(request.GET.get('userName', None))
+        id = str(request.GET.get('id', None))
+        # if 没选:
+        #     return Response(0);
+        # elif 选了:
+        #     return Response(1);
+        # else:
+        #     //错误
+        #     return Response(2);
+        # 以下仅用于测试
+        return Response(0)
+
+
+class GetMyCourseList(APIView):
+    def get(self, request):
+        # 从学生选课表里查询该学生选的课
+        userName = str(request.GET.get('userName', None))
+        myCourses = []  # 字典列表
+        return Response(myCourses)
+
+
+class DropCourse(APIView):
+    def get(self, request):
+        # 从学生选课表里删除该课程，然后再从学生选课表里查询该学生选的课，这里也可以考虑不返回，直接从前端删除，这个再讨论
+        userName = str(request.GET.get('userName', None))
+        id = str(request.GET.get('id', None))
+        myCourses = []  # 字典列表
+        return Response(myCourses)
