@@ -11,11 +11,68 @@ def connect_database():
     return connection, cursor
 
 
-def get_course():
+def find_student_course(userName, id):
+    connection, cursor = connect_database()
+
+    instruction = "SELECT *\
+                FROM stu_course_list\
+                Where username=%s AND id=%s"
+
+    cursor.execute(instruction, [userName, id])
+
+    result = cursor.fetchall()
+
+    close_database(connection, cursor)
+    return result
+
+
+def select_course(userName, id):
+    connection, cursor = connect_database()
+
+    instruction = "INSERT INTO stu_course_list " \
+                  "values(%s, %s)"
+
+    cursor.execute(instruction, [userName, id])
+    connection.commit()
+
+    close_database(connection, cursor)
+
+    return
+
+
+def drop_student_course(userName, id):
+    connection, cursor = connect_database()
+
+    instruction = "DELETE FROM stu_course_list " \
+                  "WHERE username=%s AND id=%s "
+    cursor.execute(instruction, [userName, id])
+    connection.commit()
+
+    close_database(connection, cursor)
+    return
+
+
+def get_student_course(userName):
+    connection, cursor = connect_database()
+
+    instruction = "SELECT course.id, name " \
+                  "FROM course, stu_course_list " \
+                  "WHERE course.id=stu_course_list.id AND username=%s " \
+                  "ORDER BY course.id"
+
+    cursor.execute(instruction, [userName])
+
+    result = cursor.fetchall()
+    close_database(connection, cursor)
+
+    return result
+
+
+def get_all_course():
     connection, cursor = connect_database()
 
     instruction = "SELECT * " \
-                  "FROM backend_course"
+                  "FROM course"
 
     cursor.execute(instruction)
     result = cursor.fetchall()
@@ -31,7 +88,7 @@ def close_database(connection, cursor):
 def create_student(userName, passWord):
     connection, cursor = connect_database()
 
-    instruction = "INSERT INTO backend_student " \
+    instruction = "INSERT INTO student " \
                   "values(%s, %s)"
 
     cursor.execute(instruction, [userName, passWord])
@@ -44,7 +101,7 @@ def create_student(userName, passWord):
 def create_teacher(userName, passWord):
     connection, cursor = connect_database()
 
-    instruction = "INSERT INTO backend_teacher " \
+    instruction = "INSERT INTO teacher " \
                   "values(%s, %s)"
 
     cursor.execute(instruction, [userName, passWord])
@@ -58,7 +115,7 @@ def find_teacher(userName):
     connection, cursor = connect_database()
 
     instruction = "SELECT *\
-            FROM backend_teacher\
+            FROM teacher\
             Where username=%s"
 
     cursor.execute(instruction, [userName])
@@ -74,7 +131,7 @@ def find_student(userName):
     connection, cursor = connect_database()
 
     instruction = "SELECT *\
-            FROM backend_student\
+            FROM student\
             Where username=%s"
 
     cursor.execute(instruction, [userName])
@@ -87,31 +144,23 @@ def find_student(userName):
 
 
 if __name__ == "__main__":
-    connection, cursor = connect_database()
     userName = "19373136"
-    instruction = "SELECT *\
-            FROM backend_student\
-            Where username=%s"
 
-    print(instruction)
+    drop_student_course(userName, "5")
+    # select_course(userName, "2")
+    result = get_student_course(userName)
+    print(result)
 
-    cursor.execute(instruction, [userName])
-    c = cursor.fetchall()
-
-    print(c[0][0])
-
-    print("running")
-
-    close_database(connection, cursor)
-
-"""
-create table
-
-create_student = "CREATE TABLE `backend_student` (`username` varchar(20) NOT NULL PRIMARY KEY, " \
-                 "`password` varchar(32) NOT NULL);"
-
-try:
-    cursor.execute(create_student)
-except Exception as e:
-    print("exception occured: ", e)
-"""
+    result = find_student_course(userName, "4")
+    flag = not not result
+    print(flag)
+    """
+    create table
+    create_student = "CREATE TABLE `student` (`username` varchar(20) NOT NULL PRIMARY KEY, " \
+                     "`password` varchar(32) NOT NULL);"
+    
+    try:
+        cursor.execute(create_student)
+    except Exception as e:
+        print("exception occured: ", e)
+    """
