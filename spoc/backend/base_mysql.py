@@ -1,5 +1,4 @@
 import pymysql
-from django.db import connection as con
 
 
 def connect_database():
@@ -11,9 +10,8 @@ def connect_database():
     cursor = connection.cursor()
     return connection, cursor
 
+
 def get_course():
-
-
     connection, cursor = connect_database()
 
     instruction = "SELECT * " \
@@ -24,9 +22,11 @@ def get_course():
     close_database(connection, cursor)
     return result
 
+
 def close_database(connection, cursor):
     connection.close()
     cursor.close()
+
 
 def create_student(userName, passWord):
     connection, cursor = connect_database()
@@ -40,6 +40,7 @@ def create_student(userName, passWord):
     close_database(connection, cursor)
     return
 
+
 def create_teacher(userName, passWord):
     connection, cursor = connect_database()
 
@@ -51,6 +52,7 @@ def create_teacher(userName, passWord):
 
     close_database(connection, cursor)
     return
+
 
 def find_teacher(userName):
     connection, cursor = connect_database()
@@ -67,6 +69,7 @@ def find_teacher(userName):
 
     return result
 
+
 def find_student(userName):
     connection, cursor = connect_database()
 
@@ -81,6 +84,7 @@ def find_student(userName):
     close_database(connection, cursor)
 
     return result
+
 
 if __name__ == "__main__":
     connection, cursor = connect_database()
