@@ -56,29 +56,35 @@ export default {
     },
     Register: function () {
       let that = this
-      this.$http.request({
-        url: that.$url + 'TeacherRegister/',
-        method: 'get',
-        params: {
-          userName: that.userName,
-          userPassWord: that.userPassWord,
-          userPassWord2: that.userPassWord2
-        }
-      }).then(function (response) {
-        console.log(response)
-        that.status = response.data
-        if (that.status === 0) {
-          that.$router.push({
-            name: 'TeacherLogin'
-          })
-        } else if (that.status === 1) {
-          alert('工号已存在')
-        } else if (that.status === 2) {
-          alert('密码不一致')
-        }
-      }).catch(function (error) {
-        console.log(error)
-      })
+      if (that.userPassWord === '') {
+        alert('密码不能为空')
+      } else if (that.userName === '') {
+        alert('用户名不能为空')
+      } else {
+        this.$http.request({
+          url: that.$url + 'TeacherRegister/',
+          method: 'get',
+          params: {
+            userName: that.userName,
+            userPassWord: that.userPassWord,
+            userPassWord2: that.userPassWord2
+          }
+        }).then(function (response) {
+          console.log(response)
+          that.status = response.data
+          if (that.status === 0) {
+            that.$router.push({
+              name: 'TeacherLogin'
+            })
+          } else if (that.status === 1) {
+            alert('工号已存在')
+          } else if (that.status === 2) {
+            alert('密码不一致')
+          }
+        }).catch(function (error) {
+          console.log(error)
+        })
+      }
     }
   }
 }

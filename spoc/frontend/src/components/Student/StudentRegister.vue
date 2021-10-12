@@ -8,7 +8,7 @@
       <div class="register_head">
         <p>学生注册</p>
       </div>
-      <el-form>
+      <el-form rules="rules">
         <div id="register-name">
           <el-form-item>
             <el-input class="inputs" type="text" placeholder="请输入学号" v-model="userName"></el-input>
@@ -58,32 +58,38 @@ export default {
     },
     Register: function () {
       let that = this
-      this.$http.request({
-        url: that.$url + 'StudentRegister/',
-        method: 'get',
-        params: {
-          userName: that.userName,
-          userPassWord: that.userPassWord,
-          userPassWord2: that.userPassWord2
-        }
-      }).then(function (response) {
-        console.log(response)
-        that.status = response.data
-        if (that.status === 0) {
-          that.$router.push({
-            name: 'StudentLogin',
-            params: {
-              userName: that.userName
-            }
-          })
-        } else if (that.status === 1) {
-          alert('学号已存在')
-        } else if (that.status === 2) {
-          alert('密码不一致')
-        }
-      }).catch(function (error) {
-        console.log(error)
-      })
+      if (that.userPassWord === '') {
+        alert('密码不能为空')
+      } else if (that.userName === '') {
+        alert('用户名不能为空')
+      } else {
+        this.$http.request({
+          url: that.$url + 'StudentRegister/',
+          method: 'get',
+          params: {
+            userName: that.userName,
+            userPassWord: that.userPassWord,
+            userPassWord2: that.userPassWord2
+          }
+        }).then(function (response) {
+          console.log(response)
+          that.status = response.data
+          if (that.status === 0) {
+            that.$router.push({
+              name: 'StudentLogin',
+              params: {
+                userName: that.userName
+              }
+            })
+          } else if (that.status === 1) {
+            alert('学号已存在')
+          } else if (that.status === 2) {
+            alert('密码不一致')
+          }
+        }).catch(function (error) {
+          console.log(error)
+        })
+      }
     }
   }
 }

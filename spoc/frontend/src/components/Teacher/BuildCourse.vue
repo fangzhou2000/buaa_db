@@ -83,6 +83,7 @@ export default {
       }).catch(function (error) {
         console.log(error)
       })
+      that.courseName = ''
     },
     goToTeacherHead: function () {
       this.$router.push({

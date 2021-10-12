@@ -24,10 +24,13 @@
               确认
             </el-button>
         </div>
-        <div class="return-button">
+        <div class="register-button">
             <el-button id="button_re" type="primary" plain="true" size="small" v-on:click="goToStudentRegister">
               注册
             </el-button>
+        </div>
+        <div class="return-text">
+           <el-link href="#/">返回</el-link>
         </div>
       </el-form>
     </div>
@@ -146,9 +149,13 @@ export default {
     margin-top: 25px;
     padding-left: 10%;
   }
-  .return-button{
+  .register-button{
     margin-top: 15px;
     padding-left: 10%;
+  }
+  .return-text{
+    margin-top: 15px;
+    text-align: center;
   }
   .inputs{
     width: 90%;

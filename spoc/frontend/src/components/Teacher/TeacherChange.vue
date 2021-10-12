@@ -61,35 +61,40 @@ export default {
   methods: {
     changePassWord: function () {
       let that = this
-      this.$http.request({
-        url: that.$url + 'TeacherChange/',
-        method: 'get',
-        params: {
-          userPassWord0: that.userPassWord0,
-          userPassWord1: that.userPassWord1,
-          userPassWord2: that.userPassWord2
-        }
-      }).then(function (response) {
-        console.log(response.data)
-        that.status = response.data
-        if (that.status === 0) {
-          alert('修改成功')
-          that.$router.push({
-            name: 'TeacherLogin',
-            params: {
-              userName: that.userName
-            }
-          })
-        } else if (that.status === 1) {
-          alert('原密码错误')
-        } else if (that.status === 2) {
-          alert('新密码不一致')
-        } else {
-          alert('!')
-        }
-      }).catch(function (error) {
-        console.log(error)
-      })
+      if (that.userPassWord1 === '') {
+        alert('密码不能为空')
+      } else {
+        this.$http.request({
+          url: that.$url + 'TeacherChange/',
+          method: 'get',
+          params: {
+            userName: that.userName,
+            userPassWord0: that.userPassWord0,
+            userPassWord1: that.userPassWord1,
+            userPassWord2: that.userPassWord2
+          }
+        }).then(function (response) {
+          console.log(response.data)
+          that.status = response.data
+          if (that.status === 0) {
+            alert('修改成功')
+            that.$router.push({
+              name: 'TeacherLogin',
+              params: {
+                userName: that.userName
+              }
+            })
+          } else if (that.status === 1) {
+            alert('原密码错误')
+          } else if (that.status === 2) {
+            alert('新密码不一致')
+          } else {
+            alert('!')
+          }
+        }).catch(function (error) {
+          console.log(error)
+        })
+      }
     },
     goToTeacherHead: function () {
       this.$router.push({

@@ -230,8 +230,8 @@ a{
   }
   .class-center{
     float: left;
-    height: 250px;
-    width: 20%;
+    height: 260px;
+    width: 25%;
     padding: 10px;
     margin: 10px;
     border: 1px white solid;
@@ -242,7 +242,7 @@ a{
     overflow: hidden;
   }
   .blink-block{
-    width: 15%;
+    width: 3%;
     height: 250px;
     float: left;
   }
@@ -258,17 +258,17 @@ a{
     float: right;
   }
   .picture{
-    margin-top: 50px;
+    margin: 10px;
     float: left;
-    width: 20%;
+    width: 35%;
   }
   .imgt{
     width: 100%;
   }
   .news{
-    float: left;
-    height: 250px;
-    width: 20%;
+    float: right;
+    height: 260px;
+    width: 25%;
     padding: 10px;
     margin: 10px;
     border: 1px white solid;
@@ -316,16 +316,15 @@ a{
   }
   .right-photo{
     float: left;
+    width: 70%;
   }
   .school1 img{
-    margin-top: 30px;
-    height: 30%;
-    width: auto;
+    margin-top: 15%;
+    width: 70%;
   }
   .school2 img{
-    margin-top: 30px;
-    height: 25%;
-    width: auto;
+    margin-top: 15%;
+    width: 90%;
   }
   .line-2-intro{
     height: 450px;
@@ -341,17 +340,17 @@ a{
     border-width: 2px;
   }
   #first_row{
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 5%;
+    margin-right: 5%;
   }
   ul{
-    font-size: 15px;
+    font-size: 12px;
     text-align: left;
     list-style: linear-gradient(30deg, darkgrey 10%, darkcyan 50%, darkslategrey 40%);
     line-height: 25px;
   }
   ol {
-    font-size: 20px;
+    font-size: 15px;
     text-align: left;
     line-height: 45px;
     list-style: none;
