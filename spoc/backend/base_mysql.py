@@ -53,10 +53,10 @@ class baseSQL:
     def get_student_course(self, userName):
         connection, cursor = self.connect_database()
 
-        instruction = "SELECT course.id, name " \
-                      "FROM course, stu_course_list " \
-                      "WHERE course.id=stu_course_list.id AND username=%s " \
-                      "ORDER BY course.id"
+        instruction = "SELECT c.id, name " \
+                      "FROM course AS c, stu_course_list AS scl " \
+                      "WHERE c.id=scl.id AND username=%s " \
+                      "ORDER BY c.id"
 
         cursor.execute(instruction, [userName])
 
