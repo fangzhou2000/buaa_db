@@ -8,13 +8,7 @@
 
     <el-container>
       <el-aside>
-        <el-menu default-active=2 router="true">
-          <el-menu-item index=1 v-on:click="goToTeacherHead">首页</el-menu-item>
-          <el-menu-item index=2 v-on:click="goToBuildCourse">开设课程</el-menu-item>
-          <el-menu-item index=3 v-on:click="goToTeacherCourse">查看课程</el-menu-item>
-          <el-menu-item index=4 v-on:click="goToTeacherChange">修改密码</el-menu-item>
-          <el-menu-item index=5 v-on:click="goToHelloWorld">退出登录</el-menu-item>
-        </el-menu>
+        <TeacherNav></TeacherNav>
       </el-aside>
       <el-main>
         <el-form label-width="100px">
@@ -51,8 +45,10 @@
 </style>
 
 <script>
+import TeacherNav from './TeacherNav'
 export default {
   name: 'BuildCourse',
+  components: {TeacherNav},
   data: function () {
     return {
       userName: '',
@@ -60,7 +56,7 @@ export default {
     }
   },
   mounted: function () {
-    this.userName = this.$route.params.userName
+    this.userName = this.cookie.getCookie('userName')
   },
   methods: {
     buildCourse: function () {
@@ -84,43 +80,6 @@ export default {
         console.log(error)
       })
       that.courseName = ''
-    },
-    goToTeacherHead: function () {
-      this.$router.push({
-        name: 'TeacherHead',
-        params: {
-          userName: this.userName
-        }
-      })
-    },
-    goToBuildCourse: function () {
-      this.$router.push({
-        name: 'BuildCourse',
-        params: {
-          userName: this.userName
-        }
-      })
-    },
-    goToTeacherCourse: function () {
-      this.$router.push({
-        name: 'TeacherCourse',
-        params: {
-          userName: this.userName
-        }
-      })
-    },
-    goToTeacherChange: function () {
-      this.$router.push({
-        name: 'TeacherChange',
-        params: {
-          userName: this.userName
-        }
-      })
-    },
-    goToHelloWorld: function () {
-      this.$router.push({
-        name: 'HelloWorld'
-      })
     }
   }
 }

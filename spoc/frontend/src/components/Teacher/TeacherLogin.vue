@@ -73,11 +73,10 @@ export default {
         console.log(response)
         that.status = response.data
         if (that.status === 0) {
+          let loginInfo = {userName: that.userName}
+          that.cookie.setCookie(loginInfo)
           that.$router.push({
             name: 'TeacherHead',
-            params: {
-              userName: that.userName
-            }
           })
         } else if (that.status === 1) {
           alert('工号不存在')
