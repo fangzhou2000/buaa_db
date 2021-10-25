@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="background">
     <el-container>
       <el-header>
-        <span>{{userName}} 查看课程</span>
+        <span>{{userName}}  管理课程</span>
       </el-header>
     </el-container>
 
@@ -11,30 +11,24 @@
         <TeacherNav></TeacherNav>
       </el-aside>
       <el-main>
-        <el-table :data="courseList">
+        <el-table :data="myCourseList">
           <el-table-column label="课程ID" prop="id"></el-table-column>
           <el-table-column label="课程名称" prop="name"></el-table-column>
+          <el-table-column label="修改名称">
+            <template slot-scope="scope">
+              <el-button v-on:click="changeCourseName(scope.$index)" type="warning" size="small">修改名称</el-button>
+            </template>
+          </el-table-column>
+          <el-table-column label="停课">
+            <template slot-scope="scope">
+              <el-button v-on:click="cancelCourse(scope.$index)" type="danger" size="small">停课</el-button>
+            </template>
+          </el-table-column>
         </el-table>
       </el-main>
     </el-container>
   </div>
 </template>
-
-<style>
-  .el-header {
-    text-align: center;
-    font-size: 24px;
-    background-color: #b4f5ff;
-    color: #333;
-    line-height: 60px;
-  }
-  .el-aside {
-    text-align: center;
-  }
-  .el-menu-item {
-    font-size: 18px;
-  }
-</style>
 
 <script>
 import TeacherNav from './TeacherNav'
@@ -44,22 +38,64 @@ export default {
   data: function () {
     return {
       userName: '',
-      courseList: []
+      myCourseList: [{
+        id: '1',
+        name: '前端测试课程'
+      }]
     }
   },
   mounted: function () {
     this.userName = this.cookie.getCookie('userName')
-    this.getCourseList()
+    this.getTeacherCourseList()
   },
   methods: {
-    getCourseList: function () {
+    getTeacherCourseList: function () {
       let that = this
       this.$http.request({
-        url: that.$url + 'GetCourseList/',
-        method: 'get'
+        url: that.$url + 'GetTeacherCourseList/',
+        method: 'get',
+        params: {
+          userName: that.userName
+        }
       }).then(function (response) {
         console.log(response.data)
-        that.courseList = response.data
+        that.myCourseList = response.data
+      }).catch(function (error) {
+        console.log(error)
+      })
+    },
+    changeCourseName: function (index) {
+      console.log(index)
+      let that = this
+      this.$http.request({
+        url: that.$url + 'ChangeCourseName/',
+        method: 'get',
+        params: {
+          userName: that.userName,
+          id: that.myCourseList[index].id
+        }
+      }).then(function (response) {
+        console.log(response.data)
+        that.myCourseList = response.data
+        alert('修改课程名称成功')
+      }).catch(function (error) {
+        console.log(error)
+      })
+    },
+    cancelCourse: function (index) {
+      console.log(index)
+      let that = this
+      this.$http.request({
+        url: that.$url + 'CancelCourse/',
+        method: 'get',
+        params: {
+          userName: that.userName,
+          id: that.myCourseList[index].id
+        }
+      }).then(function (response) {
+        console.log(response.data)
+        that.myCourseList = response.data
+        alert('停课成功')
       }).catch(function (error) {
         console.log(error)
       })
@@ -67,3 +103,7 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+</style>

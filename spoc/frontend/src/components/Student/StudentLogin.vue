@@ -1,5 +1,5 @@
 <template>
-  <div class="TeacherRegister">
+  <div class="background">
     <br>
     <div class="first_block">
       <p class="head">Spoc</p>
@@ -100,9 +100,9 @@ export default {
 
 <style scoped>
   body,
-  .TeacherRegister{
+  .background{
     background-color: white;
-    background-image: linear-gradient(0deg, #f8f1ea 0%, #ffffff 30%);
+    background-image: linear-gradient(0deg, #f8f1ea 0%, #ffffff 10%);
     height: 100vh;
     font-family: 'Roboto Mono', monospace;
   }

@@ -10,6 +10,30 @@
   </div>
 </template>
 
+<style>
+  .el-header {
+    text-align: center;
+    font-size: 24px;
+    background-color: whitesmoke;
+    color: #333;
+    line-height: 60px;
+  }
+  .el-aside {
+    text-align: center;
+  }
+  .el-main {
+    width: 80%;
+  }
+  .el-menu-item {
+    font-size: 18px;
+  }
+  .background {
+    background-color: white;
+    background-image: linear-gradient(0deg, #f8f1ea 0%, #ffffff 10%);
+    height: 100vh;
+  }
+</style>
+
 <script>
 export default {
   name: 'StudentNav',

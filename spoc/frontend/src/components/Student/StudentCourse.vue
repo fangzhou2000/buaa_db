@@ -23,22 +23,6 @@
   </div>
 </template>
 
-<style>
-  .el-header {
-    text-align: center;
-    font-size: 24px;
-    background-color: whitesmoke;
-    color: #333;
-    line-height: 60px;
-  }
-  .el-aside {
-    text-align: center;
-  }
-  .el-menu-item {
-    font-size: 18px;
-  }
-</style>
-
 <script>
 import StudentNav from './StudentNav'
 export default {
@@ -49,19 +33,19 @@ export default {
       userName: '',
       myCourseList: [{
         id: '1',
-        name: 'Java程序设计'
+        name: '前端测试课程'
       }]
     }
   },
   mounted: function () {
     this.userName = this.cookie.getCookie('userName')
-    this.getMyCourseList()
+    this.getStudentCourseList()
   },
   methods: {
-    getMyCourseList: function () {
+    getStudentCourseList: function () {
       let that = this
       this.$http.request({
-        url: that.$url + 'GetMyCourseList/',
+        url: that.$url + 'GetStudentCourseList/',
         method: 'get',
         params: {
           userName: that.userName

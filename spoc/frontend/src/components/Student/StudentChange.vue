@@ -39,25 +39,6 @@
   </div>
 </template>
 
-<style>
-  .el-header {
-    text-align: center;
-    font-size: 24px;
-    background-color: whitesmoke;
-    color: #333;
-    line-height: 60px;
-  }
-  .el-aside {
-    width: 20%;
-    text-align: center;
-  }
-  .el-menu-item {
-    font-size: 18px;
-  }
-  .el-main {
-  }
-</style>
-
 <script>
 import StudentNav from './StudentNav'
 export default {

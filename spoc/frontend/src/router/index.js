@@ -9,8 +9,9 @@ import TeacherHead from '../components/Teacher/TeacherHead'
 import TeacherRegister from '../components/Teacher/TeacherRegister'
 import SelectCourse from '../components/Student/SelectCourse'
 import StudentCourse from '../components/Student/StudentCourse'
-import BuildCourse from '../components/Teacher/BuildCourse'
 import TeacherCourse from '../components/Teacher/TeacherCourse'
+import BuildCourse from '../components/Teacher/BuildCourse'
+import AllCourse from '../components/Teacher/AllCourse'
 import StudentChange from '../components/Student/StudentChange'
 import TeacherChange from '../components/Teacher/TeacherChange'
 
@@ -72,6 +73,11 @@ export default new Router({
       path: '/TeacherCourse',
       name: 'TeacherCourse',
       component: TeacherCourse
+    },
+    {
+      path: '/AllCourse',
+      name: 'AllCourse',
+      component: AllCourse
     },
     {
       path: '/StudentChange',

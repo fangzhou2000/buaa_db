@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="background">
     <el-container>
       <el-header>
         <span>{{userName}} 修改密码</span>
@@ -95,7 +95,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

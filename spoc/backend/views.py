@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .base_mysql import baseSQL
@@ -138,7 +137,7 @@ class SelectCourse(APIView):
             return Response(0)
 
 
-class GetMyCourseList(APIView):
+class GetStudentCourseList(APIView):
     def get(self, request):
         userName = str(request.GET.get('userName', None))
         # 从学生选课表里查询该学生选的课
@@ -210,6 +209,12 @@ class TeacherChange(APIView):
             return Response(0)
 
 
+class GetTeacherCourseList(APIView):
+    def get(self, request):
+        userName = str(request.GET.get('userName', None))
+        # 从课程表里查询该教师开设的课程，返回课程列表，（BuildCourse时会传入教师用户名，记录是哪个教师开的课。）
+
+
 class BuildCourse(APIView):
     def get(self, request):
         userName = str(request.GET.get('userName', None))
@@ -220,3 +225,19 @@ class BuildCourse(APIView):
         sql = baseSQL()
         sql.create_course(userName, courseName)
         return Response(0)
+
+
+class ChangeCourseName(APIView):
+    def get(self, request):
+        userName = str(request.GET.get('userName', None))
+        id = str(request.GET.get('id', None))
+        # 教师改课程名，只能改自己开的课程的名，成功返回0
+
+
+class CancelCourse(APIView):
+    def get(self, request):
+        userName = str(request.GET.get('userName', None))
+        id = str(request.GET.get('id', None))
+        # 教师停课，只能停自己开的课，成功返回0
+
+

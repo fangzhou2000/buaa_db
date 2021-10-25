@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="background">
     <el-container>
       <el-header>
         <span>{{userName}} 教师首页</span>
@@ -16,22 +16,6 @@
     </el-container>
   </div>
 </template>
-
-<style>
-  .el-header {
-    text-align: center;
-    font-size: 24px;
-    background-color: #b4f5ff;
-    color: #333;
-    line-height: 60px;
-  }
-  .el-aside {
-    text-align: center;
-  }
-  .el-menu-item {
-    font-size: 18px;
-  }
-</style>
 
 <script>
 import TeacherNav from './TeacherNav'
