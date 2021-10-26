@@ -1,6 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .base_mysql import baseSQL
+from .base_mysql import MySQL
 
 
 class StudentLogin(APIView):
@@ -10,8 +10,8 @@ class StudentLogin(APIView):
         print("StudentLogin得到的学号和密码是 " + userName + " " + userPassWord)
         # 需要从学生用户的表检索，不存在学号或学号为空返回1，密码错误返回2，登录成功返回0
 
-        sql = baseSQL()
-        result = sql.find_student(userName)
+        sql = MySQL()
+        result = sql.findStudent(userName)
         flag = not not result
 
         if flag:
@@ -36,8 +36,8 @@ class StudentRegister(APIView):
         print("StudentRegister得到的学号和密码和确认密码是 " + userName + " " + userPassWord + " " + userPassWord2)
         # 需要从学生用户的表中查询和写入，已存在学号返回1，密码不一致返回2，登成功返回0
 
-        sql = baseSQL()
-        result = sql.find_student(userName)
+        sql = MySQL()
+        result = sql.findStudent(userName)
         flag = not not result
 
         if flag:
@@ -50,7 +50,7 @@ class StudentRegister(APIView):
         elif userPassWord != userPassWord2:
             return Response(2)
         else:
-            sql.create_student(userName, userPassWord)
+            sql.registerStudent(userName, userPassWord)
             return Response(0)
 
 
@@ -61,8 +61,8 @@ class TeacherLogin(APIView):
         print("TeacherLogin得到的学号和密码是 " + userName + " " + userPassWord)
         # 需要从教师用户的表检索，不存在工号或工号为空返回1，密码错误返回2，登录成功返回0
 
-        sql = baseSQL()
-        result = sql.find_teacher(userName)
+        sql = MySQL()
+        result = sql.findTeacher(userName)
         flag = not not result
 
         if flag:
@@ -87,9 +87,9 @@ class TeacherRegister(APIView):
         print("TacherRegister得到的工号和密码和确认密码是 " + userName + " " + userPassWord + " " + userPassWord2)
         # 需要从教师用户的表中查询和写入，已存在工号返回1，密码不一致返回2，登录成功返回0
 
-        sql = baseSQL()
+        sql = MySQL()
 
-        result = sql.find_teacher(userName)
+        result = sql.findTeacher(userName)
         flag = not not result
 
         if flag:
@@ -102,7 +102,7 @@ class TeacherRegister(APIView):
         elif userPassWord != userPassWord2:
             return Response(2)
         else:
-            sql.create_teacher(userName, userPassWord)
+            sql.registerTeacher(userName, userPassWord)
             return Response(0)
 
 
@@ -110,12 +110,12 @@ class GetCourseList(APIView):
     def get(self, requset):
         # 从课程表里查询所有课程，返回一个字典的列表，字典中key值为 'id' 和 'name', id为主码
         print("GetCourseList请求得到所有课程")
-        sql = baseSQL()
-        result = sql.get_all_course()
-        courses = []  # 字典列表
+        sql = MySQL()
+        result = sql.getCourseList()
+        courseList = []  # 字典列表
         for item in result:
-            courses.append(dict([('id', item[0]), ('name', item[1])]))
-        return Response(courses)
+            courseList.append(dict([('id', item[0]), ('name', item[1])]))
+        return Response(courseList)
 
 
 class SelectCourse(APIView):
@@ -125,15 +125,15 @@ class SelectCourse(APIView):
         # 从课程表里选择课程，先在学生选课表里查询该学生是否已经选了这个课程（通过userName和id），如果已有该课程，直接返回1，如果没有，则在学生选课表中添加该学生和该课程，并返回1
         print("TacherRegister得到的学号和课程id是 " + userName + " " + id)
 
-        sql = baseSQL()
-        result = sql.find_student_course(userName, id)
+        sql = MySQL()
+        result = sql.findStudentCourse(userName, id)
         flag = not not result
         # flag 表示是否有选课记录，True表示有选课记录。
 
         if flag:
             return Response(1)
         else:
-            sql.select_course(userName, id)
+            sql.selectCourse(userName, id)
             return Response(0)
 
 
@@ -143,13 +143,13 @@ class GetStudentCourseList(APIView):
         # 从学生选课表里查询该学生选的课
         print("GetMyCourseList得到的学号是 " + userName)
 
-        sql = baseSQL()
-        result = sql.get_student_course(userName)
-        myCourses = []  # 字典列表
+        sql = MySQL()
+        result = sql.getStudentCourseList(userName)
+        studentCourseList = []  # 字典列表
         for item in result:
-            myCourses.append(dict([("id", item[0]), ("name", item[1])]))
-        print(myCourses)
-        return Response(myCourses)
+            studentCourseList.append(dict([("id", item[0]), ("name", item[1])]))
+        print(studentCourseList)
+        return Response(studentCourseList)
 
 
 class DropCourse(APIView):
@@ -159,13 +159,13 @@ class DropCourse(APIView):
         # 从学生选课表里删除该课程，然后再从学生选课表里查询该学生选的课，这里也可以考虑不返回，直接从前端删除，这个再讨论
         print("DropCourse得到的学号和id是 " + userName + " " + id)
 
-        sql = baseSQL()
-        sql.drop_student_course(userName, id)
-        myCourses = []  # 字典列表
-        result = sql.get_student_course(userName)
+        sql = MySQL()
+        sql.dropStudentCourse(userName, id)
+        studentCourseList = []  # 字典列表
+        result = sql.getStudentCourseList(userName)
         for item in result:
-            myCourses.append(dict([("id", item[0]), ("name", item[1])]))
-        return Response(myCourses)
+            studentCourseList.append(dict([("id", item[0]), ("name", item[1])]))
+        return Response(studentCourseList)
 
 
 class StudentChange(APIView):
@@ -177,15 +177,15 @@ class StudentChange(APIView):
         # 从学生用户表里查， 如果原密码不正确返回1，如果正确，如果新密码不一致返回2，如果一致，在学生用户表里修改密码，返回0.
         print("StudentChange得到的学号和密码是 " + userName + " " + userPassWord0 + " " + userPassWord1 + " " + userPassWord2)
 
-        sql = baseSQL()
-        result = sql.find_student(userName)
+        sql = MySQL()
+        result = sql.findStudent(userName)
         print(result)
         if userPassWord0 != result[0][1]:
             return Response(1)
         elif userPassWord2 != userPassWord1:
             return Response(2)
         else:
-            sql.change_stu_password(userName, userPassWord1)
+            sql.studentPasswordChange(userName, userPassWord1)
             return Response(0)
 
 
@@ -198,14 +198,14 @@ class TeacherChange(APIView):
         # 从教师用户表里查， 如果原密码不正确返回1，如果正确，如果新密码不一致返回2，如果一致，在教师用户表里修改密码，返回0.
         print("TeacherChange得到的学号和密码是 " + userName + " " + userPassWord0 + " " + userPassWord1 + " " + userPassWord2)
 
-        sql = baseSQL()
-        result = sql.find_teacher(userName)
+        sql = MySQL()
+        result = sql.findTeacher(userName)
         if userPassWord0 != result[0][1]:
             return Response(1)
         elif userPassWord2 != userPassWord1:
             return Response(2)
         else:
-            sql.change_teacher_password(userName, userPassWord1)
+            sql.teacherPasswordChange(userName, userPassWord1)
             return Response(0)
 
 
@@ -214,16 +214,24 @@ class GetTeacherCourseList(APIView):
         userName = str(request.GET.get('userName', None))
         # 从课程表里查询该教师开设的课程，返回课程列表，（BuildCourse时会传入教师用户名，记录是哪个教师开的课。）
 
+        sql = MySQL()
+        result = sql.getTeacherCourseList(userName)
+        teacherCourseList = []  # 字典列表
+        print(result)
+        for item in result:
+            teacherCourseList.append(dict([('id', item[0]), ('name', item[1])]))
+        return Response(teacherCourseList)
+
 
 class BuildCourse(APIView):
     def get(self, request):
         userName = str(request.GET.get('userName', None))
         courseName = str(request.GET.get('courseName', None))
         # 从课程表里新建课程，这里只提供了课程名称，需要在数据库里分配一个对于该课程唯一的id
-        print("DropCourse得到的学号和课程名称是 " + userName + " " + courseName)
+        print("BuildCourse得到的学号和课程名称是 " + userName + " " + courseName)
 
-        sql = baseSQL()
-        sql.create_course(userName, courseName)
+        sql = MySQL()
+        sql.buildCourse(userName, courseName)
         return Response(0)
 
 
@@ -233,11 +241,23 @@ class ChangeCourseName(APIView):
         id = str(request.GET.get('id', None))
         # 教师改课程名，只能改自己开的课程的名，成功返回0
 
+        sql = MySQL()
+        name = "体育（5）"
+        # 缺少更改后的课程名!!!!!!!!!!!!!!!！！！！！
+        sql.changeCourseName(userName, id, name)
+        return Response(0)
+
 
 class CancelCourse(APIView):
     def get(self, request):
         userName = str(request.GET.get('userName', None))
         id = str(request.GET.get('id', None))
         # 教师停课，只能停自己开的课，成功返回0
+        sql = MySQL()
+
+        sql.cancelCourse(userName, id)
+
+        # 停课之后，课程列表会清空，必须刷新才能看到剩余课程
+        return Response(0)
 
 

@@ -1,9 +1,9 @@
 import pymysql
 
 
-class baseSQL:
+class MySQL:
 
-    def connect_database(self):
+    def connectDatabase(self):
         connection = pymysql.connect(host="rm-2zeu3f7e1n5yt10v0co.mysql.rds.aliyuncs.com",
                                      db="spoc",
                                      user="root",
@@ -12,8 +12,8 @@ class baseSQL:
         cursor = connection.cursor()
         return connection, cursor
 
-    def find_student_course(self, userName, id):
-        connection, cursor = self.connect_database()
+    def findStudentCourse(self, userName, id):
+        connection, cursor = self.connectDatabase()
 
         instruction = "SELECT *\
                     FROM stu_course_list\
@@ -23,11 +23,11 @@ class baseSQL:
 
         result = cursor.fetchall()
 
-        self.close_database(connection, cursor)
+        self.closeDatabase(connection, cursor)
         return result
 
-    def select_course(self, userName, id):
-        connection, cursor = self.connect_database()
+    def selectCourse(self, userName, id):
+        connection, cursor = self.connectDatabase()
 
         instruction = "INSERT INTO stu_course_list " \
                       "values(%s, %s)"
@@ -35,23 +35,35 @@ class baseSQL:
         cursor.execute(instruction, [userName, id])
         connection.commit()
 
-        self.close_database(connection, cursor)
+        self.closeDatabase(connection, cursor)
 
         return
 
-    def drop_student_course(self, userName, id):
-        connection, cursor = self.connect_database()
+    def dropStudentCourse(self, userName, id):
+        connection, cursor = self.connectDatabase()
 
         instruction = "DELETE FROM stu_course_list " \
                       "WHERE username=%s AND id=%s "
         cursor.execute(instruction, [userName, id])
         connection.commit()
 
-        self.close_database(connection, cursor)
+        self.closeDatabase(connection, cursor)
         return
 
-    def get_student_course(self, userName):
-        connection, cursor = self.connect_database()
+    def getTeacherCourseList(self, userName):
+        connection, cursor = self.connectDatabase()
+
+        instruction = "SELECT * FROM course " \
+                      "WHERE teacher_id=%s"
+        cursor.execute(instruction, [userName])
+        return cursor.fetchall()
+
+        self.closeDatabase(connection, cursor)
+
+        return result
+
+    def getStudentCourseList(self, userName):
+        connection, cursor = self.connectDatabase()
 
         instruction = "SELECT c.id, name " \
                       "FROM course AS c, stu_course_list AS scl " \
@@ -61,38 +73,38 @@ class baseSQL:
         cursor.execute(instruction, [userName])
 
         result = cursor.fetchall()
-        self.close_database(connection, cursor)
+        self.closeDatabase(connection, cursor)
 
         return result
 
-    def get_all_course(self):
-        connection, cursor = self.connect_database()
+    def getCourseList(self):
+        connection, cursor = self.connectDatabase()
 
         instruction = "SELECT * " \
                       "FROM course"
 
         cursor.execute(instruction)
         result = cursor.fetchall()
-        self.close_database(connection, cursor)
+        self.closeDatabase(connection, cursor)
         return result
 
-    def create_course(self, userName, courseName):
-        connection, cursor = self.connect_database()
+    def buildCourse(self, userName, courseName):
+        connection, cursor = self.connectDatabase()
 
-        instruction = "INSERT INTO course(name) " \
-                      "VALUES(%s)"
-        cursor.execute(instruction, [courseName])
+        instruction = "INSERT INTO course(name, teacher_id) " \
+                      "VALUES(%s, %s)"
+        cursor.execute(instruction, [courseName, userName])
 
         connection.commit()
 
-        self.close_database(connection, cursor)
+        self.closeDatabase(connection, cursor)
 
-    def close_database(self, connection, cursor):
+    def closeDatabase(self, connection, cursor):
         connection.close()
         cursor.close()
 
-    def create_student(self, userName, passWord):
-        connection, cursor = self.connect_database()
+    def registerStudent(self, userName, passWord):
+        connection, cursor = self.connectDatabase()
 
         instruction = "INSERT INTO student " \
                       "values(%s, %s)"
@@ -100,11 +112,11 @@ class baseSQL:
         cursor.execute(instruction, [userName, passWord])
         connection.commit()
 
-        self.close_database(connection, cursor)
+        self.closeDatabase(connection, cursor)
         return
 
-    def create_teacher(self, userName, passWord):
-        connection, cursor = self.connect_database()
+    def registerTeacher(self, userName, passWord):
+        connection, cursor = self.connectDatabase()
 
         instruction = "INSERT INTO teacher " \
                       "values(%s, %s)"
@@ -112,11 +124,11 @@ class baseSQL:
         cursor.execute(instruction, [userName, passWord])
         connection.commit()
 
-        self.close_database(connection, cursor)
+        self.closeDatabase(connection, cursor)
         return
 
-    def find_teacher(self, userName):
-        connection, cursor = self.connect_database()
+    def findTeacher(self, userName):
+        connection, cursor = self.connectDatabase()
 
         instruction = "SELECT *\
                 FROM teacher\
@@ -126,12 +138,12 @@ class baseSQL:
 
         result = cursor.fetchall()
 
-        self.close_database(connection, cursor)
+        self.closeDatabase(connection, cursor)
 
         return result
 
-    def find_student(self, userName):
-        connection, cursor = self.connect_database()
+    def findStudent(self, userName):
+        connection, cursor = self.connectDatabase()
 
         instruction = "SELECT *\
                 FROM student\
@@ -141,12 +153,12 @@ class baseSQL:
 
         result = cursor.fetchall()
 
-        self.close_database(connection, cursor)
+        self.closeDatabase(connection, cursor)
 
         return result
 
-    def change_stu_password(self, userName, passWord):
-        connection, cursor = self.connect_database()
+    def studentPasswordChange(self, userName, passWord):
+        connection, cursor = self.connectDatabase()
 
         instruction = "UPDATE student " \
                       "SET password=%s " \
@@ -154,11 +166,34 @@ class baseSQL:
         cursor.execute(instruction, [passWord, userName])
 
         connection.commit()
-        self.close_database(connection, cursor)
+        self.closeDatabase(connection, cursor)
         return
 
-    def change_teacher_password(self, userName, passWord):
-        connection, cursor = self.connect_database()
+    def changeCourseName(self, teacherID, courseID, courseName):
+        connection, cursor = self.connectDatabase()
+        instruction = "UPDATE course " \
+                      "SET name=%s " \
+                      "WHERE id=%s AND teacher_id=%s"
+
+        cursor.execute(instruction, [courseName, courseID, teacherID])
+
+        connection.commit()
+        self.closeDatabase(connection, cursor)
+        return
+
+    def cancelCourse(self, teacherID, courseID):
+        connection, cursor = self.connectDatabase()
+
+        instruction = "DELETE FROM course " \
+                      "WHERE teacher_id=%s AND id=%s"
+
+        cursor.execute(instruction, [teacherID, courseID])
+        connection.commit()
+        self.closeDatabase(connection, cursor)
+        return
+
+    def teacherPasswordChange(self, userName, passWord):
+        connection, cursor = self.connectDatabase()
 
         instruction = "UPDATE teacher " \
                       "SET password=%s " \
@@ -166,22 +201,22 @@ class baseSQL:
         cursor.execute(instruction, [passWord, userName])
 
         connection.commit()
-        self.close_database(connection, cursor)
+        self.closeDatabase(connection, cursor)
         return
 
 
 if __name__ == "__main__":
     userName = "19373136"
-    sql = baseSQL()
-    sql.drop_student_course(userName, "5")
+    sql = MySQL()
+    sql.dropStudentCourse(userName, "5")
     # select_course(userName, "2")
-    result = sql.get_student_course(userName)
+    result = sql.getStudentCourseList(userName)
     print(result)
 
-    result = sql.find_student_course(userName, "4")
+    result = sql.findStudentCourse(userName, "4")
     flag = not not result
     print(flag)
-    sql.change_teacher_password("123", "123456")
+    sql.teacherPasswordChange("123", "123456")
     # sql.create_course("13","线性代数2")
     """
     create table
