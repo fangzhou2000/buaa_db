@@ -2,4 +2,4 @@
 .idea/
 spoc/backend/__pycache__/
 spoc/admin/__pycache__/
-
+spoc/backend/migrations/
