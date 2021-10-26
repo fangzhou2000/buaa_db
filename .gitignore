@@ -1,3 +1,5 @@
 .DS_Store
 .idea/
 spoc/backend/__pycache__/
+spoc/admin/__pycache__/
+
