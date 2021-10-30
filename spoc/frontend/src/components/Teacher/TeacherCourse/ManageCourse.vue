@@ -1,12 +1,12 @@
 <template>
   <div class="background">
-    <el-container>
+    <el-container class="header">
       <el-header>
         <span>{{userName}}  管理课程</span>
       </el-header>
     </el-container>
 
-    <el-container>
+    <el-container class="main">
       <el-aside>
         <TeacherNav></TeacherNav>
       </el-aside>
@@ -14,9 +14,9 @@
         <el-table :data="myCourseList">
           <el-table-column label="课程ID" prop="id"></el-table-column>
           <el-table-column label="课程名称" prop="name"></el-table-column>
-          <el-table-column label="修改名称">
+          <el-table-column label="修改课程">
             <template slot-scope="scope">
-              <el-button v-on:click="changeCourseName(scope.$index)" type="warning" size="small">修改名称</el-button>
+              <el-button v-on:click="changeCourse(scope.$index)" type="warning" size="small">修改课程</el-button>
             </template>
           </el-table-column>
           <el-table-column label="停课">
@@ -31,9 +31,9 @@
 </template>
 
 <script>
-import TeacherNav from './TeacherNav'
+import TeacherNav from '../TeacherNav'
 export default {
-  name: 'TeacherCourse',
+  name: 'ManageCourse',
   components: {TeacherNav},
   data: function () {
     return {
@@ -64,22 +64,14 @@ export default {
         console.log(error)
       })
     },
-    changeCourseName: function (index) {
-      console.log(index)
+    changeCourse: function (index) {
       let that = this
-      this.$http.request({
-        url: that.$url + 'ChangeCourseName/',
-        method: 'get',
+      console.log(index)
+      this.$router.push({
+        path: '/TeacherCourse/ChangeCourse',
         params: {
-          userName: that.userName,
           id: that.myCourseList[index].id
         }
-      }).then(function (response) {
-        console.log(response.data)
-        that.myCourseList = response.data
-        alert('修改课程名称成功')
-      }).catch(function (error) {
-        console.log(error)
       })
     },
     cancelCourse: function (index) {

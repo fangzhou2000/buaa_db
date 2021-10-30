@@ -25,7 +25,7 @@
             </el-button>
         </div>
         <div class="register-button">
-            <el-button id="button_re" type="primary" plain="true" size="small" v-on:click="goToTeacherRegister">
+            <el-button id="button_re" type="primary" plain:true size="small" v-on:click="goToTeacherRegister">
               注册
             </el-button>
         </div>
@@ -51,7 +51,7 @@ export default {
   methods: {
     goToTeacherHead: function () {
       let that = this
-      /*if (that.userName === 'admin' && that.userPassWord === '123456') {
+      if (that.userName === 'admin' && that.userPassWord === '123456') {
         that.$router.push({
             name: 'TeacherHead',
             params: {
@@ -61,8 +61,8 @@ export default {
         console.log('from:' + that.userName)
       } else {
         alert('!')
-      }*/
-      this.$http.request({
+      }
+      /*this.$http.request({
         url: that.$url + 'TeacherLogin/',
         method: 'get',
         params: {
@@ -85,7 +85,7 @@ export default {
         }
       }).catch(function (error) {
         console.log(error)
-      })
+      })*/
     },
     goToTeacherRegister: function () {
       this.$router.push({

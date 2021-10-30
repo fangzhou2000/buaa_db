@@ -235,7 +235,12 @@ class BuildCourse(APIView):
         return Response(0)
 
 
-class ChangeCourseName(APIView):
+class GetCourseInfo(APIView):
+    def get(self, request):
+        return
+
+
+class ChangeCourse(APIView):
     def get(self, request):
         userName = str(request.GET.get('userName', None))
         id = str(request.GET.get('id', None))
@@ -259,5 +264,12 @@ class CancelCourse(APIView):
 
         # 停课之后，课程列表会清空，必须刷新才能看到剩余课程
         return Response(0)
+
+
+class GetMaterialList(APIView):
+    def get(self, request):
+        return
+
+
 
 

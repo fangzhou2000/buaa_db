@@ -1,24 +1,24 @@
 <template>
   <div class="background">
-    <el-container>
+    <el-container class="header">
       <el-header>
         <span>{{userName}} 开设课程</span>
       </el-header>
     </el-container>
 
-    <el-container>
+    <el-container class="main">
       <el-aside>
         <TeacherNav></TeacherNav>
       </el-aside>
       <el-main>
-        <el-form label-width="100px">
+        <el-form label-position="top">
           <el-form-item label="课程名称">
-            <el-col span="6">
+            <el-col :span="6">
               <el-input placeholder="请输入课程名称" v-model="courseName"></el-input>
             </el-col>
           </el-form-item>
           <el-form-item>
-            <el-col span="6">
+            <el-col :span="6">
               <el-button v-on:click="buildCourse" type="primary" >确认</el-button>
             </el-col>
           </el-form-item>
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import TeacherNav from './TeacherNav'
+import TeacherNav from '../TeacherNav'
 export default {
   name: 'BuildCourse',
   components: {TeacherNav},

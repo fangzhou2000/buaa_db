@@ -1,12 +1,12 @@
 <template>
   <div class="background">
-    <el-container>
+    <el-container class="header">
       <el-header>
         <span>{{userName}} 教师首页</span>
       </el-header>
     </el-container>
 
-    <el-container>
+    <el-container class="main">
       <el-aside>
         <TeacherNav></TeacherNav>
       </el-aside>

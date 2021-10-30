@@ -9,11 +9,17 @@ import TeacherHead from '../components/Teacher/TeacherHead'
 import TeacherRegister from '../components/Teacher/TeacherRegister'
 import SelectCourse from '../components/Student/SelectCourse'
 import StudentCourse from '../components/Student/StudentCourse'
-import TeacherCourse from '../components/Teacher/TeacherCourse'
-import BuildCourse from '../components/Teacher/BuildCourse'
-import AllCourse from '../components/Teacher/AllCourse'
+import TeacherCourse from '../components/Teacher/TeacherCourse/TeacherCourse'
+import ManageCourse from '../components/Teacher/TeacherCourse/ManageCourse'
+import ChangeCourse from '../components/Teacher/TeacherCourse/ChangeCourse'
+import BuildCourse from '../components/Teacher/TeacherCourse/BuildCourse'
+import AllCourse from '../components/Teacher/TeacherCourse/AllCourse'
 import StudentChange from '../components/Student/StudentChange'
-import TeacherChange from '../components/Teacher/TeacherChange'
+import TeacherChange from '../components/Teacher/TeacherChange/TeacherChange'
+import TeacherMaterial from '../components/Teacher/TeacherMaterial/TeacherMaterial'
+import AllMaterial from '../components/Teacher/TeacherMaterial/AllMaterial'
+import BuildMaterial from '../components/Teacher/TeacherMaterial/BuildMaterial'
+import ManageMaterial from '../components/Teacher/TeacherMaterial/ManageMaterial'
 
 Vue.use(Router)
 
@@ -65,19 +71,31 @@ export default new Router({
       component: StudentCourse
     },
     {
-      path: '/BuildCourse',
-      name: 'BuildCourse',
-      component: BuildCourse
-    },
-    {
       path: '/TeacherCourse',
       name: 'TeacherCourse',
-      component: TeacherCourse
-    },
-    {
-      path: '/AllCourse',
-      name: 'AllCourse',
-      component: AllCourse
+      component: TeacherCourse,
+      children: [
+        {
+          path: 'BuildCourse',
+          name: 'BuildCourse',
+          component: BuildCourse
+        },
+        {
+          path: 'ManageCourse',
+          name: 'ManageCourse',
+          component: ManageCourse
+        },
+        {
+          path: 'AllCourse',
+          name: 'AllCourse',
+          component: AllCourse
+        },
+        {
+          path: 'ChangeCourse',
+          name: 'ChangeCourse',
+          component: ChangeCourse
+        }
+      ]
     },
     {
       path: '/StudentChange',
@@ -87,7 +105,35 @@ export default new Router({
     {
       path: '/TeacherChange',
       name: 'TeacherChange',
-      component: TeacherChange
+      component: TeacherChange,
+      children: [
+        {
+          path: 'TeacherChange',
+          component: TeacherChange
+        }
+      ]
+    },
+    {
+      path: '/TeacherMaterial',
+      name: 'TeacherMaterial',
+      component: TeacherMaterial,
+      children: [
+        {
+          path: 'BuildMaterial',
+          name: 'BuildMaterial',
+          component: BuildMaterial
+        },
+        {
+          path: 'ManageMaterial',
+          name: 'ManageMaterial',
+          component: ManageMaterial
+        },
+        {
+          path: 'AllMaterial',
+          name: 'AllMaterial',
+          component: AllMaterial
+        }
+      ]
     }
   ]
 })

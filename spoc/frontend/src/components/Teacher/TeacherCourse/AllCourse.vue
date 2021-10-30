@@ -1,12 +1,12 @@
 <template>
   <div class="background">
-    <el-container>
+    <el-container class="header">
       <el-header>
         <span>{{userName}} 查看课程</span>
       </el-header>
     </el-container>
 
-    <el-container>
+    <el-container class="main">
       <el-aside>
         <TeacherNav></TeacherNav>
       </el-aside>
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import TeacherNav from './TeacherNav'
+import TeacherNav from '../TeacherNav'
 export default {
   name: 'AllCourse',
   components: {TeacherNav},
@@ -30,6 +30,51 @@ export default {
       userName: '',
       courseList: [{
         id: '1',
+        name: '前端测试课程'
+      }, {
+        id: '1',
+        name: '前端测试课程'
+      }, {
+        id: '1',
+        name: '前端测试课程'
+      }, {
+        id: '1',
+        name: '前端测试课程'
+      }, {
+        id: '1',
+        name: '前端测试课程'
+      }, {
+        id: '1',
+        name: '前端测试课程'
+      }, {
+        id: '1',
+        name: '前端测试课程'
+      }, {
+        id: '1',
+        name: '前端测试课程'
+      }, {
+        id: '1',
+        name: '前端测试课程'
+      }, {
+        id: '1',
+        name: '前端测试课程'
+      }, {
+        id: '1',
+        name: '前端测试课程'
+      }, {
+        id: '2',
+        name: '前端测试课程'
+      }, {
+        id: '2',
+        name: '前端测试课程'
+      }, {
+        id: '2',
+        name: '前端测试课程'
+      }, {
+        id: '2',
+        name: '前端测试课程'
+      }, {
+        id: '2',
         name: '前端测试课程'
       }]
     }
