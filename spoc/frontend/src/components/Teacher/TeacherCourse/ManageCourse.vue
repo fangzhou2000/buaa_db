@@ -2,7 +2,7 @@
   <div class="background">
     <el-container class="header">
       <el-header>
-        <span>{{userName}}  管理课程</span>
+        <span>{{userNickName}}  管理课程</span>
       </el-header>
     </el-container>
 
@@ -39,6 +39,7 @@ export default {
   components: {TeacherNav},
   data: function () {
     return {
+      userNickName: '',
       userName: '',
       myCourseList: [{
         id: '1',
@@ -48,6 +49,7 @@ export default {
     }
   },
   mounted: function () {
+    this.userNickName = this.cookie.getCookie('userNickName')
     this.userName = this.cookie.getCookie('userName')
     this.getTeacherCourseList()
   },
@@ -90,9 +92,9 @@ export default {
       }).then(function (response) {
         console.log(response.data)
         if (response.data === 0) {
-          alert('停课成功')
+          that.$message.success('停课成功')
         } else {
-          alert('!')
+          that.$message.error('!')
         }
         that.getTeacherCourseList()
       }).catch(function (error) {

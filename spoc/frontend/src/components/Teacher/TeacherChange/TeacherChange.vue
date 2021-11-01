@@ -2,7 +2,7 @@
   <div class="background">
     <el-container class="header">
       <el-header>
-        <span>{{userName}} 修改密码</span>
+        <span>{{userNickName}} 修改密码</span>
       </el-header>
     </el-container>
 
@@ -45,6 +45,7 @@ export default {
   components: {TeacherNav},
   data: function () {
     return {
+      userNickName: '',
       userName: '',
       userPassWord0: '',
       userPassWord1: '',
@@ -52,13 +53,14 @@ export default {
     }
   },
   mounted: function () {
+    this.userNickName = this.cookie.getCookie('userNickName')
     this.userName = this.cookie.getCookie('userName')
   },
   methods: {
     changePassWord: function () {
       let that = this
       if (that.userPassWord1 === '') {
-        alert('密码不能为空')
+        that.$message.success('密码不能为空')
       } else {
         this.$http.request({
           url: that.$url + 'TeacherChange/',
@@ -73,7 +75,7 @@ export default {
           console.log(response.data)
           that.status = response.data
           if (that.status === 0) {
-            alert('修改成功')
+            that.$message.success('修改成功')
             that.$router.push({
               name: 'TeacherLogin',
               params: {
@@ -81,11 +83,11 @@ export default {
               }
             })
           } else if (that.status === 1) {
-            alert('原密码错误')
+            that.$message.error('原密码错误')
           } else if (that.status === 2) {
-            alert('新密码不一致')
+            that.$message.error('新密码不一致')
           } else {
-            alert('!')
+            that.$message.error('!')
           }
         }).catch(function (error) {
           console.log(error)

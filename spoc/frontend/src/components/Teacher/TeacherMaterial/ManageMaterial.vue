@@ -2,7 +2,7 @@
   <div class="background">
     <el-container class="header">
       <el-header>
-        <span>{{userName}}  管理学习材料</span>
+        <span>{{userNickName}}  管理学习材料</span>
       </el-header>
     </el-container>
 
@@ -33,6 +33,7 @@ export default {
   components: {TeacherNav},
   data: function () {
     return {
+      userNickName: '',
       userName: '',
       myMaterialList: [{
         id: '1',
@@ -42,6 +43,7 @@ export default {
   },
   mounted: function () {
     this.userName = this.cookie.getCookie('userName')
+    this.userNickName = this.cookie.getCookie('userNickName')
     this.getTeacherMaterialList()
   },
   methods: {
@@ -73,9 +75,9 @@ export default {
       }).then(function (response) {
         console.log(response.data)
         if (response.data === 0) {
-          alert('删除成功')
+          that.$message.success('删除成功')
         } else {
-          alert('!')
+          that.$message.error('!')
         }
         that.getTeacherMaterialList()
       }).catch(function (error) {

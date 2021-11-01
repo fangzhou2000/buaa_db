@@ -2,7 +2,7 @@
   <div class="background">
     <el-container class="header">
       <el-header>
-        <span>{{userName}}  新建学习材料</span>
+        <span>{{userNickName}}  新建学习材料</span>
       </el-header>
     </el-container>
 
@@ -36,11 +36,13 @@ export default {
   components: {TeacherNav},
   data: function () {
     return {
+      userNickName: '',
       userName: '',
       materialName: ''
     }
   },
   mounted: function () {
+    this.userNickName = this.cookie.getCookie('userNickName')
     this.userName = this.cookie.getCookie('userName')
   },
   methods: {
@@ -57,9 +59,9 @@ export default {
         console.log(response.data)
         that.status = response.data
         if (that.status === 0) {
-          alert('创建成功')
+          that.$message.success('创建成功')
         } else {
-          alert('!')
+          that.$message.error('!')
         }
       }).catch(function (error) {
         console.log(error)

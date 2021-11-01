@@ -5,6 +5,9 @@ from .base_mysql import MySQL
 
 class StudentLogin(APIView):
     def get(self, request):
+        # 默认userNickName为空
+        # 需要将userNickName很久userName进行查找，赋值给userNickName。并返回前端（返回前端已完成）
+        userNickName = str(request.GET.get('userNickName', None))
         userName = str(request.GET.get('userName', None))
         userPassWord = str(request.GET.get('userPassWord', None))
         print("StudentLogin得到的学号和密码是 " + userName + " " + userPassWord)
@@ -16,6 +19,7 @@ class StudentLogin(APIView):
 
         if flag:
             print("请求登录的学生账号是%s,其正确密码是%s" % (result[0][0], result[0][1]))
+            print("请求登录的学生用户名为" + userNickName)
         else:
             print("找不到该学生")
 
@@ -30,6 +34,8 @@ class StudentLogin(APIView):
 
 class StudentRegister(APIView):
     def get(self, request):
+        # 将userNickName保存在数据库中
+        userNickName = str(request.GET.get('userNickName', None))
         userName = str(request.GET.get('userName', None))
         userPassWord = str(request.GET.get('userPassWord', None))
         userPassWord2 = str(request.GET.get('userPassWord2', None))
@@ -50,6 +56,7 @@ class StudentRegister(APIView):
         elif userPassWord != userPassWord2:
             return Response(2)
         else:
+            # register一下nickname
             sql.registerStudent(userName, userPassWord)
             return Response(0)
 
@@ -81,6 +88,8 @@ class TeacherLogin(APIView):
 
 class TeacherRegister(APIView):
     def get(self, request):
+        # 教师增加NickName
+        userNickName = str(request.GET.get('userNickName', None))
         userName = str(request.GET.get('userName', None))
         userPassWord = str(request.GET.get('userPassWord', None))
         userPassWord2 = str(request.GET.get('userPassWord2', None))

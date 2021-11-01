@@ -2,7 +2,7 @@
   <div class="background">
     <el-container class="header">
       <el-header>
-        <span>{{userName}}  学生选课</span>
+        <span>{{userNickName}}  学生选课</span>
       </el-header>
     </el-container>
 
@@ -32,6 +32,7 @@ export default {
   data: function () {
     return {
       userName: '',
+      userNickName: '',
       courseList: [{
         id: '1',
         name: '前端测试课程',
@@ -41,6 +42,7 @@ export default {
   },
   mounted: function () {
     this.userName = this.cookie.getCookie('userName')
+    this.userNickName = this.cookie.getCookie('userNickName')
     this.getCourseList()
   },
   methods: {
@@ -70,11 +72,11 @@ export default {
         console.log(response.data)
         var status = response.data
         if (status === 0) {
-          alert('选课成功')
+          that.$message.success('选课成功')
         } else if (status === 1) {
-          alert('已选择该课程')
+          that.$message.info('已选择该课程')
         } else {
-          alert('!')
+          that.$message.error('!')
         }
       })
     }

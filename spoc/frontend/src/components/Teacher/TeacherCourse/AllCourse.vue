@@ -2,7 +2,7 @@
   <div class="background">
     <el-container class="header">
       <el-header>
-        <span>{{userName}} 查看课程</span>
+        <span>{{userNickName}} 查看课程</span>
       </el-header>
     </el-container>
 
@@ -28,6 +28,7 @@ export default {
   components: {TeacherNav},
   data: function () {
     return {
+      userNickName: '',
       userName: '',
       courseList: [{
         id: '1',
@@ -49,6 +50,7 @@ export default {
     }
   },
   mounted: function () {
+    this.userNickName = this.cookie.getCookie('userNickName')
     this.userName = this.cookie.getCookie('userName')
     this.getCourseList()
   },

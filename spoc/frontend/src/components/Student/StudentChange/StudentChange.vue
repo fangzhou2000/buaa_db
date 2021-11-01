@@ -2,7 +2,7 @@
   <div>
     <el-container class="header">
       <el-header>
-        <span>{{userName}}  修改密码</span>
+        <span>{{userNickName}}  修改密码</span>
       </el-header>
     </el-container>
 
@@ -47,6 +47,7 @@ export default {
   data: function () {
     return {
       userName: '',
+      userNickName: '',
       userPassWord0: '',
       userPassWord1: '',
       userPassWord2: ''
@@ -59,7 +60,7 @@ export default {
     changePassWord: function () {
       let that = this
       if (that.userPassWord1 === '') {
-        alert('密码不能为空')
+        that.$message.error('密码不能为空')
       } else {
         this.$http.request({
           url: that.$url + 'StudentChange/',
@@ -74,7 +75,7 @@ export default {
           console.log(response.data)
           that.status = response.data
           if (that.status === 0) {
-            alert('修改成功')
+            that.$message.success('修改成功')
             that.$router.push({
               name: 'StudentLogin',
               params: {
@@ -82,11 +83,11 @@ export default {
               }
             })
           } else if (that.status === 1) {
-            alert('原密码错误')
+            that.$message.error('原密码错误')
           } else if (that.status === 2) {
-            alert('新密码不一致')
+            that.$message.error('新密码不一致')
           } else {
-            alert('!')
+            that.$message.error('!')
           }
         }).catch(function (error) {
           console.log(error)

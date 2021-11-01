@@ -25,7 +25,7 @@
         </div>
         <div class="blink-block"></div>
         <div class="picture">
-          <img class="imgt" src="../assets/learning-hard.png" alt="photo">
+          <img class="imgt" src="../assets/img/learning-hard.png" alt="photo">
         </div>
         <div class="blink-block"></div>
         <div class="news">
@@ -72,21 +72,21 @@
           <div class="line-2-admin">
             <div class="left-photo">
               <div class="imgs">
-              <img src="../assets/G.jpg" alt="fangzhou"/>
+              <img src="../assets/img/G.jpg" alt="fangzhou"/>
             </div>
               <div class="imgs">
-              <img src="../assets/O.jpg" alt="Mike-smith-rem"/>
+              <img src="../assets/img/O.jpg" alt="Mike-smith-rem"/>
             </div>
               <div class="imgs">
-              <img src="../assets/T.jpg" alt="mingx"/>
+              <img src="../assets/img/T.jpg" alt="mingx"/>
             </div>
             </div>
             <div class="right-photo">
               <div class="school1">
-               <img src="../assets/北航logo.png" alt="buaa"/>
+               <img src="../assets/img/北航logo.png" alt="buaa"/>
               </div>
               <div class="school2">
-               <img src="../assets/北航计算机学院logo.png" alt="buaa-cs"/>
+               <img src="../assets/img/北航计算机学院logo.png" alt="buaa-cs"/>
             </div>
             </div>
           </div>

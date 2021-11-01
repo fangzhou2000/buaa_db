@@ -2,7 +2,7 @@
 <div class="background">
     <el-container class="header">
       <el-header>
-        <span>{{userName}} 修改 {{course.name}}</span>
+        <span>{{userNickName}} 修改 {{course.name}}</span>
       </el-header>
     </el-container>
 
@@ -40,6 +40,7 @@ export default {
   components: {TeacherNav},
   data: function () {
     return {
+      userNickName: '',
       userName: '',
       id: '',
       course: {
@@ -51,6 +52,7 @@ export default {
   },
   mounted () {
     this.userName = this.cookie.getCookie('userName')
+    this.userNickName = this.cookie.getCookie('userNickName')
     this.course = this.$route.params.course
   },
   methods: {
@@ -66,7 +68,7 @@ export default {
         }
       }).then(function (response) {
         console.log(response.data)
-        alert('修改成功')
+        that.$message.success('修改成功')
         that.$router.push({
           name: 'ManageCourse'
         })

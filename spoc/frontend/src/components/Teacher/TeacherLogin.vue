@@ -43,6 +43,7 @@ export default {
   name: 'TeacherLogin',
   data: function () {
     return {
+      userNickName: '',
       userName: '',
       userPassWord: '',
       status: -1
@@ -51,24 +52,26 @@ export default {
   methods: {
     goToTeacherHead: function () {
       let that = this
-      let debug = false
+      let debug = true
       if (debug) {
         if (that.userName === 'admin' && that.userPassWord === '123456') {
           that.$router.push({
             name: 'TeacherHead',
             params: {
+              userNickName: that.userNickName,
               userName: that.userName
             }
           })
           console.log('from:' + that.userName)
         } else {
-          alert('!')
+          that.$message.error('!')
         }
       } else {
         this.$http.request({
           url: that.$url + 'TeacherLogin/',
           method: 'get',
           params: {
+            userNickName: that.userNickName,
             userName: that.userName,
             userPassWord: that.userPassWord
           }
@@ -76,15 +79,15 @@ export default {
           console.log(response)
           that.status = response.data
           if (that.status === 0) {
-            let loginInfo = {userName: that.userName}
+            let loginInfo = {userName: that.userName, userNickName: /*response.data.userNickName*/that.userNickName}
             that.cookie.setCookie(loginInfo)
             that.$router.push({
               name: 'TeacherHead',
             })
           } else if (that.status === 1) {
-            alert('工号不存在')
+            that.$message.error('工号不存在')
           } else if (that.status === 2) {
-            alert('密码错误')
+            that.$message.error('密码错误')
           }
         }).catch(function (error) {
           console.log(error)
@@ -101,70 +104,5 @@ export default {
 </script>
 
 <style scoped>
-  body,
-  .background{
-    background-color: white;
-    background-image: linear-gradient(0deg, #f8f1ea 0%, #ffffff 10%);
-    height: 100vh;
-    font-family: 'Roboto Mono', monospace;
-  }
-  .first_block{
-    height: 45px;
-    border: 3px hidden;
-    background-color: whitesmoke;
-    text-align: center;
-    padding-top: 0;
-    padding-bottom: 0;
-    margin-bottom: 20px;
-  }
-  .head{
-    text-align: center;
-    margin-top: 1px;
-    font-size: 30px;
-    font-family: '华文仿宋', serif;
-  }
-  .register_block{
-    background-color: rgba(255, 255, 255, 0.15);
-    position: center;
-    margin-top: 50px;
-    margin-left: 40%;
-    width: 20%;
-    height: 380px;
-    border-color: #a8a8a8;
-    border-style: solid;
-    border-width: 1px;
-    border-radius: 20px;
-    opacity: 0.8;
-  }
-  .register_head{
-    text-align: center;
-    margin-top: 10%;
-    font-family: "微软雅黑", serif;
-    color: black;
-    font-size: 30px;
-  }
-  #register-name, #register-password, #confirm-password{
-    padding-left: 10%;
-  }
-  .confirm-button{
-    margin-top: 25px;
-    padding-left: 10%;
-  }
-  .register-button{
-    margin-top: 15px;
-    padding-left: 10%;
-  }
-  .return-text{
-    margin-top: 15px;
-    text-align: center;
-  }
-  .inputs{
-    width: 90%;
-    height: 20px;
-    border: none;
-  }
-  #button_in, #button_re{
-    width: 90%;
-  }
-
+  @import "../../assets/css/login_and_register.css";
 </style>

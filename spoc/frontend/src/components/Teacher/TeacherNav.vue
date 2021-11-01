@@ -37,7 +37,7 @@
     line-height: 60px;
   }
   .background {
-    height: 700px;
+    height: 100%;
     background-color: white;
     background-image: linear-gradient(0deg, #f8f1ea 0%, #ffffff 10%);
   }

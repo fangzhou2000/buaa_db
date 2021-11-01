@@ -2,7 +2,7 @@
   <div>
     <el-container class="header">
       <el-header>
-        <span>{{userName}}  学生首页</span>
+        <span>{{userNickName}}  学生首页</span>
       </el-header>
     </el-container>
 
@@ -24,11 +24,13 @@ export default {
   components: {StudentNav},
   data: function () {
     return {
-      userName: ''
+      userName: '',
+      userNickName: ''
     }
   },
   mounted: function () {
     this.userName = this.cookie.getCookie('userName')
+    this.userNickName = this.cookie.getCookie('userNickName')
   },
   methods: {
 

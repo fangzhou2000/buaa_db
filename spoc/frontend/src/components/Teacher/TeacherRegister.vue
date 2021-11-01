@@ -9,6 +9,11 @@
         <p>教师注册</p>
       </div>
       <el-form>
+        <div id="register-n">
+          <el-form-item>
+            <el-input class="inputs" type="text" placeholder="请输入工号" v-model="userNickName"></el-input>
+          </el-form-item>
+        </div>
         <div id="register-name">
           <el-form-item>
             <el-input class="inputs" type="text" placeholder="请输入工号" v-model="userName"></el-input>
@@ -43,6 +48,7 @@
 export default {
   data: function () {
     return {
+      userNickName: '',
       userName: '',
       userPassWord: '',
       userPassWord2: ''
@@ -57,14 +63,15 @@ export default {
     Register: function () {
       let that = this
       if (that.userPassWord === '') {
-        alert('密码不能为空')
+        that.$message.error('密码不能为空')
       } else if (that.userName === '') {
-        alert('用户名不能为空')
+        that.$message.error('用户名不能为空')
       } else {
         this.$http.request({
           url: that.$url + 'TeacherRegister/',
           method: 'get',
           params: {
+            userNickName: that.userNickName,
             userName: that.userName,
             userPassWord: that.userPassWord,
             userPassWord2: that.userPassWord2
@@ -77,9 +84,9 @@ export default {
               name: 'TeacherLogin'
             })
           } else if (that.status === 1) {
-            alert('工号已存在')
+            that.$message.error('工号已存在')
           } else if (that.status === 2) {
-            alert('密码不一致')
+            that.$message.error('密码不一致')
           }
         }).catch(function (error) {
           console.log(error)
@@ -91,66 +98,5 @@ export default {
 </script>
 
 <style scoped>
-  body,
-  .background{
-    background-color: white;
-    background-image: linear-gradient(0deg, #f8f1ea 0%, #ffffff 10%);
-    height: 100vh;
-    font-family: 'Roboto Mono', monospace;
-  }
-  .first_block{
-    height: 45px;
-    border: 3px hidden;
-    background-color: whitesmoke;
-    text-align: center;
-    padding-top: 0;
-    padding-bottom: 0;
-    margin-bottom: 20px;
-  }
-  .head{
-    text-align: center;
-    margin-top: 1px;
-    font-size: 30px;
-    font-family: '华文仿宋', serif;
-  }
-  .register_block{
-    background-color: rgba(255, 255, 255, 0.15);
-    position: center;
-    margin-top: 50px;
-    margin-left: 40%;
-    width: 20%;
-    height: 400px;
-    border-color: #a8a8a8;
-    border-style: solid;
-    border-width: 1px;
-    border-radius: 20px;
-    opacity: 0.8;
-  }
-  .register_head{
-    text-align: center;
-    margin-top: 10%;
-    font-family: "微软雅黑", serif;
-    color: black;
-    font-size: 30px;
-  }
-  #register-name, #register-password, #confirm-password{
-    padding-left: 10%;
-  }
-  .confirm-button{
-    margin-top: 25px;
-    padding-left: 10%;
-  }
-  .return-button{
-    margin-top: 15px;
-    padding-left: 10%;
-  }
-  .inputs{
-    width: 90%;
-    height: 20px;
-    border: none;
-  }
-  #button_in, #button_re{
-    width: 90%;
-  }
-
+  @import "../../assets/css/login_and_register.css";
 </style>

@@ -2,7 +2,7 @@
   <div>
     <el-container class="header">
       <el-header>
-        <span>{{userName}}  我的课程</span>
+        <span>{{userNickName}}  我的课程</span>
       </el-header>
     </el-container>
 
@@ -32,6 +32,7 @@ export default {
   data: function () {
     return {
       userName: '',
+      userNickName: '',
       myCourseList: [{
         id: '1',
         name: '前端测试课程',
@@ -41,6 +42,7 @@ export default {
   },
   mounted: function () {
     this.userName = this.cookie.getCookie('userName')
+    this.userNickName = this.cookie.getCookie('userNickName')
     this.getStudentCourseList()
   },
   methods: {
@@ -72,7 +74,7 @@ export default {
       }).then(function (response) {
         console.log(response.data)
         that.myCourseList = response.data
-        alert('退课成功')
+        that.$message.success('退课成功')
       }).catch(function (error) {
         console.log(error)
       })

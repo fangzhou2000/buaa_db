@@ -2,7 +2,7 @@
   <div class="background">
     <el-container class="header">
       <el-header>
-        <span>{{userName}} 查看学习材料</span>
+        <span>{{userNickName}} 查看学习材料</span>
       </el-header>
     </el-container>
 
@@ -27,6 +27,7 @@ export default {
   components: {TeacherNav},
   data: function () {
     return {
+      userNickName: '',
       userName: '',
       materialList: [{
         id: '1',
@@ -81,6 +82,7 @@ export default {
   },
   mounted: function () {
     this.userName = this.cookie.getCookie('userName')
+    this.userNickName = this.cookie.getCookie('userNickName')
     this.getMaterialList()
   },
   methods: {
