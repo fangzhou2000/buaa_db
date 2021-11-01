@@ -133,6 +133,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
@@ -168,3 +170,5 @@ CORS_ALLOW_HEADERS = ( # 设置请求头的内容
     'Pragma',
 )
 # 支持跨域配置结束
+
+
