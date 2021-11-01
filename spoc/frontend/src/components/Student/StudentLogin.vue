@@ -51,43 +51,47 @@ export default {
   methods: {
     goToStudentHead: function () {
       let that = this
-      /*if (that.userName === 'admin' && that.userPassWord === '123456') {
-        that.$router.push({
+      let debug = false
+      if (debug) {
+        if (that.userName === 'admin' && that.userPassWord === '123456') {
+          that.$router.push({
             name: 'StudentHead',
             params: {
               userName: that.userName
             }
           })
-        console.log('from:' + that.userName)
-      } else {
-        alert('!')
-      }*/
-      this.$http.request({
-        url: that.$url + 'StudentLogin/',
-        method: 'get',
-        params: {
-          userName: that.userName,
-          userPassWord: that.userPassWord
-        }
-      }).then(function (response) {
-        console.log(response.data)
-        that.status = response.data
-        if (that.status === 0) {
-          let loginInfo = {userName: that.userName}
-          that.cookie.setCookie(loginInfo)
-          that.$router.push({
-            name: 'StudentHead'
-          })
-        } else if (that.status === 1) {
-          alert('学号不存在')
-        } else if (that.status === 2) {
-          alert('密码错误')
+          console.log('from:' + that.userName)
         } else {
-          alert('请输入学号')
+          alert('!')
         }
-      }).catch(function (error) {
-        console.log(error)
-      })
+      } else {
+        this.$http.request({
+          url: that.$url + 'StudentLogin/',
+          method: 'get',
+          params: {
+            userName: that.userName,
+            userPassWord: that.userPassWord
+          }
+        }).then(function (response) {
+          console.log(response.data)
+          that.status = response.data
+          if (that.status === 0) {
+            let loginInfo = {userName: that.userName}
+            that.cookie.setCookie(loginInfo)
+            that.$router.push({
+              name: 'StudentHead'
+            })
+          } else if (that.status === 1) {
+            alert('学号不存在')
+          } else if (that.status === 2) {
+            alert('密码错误')
+          } else {
+            alert('请输入学号')
+          }
+        }).catch(function (error) {
+          console.log(error)
+        })
+      }
     },
     goToStudentRegister: function () {
       this.$router.push({

@@ -11,7 +11,7 @@
         <TeacherNav></TeacherNav>
       </el-aside>
       <el-main>
-        <el-table :data="courseList">
+        <el-table :data="materialList">
           <el-table-column label="学习材料ID" prop="id"></el-table-column>
           <el-table-column label="学习材料名称" prop="name"></el-table-column>
         </el-table>
@@ -28,70 +28,70 @@ export default {
   data: function () {
     return {
       userName: '',
-      courseList: [{
+      materialList: [{
         id: '1',
-        name: '前端测试课程'
+        name: '前端测试课程材料'
       }, {
         id: '1',
-        name: '前端测试课程'
+        name: '前端测试课程材料'
       }, {
         id: '1',
-        name: '前端测试课程'
+        name: '前端测试课程材料'
       }, {
         id: '1',
-        name: '前端测试课程'
+        name: '前端测试课程材料'
       }, {
         id: '1',
-        name: '前端测试课程'
+        name: '前端测试课程材料'
       }, {
         id: '1',
-        name: '前端测试课程'
+        name: '前端测试课程材料'
       }, {
         id: '1',
-        name: '前端测试课程'
+        name: '前端测试课程材料'
       }, {
         id: '1',
-        name: '前端测试课程'
+        name: '前端测试课程材料'
       }, {
         id: '1',
-        name: '前端测试课程'
+        name: '前端测试课程材料'
       }, {
         id: '1',
-        name: '前端测试课程'
+        name: '前端测试课程材料'
       }, {
         id: '1',
-        name: '前端测试课程'
+        name: '前端测试课程材料'
       }, {
         id: '2',
-        name: '前端测试课程'
+        name: '前端测试课程材料'
       }, {
         id: '2',
-        name: '前端测试课程'
+        name: '前端测试课程材料'
       }, {
         id: '2',
-        name: '前端测试课程'
+        name: '前端测试课程材料'
       }, {
         id: '2',
-        name: '前端测试课程'
+        name: '前端测试课程材料'
       }, {
         id: '2',
-        name: '前端测试课程'
+        name: '前端测试课程材料'
       }]
     }
   },
   mounted: function () {
     this.userName = this.cookie.getCookie('userName')
-    this.getCourseList()
+    this.getMaterialList()
   },
   methods: {
-    getCourseList: function () {
+    getMaterialList: function () {
       let that = this
       this.$http.request({
         url: that.$url + 'GetMaterialList/',
         method: 'get'
       }).then(function (response) {
         console.log(response.data)
-        that.courseList = response.data
+        that.materialList = response.data
       }).catch(function (error) {
         console.log(error)
       })

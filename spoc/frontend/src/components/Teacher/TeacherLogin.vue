@@ -51,41 +51,45 @@ export default {
   methods: {
     goToTeacherHead: function () {
       let that = this
-      if (that.userName === 'admin' && that.userPassWord === '123456') {
-        that.$router.push({
+      let debug = false
+      if (debug) {
+        if (that.userName === 'admin' && that.userPassWord === '123456') {
+          that.$router.push({
             name: 'TeacherHead',
             params: {
               userName: that.userName
             }
           })
-        console.log('from:' + that.userName)
+          console.log('from:' + that.userName)
+        } else {
+          alert('!')
+        }
       } else {
-        alert('!')
+        this.$http.request({
+          url: that.$url + 'TeacherLogin/',
+          method: 'get',
+          params: {
+            userName: that.userName,
+            userPassWord: that.userPassWord
+          }
+        }).then(function (response) {
+          console.log(response)
+          that.status = response.data
+          if (that.status === 0) {
+            let loginInfo = {userName: that.userName}
+            that.cookie.setCookie(loginInfo)
+            that.$router.push({
+              name: 'TeacherHead',
+            })
+          } else if (that.status === 1) {
+            alert('工号不存在')
+          } else if (that.status === 2) {
+            alert('密码错误')
+          }
+        }).catch(function (error) {
+          console.log(error)
+        })
       }
-      /*this.$http.request({
-        url: that.$url + 'TeacherLogin/',
-        method: 'get',
-        params: {
-          userName: that.userName,
-          userPassWord: that.userPassWord
-        }
-      }).then(function (response) {
-        console.log(response)
-        that.status = response.data
-        if (that.status === 0) {
-          let loginInfo = {userName: that.userName}
-          that.cookie.setCookie(loginInfo)
-          that.$router.push({
-            name: 'TeacherHead',
-          })
-        } else if (that.status === 1) {
-          alert('工号不存在')
-        } else if (that.status === 2) {
-          alert('密码错误')
-        }
-      }).catch(function (error) {
-        console.log(error)
-      })*/
     },
     goToTeacherRegister: function () {
       this.$router.push({

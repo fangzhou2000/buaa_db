@@ -1,12 +1,12 @@
 <template>
   <div>
-    <el-container>
+    <el-container class="header">
       <el-header>
         <span>{{userName}}  修改密码</span>
       </el-header>
     </el-container>
 
-    <el-container>
+    <el-container class="main">
       <el-aside>
         <StudentNav></StudentNav>
       </el-aside>
@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import StudentNav from './StudentNav'
+import StudentNav from '../StudentNav'
 export default {
   name: 'StudentChange',
   components: {StudentNav},

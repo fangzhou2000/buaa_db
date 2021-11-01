@@ -1,12 +1,12 @@
 <template>
   <div class="background">
-    <el-container>
+    <el-container class="header">
       <el-header>
         <span>{{userName}}  学生选课</span>
       </el-header>
     </el-container>
 
-    <el-container>
+    <el-container class="main">
       <el-aside>
         <StudentNav></StudentNav>
       </el-aside>
@@ -14,6 +14,7 @@
         <el-table :data="courseList">
           <el-table-column label="课程ID" prop="id"></el-table-column>
           <el-table-column label="课程名称" prop="name"></el-table-column>
+          <el-table-column label="课程材料" prop="materialIdString"></el-table-column>
           <el-table-column label="选课"> <template slot-scope="scope">
         <el-button v-on:click="selectCourse(scope.$index)" type="primary" plain="true">选课</el-button>
       </template></el-table-column>
@@ -24,14 +25,18 @@
 </template>
 
 <script>
-import StudentNav from './StudentNav'
+import StudentNav from '../StudentNav'
 export default {
   name: 'SelectCourse',
   components: {StudentNav},
   data: function () {
     return {
       userName: '',
-      courseList: []
+      courseList: [{
+        id: '1',
+        name: '前端测试课程',
+        materialIdString: '1,2'
+      }]
     }
   },
   mounted: function () {

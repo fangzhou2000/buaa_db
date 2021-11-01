@@ -14,7 +14,12 @@
         <el-form label-position="top">
           <el-form-item label="课程名称">
             <el-col :span="6">
-              <el-input placeholder="请输入课程名称" v-model="courseName"></el-input>
+              <el-input v-model="course.name"></el-input>
+            </el-col>
+          </el-form-item>
+          <el-form-item label="学习材料 (如有多个请用','隔开)">
+            <el-col :span="6">
+              <el-input v-model="materialIdString"></el-input>
             </el-col>
           </el-form-item>
           <el-form-item>
@@ -36,7 +41,11 @@ export default {
   data: function () {
     return {
       userName: '',
-      courseName: ''
+      materialIdString: '',
+      course: {
+        name: '',
+        materialIdList: []
+      }
     }
   },
   mounted: function () {
@@ -45,12 +54,14 @@ export default {
   methods: {
     buildCourse: function () {
       let that = this
+      that.course.materialIdList = that.materialIdString.split(',')
+      console.log(that.course.materialIdList)
       this.$http.request({
         url: that.$url + 'BuildCourse/',
         method: 'get',
         params: {
           userName: that.userName,
-          courseName: that.courseName
+          course: that.course
         }
       }).then(function (response) {
         console.log(response.data)
@@ -63,7 +74,10 @@ export default {
       }).catch(function (error) {
         console.log(error)
       })
-      that.courseName = ''
+      that.course = {
+        name: '',
+        materialIdList: []
+      }
     }
   }
 }

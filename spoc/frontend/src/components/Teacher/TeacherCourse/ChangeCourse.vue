@@ -19,7 +19,7 @@
           </el-form-item>
           <el-form-item label="学习材料 (如有多个请用','隔开)">
             <el-col :span="6">
-              <el-input v-model="materialIdString"></el-input>
+              <el-input v-model="course.materialIdString"></el-input>
             </el-col>
           </el-form-item>
           <el-form-item>
@@ -43,53 +43,17 @@ export default {
       userName: '',
       id: '',
       course: {
+        id: '1',
         name: '前端测试课程',
-        materialIdList: ['1', '2']
-      },
-      materialIdString: '123'
+        materialIdString: ''
+      }
     }
   },
   mounted () {
     this.userName = this.cookie.getCookie('userName')
-    this.id = this.$route.params.id
-    this.getCourseInfo()
-    for (var i = 0; i < this.course.materialIdList.length; i++) {
-      if (i === 0) {
-        this.materialIdString = ''
-      }
-      if (i < this.course.materialIdList.length - 1) {
-        this.materialIdString += this.course.materialIdList[i] + ','
-      } else {
-        this.materialIdString += this.course.materialIdList[i]
-      }
-    }
+    this.course = this.$route.params.course
   },
   methods: {
-    getCourseInfo: function () {
-      let that = this
-      this.$http.request({
-        url: that.$url + 'GetCourseInfo/',
-        method: 'get',
-        params: {
-          id: that.id
-        }
-      }).then(function (response) {
-        console.log(response.data)
-        that.course = response.data
-        for (var i = 0; i < that.course.materialIdList.length; i++) {
-          if (i === 0) {
-            this.materialIdString = ''
-          }
-          if (i < that.course.materialIdList.length - 1) {
-            that.materialIdString += that.course.materialIdList[i] + ','
-          } else {
-            that.materialIdString += that.course.materialIdList[i]
-          }
-        }
-      }).catch(function (error) {
-        console.log(error)
-      })
-    },
     changeCourse: function () {
       let that = this
       that.course.materialIdList = that.materialIdString.split(',')

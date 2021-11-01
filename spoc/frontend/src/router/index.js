@@ -7,14 +7,15 @@ import StudentHead from '../components/Student/StudentHead'
 import TeacherLogin from '../components/Teacher/TeacherLogin'
 import TeacherHead from '../components/Teacher/TeacherHead'
 import TeacherRegister from '../components/Teacher/TeacherRegister'
-import SelectCourse from '../components/Student/SelectCourse'
-import StudentCourse from '../components/Student/StudentCourse'
+import StudentCourse from '../components/Student/StudentCourse/StudentCourse'
+import SelectCourse from '../components/Student/StudentCourse/SelectCourse'
+import SelectedCourse from '../components/Student/StudentCourse/SelectedCourse'
 import TeacherCourse from '../components/Teacher/TeacherCourse/TeacherCourse'
 import ManageCourse from '../components/Teacher/TeacherCourse/ManageCourse'
 import ChangeCourse from '../components/Teacher/TeacherCourse/ChangeCourse'
 import BuildCourse from '../components/Teacher/TeacherCourse/BuildCourse'
 import AllCourse from '../components/Teacher/TeacherCourse/AllCourse'
-import StudentChange from '../components/Student/StudentChange'
+import StudentChange from '../components/Student/StudentChange/StudentChange'
 import TeacherChange from '../components/Teacher/TeacherChange/TeacherChange'
 import TeacherMaterial from '../components/Teacher/TeacherMaterial/TeacherMaterial'
 import AllMaterial from '../components/Teacher/TeacherMaterial/AllMaterial'
@@ -61,14 +62,21 @@ export default new Router({
       component: TeacherRegister
     },
     {
-      path: '/SelectCourse',
-      name: 'SelectCourse',
-      component: SelectCourse
-    },
-    {
       path: '/StudentCourse',
       name: 'StudentCourse',
-      component: StudentCourse
+      component: StudentCourse,
+      children: [
+        {
+          path: 'SelectCourse',
+          name: 'SelectCourse',
+          component: SelectCourse
+        },
+        {
+          path: 'SelectedCourse',
+          name: 'SelectedCourse',
+          component: SelectedCourse
+        }
+      ]
     },
     {
       path: '/TeacherCourse',
@@ -100,7 +108,13 @@ export default new Router({
     {
       path: '/StudentChange',
       name: 'StudentChange',
-      component: StudentChange
+      component: StudentChange,
+      children: [
+        {
+          path: 'StudentChange',
+          component: StudentChange
+        }
+      ]
     },
     {
       path: '/TeacherChange',

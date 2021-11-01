@@ -14,6 +14,7 @@
         <el-table :data="courseList">
           <el-table-column label="课程ID" prop="id"></el-table-column>
           <el-table-column label="课程名称" prop="name"></el-table-column>
+          <el-table-column label="课程材料" prop="materialIdString"></el-table-column>
         </el-table>
       </el-main>
     </el-container>
@@ -30,52 +31,20 @@ export default {
       userName: '',
       courseList: [{
         id: '1',
-        name: '前端测试课程'
-      }, {
-        id: '1',
-        name: '前端测试课程'
-      }, {
-        id: '1',
-        name: '前端测试课程'
-      }, {
-        id: '1',
-        name: '前端测试课程'
-      }, {
-        id: '1',
-        name: '前端测试课程'
-      }, {
-        id: '1',
-        name: '前端测试课程'
-      }, {
-        id: '1',
-        name: '前端测试课程'
-      }, {
-        id: '1',
-        name: '前端测试课程'
-      }, {
-        id: '1',
-        name: '前端测试课程'
-      }, {
-        id: '1',
-        name: '前端测试课程'
-      }, {
-        id: '1',
-        name: '前端测试课程'
+        name: '前端测试课程',
+        materialIdString: '11'
       }, {
         id: '2',
-        name: '前端测试课程'
+        name: '前端测试课程',
+        materialIdString: '12'
       }, {
-        id: '2',
-        name: '前端测试课程'
+        id: '3',
+        name: '前端测试课程',
+        materialIdString: '13'
       }, {
-        id: '2',
-        name: '前端测试课程'
-      }, {
-        id: '2',
-        name: '前端测试课程'
-      }, {
-        id: '2',
-        name: '前端测试课程'
+        id: '4',
+        name: '前端测试课程',
+        materialIdString: '14'
       }]
     }
   },

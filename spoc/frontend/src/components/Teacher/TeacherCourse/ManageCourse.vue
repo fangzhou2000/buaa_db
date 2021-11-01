@@ -14,6 +14,7 @@
         <el-table :data="myCourseList">
           <el-table-column label="课程ID" prop="id"></el-table-column>
           <el-table-column label="课程名称" prop="name"></el-table-column>
+          <el-table-column label="课程材料" prop="materialIdString"></el-table-column>
           <el-table-column label="修改课程">
             <template slot-scope="scope">
               <el-button v-on:click="changeCourse(scope.$index)" type="warning" size="small">修改课程</el-button>
@@ -32,6 +33,7 @@
 
 <script>
 import TeacherNav from '../TeacherNav'
+
 export default {
   name: 'ManageCourse',
   components: {TeacherNav},
@@ -40,7 +42,8 @@ export default {
       userName: '',
       myCourseList: [{
         id: '1',
-        name: '前端测试课程'
+        name: '前端测试课程',
+        materialIdString: '11'
       }]
     }
   },
@@ -70,7 +73,7 @@ export default {
       this.$router.push({
         path: '/TeacherCourse/ChangeCourse',
         params: {
-          id: that.myCourseList[index].id
+          course: that.myCourseList[index]
         }
       })
     },
@@ -86,8 +89,12 @@ export default {
         }
       }).then(function (response) {
         console.log(response.data)
-        that.myCourseList = response.data
-        alert('停课成功')
+        if (response.data === 0) {
+          alert('停课成功')
+        } else {
+          alert('!')
+        }
+        that.getTeacherCourseList()
       }).catch(function (error) {
         console.log(error)
       })
