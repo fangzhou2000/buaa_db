@@ -260,10 +260,11 @@ class CancelCourse(APIView):
         # 教师停课，只能停自己开的课，成功返回0
         sql = MySQL()
 
-        sql.cancelCourse(userName, id)
-
-        # 停课之后，课程列表会清空，必须刷新才能看到剩余课程
-        return Response(0)
+        result = sql.cancelCourse(userName, id)
+        teacherCourseList = []
+        for item in result:
+            teacherCourseList.append(dict([('id', item[0]), ('name', item[1])]))
+        return Response(teacherCourseList)
 
 
 class GetMaterialList(APIView):

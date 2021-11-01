@@ -190,7 +190,10 @@ class MySQL:
         cursor.execute(instruction, [teacherID, courseID])
         connection.commit()
         self.closeDatabase(connection, cursor)
-        return
+
+        result = self.getTeacherCourseList(teacherID)
+
+        return result
 
     def teacherPasswordChange(self, userName, passWord):
         connection, cursor = self.connectDatabase()
