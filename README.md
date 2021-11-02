@@ -40,6 +40,42 @@ Vue样式 (oyk)
 'PORT': '3306'
 ```
 
+### Entity
+
+```
+teacher(id, name, password, sex, department, telephone, email)
+
+student(id, name, password, sex, department, orientation)
+
+admin(id, password, telephone, email)
+
+course(id, name, department, volume, credit)
+
+material(id, department, obtain)
+
+group(id, orientation, department, volume)
+```
+
+### Relation
+
+```
+courseEvaluation(id, content) //anonymity //
+
+courseSelection(student_id, course_id)
+
+groupJoin(student_id, group_id)
+
+studentMaterialObtain(student_id, material_id)
+
+groupMaterialObtain(group_id, material_id)
+
+courseCreate(course_id, teacher_id, time)
+
+groupTutor(course_id, teacher_id) //no time
+
+grade() //打分
+```
+
 ## Team
 
 [@fangzhou0216](https://github.com/fangzhou0216), [@Mike-Smith-rem](https://github.com/Mike-Smith-rem), [@imingx](https://github.com/imingx).
