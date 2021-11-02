@@ -150,10 +150,20 @@ class MySQL:
     def getStudentCourseList(self, student_id):
         connection, cursor = self.connectDatabase()
 
-        instruction = "SELECT c.id, c.name " \
-                      "FROM course AS c, student_course AS sc " \
-                      "WHERE c.id=sc.course_id AND sc.student_id=%s " \
-                      "ORDER BY c.id"
+        instruction = "SELECT c.id, c.name, cm.material_id " \
+                      "FROM " \
+                      "(SELECT c.id, c.name " \
+                      "FROM course AS c, student_course AS tc " \
+                      "WHERE tc.student_id=%s AND c.id=tc.course_id " \
+                      "ORDER BY c.id)" \
+                      "AS c(id,name) " \
+                      "LEFT OUTER JOIN course_material AS cm " \
+                      "ON (c.id=cm.course_id)"
+
+        # instruction = "SELECT c.id, c.name " \
+        #               "FROM course AS c, student_course AS sc " \
+        #               "WHERE c.id=sc.course_id AND sc.student_id=%s " \
+        #               "ORDER BY c.id"
 
         cursor.execute(instruction, [student_id])
 
@@ -341,11 +351,25 @@ class MySQL:
     def cancelCourse(self, teacher_id, course_id):
         connection, cursor = self.connectDatabase()
 
+        instruction = "DELETE FROM material AS m " \
+                      "WHERE id IN " \
+                      "(" \
+                      "SELECT material_id " \
+                      "FROM course_material AS cm " \
+                      "WHERE cm.course_id=%s" \
+                      ")"
+        cursor.execute(instruction, [course_id])
+        connection.commit()
+
+
         instruction = "DELETE FROM course " \
                       "WHERE id=%s"
 
         cursor.execute(instruction, [course_id])
         connection.commit()
+
+
+
         self.closeDatabase(connection, cursor)
         return
 
