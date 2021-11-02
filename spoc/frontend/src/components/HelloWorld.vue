@@ -1,40 +1,26 @@
 <template>
   <div class="welcome">
       <div class="navigator">
-        <span class="head">Spoc</span>
-        <span class="reference">课程</span>
-        <span class="reference">学校</span>
-        <span class="reference">云端</span>
-        <span class="reference">更多</span>
-        <div class="buttons"><button class="buttons" @click="goToStudentLogin">学生登录</button></div>
+        <div class="navigator-left">
+          <i class="el-icon-bell"></i>
+          Spoc
+        </div>
+        <div class="navigator-right">
+          <el-button class="buttons" @click="goToStudentLogin">学生登录</el-button>
           <span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
-        <div class="buttons"><button class="buttons" @click="goToTeacherLogin">教师登录</button></div>
+          <el-button class="buttons" @click="goToTeacherLogin">教师登录</el-button>
+        </div>
     </div>
       <div class="introduction">
-        <div class="class-center">
-        <p class="class-center-name">热门课程</p>
-        <ul class="class-center-id">
-          <li>工科数学分析&nbsp;<span class="sub">数学/6学分</span></li>
-          <li>C语言程序设计&nbsp;<span class="sub">计算机基础/3学分</span></li>
-          <li>Python程序设计&nbsp;<span class="sub">计算机基础/2学分</span></li>
-          <li>C++:从入门到入土&nbsp;<span class="sub">选修课/1学分</span></li>
-          <li>Spring架构分析&nbsp;<span class="sub">选修课/2学分</span></li>
-          <li>编译原理&nbsp;<span class="sub">计算机核心/4学分</span></li>
-          <li>数据库原理&nbsp;<span class="sub">计算机核心/4学分</span></li>
-        </ul>
-        </div>
-        <div class="blink-block"></div>
-        <div class="picture">
-          <img class="imgt" src="../assets/img/learning-hard.png" alt="photo">
-        </div>
-        <div class="blink-block"></div>
-        <div class="news">
-          <p class="class-center-name">更新新闻</p>
-          <ul class="class-center-id">
-            <li>页面二次设计<span class="sub">2021.10.6</span></li>
-            <li>使用Element UI优化<span class="sub">2021.10.6</span></li>
-          </ul>
-        </div>
+        <el-carousel height="720px">
+          <el-carousel-item v-for="(item, index) in headImg" :key="index">
+            <img :src="item.src" style="width: 100%; height: 100%;" alt="">
+            <div class="cover">
+              {{item.title}}<br>
+              <span style="font-size: 25px">{{item.subTitle}}</span>
+            </div>
+          </el-carousel-item>
+        </el-carousel>
       </div>
       <div class="line_1">
         <div class="line-1-head"><span class="div-head">其他推荐</span></div>
@@ -143,7 +129,31 @@
 </template>
 
 <script>
+import technology from '../assets/img/technology.jpg'
+import book from '../assets/img/book.jpg'
+import Computer from '../assets/img/Computer.jpg'
 export default {
+  data: function () {
+    return {
+      headImg: [
+        {
+          'title': '数据集成平台',
+          'subTitle': 'Data Integration Platform',
+          'src': technology
+        },
+        {
+          'title': '更好的学习体验',
+          'subTitle': 'Better Study Experience',
+          'src': book
+        },
+        {
+          'title': '合作与共享',
+          'subTitle': 'Corporation and Sharing',
+          'src': Computer
+        }
+      ]
+    }
+  },
   methods: {
     goToStudentLogin () {
       this.$router.push({
@@ -160,124 +170,48 @@ export default {
 </script>
 
 <style scoped>
-a{
-    text-decoration: none;
-    color: deepskyblue;
-  }
-  .welcome{
-    margin: 0;
-    padding: 0;
-    height: auto;
-    width: auto;
-    background-color: white;
-    background-image: linear-gradient(0deg, wheat 0%, white 50%);
-  }
   .navigator{
-    height: 60px;
-    border: 3px hidden;
+    height: 80px;
     background-color: whitesmoke;
-    text-align: center;
-    padding-top: 0;
-    padding-bottom: 0;
-    margin-bottom: 20px;
   }
-  .graduation_cap{
-    margin-top: 0.5%;
-    font-size: 30px;
-  }
-  .head{
-    margin-top: 30px;
-    font-size: 30px;
+  .navigator-left{
+    font-size: 40px;
+    display: inline-flex;
+    float: left;
     font-family: '华文仿宋', serif;
-    margin-right: 60px;
   }
-  .reference{
-    margin-top: 10%;
-    margin-right: 40px;
-    font-size: 16px;
-  }
-  .reference :hover{
-    background-color: green;
+  .navigator-right{
+    align-self: center;
+    display: inline-flex;
+    float: right;
   }
   .buttons{
-    border-radius: 10px;
-    border-style: none;
-    border-width: 0;
-    box-shadow: none;
-    background-color: yellowgreen;
-    color: #ffffff;
-    padding: 0;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    height: 50px;
-    width: 80px;
-    font-size: 16px;
-  }
-  .buttons :hover{
-    text-decoration: underline;
-    cursor: pointer;
+    display: inline-flex;
   }
   .introduction{
     margin-top: 20px;
     margin-left: 100px;
     margin-right: 100px;
     padding: 0;
-    height: 300px;
+    height: 720px;
     border: lightblue 1px hidden;
     background-color: ghostwhite;
     overflow: hidden;
   }
-  .class-center{
-    float: left;
-    height: 260px;
-    width: 25%;
-    padding: 10px;
-    margin: 10px;
-    border: 1px white solid;
-    list-style-type: none;
-    line-height: 24px;
-    text-align: left;
-    background-color: white;
-    overflow: hidden;
-  }
-  .blink-block{
-    width: 3%;
-    height: 250px;
-    float: left;
-  }
-  .class-center-name{
-    font-family: "微软雅黑",serif;
-    font-size: 20px;
-    margin-left: 10px;
-    padding-left: 10px;
-  }
-  .sub{
-    font-family: "华文仿宋", serif;
-    font-size: 18px;
-    float: right;
-  }
-  .picture{
-    margin: 10px;
-    float: left;
-    width: 35%;
-  }
-  .imgt{
+  .cover{
+    position:absolute;
     width: 100%;
-  }
-  .news{
-    float: right;
-    height: 260px;
-    width: 25%;
-    padding: 10px;
-    margin: 10px;
-    border: 1px white solid;
-    list-style-type: none;
-    line-height: 24px;
-    text-align: left;
-    background-color: white;
-    overflow: hidden;
-  }
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    z-index: 100;
+    text-align: center;
+    top:0;
+    color: white;
+    font-size: 40px;
+    line-height: 50px;
+    margin-right: 20px;
+    padding-top: 300px;
+}
   .line-2-content{
     width: 100%;
     height: 500px;
@@ -342,19 +276,6 @@ a{
   #first_row{
     margin-left: 5%;
     margin-right: 5%;
-  }
-  ul{
-    font-size: 12px;
-    text-align: left;
-    list-style: linear-gradient(30deg, darkgrey 10%, darkcyan 50%, darkslategrey 40%);
-    line-height: 25px;
-  }
-  ol {
-    font-size: 15px;
-    text-align: left;
-    line-height: 45px;
-    list-style: none;
-    color: black;
   }
   .line-1-text{
     margin-left: 20%;
@@ -422,12 +343,6 @@ a{
     border: 1px whitesmoke solid;
     border-radius: 3px;
     background: linear-gradient(2deg, ghostwhite 1%, whitesmoke 20%);
-  }
-  .icons, .el-icon-search, .el-icon-question, .el-icon-edit{
-    margin-top: 10px;
-    margin-right: 10px;
-    font-size: 40px;
-    align-self: center;
   }
   .content1, .content2, .content3{
     font-size: 20px;

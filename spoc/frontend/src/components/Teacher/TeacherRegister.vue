@@ -11,7 +11,7 @@
       <el-form>
         <div id="register-n">
           <el-form-item>
-            <el-input class="inputs" type="text" placeholder="请输入工号" v-model="userNickName"></el-input>
+            <el-input class="inputs" type="text" placeholder="请输入姓名" v-model="userNickName"></el-input>
           </el-form-item>
         </div>
         <div id="register-name">
