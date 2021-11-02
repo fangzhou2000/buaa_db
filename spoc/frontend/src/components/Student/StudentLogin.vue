@@ -76,9 +76,9 @@ export default {
           }
         }).then(function (response) {
           console.log(response.data)
-          that.status = response.data
+          that.status = response.data.value
           if (that.status === 0) {
-            let loginInfo = {userName: that.userName, userNickName: /*response.data['userNickName']*/that.userName}
+            let loginInfo = {userName: that.userName, userNickName: response.data.userNickName}
             that.cookie.setCookie(loginInfo)
             that.$router.push({
               name: 'StudentHead'
