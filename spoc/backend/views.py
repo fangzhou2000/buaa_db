@@ -230,11 +230,11 @@ class DropCourse(APIView):
 
         sql = MySQL()
         sql.dropStudentCourse(userName, id)
-        studentCourseList = []  # 字典列表
-        result = sql.getStudentCourseList(userName)
+        # studentCourseList = []  # 字典列表
+        # result = sql.getStudentCourseList(userName)
         # for item in result:
         #     studentCourseList.append({'id': item[0], 'name': item[1]})
-        return Response(studentCourseList)
+        return Response(0)
 
 
 class StudentChange(APIView):
