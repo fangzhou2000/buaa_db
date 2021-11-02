@@ -1,9 +1,6 @@
 <template>
   <div class="background">
     <br>
-    <div class="first_block">
-      <p class="head">Spoc</p>
-    </div>
     <div class="register_block">
       <div class="register_head">
         <p>教师注册</p>
@@ -98,5 +95,5 @@ export default {
 </script>
 
 <style scoped>
-  @import "../../assets/css/login_and_register.css";
+  @import "../../assets/css/register.css";
 </style>

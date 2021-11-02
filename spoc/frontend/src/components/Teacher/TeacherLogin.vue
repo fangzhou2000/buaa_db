@@ -1,9 +1,6 @@
 <template>
   <div class="background">
     <br>
-    <div class="first_block">
-      <p class="head">Spoc</p>
-    </div>
     <div class="register_block">
       <div class="register_head">
         <p>教师登录</p>
@@ -25,7 +22,7 @@
             </el-button>
         </div>
         <div class="register-button">
-            <el-button id="button_re" type="primary" plain:true size="small" v-on:click="goToTeacherRegister">
+            <el-button id="button_re" type="primary" plain="true" size="small" v-on:click="goToTeacherRegister">
               注册
             </el-button>
         </div>
@@ -104,5 +101,5 @@ export default {
 </script>
 
 <style scoped>
-  @import "../../assets/css/login_and_register.css";
+  @import "../../assets/css/login.css";
 </style>
