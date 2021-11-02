@@ -30,7 +30,7 @@ Vue样式 (oyk)
 </br>
 </details>
 
-## Database
+## DataBase
 
 ```
 'HOST': 'rm-2zeu3f7e1n5yt10v0co.mysql.rds.aliyuncs.com',
@@ -40,31 +40,29 @@ Vue样式 (oyk)
 'PORT': '3306'
 ```
 
-### 
-
 ## DataBase Design
 
-### Final
+### Final Design
 
-```
-Entity
+**实体：**
 
-student(id, password, name)
-teacher(id, password, name)
-material(id, name)
-course(id, name)
+|            Entity             | Key  | Description |
+| :---------------------------: | :--: | :---------: |
+| `student(id, password, name)` | `id` |  学生信息   |
+| `teacher(id, password, name)` | `id` |  教师信息   |
+|     `material(id, name)`      | `id` |  学习材料   |
+|      `course(id, name)`       | `id` |  课程信息   |
 
-Relation
+**关系：**
 
-student_course(student_id, course_id)
-teacher_course(teacher_id, course_id)
-teacher_material(teacher_id, material_id)
-course_material(course_id, material_id)
-```
+|                  Relation                   |    Key    |  Description   |
+| :-----------------------------------------: | :-------: | :------------: |
+|   `student_course(student_id, course_id)`   | `all-key` |  学生选课信息  |
+|   `teacher_course(teacher_id, course_id)`   | `all-key` |  教师开课信息  |
+| `teacher_material(teacher_id, material_id)` | `all-key` | 教师提供的材料 |
+|  `course_material(course_id, material_id)`  | `all-key` |   课程的材料   |
 
-
-
-### Plan
+### Plan Design
 
 ```
 Entity
@@ -73,12 +71,12 @@ teacher(id, name, password, sex, department, telephone, email)
 student(id, name, password, sex, department, orientation)
 admin(id, password, telephone, email)
 course(id, name, department, volume, credit)
-material(id, department, obtain)
+material(id, name, department, obtain)
 group(id, orientation, department, volume)
 
 Relation
 
-courseEvaluation(id, content) //anonymity //
+courseEvaluation(id, content) //匿名?
 courseSelection(student_id, course_id)
 groupJoin(student_id, group_id)
 studentMaterialObtain(student_id, material_id)
@@ -88,13 +86,15 @@ groupTutor(course_id, teacher_id) //no time
 grade() //打分
 ```
 
-
-
 ## Team
 
-[@fangzhou0216](https://github.com/fangzhou0216), [@Mike-Smith-rem](https://github.com/Mike-Smith-rem), [@imingx](https://github.com/imingx).
+[@fangzhou0216][tqj], [@Mike-Smith-rem][oyk], [@imingx][gmm].
 
 ## License
 
 
 
+
+[tqj]: https://github.com/fangzhou0216
+[oyk]: https://github.com/Mike-Smith-rem
+[gmm]: https://github.com/imingx
