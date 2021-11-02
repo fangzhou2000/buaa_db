@@ -1,5 +1,12 @@
 <template>
   <div>
+    <div>
+      <el-card style="background-color: #66b1ff">
+        <i class="el-icon-user-solid" style="font-size: 50px"></i>
+        <p style="color: white">姓名:&nbsp;{{userNickName}}</p>
+        <p style="color: white">学号:&nbsp;{{userNickName}}</p>
+      </el-card>
+    </div>
     <el-menu :default-active="this.$route.path" router>
       <el-menu-item class="item" index="/StudentHead">首页</el-menu-item>
       <el-submenu index="1" show-timeout:0>
@@ -18,18 +25,18 @@
 
 <style>
   .header {
-    height: 75px;
+    color: white;
+    height: 80px;
   }
   .el-header {
     text-align: center;
     font-size: 24px;
-    background-color: whitesmoke;
+    background-color: #66b1ff;
     line-height: 60px;
   }
   .background {
-    height: 700px;
+    height: 1920px;
     background-color: white;
-    background-image: linear-gradient(0deg, #f8f1ea 0%, #ffffff 10%);
   }
   .main {
     height: 550px;
@@ -48,6 +55,16 @@
 <script>
 export default {
   name: 'StudentNav',
+  data () {
+    return {
+      username: '',
+      userNickName: ''
+    }
+  },
+  mounted: function () {
+    this.userName = this.cookie.getCookie('userName')
+    this.userNickName = this.cookie.getCookie('userNickName')
+  },
   methods: {
     goToHelloWorld: function () {
       this.cookie.clearCookie('userName')
