@@ -3,6 +3,55 @@ import pymysql
 
 class MySQL:
 
+    def deleteMaterial(self, teached_id, id):
+        connection, cursor = self.connectDatabase()
+
+        instruction = "DELETE FROM material " \
+                      "WHERE teacher_id=%s AND id=%s"
+
+        cursor.execute(instruction, [teached_id, id])
+
+        connection.commit()
+
+        self.closeDatabase(connection, cursor)
+        return
+
+    def getTeacherMaterialList(self, teacher_id):
+        connection, cursor = self.connectDatabase()
+        instruction = "SELECT id, name " \
+                      "FROM material " \
+                      "WHERE teacher_id=%s"
+
+        cursor.execute(instruction, [teacher_id])
+
+        result = cursor.fetchall()
+        self.closeDatabase(connection, cursor)
+        return result
+
+    def getMaterialList(self):
+        connection, cursor = self.connectDatabase()
+
+        instruction = "SELECT id, name " \
+                      "FROM material "
+
+        cursor.execute(instruction)
+
+        result = cursor.fetchall()
+        self.closeDatabase(connection, cursor)
+        return result
+
+    def buildMaterial(self, teacher_id, materialName):
+        connection, cursor = self.connectDatabase()
+
+        instruction = "INSERT INTO material(name, teacher_id) " \
+                      "VALUES(%s, %s) "
+
+        cursor.execute(instruction, [materialName, teacher_id])
+        connection.commit()
+
+        self.closeDatabase(connection, cursor)
+        return
+
     def connectDatabase(self):
         connection = pymysql.connect(host="rm-2zeu3f7e1n5yt10v0co.mysql.rds.aliyuncs.com",
                                      db="spoc",
@@ -103,25 +152,25 @@ class MySQL:
         connection.close()
         cursor.close()
 
-    def registerStudent(self, userName, passWord):
+    def registerStudent(self, userName, passWord, name):
         connection, cursor = self.connectDatabase()
 
         instruction = "INSERT INTO student " \
-                      "values(%s, %s)"
+                      "values(%s, %s, %s)"
 
-        cursor.execute(instruction, [userName, passWord])
+        cursor.execute(instruction, [userName, passWord, name])
         connection.commit()
 
         self.closeDatabase(connection, cursor)
         return
 
-    def registerTeacher(self, userName, passWord):
+    def registerTeacher(self, userName, passWord, name):
         connection, cursor = self.connectDatabase()
 
         instruction = "INSERT INTO teacher " \
-                      "values(%s, %s)"
+                      "values(%s, %s, %s)"
 
-        cursor.execute(instruction, [userName, passWord])
+        cursor.execute(instruction, [userName, passWord, name])
         connection.commit()
 
         self.closeDatabase(connection, cursor)
@@ -209,6 +258,14 @@ class MySQL:
 
 
 if __name__ == "__main__":
+    sql = MySQL()
+    # sql.buildMaterial("123", "234")
+    result = sql.getMaterialList()
+    print(result)
+
+    result = sql.getTeacherMaterialList("123")
+    print(result)
+    """
     userName = "19373136"
     sql = MySQL()
     sql.dropStudentCourse(userName, "5")
@@ -221,6 +278,8 @@ if __name__ == "__main__":
     print(flag)
     sql.teacherPasswordChange("123", "123456")
     # sql.create_course("13","线性代数2")
+    """
+
     """
     create table
     create_student = "CREATE TABLE `student` (`username` varchar(20) NOT NULL PRIMARY KEY, " \

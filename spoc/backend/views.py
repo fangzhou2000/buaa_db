@@ -57,7 +57,7 @@ class StudentRegister(APIView):
             return Response(2)
         else:
             # register一下nickname
-            sql.registerStudent(userName, userPassWord)
+            sql.registerStudent(userName, userPassWord, userNickName)
             return Response(0)
 
 
@@ -111,7 +111,7 @@ class TeacherRegister(APIView):
         elif userPassWord != userPassWord2:
             return Response(2)
         else:
-            sql.registerTeacher(userName, userPassWord)
+            sql.registerTeacher(userName, userPassWord, userNickName)
             return Response(0)
 
 
@@ -278,8 +278,48 @@ class CancelCourse(APIView):
 
 class GetMaterialList(APIView):
     def get(self, request):
-        return
+
+        sql = MySQL()
+
+        result = sql.getMaterialList()
+
+        materialList = []
+        for item in result:
+            materialList.append(dict([('id', item[0]), ('name', item[1])]))
+        return Response(materialList)
+
+class BuildMaterial(APIView):
+    def get(self, request):
+        userName = str(request.GET.get('userName', None))
+        materialName = str(request.GET.get('materialName', None))
+
+        sql = MySQL()
+
+        sql.buildMaterial(userName, materialName)
+
+        return Response(0)
 
 
+class GetTeacherMaterialList(APIView):
+    def get(self, request):
+        userName = str(request.GET.get('userName', None))
 
+        sql = MySQL()
 
+        result = sql.getTeacherMaterialList(userName)
+        teacherMaterialList = []
+
+        for item in result:
+            teacherMaterialList.append(dict([('id', item[0]), ('name', item[1])]))
+        return Response(teacherMaterialList)
+
+class DeleteMaterial(APIView):
+    def get(self, request):
+        userName = str(request.GET.get('userName', None))
+        id = str(request.GET.get('id', None))
+
+        sql = MySQL()
+
+        sql.deleteMaterial(userName, id)
+
+        return Response(0)
