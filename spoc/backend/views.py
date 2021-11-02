@@ -237,12 +237,15 @@ class GetTeacherCourseList(APIView):
 class BuildCourse(APIView):
     def get(self, request):
         userName = str(request.GET.get('userName', None))
-        courseName = str(request.GET.get('courseName', None))
-        # 从课程表里新建课程，这里只提供了课程名称，需要在数据库里分配一个对于该课程唯一的id
-        print("BuildCourse得到的学号和课程名称是 " + userName + " " + courseName)
+        course = request.GET.get('course', None)
 
+        course = eval(course)
+
+        # 从课程表里新建课程，这里只提供了课程名称，需要在数据库里分配一个对于该课程唯一的id
+        print("BuildCourse得到的教师账号是 " + userName + "，课程名是:" + course['name'])
+        print(course)
         sql = MySQL()
-        sql.buildCourse(userName, courseName)
+        sql.buildCourse(userName, course['name'], course['materialIdList'])
         return Response(0)
 
 
@@ -271,12 +274,8 @@ class CancelCourse(APIView):
         # 教师停课，只能停自己开的课，成功返回0
         sql = MySQL()
 
-        result = sql.cancelCourse(userName, id)
-        teacherCourseList = []
-        for item in result:
-            teacherCourseList.append(dict([('id', item[0]), ('name', item[1])]))
-        return Response(teacherCourseList)
-
+        sql.cancelCourse(userName, id)
+        return Response(0)
 
 class GetMaterialList(APIView):
     def get(self, request):

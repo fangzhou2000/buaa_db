@@ -3,13 +3,13 @@ import pymysql
 
 class MySQL:
 
-    def deleteMaterial(self, teached_id, id):
+    def deleteMaterial(self, teached_id, material_id):
         connection, cursor = self.connectDatabase()
 
         instruction = "DELETE FROM material " \
-                      "WHERE teacher_id=%s AND id=%s"
+                      "WHERE id=%s"
 
-        cursor.execute(instruction, [teached_id, id])
+        cursor.execute(instruction, [material_id])
 
         connection.commit()
 
@@ -18,9 +18,10 @@ class MySQL:
 
     def getTeacherMaterialList(self, teacher_id):
         connection, cursor = self.connectDatabase()
-        instruction = "SELECT id, name " \
-                      "FROM material " \
-                      "WHERE teacher_id=%s"
+
+        instruction = "SELECT m.id, m.name " \
+                      "FROM material AS m, teacher_material AS tm " \
+                      "WHERE tm.teacher_id=%s AND tm.material_id=m.id"
 
         cursor.execute(instruction, [teacher_id])
 
@@ -43,10 +44,24 @@ class MySQL:
     def buildMaterial(self, teacher_id, materialName):
         connection, cursor = self.connectDatabase()
 
-        instruction = "INSERT INTO material(name, teacher_id) " \
-                      "VALUES(%s, %s) "
+        instruction = "INSERT INTO material(name) " \
+                      "VALUES(%s) "
 
-        cursor.execute(instruction, [materialName, teacher_id])
+        cursor.execute(instruction, [materialName])
+        connection.commit()
+
+        instruction = "SELECT id " \
+                      "FROM material " \
+                      "WHERE name=%s"
+
+        cursor.execute(instruction, [materialName])
+        result = cursor.fetchall()
+
+        material_id = result[len(result) - 1][0]
+
+        instruction = "INSERT INTO teacher_material(teacher_id, material_id) " \
+                      "VALUES(%s, %s)"
+        cursor.execute(instruction, [teacher_id, material_id])
         connection.commit()
 
         self.closeDatabase(connection, cursor)
@@ -61,69 +76,71 @@ class MySQL:
         cursor = connection.cursor()
         return connection, cursor
 
-    def findStudentCourse(self, userName, id):
+    def findStudentCourse(self, student_id, course_id):
         connection, cursor = self.connectDatabase()
 
         instruction = "SELECT *\
-                    FROM stu_course_list\
-                    Where username=%s AND id=%s"
+                    FROM student_course\
+                    Where student_id=%s AND course_id=%s"
 
-        cursor.execute(instruction, [userName, id])
+        cursor.execute(instruction, [student_id, course_id])
 
         result = cursor.fetchall()
 
         self.closeDatabase(connection, cursor)
         return result
 
-    def selectCourse(self, userName, id):
+    def selectCourse(self, student_id, course_id):
         connection, cursor = self.connectDatabase()
 
-        instruction = "INSERT INTO stu_course_list " \
+        instruction = "INSERT INTO student_course(student_id, course_id) " \
                       "values(%s, %s)"
 
-        cursor.execute(instruction, [userName, id])
+        cursor.execute(instruction, [student_id, course_id])
         connection.commit()
 
         self.closeDatabase(connection, cursor)
 
         return
 
-    def dropStudentCourse(self, userName, id):
+    def dropStudentCourse(self, student_id, course_id):
         connection, cursor = self.connectDatabase()
 
-        instruction = "DELETE FROM stu_course_list " \
-                      "WHERE username=%s AND id=%s "
-        cursor.execute(instruction, [userName, id])
+        instruction = "DELETE FROM student_course " \
+                      "WHERE student_id=%s AND course_id=%s "
+        cursor.execute(instruction, [student_id, course_id])
         connection.commit()
 
         self.closeDatabase(connection, cursor)
         return
 
-    def getTeacherCourseList(self, userName):
+    def getTeacherCourseList(self, teacher_id):
         connection, cursor = self.connectDatabase()
 
-        instruction = "SELECT * FROM course " \
-                      "WHERE teacher_id=%s"
-        cursor.execute(instruction, [userName])
+        instruction = "SELECT c.id, c.name " \
+                      "FROM course AS c, teacher_course AS tc " \
+                      "WHERE tc.teacher_id=%s AND c.id=tc.course_id " \
+                      "ORDER BY c.id"
+
+        cursor.execute(instruction, [teacher_id])
         return cursor.fetchall()
 
         self.closeDatabase(connection, cursor)
 
         return result
 
-    def getStudentCourseList(self, userName):
+    def getStudentCourseList(self, student_id):
         connection, cursor = self.connectDatabase()
 
-        instruction = "SELECT c.id, name " \
-                      "FROM course AS c, stu_course_list AS scl " \
-                      "WHERE c.id=scl.id AND username=%s " \
+        instruction = "SELECT c.id, c.name " \
+                      "FROM course AS c, student_course AS sc " \
+                      "WHERE c.id=sc.course_id AND sc.student_id=%s " \
                       "ORDER BY c.id"
 
-        cursor.execute(instruction, [userName])
+        cursor.execute(instruction, [student_id])
 
         result = cursor.fetchall()
         self.closeDatabase(connection, cursor)
-
         return result
 
     def getCourseList(self):
@@ -137,53 +154,91 @@ class MySQL:
         self.closeDatabase(connection, cursor)
         return result
 
-    def buildCourse(self, userName, courseName):
+    def buildCourseMaterial(self, course_id, material_id):
+        connection, cursor = self.connectDatabase()
+        instruction = "INSERT INTO course_material(material_id, course_id) " \
+                      "VALUES(%s, %s)"
+        cursor.execute(instruction, [material_id, course_id])
+        connection.commit()
+        self.closeDatabase(connection, cursor)
+        return
+
+    def buildCourse(self, teacher_id, course_name, materialList):
         connection, cursor = self.connectDatabase()
 
-        instruction = "INSERT INTO course(name, teacher_id) " \
-                      "VALUES(%s, %s)"
-        cursor.execute(instruction, [courseName, userName])
-
+        instruction = "INSERT INTO course(name) " \
+                      "VALUES(%s)"
+        cursor.execute(instruction, [course_name])
         connection.commit()
 
+        instruction = "SELECT id " \
+                      "FROM course " \
+                      "WHERE name=%s"
+        cursor.execute(instruction, [course_name])
+        result = cursor.fetchall()
+
+        course_id = result[len(result) - 1][0]
+
+        instruction = "INSERT INTO teacher_course(teacher_id, course_id) " \
+                      "VALUES(%s, %s)"
+
+        cursor.execute(instruction, [teacher_id, course_id])
+        connection.commit()
+
+        if (materialList[0] != ''):
+
+            for material in materialList:
+                self.buildMaterial(teacher_id, material)
+                instruction = "SELECT id " \
+                              "FROM material " \
+                              "WHERE name=%s"
+                cursor.execute(instruction, [material])
+                result = cursor.fetchall()
+
+                material_id = result[len(result) - 1][0]
+
+                self.buildCourseMaterial(course_id, material_id)
+
         self.closeDatabase(connection, cursor)
+
+        return
 
     def closeDatabase(self, connection, cursor):
         connection.close()
         cursor.close()
 
-    def registerStudent(self, userName, passWord, name):
+    def registerStudent(self, student_id, password, student_name):
         connection, cursor = self.connectDatabase()
 
         instruction = "INSERT INTO student " \
                       "values(%s, %s, %s)"
 
-        cursor.execute(instruction, [userName, passWord, name])
+        cursor.execute(instruction, [student_id, password, student_name])
         connection.commit()
 
         self.closeDatabase(connection, cursor)
         return
 
-    def registerTeacher(self, userName, passWord, name):
+    def registerTeacher(self, teacher_id, password, teacher_name):
         connection, cursor = self.connectDatabase()
 
         instruction = "INSERT INTO teacher " \
                       "values(%s, %s, %s)"
 
-        cursor.execute(instruction, [userName, passWord, name])
+        cursor.execute(instruction, [teacher_id, password, teacher_name])
         connection.commit()
 
         self.closeDatabase(connection, cursor)
         return
 
-    def findTeacher(self, userName):
+    def findTeacher(self, teacher_id):
         connection, cursor = self.connectDatabase()
 
         instruction = "SELECT *\
                 FROM teacher\
-                Where username=%s"
+                Where id=%s"
 
-        cursor.execute(instruction, [userName])
+        cursor.execute(instruction, [teacher_id])
 
         result = cursor.fetchall()
 
@@ -191,14 +246,14 @@ class MySQL:
 
         return result
 
-    def findStudent(self, userName):
+    def findStudent(self, student_id):
         connection, cursor = self.connectDatabase()
 
         instruction = "SELECT *\
                 FROM student\
-                Where username=%s"
+                Where id=%s"
 
-        cursor.execute(instruction, [userName])
+        cursor.execute(instruction, [student_id])
 
         result = cursor.fetchall()
 
@@ -206,51 +261,48 @@ class MySQL:
 
         return result
 
-    def studentPasswordChange(self, userName, passWord):
+    def studentPasswordChange(self, student_id, password):
         connection, cursor = self.connectDatabase()
 
         instruction = "UPDATE student " \
                       "SET password=%s " \
-                      "WHERE username=%s"
-        cursor.execute(instruction, [passWord, userName])
+                      "WHERE id=%s"
+        cursor.execute(instruction, [password, student_id])
 
         connection.commit()
         self.closeDatabase(connection, cursor)
         return
 
-    def changeCourseName(self, teacherID, courseID, courseName):
+    def changeCourseName(self, teacher_id, course_id, course_name):
         connection, cursor = self.connectDatabase()
         instruction = "UPDATE course " \
                       "SET name=%s " \
-                      "WHERE id=%s AND teacher_id=%s"
+                      "WHERE id=%s"
 
-        cursor.execute(instruction, [courseName, courseID, teacherID])
+        cursor.execute(instruction, [course_name, course_id])
 
         connection.commit()
         self.closeDatabase(connection, cursor)
         return
 
-    def cancelCourse(self, teacherID, courseID):
+    def cancelCourse(self, teacher_id, course_id):
         connection, cursor = self.connectDatabase()
 
         instruction = "DELETE FROM course " \
-                      "WHERE teacher_id=%s AND id=%s"
+                      "WHERE id=%s"
 
-        cursor.execute(instruction, [teacherID, courseID])
+        cursor.execute(instruction, [course_id])
         connection.commit()
         self.closeDatabase(connection, cursor)
+        return
 
-        result = self.getTeacherCourseList(teacherID)
-
-        return result
-
-    def teacherPasswordChange(self, userName, passWord):
+    def teacherPasswordChange(self, teacher_id, password):
         connection, cursor = self.connectDatabase()
 
         instruction = "UPDATE teacher " \
                       "SET password=%s " \
-                      "WHERE username=%s"
-        cursor.execute(instruction, [passWord, userName])
+                      "WHERE id=%s"
+        cursor.execute(instruction, [password, teacher_id])
 
         connection.commit()
         self.closeDatabase(connection, cursor)
