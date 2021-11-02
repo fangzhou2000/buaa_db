@@ -2,7 +2,7 @@
 <div class="background">
     <el-container class="header">
       <el-header>
-        <span>{{userNickName}} 修改 {{course.name}}</span>
+        <span>{{userNickName}} 修改 {{name}}</span>
       </el-header>
     </el-container>
 
@@ -19,7 +19,7 @@
           </el-form-item>
           <el-form-item label="学习材料 (如有多个请用','隔开)">
             <el-col :span="6">
-              <el-input v-model="course.materialIdString"></el-input>
+              <el-input v-model="materialIdString"></el-input>
             </el-col>
           </el-form-item>
           <el-form-item>
@@ -43,17 +43,21 @@ export default {
       userNickName: '',
       userName: '',
       id: '',
+      name: '',
+      materialIdString: '',
       course: {
-        id: '1',
-        name: '前端测试课程',
-        materialIdString: ''
+        name: '',
+        materialIdList: []
       }
     }
   },
   mounted () {
     this.userName = this.cookie.getCookie('userName')
     this.userNickName = this.cookie.getCookie('userNickName')
-    this.course = this.$route.params.course
+    this.id = this.$route.query.id
+    this.name = this.$route.query.name
+    this.course.name = this.name
+    this.materialIdString = this.$route.query.materialIdString
   },
   methods: {
     changeCourse: function () {
@@ -64,7 +68,8 @@ export default {
         method: 'get',
         params: {
           id: that.id,
-          course: that.course
+          course: that.course,
+          userName: that.userName
         }
       }).then(function (response) {
         console.log(response.data)

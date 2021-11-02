@@ -3,6 +3,19 @@ import pymysql
 
 class MySQL:
 
+    def getMaterialName(self, material_id):
+        connection, cursor = self.connectDatabase()
+
+        instruction = "SELECT name " \
+                      "FROM material " \
+                      "WHERE id=%s"
+        cursor.execute(instruction, [material_id])
+
+        result = cursor.fetchall()
+
+        self.closeDatabase(connection, cursor)
+        return result
+
     def deleteMaterial(self, teached_id, material_id):
         connection, cursor = self.connectDatabase()
 
@@ -117,10 +130,15 @@ class MySQL:
     def getTeacherCourseList(self, teacher_id):
         connection, cursor = self.connectDatabase()
 
-        instruction = "SELECT c.id, c.name " \
+        instruction = "SELECT c.id, c.name, cm.material_id " \
+                      "FROM " \
+                      "(SELECT c.id, c.name " \
                       "FROM course AS c, teacher_course AS tc " \
                       "WHERE tc.teacher_id=%s AND c.id=tc.course_id " \
-                      "ORDER BY c.id"
+                      "ORDER BY c.id)" \
+                      "AS c(id,name) " \
+                      "LEFT OUTER JOIN course_material AS cm " \
+                      "ON (c.id=cm.course_id)"
 
         cursor.execute(instruction, [teacher_id])
         return cursor.fetchall()
@@ -146,8 +164,12 @@ class MySQL:
     def getCourseList(self):
         connection, cursor = self.connectDatabase()
 
-        instruction = "SELECT * " \
-                      "FROM course"
+        # instruction = "SELECT c.id, c.name, cm.material_id " \
+        #               "FROM course AS c, course_material AS cm " \
+        #               "WHERE c.id=cm.course_id"
+        instruction = "SELECT c.id, c.name, cm.material_id " \
+                      "FROM course AS c LEFT OUTER JOIN course_material AS cm " \
+                      "ON (c.id=cm.course_id)"
 
         cursor.execute(instruction)
         result = cursor.fetchall()
@@ -188,6 +210,8 @@ class MySQL:
         if (materialList[0] != ''):
 
             for material in materialList:
+                if material == "":
+                    continue
                 self.buildMaterial(teacher_id, material)
                 instruction = "SELECT id " \
                               "FROM material " \
@@ -273,15 +297,44 @@ class MySQL:
         self.closeDatabase(connection, cursor)
         return
 
-    def changeCourseName(self, teacher_id, course_id, course_name):
+    def changeCourse(self, teacher_id, course_id, course_name, materialList):
         connection, cursor = self.connectDatabase()
         instruction = "UPDATE course " \
                       "SET name=%s " \
                       "WHERE id=%s"
-
         cursor.execute(instruction, [course_name, course_id])
-
         connection.commit()
+
+        # 找旧的课程资料：
+        instruction = "SELECT m.id, m.name " \
+                      "FROM material AS m, course_material AS cm " \
+                      "WHERE cm.material_id=m.id AND cm.course_id=%s"
+        cursor.execute(instruction, [course_id])
+        result = cursor.fetchall()
+
+        for item in result:
+            if materialList.count(item[1]):
+                materialList.remove(item[1])
+                pass
+            else:
+                instruction = "DELETE FROM material " \
+                              "WHERE id=%s"
+                cursor.execute(instruction, [item[0]])
+                connection.commit()
+        for material in materialList:
+            if material == "":
+                continue
+            self.buildMaterial(teacher_id, material)
+            instruction = "SELECT id " \
+                          "FROM material " \
+                          "WHERE name=%s"
+            cursor.execute(instruction, [material])
+            result = cursor.fetchall()
+
+            material_id = result[len(result) - 1][0]
+
+            self.buildCourseMaterial(course_id, material_id)
+
         self.closeDatabase(connection, cursor)
         return
 
@@ -310,13 +363,17 @@ class MySQL:
 
 
 if __name__ == "__main__":
-    sql = MySQL()
-    # sql.buildMaterial("123", "234")
-    result = sql.getMaterialList()
-    print(result)
-
-    result = sql.getTeacherMaterialList("123")
-    print(result)
+    s = "1,2，3"
+    s.s
+    s = s.split("[,]")
+    print(s)
+    # sql = MySQL()
+    # # sql.buildMaterial("123", "234")
+    # result = sql.getMaterialList()
+    # print(result)
+    #
+    # result = sql.getTeacherMaterialList("123")
+    # print(result)
     """
     userName = "19373136"
     sql = MySQL()

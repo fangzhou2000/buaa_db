@@ -44,7 +44,7 @@ export default {
       myCourseList: [{
         id: '1',
         name: '前端测试课程',
-        materialIdString: '11'
+        materialIdString: '资料1,资料2'
       }]
     }
   },
@@ -74,8 +74,12 @@ export default {
       console.log(index)
       this.$router.push({
         path: '/TeacherCourse/ChangeCourse',
-        params: {
-          course: that.myCourseList[index]
+        // 这里不能使用params传递参数，详见：
+        // https://blog.csdn.net/qq_37548296/article/details/90446430
+        query: {
+          id: that.myCourseList[index].id,
+          name: that.myCourseList[index].name,
+          materialIdString: that.myCourseList[index].materialIdString
         }
       })
     },
