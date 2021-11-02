@@ -46,20 +46,40 @@ Vue样式 (oyk)
 
 ### Final
 
+实体：
+
+|            Entity             | Key  | Description |
+| :---------------------------: | :--: | :---------: |
+| `student(id, password, name)` | `id` |  学生信息   |
+| `teacher(id, password, name)` | `id` |  教师信息   |
+|     `material(id, name)`      | `id` |  学习材料   |
+|      `course(id, name)`       | `id` |  课程信息   |
+
+关系：
+
+|                  Relation                   |    Key    |  Description   |
+| :-----------------------------------------: | :-------: | :------------: |
+|   `student_course(student_id, course_id)`   | `all-key` |  学生选课信息  |
+|   `teacher_course(teacher_id, course_id)`   | `all-key` |  教师开课信息  |
+| `teacher_material(teacher_id, material_id)` | `all-key` | 教师提供的材料 |
+|  `course_material(course_id, material_id)`  | `all-key` |   课程的材料   |
+
+
+
 ```
 Entity
 
-student(id, password, name)
-teacher(id, password, name)
-material(id, name)
-course(id, name)
+student(id, password, name), key(id)
+teacher(id, password, name), key(id)
+material(id, name), key(id)
+course(id, name), key(id)
 
 Relation
 
-student_course(student_id, course_id)
-teacher_course(teacher_id, course_id)
-teacher_material(teacher_id, material_id)
-course_material(course_id, material_id)
+student_course(student_id, course_id), key(all)
+teacher_course(teacher_id, course_id), key(all)
+teacher_material(teacher_id, material_id), key(all)
+course_material(course_id, material_id), key(all)
 ```
 
 
@@ -73,12 +93,12 @@ teacher(id, name, password, sex, department, telephone, email)
 student(id, name, password, sex, department, orientation)
 admin(id, password, telephone, email)
 course(id, name, department, volume, credit)
-material(id, department, obtain)
+material(id, name, department, obtain)
 group(id, orientation, department, volume)
 
 Relation
 
-courseEvaluation(id, content) //anonymity //
+courseEvaluation(id, content) //匿名?
 courseSelection(student_id, course_id)
 groupJoin(student_id, group_id)
 studentMaterialObtain(student_id, material_id)
@@ -86,15 +106,18 @@ groupMaterialObtain(group_id, material_id)
 courseCreate(course_id, teacher_id, time)
 groupTutor(course_id, teacher_id) //no time
 grade() //打分
+
 ```
-
-
 
 ## Team
 
-[@fangzhou0216](https://github.com/fangzhou0216), [@Mike-Smith-rem](https://github.com/Mike-Smith-rem), [@imingx](https://github.com/imingx).
+[@fangzhou0216][tqj], [@Mike-Smith-rem][oyk], [@imingx][gmm].
 
 ## License
 
 
 
+
+[tqj]: https://github.com/fangzhou0216
+[oyk]: https://github.com/Mike-Smith-rem
+[gmm]: https://github.com/imingx
