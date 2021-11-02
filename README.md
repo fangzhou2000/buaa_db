@@ -40,41 +40,55 @@ Vue样式 (oyk)
 'PORT': '3306'
 ```
 
-### Entity
+### 
+
+## DataBase Design
+
+### Final
 
 ```
+Entity
+
+student(id, password, name)
+teacher(id, password, name)
+material(id, name)
+course(id, name)
+
+Relation
+
+student_course(student_id, course_id)
+teacher_course(teacher_id, course_id)
+teacher_material(teacher_id, material_id)
+course_material(course_id, material_id)
+```
+
+
+
+### Plan
+
+```
+Entity
+
 teacher(id, name, password, sex, department, telephone, email)
-
 student(id, name, password, sex, department, orientation)
-
 admin(id, password, telephone, email)
-
 course(id, name, department, volume, credit)
-
 material(id, department, obtain)
-
 group(id, orientation, department, volume)
-```
 
-### Relation
+Relation
 
-```
 courseEvaluation(id, content) //anonymity //
-
 courseSelection(student_id, course_id)
-
 groupJoin(student_id, group_id)
-
 studentMaterialObtain(student_id, material_id)
-
 groupMaterialObtain(group_id, material_id)
-
 courseCreate(course_id, teacher_id, time)
-
 groupTutor(course_id, teacher_id) //no time
-
 grade() //打分
 ```
+
+
 
 ## Team
 
