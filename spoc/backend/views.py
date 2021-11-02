@@ -29,7 +29,7 @@ class StudentLogin(APIView):
             else:
                 return Response(dict([('value', 2)]))
         else:
-            return Response(dict(['value', 1]))
+            return Response(dict([('value', 1)]))
 
 
 class StudentRegister(APIView):
@@ -84,7 +84,7 @@ class TeacherLogin(APIView):
             else:
                 return Response(dict([('value', 2)]))
         else:
-            return Response(dict(['value', 1]))
+            return Response(dict([('value', 1)]))
 
 
 
