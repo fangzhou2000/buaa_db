@@ -30,7 +30,7 @@ Vue样式 (oyk)
 </br>
 </details>
 
-## Database
+## DataBase
 
 ```
 'HOST': 'rm-2zeu3f7e1n5yt10v0co.mysql.rds.aliyuncs.com',
@@ -40,13 +40,11 @@ Vue样式 (oyk)
 'PORT': '3306'
 ```
 
-### 
-
 ## DataBase Design
 
-### Final
+### Final Design
 
-实体：
+**实体：**
 
 |            Entity             | Key  | Description |
 | :---------------------------: | :--: | :---------: |
@@ -55,7 +53,7 @@ Vue样式 (oyk)
 |     `material(id, name)`      | `id` |  学习材料   |
 |      `course(id, name)`       | `id` |  课程信息   |
 
-关系：
+**关系：**
 
 |                  Relation                   |    Key    |  Description   |
 | :-----------------------------------------: | :-------: | :------------: |
@@ -64,27 +62,7 @@ Vue样式 (oyk)
 | `teacher_material(teacher_id, material_id)` | `all-key` | 教师提供的材料 |
 |  `course_material(course_id, material_id)`  | `all-key` |   课程的材料   |
 
-
-
-```
-Entity
-
-student(id, password, name), key(id)
-teacher(id, password, name), key(id)
-material(id, name), key(id)
-course(id, name), key(id)
-
-Relation
-
-student_course(student_id, course_id), key(all)
-teacher_course(teacher_id, course_id), key(all)
-teacher_material(teacher_id, material_id), key(all)
-course_material(course_id, material_id), key(all)
-```
-
-
-
-### Plan
+### Plan Design
 
 ```
 Entity
@@ -106,7 +84,6 @@ groupMaterialObtain(group_id, material_id)
 courseCreate(course_id, teacher_id, time)
 groupTutor(course_id, teacher_id) //no time
 grade() //打分
-
 ```
 
 ## Team
