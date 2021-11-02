@@ -7,7 +7,7 @@ class StudentLogin(APIView):
     def get(self, request):
         # 默认userNickName为空
         # 需要将userNickName很久userName进行查找，赋值给userNickName。并返回前端（返回前端已完成）
-        userNickName = str(request.GET.get('userNickName', None))
+        # userNickName = str(request.GET.get('userNickName', None))
         userName = str(request.GET.get('userName', None))
         userPassWord = str(request.GET.get('userPassWord', None))
         print("StudentLogin得到的学号和密码是 " + userName + " " + userPassWord)
@@ -19,17 +19,17 @@ class StudentLogin(APIView):
 
         if flag:
             print("请求登录的学生账号是%s,其正确密码是%s" % (result[0][0], result[0][1]))
-            print("请求登录的学生用户名为" + userNickName)
+            print("请求登录的学生姓名为%s" % result[0][2])
         else:
             print("找不到该学生")
 
         if flag:
             if userPassWord == result[0][1]:
-                return Response(0)
+                return Response(dict([('value', 0), ('userNickName', result[0][2])]))
             else:
-                return Response(2)
+                return Response(dict([('value', 2)]))
         else:
-            return Response(1)
+            return Response(dict(['value', 1]))
 
 
 class StudentRegister(APIView):
@@ -73,17 +73,19 @@ class TeacherLogin(APIView):
         flag = not not result
 
         if flag:
-            print("请求登录的教师账号是%s,其正确密码是%s" % (result[0][0], result[0][1]))
+            print("请求登录的教师账号是%s,其正确密码是%s\n" % (result[0][0], result[0][1]))
+            print("请求的教师姓名为%s\n" %result[0][2])
         else:
             print("找不到该教师")
 
         if flag:
             if userPassWord == result[0][1]:
-                return Response(0)
+                return Response(dict([('value', 0), ('userNickName', result[0][2])]))
             else:
-                return Response(2)
+                return Response(dict([('value', 2)]))
         else:
-            return Response(1)
+            return Response(dict(['value', 1]))
+
 
 
 class TeacherRegister(APIView):
