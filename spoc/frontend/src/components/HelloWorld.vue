@@ -3,7 +3,7 @@
       <div class="navigator">
         <div class="navigator-left">
           <i class="el-icon-bell"></i>
-          Spoc
+          &nbsp;&nbsp;&nbsp;Spoc
         </div>
         <div class="navigator-right">
           <el-button class="buttons" @click="goToStudentLogin">学生登录</el-button>
@@ -24,82 +24,107 @@
       </div>
       <div class="line_1">
         <div class="line-1-head"><span class="div-head">其他推荐</span></div>
-        <div class="block1">
-        <span>
-          <i class="el-icon-edit"></i>
-        </span>
-        <span class="content1">三招搞定数学分析</span>
-          <p class="line-1-text"><span>优质课程推荐</span>&nbsp;&nbsp;<span class="line-1-link"><a href="">立即查看</a></span></p>
-          <p class="line-1-text"><span>学习资料获取</span>&nbsp;&nbsp;<span class="line-1-link"><a href="">抢先获得</a></span></p>
-          <p class="line-1-text"><span>加入兴趣小组</span>&nbsp;&nbsp;<span class="line-1-link"><a href="">点击加入</a></span></p>
-      </div>
-        <div class="block2">
-        <span>
-          <i class="el-icon-question"></i>
-        </span>
-        <span>&nbsp;&nbsp;</span>
-        <span class="content2">课程查询指导</span>
-          <p class="line-1-text">课程信息</p>
-          <p class="line-1-text">使用指南</p>
-          <p class="line-1-text">未完待续...</p>
-      </div>
-        <div class="block3">
-        <span>
-          <i class="el-icon-search"></i>
-        </span>
-        <span class="content3">成绩综合分析</span>
-          <p class="line-1-text">查询成绩</p>
-          <p class="line-1-text">未完待续...</p>
-      </div>
+        <br><br>
+        <div class="line-1-content">
+          <el-row>
+  <!--        <div class="block1">-->
+            <el-col span="4" offset="3">
+              <el-card>
+                <img :src="cardImg_group.src" alt="">
+                <p>{{cardImg_group.title}}</p>
+              </el-card>
+            </el-col>
+  <!--        <span>-->
+  <!--          <i class="el-icon-edit"></i>-->
+  <!--        </span>-->
+  <!--        <span class="content1">三招搞定数学分析</span>-->
+  <!--          <p class="line-1-text"><span>优质课程推荐</span>&nbsp;&nbsp;<span class="line-1-link"><a href="">立即查看</a></span></p>-->
+  <!--          <p class="line-1-text"><span>学习资料获取</span>&nbsp;&nbsp;<span class="line-1-link"><a href="">抢先获得</a></span></p>-->
+  <!--          <p class="line-1-text"><span>加入兴趣小组</span>&nbsp;&nbsp;<span class="line-1-link"><a href="">点击加入</a></span></p>-->
+  <!--      </div>-->
+  <!--        <div class="block2">-->
+            <el-col span="4" offset="3">
+              <el-card>
+                <img :src="cardImg_book.src" alt="">
+                <p>{{cardImg_book.title}}</p>
+              </el-card>
+            </el-col>
+  <!--        <span>-->
+  <!--          <i class="el-icon-question"></i>-->
+  <!--        </span>-->
+  <!--        <span>&nbsp;&nbsp;</span>-->
+  <!--        <span class="content2">课程查询指导</span>-->
+  <!--          <p class="line-1-text">课程信息</p>-->
+  <!--          <p class="line-1-text">使用指南</p>-->
+  <!--          <p class="line-1-text">未完待续...</p>-->
+  <!--      </div>-->
+  <!--        <div class="block3">-->
+            <el-col span="4" offset="3">
+              <el-card>
+                <img :src="cardImg_join.src" alt="">
+                <p>{{cardImg_join.title}}</p>
+              </el-card>
+            </el-col>
+  <!--        <span>-->
+  <!--          <i class="el-icon-search"></i>-->
+  <!--        </span>-->
+  <!--        <span class="content3">成绩综合分析</span>-->
+  <!--          <p class="line-1-text">查询成绩</p>-->
+  <!--          <p class="line-1-text">未完待续...</p>-->
+          </el-row>
+        </div>
       </div>
       <div class="line_2">
-        <div class="line-2-head"><span class="div-head">指导单位</span></div>
-        <div class="line-2-content">
-          <div class="line-2-admin">
-            <div class="left-photo">
-              <div class="imgs">
-              <img src="../assets/img/G.jpg" alt="fangzhou"/>
-            </div>
-              <div class="imgs">
-              <img src="../assets/img/O.jpg" alt="Mike-smith-rem"/>
-            </div>
-              <div class="imgs">
-              <img src="../assets/img/T.jpg" alt="mingx"/>
-            </div>
-            </div>
-            <div class="right-photo">
-              <div class="school1">
-               <img src="../assets/img/北航logo.png" alt="buaa"/>
-              </div>
-              <div class="school2">
-               <img src="../assets/img/北航计算机学院logo.png" alt="buaa-cs"/>
-            </div>
-            </div>
-          </div>
-          <div class="line-2-intro">
-            <div id="first_row">
-              <ol>
-                <li>这是一个怎样的网站</li>
-                <ul>
-                  <li>这是一个用于检验学习成果的小项目，主要使用语言包括<strong>JS、VUE（前端），Python（后端）</strong>，同时利用<strong>Django</strong>框架进行交互</li>
-                  <li>这个网站提供后台数据库进行支持。其中利用<Strong>MySQL进行数据的操作和保存</Strong></li>
-                  <li>这个网站是开源的，您可以在github中找到源文件</li>
-                  <li>未完待续...</li>
-                </ul>
-                <li>您能在这里看到什么</li>
-                <ul>
-                  <li>学生互动平台和教师平台——在小组中展现特色</li>
-                  <li>多样的课程——多样的评价——多样的学习资料</li>
-                  <li>未完待续...</li>
-                  </ul>
-                <li>您需要如何操作</li>
-                <ul>
-                  <li>只需要点击对应的按钮，就能完成你需要的操作</li>
-                  <li>未完待续....</li>
-                </ul>
-              </ol>
-        </div>
-          </div>
+        <div class="line-2-head"><span class="div-head">关于我们</span></div>
+<!--        <div class="line-2-content">-->
+<!--          <div class="line-2-admin">-->
+<!--            <div class="left-photo">-->
+<!--              <div class="imgs">-->
+<!--              <img src="../assets/img/G.jpg" alt="fangzhou"/>-->
+<!--            </div>-->
+<!--              <div class="imgs">-->
+<!--              <img src="../assets/img/O.jpg" alt="Mike-smith-rem"/>-->
+<!--            </div>-->
+<!--              <div class="imgs">-->
+<!--              <img src="../assets/img/T.jpg" alt="mingx"/>-->
+<!--            </div>-->
+<!--            </div>-->
+<!--            <div class="right-photo">-->
+<!--              <div class="school1">-->
+<!--               <img src="../assets/img/北航logo.png" alt="buaa"/>-->
+<!--              </div>-->
+<!--              <div class="school2">-->
+<!--               <img src="../assets/img/北航计算机学院logo.png" alt="buaa-cs"/>-->
+<!--            </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="line-2-intro">-->
+<!--            <div id="first_row">-->
+<!--              <ol>-->
+<!--                <li>这是一个怎样的网站</li>-->
+<!--                <ul>-->
+<!--                  <li>这是一个用于检验学习成果的小项目，主要使用语言包括<strong>JS、VUE（前端），Python（后端）</strong>，同时利用<strong>Django</strong>框架进行交互</li>-->
+<!--                  <li>这个网站提供后台数据库进行支持。其中利用<Strong>MySQL进行数据的操作和保存</Strong></li>-->
+<!--                  <li>这个网站是开源的，您可以在github中找到源文件</li>-->
+<!--                  <li>未完待续...</li>-->
+<!--                </ul>-->
+<!--                <li>您能在这里看到什么</li>-->
+<!--                <ul>-->
+<!--                  <li>学生互动平台和教师平台——在小组中展现特色</li>-->
+<!--                  <li>多样的课程——多样的评价——多样的学习资料</li>-->
+<!--                  <li>未完待续...</li>-->
+<!--                  </ul>-->
+<!--                <li>您需要如何操作</li>-->
+<!--                <ul>-->
+<!--                  <li>只需要点击对应的按钮，就能完成你需要的操作</li>-->
+<!--                  <li>未完待续....</li>-->
+<!--                </ul>-->
+<!--              </ol>-->
+<!--        </div>-->
+<!--          </div>-->
+<!--        </div>-->
+        <div>
+
         </div>
     </div>
       <div class="copyright">
@@ -132,6 +157,10 @@
 import technology from '../assets/img/technology.jpg'
 import book from '../assets/img/book.jpg'
 import Computer from '../assets/img/Computer.jpg'
+import cardBook from '../assets/img/300-240-book.png'
+import cardJoin from '../assets/img/300-240-add.jpg'
+import cardGroup from '../assets/img/300-240-group.jpg'
+
 export default {
   data: function () {
     return {
@@ -151,7 +180,22 @@ export default {
           'subTitle': 'Corporation and Sharing',
           'src': Computer
         }
-      ]
+      ],
+      cardImg_group: {
+        'id': 'group',
+        'title': '小组生活',
+        'src': cardGroup
+      },
+      cardImg_join: {
+        'id': 'join',
+        'title': '加入我们',
+        'src': cardJoin
+      },
+      cardImg_book: {
+        'id': 'book',
+        'title': '资料查询',
+        'src': cardBook
+      }
     }
   },
   methods: {
@@ -172,18 +216,23 @@ export default {
 <style scoped>
   .navigator{
     height: 80px;
+    width: 100%;
     background-color: whitesmoke;
   }
   .navigator-left{
     font-size: 40px;
     display: inline-flex;
-    float: left;
     font-family: '华文仿宋', serif;
+    float: left;
+    margin-left: 5%;
+    margin-top: 1%;
   }
   .navigator-right{
     align-self: center;
     display: inline-flex;
     float: right;
+    margin-right: 5%;
+    margin-top: 1%;
   }
   .buttons{
     display: inline-flex;
@@ -212,6 +261,24 @@ export default {
     margin-right: 20px;
     padding-top: 300px;
 }
+  .line_1{
+    margin-top: 50px;
+    height: 400px;
+    width: inherit;
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+  .block1, .block2, .block3{
+    float: left;
+    margin-left: 10%;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    width: 20%;
+    height: 70%;
+    border: 1px whitesmoke solid;
+    border-radius: 3px;
+    background: linear-gradient(2deg, ghostwhite 1%, whitesmoke 20%);
+  }
   .line-2-content{
     width: 100%;
     height: 500px;
@@ -306,13 +373,6 @@ export default {
   .links{
     font-size: 12px;
   }
-  .line_1{
-    margin-top: 50px;
-    height: 400px;
-    width: inherit;
-    margin-left: 50px;
-    margin-right: 50px;
-  }
   .line_2{
     margin-top: 50px;
     height: 600px;
@@ -332,17 +392,6 @@ export default {
     float: left;
     margin-left: 30px;
     margin-top: 10px;
-  }
-  .block1, .block2, .block3{
-    float: left;
-    margin-left: 10%;
-    margin-top: 40px;
-    margin-bottom: 40px;
-    width: 20%;
-    height: 70%;
-    border: 1px whitesmoke solid;
-    border-radius: 3px;
-    background: linear-gradient(2deg, ghostwhite 1%, whitesmoke 20%);
   }
   .content1, .content2, .content3{
     font-size: 20px;

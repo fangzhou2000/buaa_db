@@ -1,0 +1,50 @@
+
+   .background{
+    background-image: url("../img/Login.jpg");
+    height: 1080px;
+  }
+  .head{
+    text-align: center;
+    margin-top: 1px;
+    font-size: 30px;
+    font-family: '华文仿宋', serif;
+  }
+  .register_block{
+    background-color: rgba(255, 255, 255, 0.15);
+    position: center;
+    margin-top: 50px;
+    margin-left: 40%;
+    width: 20%;
+    height: 450px;
+    border-color: #a8a8a8;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 20px;
+    opacity: 0.8;
+  }
+  .register_head{
+    text-align: center;
+    margin-top: 10%;
+    font-family: "微软雅黑", serif;
+    color: black;
+    font-size: 30px;
+  }
+  #register-n, #register-name, #register-password, #confirm-password{
+    padding-left: 10%;
+  }
+  .confirm-button, .register-button, .return-button{
+    margin-top: 15px;
+    padding-left: 10%;
+  }
+  .inputs{
+    width: 90%;
+    height: 20px;
+    border: none;
+  }
+  #button_in, #button_re{
+    width: 90%;
+  }
+  .return-text{
+    margin-top: 10px;
+    text-align: center;
+  }
