@@ -76,7 +76,7 @@ export default {
       }).catch(function (error) {
         console.log(error)
       })
-      that.materialString = ''
+      that.materialIdString = ''
       that.course = {
         name: '',
         materialIdList: []

@@ -4,7 +4,7 @@
       <el-card style="background-color: #66b1ff">
         <i class="el-icon-user-solid" style="font-size: 50px"></i>
         <p style="color: white">姓名:&nbsp;{{userNickName}}</p>
-        <p style="color: white">学号:&nbsp;{{userNickName}}</p>
+        <p style="color: white">学号:&nbsp;{{userName}}</p>
       </el-card>
     </div>
     <el-menu :default-active="this.$route.path" router>
@@ -57,7 +57,7 @@ export default {
   name: 'StudentNav',
   data () {
     return {
-      username: '',
+      userName: '',
       userNickName: ''
     }
   },

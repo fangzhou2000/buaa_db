@@ -73,7 +73,8 @@ export default {
         }
       }).then(function (response) {
         console.log(response.data)
-        that.myCourseList = response.data
+        // that.myCourseList = response.data
+        that.getStudentCourseList()
         that.$message.success('退课成功')
       }).catch(function (error) {
         console.log(error)
