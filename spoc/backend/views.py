@@ -74,7 +74,7 @@ class TeacherLogin(APIView):
 
         if flag:
             print("请求登录的教师账号是%s,其正确密码是%s\n" % (result[0][0], result[0][1]))
-            print("请求的教师姓名为%s\n" %result[0][2])
+            print("请求的教师姓名为%s\n" % result[0][2])
         else:
             print("找不到该教师")
 
@@ -85,7 +85,6 @@ class TeacherLogin(APIView):
                 return Response(dict([('value', 2)]))
         else:
             return Response(dict([('value', 1)]))
-
 
 
 class TeacherRegister(APIView):
@@ -125,7 +124,22 @@ class GetCourseList(APIView):
         result = sql.getCourseList()
         courseList = []  # 字典列表
         for item in result:
-            courseList.append(dict([('id', item[0]), ('name', item[1])]))
+            courseList.append({'id': item[0], 'name': item[1], 'materialIdString': item[2]})
+
+        for item in courseList:
+            if item['materialIdString'] != None:
+                material_id = item['materialIdString']
+                result = sql.getMaterialName(material_id)
+                item['materialIdString'] = result[0][0]
+
+        i = 1
+        while i < len(courseList):
+            if courseList[i - 1]['id'] == courseList[i]['id']:
+                courseList[i - 1]['materialIdString'] += ","
+                courseList[i - 1]['materialIdString'] += courseList[i]['materialIdString']
+                courseList.pop(i)
+                i -= 1
+            i += 1
         return Response(courseList)
 
 
@@ -158,7 +172,7 @@ class GetStudentCourseList(APIView):
         result = sql.getStudentCourseList(userName)
         studentCourseList = []  # 字典列表
         for item in result:
-            studentCourseList.append(dict([("id", item[0]), ("name", item[1])]))
+            studentCourseList.append({'id': item[0], 'name': item[1]})
         print(studentCourseList)
         return Response(studentCourseList)
 
@@ -175,7 +189,7 @@ class DropCourse(APIView):
         studentCourseList = []  # 字典列表
         result = sql.getStudentCourseList(userName)
         for item in result:
-            studentCourseList.append(dict([("id", item[0]), ("name", item[1])]))
+            studentCourseList.append({'id': item[0], 'name': item[1]})
         return Response(studentCourseList)
 
 
@@ -230,8 +244,29 @@ class GetTeacherCourseList(APIView):
         teacherCourseList = []  # 字典列表
         print(result)
         for item in result:
-            teacherCourseList.append(dict([('id', item[0]), ('name', item[1])]))
+            teacherCourseList.append({'id': item[0], 'name': item[1], 'materialIdString': item[2]})
+
+        for item in teacherCourseList:
+            if item['materialIdString'] != None:
+                material_id = item['materialIdString']
+                result = sql.getMaterialName(material_id)
+                item['materialIdString'] = result[0][0]
+
+        i = 1
+        while i < len(teacherCourseList):
+            if teacherCourseList[i - 1]['id'] == teacherCourseList[i]['id']:
+                teacherCourseList[i - 1]['materialIdString'] += ","
+                teacherCourseList[i - 1]['materialIdString'] += teacherCourseList[i]['materialIdString']
+                teacherCourseList.pop(i)
+                i -= 1
+            i += 1
+
         return Response(teacherCourseList)
+
+
+class GetCourseInfo(APIView):
+    def get(self, request):
+        return
 
 
 class BuildCourse(APIView):
@@ -249,21 +284,18 @@ class BuildCourse(APIView):
         return Response(0)
 
 
-class GetCourseInfo(APIView):
-    def get(self, request):
-        return
-
-
 class ChangeCourse(APIView):
     def get(self, request):
-        userName = str(request.GET.get('userName', None))
-        id = str(request.GET.get('id', None))
+        teacher_id = str(request.GET.get('userName', None))
+        course_id = str(request.GET.get('id', None))
+        course = request.GET.get('course', None)
         # 教师改课程名，只能改自己开的课程的名，成功返回0
+        course = eval(course)
 
         sql = MySQL()
-        name = "体育（5）"
-        # 缺少更改后的课程名!!!!!!!!!!!!!!!！！！！！
-        sql.changeCourseName(userName, id, name)
+
+
+        sql.changeCourse(teacher_id, course_id, course['name'], course['materialIdList'])
         return Response(0)
 
 
@@ -277,17 +309,18 @@ class CancelCourse(APIView):
         sql.cancelCourse(userName, id)
         return Response(0)
 
+
 class GetMaterialList(APIView):
     def get(self, request):
-
         sql = MySQL()
 
         result = sql.getMaterialList()
 
         materialList = []
         for item in result:
-            materialList.append(dict([('id', item[0]), ('name', item[1])]))
+            materialList.append({'id': item[0], 'name': item[1]})
         return Response(materialList)
+
 
 class BuildMaterial(APIView):
     def get(self, request):
@@ -311,8 +344,9 @@ class GetTeacherMaterialList(APIView):
         teacherMaterialList = []
 
         for item in result:
-            teacherMaterialList.append(dict([('id', item[0]), ('name', item[1])]))
+            teacherMaterialList.append({'id': item[0], 'name': item[1]})
         return Response(teacherMaterialList)
+
 
 class DeleteMaterial(APIView):
     def get(self, request):
