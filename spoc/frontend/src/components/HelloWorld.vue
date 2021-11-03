@@ -28,9 +28,9 @@
         <div class="line-1-content">
           <el-row>
   <!--        <div class="block1">-->
-            <el-col span="4" offset="3">
+            <el-col span="5" offset="2">
               <el-card>
-                <img :src="cardImg_group.src" alt="">
+                <img :src="cardImg_group.src" alt="" style="display: block; width: 100%">
                 <p>{{cardImg_group.title}}</p>
               </el-card>
             </el-col>
@@ -43,9 +43,9 @@
   <!--          <p class="line-1-text"><span>加入兴趣小组</span>&nbsp;&nbsp;<span class="line-1-link"><a href="">点击加入</a></span></p>-->
   <!--      </div>-->
   <!--        <div class="block2">-->
-            <el-col span="4" offset="3">
+            <el-col span="5" offset="2">
               <el-card>
-                <img :src="cardImg_book.src" alt="">
+                <img :src="cardImg_book.src" alt="" style="display: block; width: 100%;">
                 <p>{{cardImg_book.title}}</p>
               </el-card>
             </el-col>
@@ -59,9 +59,9 @@
   <!--          <p class="line-1-text">未完待续...</p>-->
   <!--      </div>-->
   <!--        <div class="block3">-->
-            <el-col span="4" offset="3">
+            <el-col span="5" offset="2">
               <el-card>
-                <img :src="cardImg_join.src" alt="">
+                <img :src="cardImg_join.src" alt="" style="display: block; width: 100%">
                 <p>{{cardImg_join.title}}</p>
               </el-card>
             </el-col>
@@ -263,7 +263,7 @@ export default {
 }
   .line_1, .line_2{
     margin-top: 50px;
-    height: 450px;
+    height: 600px;
     width: inherit;
     margin-left: 50px;
     margin-right: 50px;
