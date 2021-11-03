@@ -260,7 +260,7 @@ export default {
     line-height: 50px;
     margin-right: 20px;
     padding-top: 300px;
-}
+  }
   .line_1{
     margin-top: 50px;
     height: 400px;
