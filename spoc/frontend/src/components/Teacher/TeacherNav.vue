@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="aside">
     <div>
       <el-card style="background-color: #66b1ff">
         <i class="el-icon-user-solid" style="font-size: 50px"></i>
@@ -49,10 +49,13 @@
     background-color: white;
   }
   .main {
-    height: 1000px;
+    height: 900px;
   }
   .el-main{
     height: inherit;
+  }
+  .aside{
+    height: 900px;
   }
   .el-aside {
     text-align: center;

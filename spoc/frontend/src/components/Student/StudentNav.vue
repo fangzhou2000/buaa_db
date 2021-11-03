@@ -39,13 +39,13 @@
     background-color: white;
   }
   .main {
-    height: 1000px;
+    height: 900px;
   }
   .el-main{
     height: inherit;
   }
   .aside{
-    height: 1000px;
+    height: 900px;
   }
   .el-aside {
     text-align: center;
