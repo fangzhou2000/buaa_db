@@ -14,7 +14,7 @@
         <el-table :data="myCourseList">
           <el-table-column label="课程ID" prop="id"></el-table-column>
           <el-table-column label="课程名称" prop="name"></el-table-column>
-          <el-table-column label="课程材料" prop="materialIdString"></el-table-column>
+          <el-table-column label="课程材料" prop="materialString"></el-table-column>
           <el-table-column label="修改课程">
             <template slot-scope="scope">
               <el-button v-on:click="changeCourse(scope.$index)" type="warning" size="small">修改课程</el-button>
@@ -44,7 +44,8 @@ export default {
       myCourseList: [{
         id: '1',
         name: '前端测试课程',
-        materialIdString: '资料1,资料2'
+        materialIdString: '资料',
+        materialString: ''
       }]
     }
   },

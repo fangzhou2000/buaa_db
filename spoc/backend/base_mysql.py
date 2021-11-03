@@ -195,7 +195,7 @@ class MySQL:
         self.closeDatabase(connection, cursor)
         return
 
-    def buildCourse(self, teacher_id, course_name, materialList):
+    def buildCourse(self, teacher_id, course_name, materialIdList):
         connection, cursor = self.connectDatabase()
 
         instruction = "INSERT INTO course(name) " \
@@ -217,19 +217,11 @@ class MySQL:
         cursor.execute(instruction, [teacher_id, course_id])
         connection.commit()
 
-        if (materialList[0] != ''):
+        if (materialIdList[0] != ''):
 
-            for material in materialList:
-                if material == "":
+            for material_id in materialIdList:
+                if material_id == "":
                     continue
-                self.buildMaterial(teacher_id, material)
-                instruction = "SELECT id " \
-                              "FROM material " \
-                              "WHERE name=%s"
-                cursor.execute(instruction, [material])
-                result = cursor.fetchall()
-
-                material_id = result[len(result) - 1][0]
 
                 self.buildCourseMaterial(course_id, material_id)
 
@@ -307,7 +299,7 @@ class MySQL:
         self.closeDatabase(connection, cursor)
         return
 
-    def changeCourse(self, teacher_id, course_id, course_name, materialList):
+    def changeCourse(self, teacher_id, course_id, course_name, materialIdList):
         connection, cursor = self.connectDatabase()
         instruction = "UPDATE course " \
                       "SET name=%s " \
@@ -315,34 +307,28 @@ class MySQL:
         cursor.execute(instruction, [course_name, course_id])
         connection.commit()
 
-        # 找旧的课程资料：
-        instruction = "SELECT m.id, m.name " \
+        # 找旧的课程资料id：
+        instruction = "SELECT m.id " \
                       "FROM material AS m, course_material AS cm " \
                       "WHERE cm.material_id=m.id AND cm.course_id=%s"
         cursor.execute(instruction, [course_id])
         result = cursor.fetchall()
 
+        print(result)
+        print(materialIdList)
         for item in result:
-            if materialList.count(item[1]):
-                materialList.remove(item[1])
-                pass
+            material_id = str(item[0])
+            if materialIdList.count(material_id):
+                materialIdList.remove(material_id)
             else:
-                instruction = "DELETE FROM material " \
-                              "WHERE id=%s"
-                cursor.execute(instruction, [item[0]])
+                instruction = "DELETE FROM course_material " \
+                              "WHERE course_id=%s AND material_id=%s"
+                cursor.execute(instruction, [course_id, material_id])
                 connection.commit()
-        for material in materialList:
-            if material == "":
+
+        for material_id in materialIdList:
+            if material_id == "":
                 continue
-            self.buildMaterial(teacher_id, material)
-            instruction = "SELECT id " \
-                          "FROM material " \
-                          "WHERE name=%s"
-            cursor.execute(instruction, [material])
-            result = cursor.fetchall()
-
-            material_id = result[len(result) - 1][0]
-
             self.buildCourseMaterial(course_id, material_id)
 
         self.closeDatabase(connection, cursor)
@@ -351,15 +337,16 @@ class MySQL:
     def cancelCourse(self, teacher_id, course_id):
         connection, cursor = self.connectDatabase()
 
-        instruction = "DELETE FROM material AS m " \
-                      "WHERE id IN " \
-                      "(" \
-                      "SELECT material_id " \
-                      "FROM course_material AS cm " \
-                      "WHERE cm.course_id=%s" \
-                      ")"
-        cursor.execute(instruction, [course_id])
-        connection.commit()
+        # 不要删除课程对应的材料
+        # instruction = "DELETE FROM material AS m " \
+        #               "WHERE id IN " \
+        #               "(" \
+        #               "SELECT material_id " \
+        #               "FROM course_material AS cm " \
+        #               "WHERE cm.course_id=%s" \
+        #               ")"
+        # cursor.execute(instruction, [course_id])
+        # connection.commit()
 
 
         instruction = "DELETE FROM course " \

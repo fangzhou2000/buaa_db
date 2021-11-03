@@ -70,17 +70,19 @@ export default {
         that.status = response.data
         if (that.status === 0) {
           that.$message.success('创建成功')
-        } else {
-          that.$message.error('!')
+          that.materialIdString = ''
+          that.course = {
+            name: '',
+            materialIdList: []
+          }
+        } else if (that.status === 1) {
+          that.$message.error('学习材料编号错误')
+        } else if (that.status === 2) {
+          that.$message.error('课程名称不能为空')
         }
       }).catch(function (error) {
         console.log(error)
       })
-      that.materialIdString = ''
-      that.course = {
-        name: '',
-        materialIdList: []
-      }
     }
   }
 }

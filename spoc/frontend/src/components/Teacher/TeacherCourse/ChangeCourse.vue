@@ -25,6 +25,7 @@
           <el-form-item>
             <el-col :span="6">
               <el-button v-on:click="changeCourse" type="primary" >确认</el-button>
+              <el-button v-on:click="returnManageCourse" type="primary" >返回</el-button>
             </el-col>
           </el-form-item>
         </el-form>
@@ -60,6 +61,12 @@ export default {
     this.materialIdString = this.$route.query.materialIdString
   },
   methods: {
+    returnManageCourse: function () {
+      let that = this
+      that.$router.push({
+        name: 'ManageCourse'
+      })
+    },
     changeCourse: function () {
       let that = this
       that.course.materialIdList = that.materialIdString.split(',')
@@ -73,10 +80,16 @@ export default {
         }
       }).then(function (response) {
         console.log(response.data)
-        that.$message.success('修改成功')
-        that.$router.push({
-          name: 'ManageCourse'
-        })
+        if (response.data === 0) {
+          that.$message.success('修改成功')
+          that.$router.push({
+            name: 'ManageCourse'
+          })
+        } else if (response.data === 1) {
+          that.$message.error('学习材料编号错误')
+        } else if (response.data === 2) {
+          that.$message.error('课程名称不能为空')
+        }
       }).catch(function (error) {
         console.log(error)
       })
