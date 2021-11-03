@@ -62,6 +62,11 @@ Vue样式 (oyk)
 | `teacher_material(teacher_id, material_id)` | `all-key` | 教师提供的材料 |
 |  `course_material(course_id, material_id)`  | `all-key` |   课程的材料   |
 
+### E-R Diagram
+
+![e](./img/Blank diagram.svg)
+![ww](./img/Blank diagram_1.svg)
+
 ### Plan Design
 
 ```
