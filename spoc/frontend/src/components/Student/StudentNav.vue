@@ -9,12 +9,12 @@
     </div>
     <el-menu :default-active="this.$route.path" router>
       <el-menu-item class="item" index="/StudentHead">首页</el-menu-item>
-      <el-submenu index="1" show-timeout:0>
+      <el-submenu index="1">
         <template slot="title"><span class="item">课程信息</span></template>
         <el-menu-item class="subitem" index="/StudentCourse/SelectCourse">&emsp;&emsp;学生选课</el-menu-item>
         <el-menu-item class="subitem" index="/StudentCourse/SelectedCourse">&emsp;&emsp;我的课程</el-menu-item>
       </el-submenu>
-      <el-submenu index="2" show-timeout:0>
+      <el-submenu index="2">
         <template slot="title"><span class="item">用户信息</span></template>
         <el-menu-item class="subitem" index="/StudentChange/StudentChange">&emsp;&emsp;修改密码</el-menu-item>
       </el-submenu>
@@ -35,17 +35,17 @@
     line-height: 60px;
   }
   .background {
-    height: 1920px;
+    height: 100%;
     background-color: white;
   }
   .main {
-    height: 900px;
+    height: 600px;
   }
   .el-main{
     height: inherit;
   }
   .aside{
-    height: 900px;
+    height: 600px;
   }
   .el-aside {
     text-align: center;

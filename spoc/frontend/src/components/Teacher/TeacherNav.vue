@@ -10,21 +10,21 @@
     <el-menu :default-active="this.$route.path"
              @open="handleOpen" @close="handleClose"
              router
-             unique-opened:true>
+             unique-opened=true>
       <el-menu-item class="item" index="/TeacherHead">首页</el-menu-item>
-      <el-submenu index="1" show-timeout:0>
+      <el-submenu index="1">
         <template slot="title"><span class="item">课程信息</span></template>
         <el-menu-item class="subitem" index="/TeacherCourse/AllCourse">&emsp;&emsp;查看课程</el-menu-item>
         <el-menu-item class="subitem" index="/TeacherCourse/BuildCourse">&emsp;&emsp;开设课程</el-menu-item>
         <el-menu-item class="subitem" index="/TeacherCourse/ManageCourse">&emsp;&emsp;管理课程</el-menu-item>
       </el-submenu>
-      <el-submenu index="2" show-timeout:0>
+      <el-submenu index="2">
         <template slot="title"><span class="item">学习材料</span></template>
         <el-menu-item class="subitem" index="/TeacherMaterial/AllMaterial">&emsp;&emsp;&emsp;&emsp;查看学习材料</el-menu-item>
         <el-menu-item class="subitem" index="/TeacherMaterial/BuildMaterial">&emsp;&emsp;&emsp;&emsp;新建学习材料</el-menu-item>
         <el-menu-item class="subitem" index="/TeacherMaterial/ManageMaterial">&emsp;&emsp;&emsp;&emsp;管理学习材料</el-menu-item>
       </el-submenu>
-      <el-submenu index="3" show-timeout:0>
+      <el-submenu index="3">
         <template slot="title"><span class="item">用户信息</span></template>
         <el-menu-item class="subitem" index="/TeacherChange/TeacherChange">&emsp;&emsp;修改密码</el-menu-item>
       </el-submenu>
@@ -49,13 +49,13 @@
     background-color: white;
   }
   .main {
-    height: 900px;
+    height: 600px;
   }
   .el-main{
     height: inherit;
   }
   .aside{
-    height: 900px;
+    height: 600px;
   }
   .el-aside {
     text-align: center;
