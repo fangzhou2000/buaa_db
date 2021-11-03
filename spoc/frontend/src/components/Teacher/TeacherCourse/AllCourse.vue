@@ -67,6 +67,11 @@ export default {
       }).catch(function (error) {
         console.log(error)
       })
+    },
+    goToHelloWorld: function () {
+      this.cookie.clearCookie('userName')
+      this.cookie.clearCookie('userNickName')
+      this.$router.replace('/')
     }
   }
 }

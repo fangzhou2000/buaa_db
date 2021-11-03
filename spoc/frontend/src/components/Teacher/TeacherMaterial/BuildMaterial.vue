@@ -68,6 +68,11 @@ export default {
         console.log(error)
       })
       that.materialName = ''
+    },
+    goToHelloWorld: function () {
+      this.cookie.clearCookie('userName')
+      this.cookie.clearCookie('userNickName')
+      this.$router.replace('/')
     }
   }
 }
