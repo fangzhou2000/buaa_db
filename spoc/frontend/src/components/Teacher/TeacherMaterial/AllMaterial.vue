@@ -3,6 +3,7 @@
     <el-container class="header">
       <el-header>
         <span>{{userNickName}} 查看学习材料</span>
+        <el-button style="margin-top: 10px; float: right" v-on:click="goToHelloWorld">退出登录</el-button>
       </el-header>
     </el-container>
 
