@@ -28,7 +28,7 @@
         <template slot="title"><span class="item">用户信息</span></template>
         <el-menu-item class="subitem" index="/TeacherChange/TeacherChange">&emsp;&emsp;修改密码</el-menu-item>
       </el-submenu>
-      <el-menu-item class="item" v-on:click="goToHelloWorld">退出登录</el-menu-item>
+<!--      <el-menu-item class="item" v-on:click="goToHelloWorld">退出登录</el-menu-item>-->
     </el-menu>
   </div>
 </template>
@@ -47,10 +47,12 @@
   .background {
     height: 100%;
     background-color: white;
-    background-image: linear-gradient(0deg, #f8f1ea 0%, #ffffff 10%);
   }
   .main {
-    height: 550px;
+    height: 1000px;
+  }
+  .el-main{
+    height: inherit;
   }
   .el-aside {
     text-align: center;
@@ -85,6 +87,7 @@ export default {
     },
     goToHelloWorld: function () {
       this.cookie.clearCookie('userName')
+      this.cookie.clearCookie('userNickName')
       this.$router.replace('/')
     }
   }

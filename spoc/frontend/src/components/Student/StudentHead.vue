@@ -3,6 +3,7 @@
     <el-container class="header">
       <el-header>
         <span>{{userNickName}}  学生首页</span>
+        <el-button style="margin-top: 10px; float: right" v-on:click="goToHelloWorld">退出登录</el-button>
       </el-header>
     </el-container>
 
@@ -33,7 +34,11 @@ export default {
     this.userNickName = this.cookie.getCookie('userNickName')
   },
   methods: {
-
+    goToHelloWorld: function () {
+      this.cookie.clearCookie('userName')
+      this.cookie.clearCookie('userNickName')
+      this.$router.replace('/')
+    }
   }
 }
 </script>

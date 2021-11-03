@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div class="background">
     <el-container class="header">
       <el-header>
         <span>{{userNickName}}  我的课程</span>
+        <el-button style="margin-top: 10px; float: right" v-on:click="goToHelloWorld">退出登录</el-button>
       </el-header>
     </el-container>
 
@@ -79,6 +80,11 @@ export default {
       }).catch(function (error) {
         console.log(error)
       })
+    },
+    goToHelloWorld: function () {
+      this.cookie.clearCookie('userName')
+      this.cookie.clearCookie('userNickName')
+      this.$router.replace('/')
     }
   }
 }

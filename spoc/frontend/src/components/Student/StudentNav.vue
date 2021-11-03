@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="aside">
     <div>
       <el-card style="background-color: #66b1ff">
         <i class="el-icon-user-solid" style="font-size: 50px"></i>
@@ -18,7 +18,7 @@
         <template slot="title"><span class="item">用户信息</span></template>
         <el-menu-item class="subitem" index="/StudentChange/StudentChange">&emsp;&emsp;修改密码</el-menu-item>
       </el-submenu>
-      <el-menu-item class="item" v-on:click="goToHelloWorld">退出登录</el-menu-item>
+<!--      <el-menu-item class="item" v-on:click="goToHelloWorld">退出登录</el-menu-item>-->
     </el-menu>
   </div>
 </template>
@@ -39,7 +39,13 @@
     background-color: white;
   }
   .main {
-    height: 550px;
+    height: 1000px;
+  }
+  .el-main{
+    height: inherit;
+  }
+  .aside{
+    height: 1000px;
   }
   .el-aside {
     text-align: center;
@@ -68,6 +74,7 @@ export default {
   methods: {
     goToHelloWorld: function () {
       this.cookie.clearCookie('userName')
+      this.cookie.clearCookie('userNickName')
       this.$router.replace('/')
     }
   }
