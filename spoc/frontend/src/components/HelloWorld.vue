@@ -276,9 +276,12 @@ export default {
     background-color: white;
     border-left: orange 10px solid;
   }
+  .div-head{
+    text-align: left;
+  }
   .line-2-content{
     width: 100%;
-    height: 500px;
+    height: 400px;
     overflow: hidden;
     float: left;
   }
@@ -369,13 +372,6 @@ export default {
   }
   .links{
     font-size: 12px;
-  }
-  .line_2{
-    margin-top: 50px;
-    height: 600px;
-    width: inherit;
-    margin-left: 50px;
-    margin-right: 50px;
   }
   .div-head{
     float: left;
