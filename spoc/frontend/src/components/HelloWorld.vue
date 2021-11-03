@@ -261,23 +261,20 @@ export default {
     margin-right: 20px;
     padding-top: 300px;
 }
-  .line_1{
+  .line_1, .line_2{
     margin-top: 50px;
-    height: 400px;
+    height: 450px;
     width: inherit;
     margin-left: 50px;
     margin-right: 50px;
   }
-  .block1, .block2, .block3{
-    float: left;
-    margin-left: 10%;
-    margin-top: 40px;
-    margin-bottom: 40px;
-    width: 20%;
-    height: 70%;
-    border: 1px whitesmoke solid;
-    border-radius: 3px;
-    background: linear-gradient(2deg, ghostwhite 1%, whitesmoke 20%);
+  .line-1-head, .line-2-head{
+    width: inherit;
+    height: 50px;
+    font-size: 20px;
+    font-family: "微软雅黑", serif;
+    background-color: white;
+    border-left: orange 10px solid;
   }
   .line-2-content{
     width: 100%;
@@ -379,14 +376,6 @@ export default {
     width: inherit;
     margin-left: 50px;
     margin-right: 50px;
-  }
-  .line-1-head, .line-2-head{
-    width: inherit;
-    height: 50px;
-    font-size: 20px;
-    font-family: "微软雅黑", serif;
-    background-color: white;
-    border-left: orange 10px solid;
   }
   .div-head{
     float: left;
