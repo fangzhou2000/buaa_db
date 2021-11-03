@@ -1,4 +1,4 @@
-# BUAA DB
+#  BUAA DB
 
 2021年北航数据库大作业
 
@@ -64,8 +64,9 @@ Vue样式 (oyk)
 
 ### E-R Diagram
 
-![e](./img/Blank diagram.svg)
-![ww](./img/Blank diagram_1.svg)
+![er](./img/1103_er_diagram.svg)
+
+![db](./img/1103_db_design.png)
 
 ### Plan Design
 
