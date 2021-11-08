@@ -21,6 +21,9 @@ import TeacherMaterial from '../components/Teacher/TeacherMaterial/TeacherMateri
 import AllMaterial from '../components/Teacher/TeacherMaterial/AllMaterial'
 import BuildMaterial from '../components/Teacher/TeacherMaterial/BuildMaterial'
 import ManageMaterial from '../components/Teacher/TeacherMaterial/ManageMaterial'
+import StudentDiscuss from '../components/Student/StudentDiscuss/StudentDiscuss'
+import StudentCourseComment from '../components/Student/StudentDiscuss/StudentCourseComment'
+import CommentCourse from '../components/Student/StudentDiscuss/CommentCourse'
 
 Vue.use(Router)
 
@@ -146,6 +149,23 @@ export default new Router({
           path: 'AllMaterial',
           name: 'AllMaterial',
           component: AllMaterial
+        }
+      ]
+    },
+    {
+      path: '/StudentDiscuss',
+      name: 'StudentDiscuss',
+      component: StudentDiscuss,
+      children: [
+        {
+          path: 'StudentCourseComment',
+          name: 'StudentCourseComment',
+          component: StudentCourseComment
+        },
+        {
+          path: 'CommentCourse',
+          name: 'CommentCourse',
+          component: CommentCourse
         }
       ]
     }

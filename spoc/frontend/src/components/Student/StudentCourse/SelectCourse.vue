@@ -17,7 +17,7 @@
           <el-table-column label="课程名称" prop="name"></el-table-column>
           <el-table-column label="课程材料" prop="materialIdString"></el-table-column>
           <el-table-column label="选课"> <template slot-scope="scope">
-        <el-button v-on:click="selectCourse(scope.$index)" type="primary" plain="true">选课</el-button>
+        <el-button v-on:click="selectCourse(scope.$index)" type="primary">选课</el-button>
       </template></el-table-column>
         </el-table>
       </el-main>
@@ -37,7 +37,8 @@ export default {
       courseList: [{
         id: '1',
         name: '前端测试课程',
-        materialIdString: '1,2'
+        materialIdString: '1,2',
+        materialNameString: 'book1,book2'
       }]
     }
   },

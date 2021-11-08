@@ -17,7 +17,7 @@
           <el-table-column label="课程名称" prop="name"></el-table-column>
           <el-table-column label="课程材料" prop="materialIdString"></el-table-column>
           <el-table-column label="退课"> <template slot-scope="scope">
-        <el-button v-on:click="dropCourse(scope.$index)" type="primary" plain="true">退课</el-button>
+        <el-button v-on:click="dropCourse(scope.$index)" type="danger">退课</el-button>
       </template></el-table-column>
         </el-table>
       </el-main>

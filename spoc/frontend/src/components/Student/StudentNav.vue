@@ -15,10 +15,13 @@
         <el-menu-item class="subitem" index="/StudentCourse/SelectedCourse">&emsp;&emsp;我的课程</el-menu-item>
       </el-submenu>
       <el-submenu index="2">
+        <template slot="title"><span class="item">讨论区</span></template>
+        <el-menu-item class="subitem" index="/StudentDiscuss/StudentCourseComment">&emsp;&emsp;课程评论</el-menu-item>
+      </el-submenu>
+      <el-submenu index="3">
         <template slot="title"><span class="item">用户信息</span></template>
         <el-menu-item class="subitem" index="/StudentChange/StudentChange">&emsp;&emsp;修改密码</el-menu-item>
       </el-submenu>
-<!--      <el-menu-item class="item" v-on:click="goToHelloWorld">退出登录</el-menu-item>-->
     </el-menu>
   </div>
 </template>
