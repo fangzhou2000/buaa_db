@@ -1,10 +1,10 @@
 <template>
   <div class="aside">
     <div>
-      <el-card style="background-color: #66b1ff">
+      <el-card style="background-color: whitesmoke">
         <i class="el-icon-user-solid" style="font-size: 50px"></i>
-        <p style="color: white">姓名:&nbsp;{{userNickName}}</p>
-        <p style="color: white">学号:&nbsp;{{userName}}</p>
+        <p>姓名:&nbsp;{{userNickName}}</p>
+        <p>学号:&nbsp;{{userName}}</p>
       </el-card>
     </div>
     <el-menu :default-active="this.$route.path" router>
@@ -16,7 +16,7 @@
       </el-submenu>
       <el-submenu index="2">
         <template slot="title"><span class="item">讨论区</span></template>
-        <el-menu-item class="subitem" index="/StudentDiscuss/StudentCourseComment">&emsp;&emsp;课程评论</el-menu-item>
+        <el-menu-item class="subitem" index="/StudentCommentAndDiscuss/StudentCourseComment">&emsp;&emsp;课程评论</el-menu-item>
       </el-submenu>
       <el-submenu index="3">
         <template slot="title"><span class="item">用户信息</span></template>
@@ -28,13 +28,16 @@
 
 <style>
   .header {
-    color: white;
     height: 80px;
+  }
+  .exit {
+    margin-top: 10px;
+    float: right;
   }
   .el-header {
     text-align: center;
     font-size: 24px;
-    background-color: #66b1ff;
+    background-color: whitesmoke;
     line-height: 60px;
   }
   .background {

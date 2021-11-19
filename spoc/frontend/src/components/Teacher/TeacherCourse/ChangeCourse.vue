@@ -42,8 +42,8 @@ export default {
   components: {TeacherNav},
   data: function () {
     return {
-      userNickName: '',
       userName: '',
+      userNickName: '',
       id: '',
       name: '',
       materialIdString: '',

@@ -100,7 +100,7 @@ export default {
         if (response.data === 0) {
           that.$message.success('停课成功')
         } else {
-          that.$message.error('!')
+          that.$message.error('未知错误')
         }
         that.getTeacherCourseList()
       }).catch(function (error) {

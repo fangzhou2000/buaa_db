@@ -6,7 +6,7 @@
 import StudentNav from '../StudentNav'
 
 export default {
-  name: 'StudentDiscuss',
+  name: 'StudentCommentAndDiscuss',
   components: {StudentNav}
 }
 </script>

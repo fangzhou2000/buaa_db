@@ -52,11 +52,10 @@ export default {
       let debug = true
       if (debug) {
         if (that.userName === 'admin' && that.userPassWord === '123456') {
+          let loginInfo = {userName: 'admin', userNickName: '前端测试用户'}
+          that.cookie.setCookie(loginInfo)
           that.$router.push({
             name: 'StudentHead',
-            params: {
-              userName: that.userName
-            }
           })
           console.log('from:' + that.userName)
         } else {

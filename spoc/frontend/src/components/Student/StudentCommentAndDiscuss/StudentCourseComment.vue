@@ -36,7 +36,12 @@ export default {
       userNickName: '',
       courseList: [{
         id: '1',
-        name: '前端测试课程',
+        name: '前端测试课程1',
+        materialIdString: '1,2',
+        materialNameString: 'book1,book2'
+      }, {
+        id: '2',
+        name: '前端测试课程2',
         materialIdString: '1,2',
         materialNameString: 'book1,book2'
       }]
@@ -46,10 +51,10 @@ export default {
     commentCourse: function (index) {
       let that = this
       this.$router.push({
-        path: '/StudentDiscuss/CommentCourse',
+        path: '/StudentCommentAndDiscuss/CommentCourse',
         query: {
-          id: that.courseList[index].id,
-          name: that.courseList[index].name
+          courseId: that.courseList[index].id,
+          courseName: that.courseList[index].name
         }
       })
     },
