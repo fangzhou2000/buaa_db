@@ -21,4 +21,6 @@ urlpatterns = [
     path('BuildMaterial/', views.BuildMaterial.as_view()),
     path('GetTeacherMaterialList/', views.GetTeacherMaterialList.as_view()),
     path('DeleteMaterial/', views.DeleteMaterial.as_view()),
+    path('GetCommentList/', views.GetCommentList.as_view()),
+    path('CommentCourse/', views.CommentCourse.as_view())
 ]

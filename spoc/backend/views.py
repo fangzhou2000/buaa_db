@@ -3,6 +3,39 @@ from rest_framework.response import Response
 from .base_mysql import MySQL
 
 
+class GetCommentList(APIView):
+    def get(self, request):
+        courseId = str(request.GET.get("courseId", None))
+        sql = MySQL()
+        result = sql.getCommentList(courseId)
+
+        commentList = []
+
+        for item in result:
+            commentList.append({"userName": item[0],
+                                "userNickName": item[1],
+                                "content": item[2],
+                                "time": item[3]})
+        return Response(commentList)
+
+
+
+class CommentCourse(APIView):
+    def get(self, request):
+        # String courseId, String userName, String userNickName, String content, String time
+        courseId = str(request.GET.get("courseId", None))
+        userName = str(request.GET.get("userName", None))
+        userNickName = str(request.GET.get("userNickName", None))
+        content = str(request.GET.get("content", None))
+        time = str(request.GET.get("time", None))
+
+        sql = MySQL()
+        sql.commentCourse(courseId, userName, content, time)
+
+        return Response(1)
+
+
+
 class StudentLogin(APIView):
     def get(self, request):
         # 默认userNickName为空

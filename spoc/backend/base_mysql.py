@@ -3,6 +3,34 @@ import pymysql
 
 class MySQL:
 
+    def getCommentList(self, courseId):
+        connection, cursor = self.connectDatabase()
+
+        instruction = "SELECT cc.si, s.name, cc.c, cc.time FROM " \
+                      "(SELECT `time`, course_id, student_id, content FROM course_comment " \
+                      "WHERE course_id=%s) AS cc(time,ci,si,c), student AS s " \
+                      "WHERE cc.si=s.id " \
+                      "ORDER BY cc.time desc"
+
+        cursor.execute(instruction, [courseId])
+        result = cursor.fetchall()
+
+        self.closeDatabase(connection, cursor)
+        return result
+
+    def commentCourse(self, courseId, userName, content, ti):
+        connection, cursor = self.connectDatabase()
+
+        instruction = "INSERT INTO course_comment(course_id, student_id, content, time) " \
+                      "values(%s, %s, %s, %s)"
+
+        cursor.execute(instruction, [courseId, userName, content, ti])
+
+        connection.commit()
+
+        self.closeDatabase(connection, cursor)
+        return
+
     def getMaterialName(self, material_id):
         connection, cursor = self.connectDatabase()
 
@@ -348,14 +376,11 @@ class MySQL:
         # cursor.execute(instruction, [course_id])
         # connection.commit()
 
-
         instruction = "DELETE FROM course " \
                       "WHERE id=%s"
 
         cursor.execute(instruction, [course_id])
         connection.commit()
-
-
 
         self.closeDatabase(connection, cursor)
         return
@@ -374,10 +399,20 @@ class MySQL:
 
 
 if __name__ == "__main__":
-    s = "1,2，3"
-    s.s
-    s = s.split("[,]")
-    print(s)
+    sql = MySQL()
+
+    sql.commentCourse(1, 19373136, 1, "2021-20-22 11:12:22")
+
+    result = sql.getCommentList("1")
+    commentList = []
+
+    for item in result:
+        commentList.append({"userName": item[0],
+                            "userNickName": item[1],
+                            "content": item[2],
+                            "time": item[3]})
+
+    print(commentList)
     # sql = MySQL()
     # # sql.buildMaterial("123", "234")
     # result = sql.getMaterialList()
