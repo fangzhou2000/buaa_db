@@ -52,9 +52,9 @@ Vue样式 (oyk)
 |      `teacher(id, password, name)`      | `id` |  教师信息   |
 |          `material(id, name)`           | `id` |  学习材料   |
 |           `course(id, name)`            | `id` |  课程信息   |
-| `comment(id, course_id, content, time)` |  id  |    评论     |
-|  `posttheme(id, title, content, time)`  |  id  |   主题帖    |
-| `post(id, posttheme_id, content, time)` |  id  |    跟帖     |
+| `comment(id, course_id, content, time)` | `id` |    评论     |
+|  `posttheme(id, title, content, time)`  | `id` |   主题帖    |
+| `post(id, posttheme_id, content, time)` | `id` |    跟帖     |
 
 **Relation：**
 
