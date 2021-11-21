@@ -44,23 +44,29 @@ Vue样式 (oyk)
 
 ### Final Design
 
-**实体：**
+**Entity：**
 
-|            Entity             | Key  | Description |
-| :---------------------------: | :--: | :---------: |
-| `student(id, password, name)` | `id` |  学生信息   |
-| `teacher(id, password, name)` | `id` |  教师信息   |
-|     `material(id, name)`      | `id` |  学习材料   |
-|      `course(id, name)`       | `id` |  课程信息   |
+|                 Entity                  | Key  | Description |
+| :-------------------------------------: | :--: | :---------: |
+|      `student(id, password, name)`      | `id` |  学生信息   |
+|      `teacher(id, password, name)`      | `id` |  教师信息   |
+|          `material(id, name)`           | `id` |  学习材料   |
+|           `course(id, name)`            | `id` |  课程信息   |
+| `comment(id, course_id, content, time)` |  id  |    评论     |
+|  `posttheme(id, title, content, time)`  |  id  |   主题帖    |
+| `post(id, posttheme_id, content, time)` |  id  |    跟帖     |
 
-**关系：**
+**Relation：**
 
-|                  Relation                   |    Key    |  Description   |
-| :-----------------------------------------: | :-------: | :------------: |
-|   `student_course(student_id, course_id)`   | `all-key` |  学生选课信息  |
-|   `teacher_course(teacher_id, course_id)`   | `all-key` |  教师开课信息  |
-| `teacher_material(teacher_id, material_id)` | `all-key` | 教师提供的材料 |
-|  `course_material(course_id, material_id)`  | `all-key` |   课程的材料   |
+|                   Relation                    |    Key    |  Description   |
+| :-------------------------------------------: | :-------: | :------------: |
+|    `student_course(student_id, course_id)`    | `all-key` |    学生选课    |
+|    `teacher_course(teacher_id, course_id)`    | `all-key` |    教师开课    |
+|  `teacher_material(teacher_id, material_id)`  | `all-key` |  教师提供材料  |
+|   `course_material(course_id, material_id)`   | `all-key` |  课程对应材料  |
+|   `student_comment(student_id, comment_id)`   | `all-key` |  学生发表评论  |
+| `student_posttheme(student_id, posttheme_id)` | `all-key` | 学生发表主题帖 |
+|      `student_post(student_id, post_id)`      | `all-key` |    学生跟帖    |
 
 ### E-R Diagram
 
@@ -82,7 +88,7 @@ group(id, orientation, department, volume)
 
 Relation
 
-courseEvaluation(id, content) //匿名?
+courseEvaluation(id, content)
 courseSelection(student_id, course_id)
 groupJoin(student_id, group_id)
 studentMaterialObtain(student_id, material_id)
