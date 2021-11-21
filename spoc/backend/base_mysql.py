@@ -3,13 +3,84 @@ import pymysql
 
 class MySQL:
 
+    def getPostList(self, postThemeId):
+        connection, cursor = self.connectDatabase()
+
+        instruction = "SELECT s.id, s.name, p.content, p.time FROM " \
+                      "post as p, student_post as sp, student as s " \
+                      "WHERE p.posttheme_id=%s and p.id=sp.post_id and sp.student_id=s.id " \
+                      "ORDER by p.time desc"
+        cursor.execute(instruction, [postThemeId])
+        result = cursor.fetchall()
+        self.closeDatabase(connection, cursor)
+        return result
+
+    def buildPost(self, postThemeId, userName, content, ti):
+        connection, cursor = self.connectDatabase()
+        instruction = "INSERT INTO post(posttheme_id, content, time) " \
+                      "values(%s, %s, %s)"
+        cursor.execute(instruction, [postThemeId, content, ti])
+        connection.commit()
+
+        instruction = "SELECT MAX(id) FROM post"
+
+        cursor.execute(instruction)
+        result = cursor.fetchall();
+        result = result[0][0]
+
+        instruction = "INSERT INTO student_post(student_id, post_id) " \
+                      "VALUES (%s, %s)"
+        cursor.execute(instruction, [userName, result])
+
+        connection.commit()
+
+        self.closeDatabase(connection, cursor)
+
+        return
+
+    def getPostThemeList(self):
+        connection, cursor = self.connectDatabase()
+
+        instruction = "SELECT s.id, s.name, pt.title, pt.content, pt.time, pt.id FROM " \
+                      "posttheme as pt, student_posttheme as sp, student as s " \
+                      "WHERE pt.id=sp.posttheme_id AND sp.student_id=s.id " \
+                      "ORDER BY pt.id"
+        cursor.execute(instruction)
+        result = cursor.fetchall()
+
+        self.closeDatabase(connection, cursor)
+        return result
+
+    def buildPostTheme(self, userName, title, content, ti):
+        connection, cursor = self.connectDatabase()
+
+        instruction = "INSERT INTO posttheme(title, content, time) " \
+                      "values(%s, %s, %s)"
+        cursor.execute(instruction, [title, content, ti])
+        connection.commit()
+
+        instruction = "SELECT MAX(id) FROM posttheme"
+
+        cursor.execute(instruction)
+        result = cursor.fetchall();
+        result = result[0][0]
+
+        instruction = "INSERT INTO student_posttheme(student_id, posttheme_id) " \
+                      "VALUES (%s, %s)"
+        cursor.execute(instruction, [userName, result])
+
+        connection.commit()
+
+        self.closeDatabase(connection, cursor)
+        return
+
     def getCommentList(self, courseId):
         connection, cursor = self.connectDatabase()
 
-        instruction = "SELECT cc.si, s.name, cc.c, cc.time FROM " \
-                      "(SELECT `time`, course_id, student_id, content FROM course_comment " \
-                      "WHERE course_id=%s) AS cc(time,ci,si,c), student AS s " \
-                      "WHERE cc.si=s.id " \
+        instruction = "SELECT s.id, s.name, cc.c, cc.time FROM " \
+                      "(SELECT `time`, content, id FROM comment " \
+                      "WHERE course_id=%s) AS cc(time,c,id), student_comment as sc, student AS s " \
+                      "WHERE cc.id=sc.comment_id AND sc.student_id=s.id " \
                       "ORDER BY cc.time desc"
 
         cursor.execute(instruction, [courseId])
@@ -21,10 +92,23 @@ class MySQL:
     def commentCourse(self, courseId, userName, content, ti):
         connection, cursor = self.connectDatabase()
 
-        instruction = "INSERT INTO course_comment(course_id, student_id, content, time) " \
-                      "values(%s, %s, %s, %s)"
+        instruction = "INSERT INTO comment(course_id, content, time) " \
+                      "values(%s, %s, %s)"
 
-        cursor.execute(instruction, [courseId, userName, content, ti])
+        cursor.execute(instruction, [courseId, content, ti])
+
+        connection.commit()
+
+        instruction = "SELECT MAX(id) FROM comment"
+
+        cursor.execute(instruction)
+        result = cursor.fetchall();
+        result = result[0][0]
+
+        instruction = "INSERT INTO student_comment(student_id, comment_id) " \
+                      "VALUES (%s, %s)"
+
+        cursor.execute(instruction, [userName, result])
 
         connection.commit()
 
@@ -397,22 +481,37 @@ class MySQL:
         self.closeDatabase(connection, cursor)
         return
 
+    def test(self):
+        connection, cursor = self.connectDatabase()
+
+        instruction = "SELECT MAX(id) FROM course "
+
+        cursor.execute(instruction)
+
+        result = cursor.fetchall()
+        print(type(result[0][0]))
+
+        self.closeDatabase(connection, cursor)
+        return
+
 
 if __name__ == "__main__":
     sql = MySQL()
+    # sql.test()
 
-    sql.commentCourse(1, 19373136, 1, "2021-20-22 11:12:22")
-
-    result = sql.getCommentList("1")
-    commentList = []
-
-    for item in result:
-        commentList.append({"userName": item[0],
-                            "userNickName": item[1],
-                            "content": item[2],
-                            "time": item[3]})
-
-    print(commentList)
+    #
+    # sql.commentCourse(1, 19373136, 1, "2021-20-22 11:12:22")
+    #
+    # result = sql.getCommentList("1")
+    # commentList = []
+    #
+    # for item in result:
+    #     commentList.append({"userName": item[0],
+    #                         "userNickName": item[1],
+    #                         "content": item[2],
+    #                         "time": item[3]})
+    #
+    # print(commentList)
     # sql = MySQL()
     # # sql.buildMaterial("123", "234")
     # result = sql.getMaterialList()
