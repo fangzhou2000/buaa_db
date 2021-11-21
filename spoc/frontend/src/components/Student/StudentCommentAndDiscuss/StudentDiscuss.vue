@@ -2,7 +2,7 @@
   <div>
    <el-container class="header">
       <el-header>
-        <span>{{userNickName}} 评价 {{name}}</span>
+        <span>贴子 {{postTheme.title}}</span>
         <el-button class="exit" v-on:click="goToHelloWorld">退出登录</el-button>
       </el-header>
     </el-container>
@@ -13,28 +13,41 @@
       </el-aside>
       <el-main>
         <el-row class="buttons">
-          <el-button v-on:click="commentCourse" type="primary" size="small" >发表评价</el-button>
-          <el-button v-on:click="returnStudentCourseComment" type="primary" size="small">返回</el-button>
+          <el-button v-on:click="buildPost" type="primary" size="small" >跟贴</el-button>
+          <el-button v-on:click="returnStudentAllDiscuss" type="primary" size="small">返回</el-button>
         </el-row>
         <el-row class="buttons">
           <el-col :span="20">
-            <el-input class="input" v-model="contentInput" type="textarea" :rows="2" placeholder="对于课程内容、讲课质量、考核方式等的评价">
+            <el-input class="input" v-model="input.content" type="textarea" :rows="2" placeholder="对于课程内容、讲课质量、考核方式等的评价">
             </el-input>
           </el-col>
         </el-row>
         <el-divider></el-divider>
-        <p v-for="(comment) in commentList" v-bind:key="comment">
-          <el-row class="time">
-            {{comment.time}}
+        <el-row class="time">
+            {{postTheme.time}}
           </el-row>
           <el-row class="userName">
-            {{comment.userNickName}}({{comment.userName}}) :
+            {{postTheme.userNickName}}({{postTheme.userName}}) :
           </el-row>
           <el-row class="content">
             <el-col :span="1">
               &nbsp;
             </el-col>
-            {{comment.content}}
+            {{postTheme.content}}
+          </el-row>
+        <el-divider></el-divider>
+        <p v-for="(post) in postList" v-bind:key="post">
+          <el-row class="time">
+            {{post.time}}
+          </el-row>
+          <el-row class="userName">
+            {{post.userNickName}}({{post.userName}}) :
+          </el-row>
+          <el-row class="content">
+            <el-col :span="1">
+              &nbsp;
+            </el-col>
+            {{post.content}}
           </el-row>
           <el-divider></el-divider>
         </p>
@@ -65,17 +78,24 @@
 import StudentNav from '../StudentNav'
 
 export default {
-  name: 'CommentCourse',
+  name: 'StudentDiscuss',
   components: {StudentNav},
   data: function () {
     return {
       userName: '前端测试用户名',
       userNickName: '前端测试姓名',
-      courseId: '前端测试课程id',
-      courseName: '前端测试课程名称',
-      contentInput: '',
-      time: '',
-      commentList: [{
+      postTheme: {
+        id: '测试id',
+        userName: '学号1',
+        userNickName: '学生1',
+        title: '前端测试贴标题',
+        content: '前端测试贴内容',
+        time: '111'
+      },
+      input: {
+        content: ''
+      },
+      postList: [{
         userName: '学号1',
         userNickName: '学生1',
         content: '课程评价内容1',
@@ -105,33 +125,34 @@ export default {
         userNickName: '学生3',
         content: '课程评价内容3',
         time: '2021-11-19 11:11:11'
-      }
-      ]
+      }],
+      time: ''
     }
   },
   mounted () {
     this.userName = this.cookie.getCookie('userName')
     this.userNickName = this.cookie.getCookie('userNickName')
-    this.courseId = this.$route.query.courseId
-    this.courseName = this.$route.query.courseName
+    this.postTheme = this.$route.query.postTheme
+    this.getPostList()
   },
   methods: {
-    getCommentList: function () {
+    getPostList: function () {
       let that = this
       this.$http.request({
-        url: that.url + 'GetCommentList/',
+        url: that.$url + 'GetPostList/',
         method: 'get',
         params: {
-          courseId: that.courseId
+          postThemeId: that.postTheme.id
         }
       }).then(function (response) {
         console.log(response.data)
-        that.commentList = response.data
+        that.postList = response.data
       }).catch(function (error) {
         console.log(error)
       })
     },
     getTime: function () {
+      let that = this
       let dt = new Date()
       let yyyy = dt.getFullYear()
       let MM = (dt.getMonth() + 1).toString().padStart(2, '0')
@@ -139,25 +160,27 @@ export default {
       let h = dt.getHours().toString().padStart(2, '0')
       let m = dt.getMinutes().toString().padStart(2, '0')
       let s = dt.getSeconds().toString().padStart(2, '0')
-      this.time = yyyy + '-' + MM + '-' + dd + ' ' + h + ':' + m + ':' + s
+      that.time = yyyy + '-' + MM + '-' + dd + ' ' + h + ':' + m + ':' + s
     },
-    commentCourse: function () {
+    buildPost: function () {
       let that = this
       that.getTime()
       this.$http.request({
-        url: that.url + 'CommentCourse/',
+        url: that.$url + 'buildPost/',
         method: 'get',
         params: {
-          courseId: that.courseId,
+          postThemeId: that.postTheme.id,
           userName: that.userName,
           userNickName: that.userNickName,
-          content: that.contentInput,
+          content: that.input.content,
           time: that.time
         }
       }).then(function (response) {
         console.log(response.data)
         if (response.data === 0) {
-          that.$message.success('评价成功')
+          that.$message.success('跟贴成功')
+          that.getPostList()
+          that.input.content = ''
         } else {
           that.$message.error('未知错误')
         }
@@ -165,10 +188,10 @@ export default {
         console.log(error)
       })
     },
-    returnStudentCourseComment: function () {
+    returnStudentAllDiscuss: function () {
       let that = this
       that.$router.push({
-        name: 'StudentCourseComment'
+        name: 'StudentAllDiscuss'
       })
     },
     goToHelloWorld: function () {

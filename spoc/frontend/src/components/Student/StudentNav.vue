@@ -15,8 +15,9 @@
         <el-menu-item class="subitem" index="/StudentCourse/SelectedCourse">&emsp;&emsp;我的课程</el-menu-item>
       </el-submenu>
       <el-submenu index="2">
-        <template slot="title"><span class="item">讨论区</span></template>
-        <el-menu-item class="subitem" index="/StudentCommentAndDiscuss/StudentCourseComment">&emsp;&emsp;课程评论</el-menu-item>
+        <template slot="title"><span class="item">留言板</span></template>
+        <el-menu-item class="subitem" index="/StudentCommentAndDiscuss/StudentAllComment">&emsp;&emsp;课程评价</el-menu-item>
+        <el-menu-item class="subitem" index="/StudentCommentAndDiscuss/StudentAllDiscuss">&emsp;&emsp;自由讨论</el-menu-item>
       </el-submenu>
       <el-submenu index="3">
         <template slot="title"><span class="item">用户信息</span></template>

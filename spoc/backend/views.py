@@ -32,7 +32,7 @@ class CommentCourse(APIView):
         sql = MySQL()
         sql.commentCourse(courseId, userName, content, time)
 
-        return Response(1)
+        return Response(0)
 
 
 

@@ -22,8 +22,10 @@ import AllMaterial from '../components/Teacher/TeacherMaterial/AllMaterial'
 import BuildMaterial from '../components/Teacher/TeacherMaterial/BuildMaterial'
 import ManageMaterial from '../components/Teacher/TeacherMaterial/ManageMaterial'
 import StudentCommentAndDiscuss from '../components/Student/StudentCommentAndDiscuss/StudentCommentAndDiscuss'
-import StudentCourseComment from '../components/Student/StudentCommentAndDiscuss/StudentCourseComment'
-import CommentCourse from '../components/Student/StudentCommentAndDiscuss/CommentCourse'
+import StudentAllComment from '../components/Student/StudentCommentAndDiscuss/StudentAllComment'
+import StudentComment from '../components/Student/StudentCommentAndDiscuss/StudentComment'
+import StudentAllDiscuss from '../components/Student/StudentCommentAndDiscuss/StudentAllDiscuss'
+import StudentDiscuss from '../components/Student/StudentCommentAndDiscuss/StudentDiscuss'
 
 Vue.use(Router)
 
@@ -158,14 +160,24 @@ export default new Router({
       component: StudentCommentAndDiscuss,
       children: [
         {
-          path: 'StudentCourseComment',
-          name: 'StudentCourseComment',
-          component: StudentCourseComment
+          path: 'StudentAllComment',
+          name: 'StudentAllComment',
+          component: StudentAllComment
         },
         {
-          path: 'CommentCourse',
-          name: 'CommentCourse',
-          component: CommentCourse
+          path: 'StudentComment',
+          name: 'StudentComment',
+          component: StudentComment
+        },
+        {
+          path: 'StudentAllDiscuss',
+          name: 'StudentAllDiscuss',
+          component: StudentAllDiscuss
+        },
+        {
+          path: 'StudentDiscuss',
+          name: 'StudentDiscuss',
+          component: StudentDiscuss
         }
       ]
     }

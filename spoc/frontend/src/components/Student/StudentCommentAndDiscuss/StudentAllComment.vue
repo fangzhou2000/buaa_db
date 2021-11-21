@@ -2,7 +2,7 @@
   <div class="background">
     <el-container class="header">
       <el-header>
-        <span>{{userNickName}}  课程评论</span>
+        <span>课程评价</span>
         <el-button style="margin-top: 10px; float: right" v-on:click="goToHelloWorld">退出登录</el-button>
       </el-header>
     </el-container>
@@ -28,7 +28,7 @@
 import StudentNav from '../StudentNav'
 
 export default {
-  name: 'StudentCourseComment',
+  name: 'StudentAllComment',
   components: {StudentNav},
   data: function () {
     return {
@@ -47,11 +47,28 @@ export default {
       }]
     }
   },
+  mounted: function () {
+    this.userName = this.cookie.getCookie('userName')
+    this.userNickName = this.cookie.getCookie('userNickName')
+    this.getCourseList()
+  },
   methods: {
+    getCourseList: function () {
+      let that = this
+      this.$http.request({
+        url: that.$url + 'GetCourseList/',
+        method: 'get'
+      }).then(function (response) {
+        console.log(response.data)
+        that.courseList = response.data
+      }).catch(function (error) {
+        console.log(error)
+      })
+    },
     commentCourse: function (index) {
       let that = this
       this.$router.push({
-        path: '/StudentCommentAndDiscuss/CommentCourse',
+        path: '/StudentCommentAndDiscuss/StudentComment',
         query: {
           courseId: that.courseList[index].id,
           courseName: that.courseList[index].name
