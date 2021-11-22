@@ -8,22 +8,22 @@
       <el-form rules="rules">
         <div id="register-n">
           <el-form-item>
-            <el-input class="inputs" type="text" placeholder="请输入昵称" v-model="userNickName"></el-input>
+            <el-input class="inputs" type="text" placeholder="请输入姓名" v-model="userNickName" clearable></el-input>
           </el-form-item>
         </div>
         <div id="register-name">
           <el-form-item>
-            <el-input class="inputs" type="text" placeholder="请输入学号" v-model="userName"></el-input>
+            <el-input class="inputs" type="text" placeholder="请输入学号" v-model="userName" clearable></el-input>
           </el-form-item>
         </div>
         <div id="register-password">
           <el-form-item>
-            <el-input class="inputs" type="text" placeholder="请输入密码" v-model="userPassWord" show-password></el-input>
+            <el-input class="inputs" type="text" placeholder="请输入密码" v-model="userPassWord" show-password clearable></el-input>
           </el-form-item>
         </div>
         <div id="confirm-password">
           <el-form-item>
-            <el-input class="inputs" type="text" placeholder="请确认密码" v-model="userPassWord2" show-password></el-input>
+            <el-input class="inputs" type="text" placeholder="请确认密码" v-model="userPassWord2" show-password clearable></el-input>
           </el-form-item>
         </div>
         <div class="confirm-button">

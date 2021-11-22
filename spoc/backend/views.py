@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from .base_mysql import MySQL
 
 
-class buildPost(APIView):
+class BuildPost(APIView):
     def get(self, request):
         postThemeId = str(request.GET.get("postThemeId", None))
         userName = str(request.GET.get("userName", None))
