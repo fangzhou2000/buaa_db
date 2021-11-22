@@ -1,0 +1,49 @@
+body{
+  margin: 0;
+  height: 1080px;
+}
+.el-header {
+  text-align: center;
+  font-size: 24px;
+  background-color: white;
+  line-height: 60px;
+  border: 1px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)
+}
+
+.el-head-menu {
+  height: 100%;
+  background-color: black;
+}
+
+.el-menu-item:hover {
+  border-left: #33A2EF solid 6px !important;
+  background-color: black !important;
+  color: #38B2FF !important;
+}
+
+.el-submenu :hover {
+  background-color: black !important;
+  color: #38B2FF !important;
+}
+
+.el-menu-item.is-active {
+        border-left:#33A2EF solid 6px !important;
+        background-color: black !important;
+        color: #38B2FF !important;
+    }
+
+.item {
+  background-color: black;
+  font-size: 15px;
+  text-align: center;
+  color: white;
+}
+
+.subitem {
+  background-color: black;
+  font-size: 12px;
+  text-align: center;
+  color: white;
+}
+
