@@ -4,7 +4,7 @@
 
 
 ## Description 
- [![](https://img.shields.io/badge/frontend-Vue.js-informational)](https://vuejs.org/)   [![](https://img.shields.io/badge/backend-Django-informational)](https://www.djangoproject.com/) 
+ [![](https://img.shields.io/badge/frontend-Vue.js-9cf)](https://vuejs.org/)   [![](https://img.shields.io/badge/backend-Django-9cf)](https://www.djangoproject.com/) 
 
 ### build and run：
 
@@ -44,29 +44,38 @@ Vue样式 (oyk)
 
 ### Final Design
 
-**实体：**
+**Entity：**
 
-|            Entity             | Key  | Description |
-| :---------------------------: | :--: | :---------: |
-| `student(id, password, name)` | `id` |  学生信息   |
-| `teacher(id, password, name)` | `id` |  教师信息   |
-|     `material(id, name)`      | `id` |  学习材料   |
-|      `course(id, name)`       | `id` |  课程信息   |
+|                Entity                 | Key  | Description |
+| :-----------------------------------: | :--: | :---------: |
+|     `student(id, password, name)`     | `id` |  学生信息   |
+|     `teacher(id, password, name)`     | `id` |  教师信息   |
+|         `material(id, name)`          | `id` |  学习材料   |
+|          `course(id, name)`           | `id` |  课程信息   |
+|     `comment(id, content, time)`      | `id` |    评论     |
+| `posttheme(id, title, content, time)` | `id` |   主题帖    |
+|       `post(id, content, time)`       | `id` |    跟帖     |
 
-**关系：**
+**Relation：**
 
-|                  Relation                   |    Key    |  Description   |
-| :-----------------------------------------: | :-------: | :------------: |
-|   `student_course(student_id, course_id)`   | `all-key` |  学生选课信息  |
-|   `teacher_course(teacher_id, course_id)`   | `all-key` |  教师开课信息  |
-| `teacher_material(teacher_id, material_id)` | `all-key` | 教师提供的材料 |
-|  `course_material(course_id, material_id)`  | `all-key` |   课程的材料   |
+|                   Relation                    |    Key    |  Description   |
+| :-------------------------------------------: | :-------: | :------------: |
+|    `student_course(student_id, course_id)`    | `all-key` |    学生选课    |
+|    `teacher_course(teacher_id, course_id)`    | `all-key` |    教师开课    |
+|  `teacher_material(teacher_id, material_id)`  | `all-key` |  教师提供材料  |
+|   `course_material(course_id, material_id)`   | `all-key` |  课程对应材料  |
+|   `student_comment(student_id, comment_id)`   | `all-key` |  学生发表评论  |
+| `student_posttheme(student_id, posttheme_id)` | `all-key` | 学生发表主题帖 |
+|      `student_post(student_id, post_id)`      | `all-key` |    学生跟帖    |
+|    `course_comment(course_id, comment_id)`    | `all-key` |  课程对应评价  |
+|    `post_posttheme(post_id, posttheme_id)`    | `all-key` | 跟帖对应主题帖 |
 
 ### E-R Diagram
 
-![er](./img/1103_er_diagram.svg)
+![2](./img/1123_er.svg)
 
-![db](./img/1103_db_design.png)
+
+full img: [e-r](./img/1123_er_full.svg), [db](./img/1123_db.png)
 
 ### Plan Design
 
@@ -80,9 +89,9 @@ course(id, name, department, volume, credit)
 material(id, name, department, obtain)
 group(id, orientation, department, volume)
 
-Relation
+Relation 
 
-courseEvaluation(id, content) //匿名?
+courseEvaluation(id, content)
 courseSelection(student_id, course_id)
 groupJoin(student_id, group_id)
 studentMaterialObtain(student_id, material_id)

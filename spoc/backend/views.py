@@ -3,6 +3,89 @@ from rest_framework.response import Response
 from .base_mysql import MySQL
 
 
+class DeletePostTheme(APIView):
+    def get(self, request):
+        postThemeId = str(request.GET.get("postThemeId", None))
+        sql = MySQL()
+        sql.deletePostTheme(postThemeId)
+        return Response(0)
+
+
+class DeletePost(APIView):
+    def get(self, request):
+        postId = str(request.GET.get("postId", None))
+        sql = MySQL()
+        sql.deletePost(postId)
+        return Response(0)
+
+
+class DeleteComment(APIView):
+    def get(self, request):
+        commentId = str(request.GET.get("commentId", None))
+        sql = MySQL()
+        sql.deleteComment(commentId)
+        return Response(0)
+
+
+class BuildPost(APIView):
+    def get(self, request):
+        postThemeId = str(request.GET.get("postThemeId", None))
+        userName = str(request.GET.get("userName", None))
+        userNickName = str(request.GET.get("userNickName", None))
+        content = str(request.GET.get("content", None))
+        time = str(request.GET.get("time", None))
+
+        sql = MySQL()
+        sql.buildPost(postThemeId, userName, content, time)
+        return Response(0)
+
+
+class GetPostList(APIView):
+    def get(self, request):
+        postThemeId = str(request.GET.get("postThemeId", None))
+        sql = MySQL()
+        result = sql.getPostList(postThemeId)
+        postList = []
+
+        for i in result:
+            postList.append({"id": i[0],
+                             "userName": i[1],
+                             "userNickName": i[2],
+                             "content": i[3],
+                             "time": i[4]})
+        return Response(postList)
+
+
+class BuildPostTheme(APIView):
+    def get(self, request):
+        userName = str(request.GET.get("userName", None))
+        userNickName = str(request.GET.get("userNickName", None))
+        title = str(request.GET.get("title", None))
+        content = str(request.GET.get("content", None))
+        time = str(request.GET.get("time", None))
+
+        sql = MySQL()
+        sql.buildPostTheme(userName, title, content, time)
+
+        return Response(0)
+
+
+class GetPostThemeList(APIView):
+    def get(self, request):
+        sql = MySQL()
+        result = sql.getPostThemeList()
+        postThemeList = []
+
+        for i in result:
+            postThemeList.append({"id": i[5],
+                                  "userName": i[0],
+                                  "userNickName": i[1],
+                                  "title": i[2],
+                                  "content": i[3],
+                                  "time": i[4]})
+        return Response(postThemeList)
+
+
 class GetCommentList(APIView):
     def get(self, request):
         courseId = str(request.GET.get("courseId", None))
@@ -12,12 +95,12 @@ class GetCommentList(APIView):
         commentList = []
 
         for item in result:
-            commentList.append({"userName": item[0],
+            commentList.append({"id": item[4],
+                                "userName": item[0],
                                 "userNickName": item[1],
                                 "content": item[2],
                                 "time": item[3]})
         return Response(commentList)
-
 
 
 class CommentCourse(APIView):
@@ -33,7 +116,6 @@ class CommentCourse(APIView):
         sql.commentCourse(courseId, userName, content, time)
 
         return Response(0)
-
 
 
 class StudentLogin(APIView):

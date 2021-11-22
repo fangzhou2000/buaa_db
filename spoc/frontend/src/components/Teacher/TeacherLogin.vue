@@ -8,12 +8,12 @@
       <el-form>
         <div id="register-name">
           <el-form-item>
-            <el-input class="inputs" type="text" placeholder="请输入工号" v-model="userName"></el-input>
+            <el-input class="inputs" type="text" placeholder="请输入工号" v-model="userName" clearable></el-input>
           </el-form-item>
         </div>
         <div id="register-password">
           <el-form-item>
-            <el-input class="inputs" type="text" placeholder="请输入密码" v-model="userPassWord" show-password></el-input>
+            <el-input class="inputs" type="text" placeholder="请输入密码" v-model="userPassWord" show-password clearable></el-input>
           </el-form-item>
         </div>
         <div class="confirm-button">
@@ -49,7 +49,7 @@ export default {
   methods: {
     goToTeacherHead: function () {
       let that = this
-      let debug = true
+      let debug = false
       if (debug) {
         if (that.userName === 'admin' && that.userPassWord === '123456') {
           that.$router.push({
