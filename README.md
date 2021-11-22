@@ -4,7 +4,7 @@
 
 
 ## Description 
- [![](https://img.shields.io/badge/frontend-Vue.js-informational)](https://vuejs.org/)   [![](https://img.shields.io/badge/backend-Django-informational)](https://www.djangoproject.com/) 
+ [![](https://img.shields.io/badge/frontend-Vue.js-9cf)](https://vuejs.org/)   [![](https://img.shields.io/badge/backend-Django-9cf)](https://www.djangoproject.com/) 
 
 ### build and run：
 
@@ -76,7 +76,7 @@ Vue样式 (oyk)
 
 
 
-full img: [e-r](./img/1123_er_full.svg), [db](./1123_db.svg)
+full img: [e-r](./img/1123_er_full.svg), [db](./img/1123_db.svg)
 
 ### Plan Design
 
