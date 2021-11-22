@@ -49,7 +49,7 @@ export default {
   methods: {
     goToTeacherHead: function () {
       let that = this
-      let debug = true
+      let debug = false
       if (debug) {
         if (that.userName === 'admin' && that.userPassWord === '123456') {
           that.$router.push({

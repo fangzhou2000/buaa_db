@@ -8,13 +8,13 @@
         <span class="item">首页</span>
       </el-menu-item>
       <el-submenu index="1">
-        <template slot="title"><i class="el-icon-user"></i><span class="item">课程信息</span></template>
+        <template slot="title"><i class="el-icon-location-information"></i><span class="item">课程信息</span></template>
         <el-menu-item class="subitem" index="/TeacherCourse/AllCourse">&emsp;&emsp;查看课程</el-menu-item>
         <el-menu-item class="subitem" index="/TeacherCourse/BuildCourse">&emsp;&emsp;开设课程</el-menu-item>
         <el-menu-item class="subitem" index="/TeacherCourse/ManageCourse">&emsp;&emsp;管理课程</el-menu-item>
       </el-submenu>
       <el-submenu index="2">
-        <template slot="title"><i class="el-icon-user"></i><span class="item">学习材料</span></template>
+        <template slot="title"><i class="el-icon-s-marketing"></i><span class="item">学习材料</span></template>
         <el-menu-item class="subitem" index="/TeacherMaterial/AllMaterial">&emsp;&emsp;&emsp;&emsp;查看学习材料</el-menu-item>
         <el-menu-item class="subitem" index="/TeacherMaterial/BuildMaterial">&emsp;&emsp;&emsp;&emsp;新建学习材料</el-menu-item>
         <el-menu-item class="subitem" index="/TeacherMaterial/ManageMaterial">&emsp;&emsp;&emsp;&emsp;管理学习材料</el-menu-item>

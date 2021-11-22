@@ -1,0 +1,20 @@
+  .timeline {
+    margin-top: 30px;
+    max-height: 600px;
+  }
+  .line_2 {
+    margin-top: 50px;
+    height: 600px;
+    width: inherit;
+    margin-left: 50px;
+    margin-right: 50px
+  }
+  .line-1-head, .line-2-head{
+    width: inherit;
+    height: 50px;
+    font-size: 20px;
+    font-family: "微软雅黑", serif;
+    background-color: white;
+    border-left: lightblue 10px solid;
+    box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.1)
+}

@@ -1,0 +1,50 @@
+  .copyright{
+    height: 150px;
+    border: lightblue 1px hidden;
+    background-color: dimgray;
+    color: white;
+    padding-left: 20px;
+    padding-right: 20px;;
+    text-align: center;
+}
+  .copyright-block{
+    width: 33.3%;
+    height: 140px;
+    float: left;
+    padding-top: 10px;
+}
+  .first-copyright-head {
+    font-family: 宋体, serif;
+    font-size: 30px;
+  }
+  .first-copyright-content {
+    font-family: 宋体,serif !important;
+    font-size: 15px;
+    margin-top: 15px;
+  }
+  .author-head {
+    font-family: 宋体, serif !important;
+    font-size: 30px;
+    margin-bottom: 10px;
+  }
+  .author-task{
+    margin-left: 20%;
+    text-align: left !important;
+    line-height: 32px;
+    font-family: 宋体,serif;
+    font-size: 15px;
+}
+  .third-copyright-head {
+    font-family: 宋体, serif !important;
+    font-size: 30px;
+    margin-bottom: 10px;
+  }
+  .third-copyright-link {
+    margin-left: 20%;
+    text-decoration: none;
+    text-align: left !important;
+    font-family: 宋体,serif !important;
+    font-size: 15px;
+    color: white;
+    margin-top: 15px;
+  }

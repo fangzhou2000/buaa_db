@@ -1,0 +1,24 @@
+  .introduction{
+    margin-top: 20px;
+    margin-left: 100px;
+    margin-right: 100px;
+    padding: 0;
+    height: 600px;
+    border: lightblue 1px hidden;
+    background-color: ghostwhite;
+    overflow: hidden;
+  }
+  .cover{
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    z-index: 100;
+    text-align: center;
+    top:0;
+    color: white;
+    font-size: 35px;
+    line-height: 40px;
+    margin-right: 20px;
+    padding-top: 270px;
+}

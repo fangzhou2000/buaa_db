@@ -1,0 +1,26 @@
+  .navigator{
+    height: 80px;
+    width: 100%;
+    background-color: whitesmoke;
+  }
+  .navigator-left{
+    font-size: 40px;
+    display: inline-flex;
+    float: left;
+    margin-left: 50px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  .el-icon-s-platform-text {
+    font-family: "华文仿宋",sans-serif;
+  }
+  .navigator-right{
+    align-self: center;
+    display: inline-flex;
+    float: right;
+    margin-right: 5%;
+    margin-top: 1%;
+  }
+  .buttons{
+    display: inline-flex;
+  }

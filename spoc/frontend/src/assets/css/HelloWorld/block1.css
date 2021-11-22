@@ -1,0 +1,18 @@
+  .line_1 {
+    margin-top: 50px;
+    height: 500px;
+    width: inherit;
+    margin-left: 50px;
+    margin-right: 50px
+}
+  .line-1-content {
+     height: 520px
+}
+  .this-el-row {
+    height: 90%;
+}
+  .div-head{
+    float: left;
+    margin-left: 30px;
+    margin-top: 10px;
+}
