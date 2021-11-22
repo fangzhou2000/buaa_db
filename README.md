@@ -70,9 +70,9 @@ Vue样式 (oyk)
 
 ### E-R Diagram
 
-![er](./img/1122_er.svg)
+![er](./img/1122_er_full.svg)
 
-![db](./img/1103_db_design.png)
+![1122_db](./img/1122_db.svg)
 
 ### Plan Design
 
