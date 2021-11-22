@@ -70,7 +70,7 @@ Vue样式 (oyk)
 
 ### E-R Diagram
 
-![er](./img/1103_er_diagram.svg)
+![er](./img/1122_er.svg)
 
 ![db](./img/1103_db_design.png)
 
