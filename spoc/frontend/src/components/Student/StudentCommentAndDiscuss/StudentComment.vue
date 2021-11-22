@@ -80,31 +80,37 @@ export default {
       contentInput: '',
       time: '',
       commentList: [{
+        id: 1,
         userName: '学号1',
         userNickName: '学生1',
         content: '课程评价内容1',
         time: '2021-11-19 11:11:11'
       }, {
+        id: 2,
         userName: 'admin',
         userNickName: '学生2',
         content: '课程评价内容2',
         time: '2021-11-19 11:11:11'
       }, {
+        id: 3,
         userName: '学号3',
         userNickName: '学生3',
         content: '课程评价内容3',
         time: '2021-11-19 11:11:11'
       }, {
+        id: 4,
         userName: '学号1',
         userNickName: '学生1',
         content: '课程评价内容1',
         time: '2021-11-19 11:11:11'
       }, {
+        id: 5,
         userName: '学号2',
         userNickName: '学生2',
         content: '课程评价内容2',
         time: '2021-11-19 11:11:11'
       }, {
+        id: 6,
         userName: '学号3',
         userNickName: '学生3',
         content: '课程评价内容3',
@@ -176,7 +182,7 @@ export default {
       let that = this
       that.getTime()
       this.$http.request({
-        url: that.$url + 'DeletePost/',
+        url: that.$url + 'DeleteComment/',
         method: 'get',
         params: {
           commentId: commentId
@@ -185,7 +191,7 @@ export default {
         console.log(response.data)
         if (response.data === 0) {
           that.$message.success('删除成功')
-          that.getPostList()
+          that.getCommentList()
         } else {
           that.$message.error('未知错误')
         }

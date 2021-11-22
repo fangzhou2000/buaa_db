@@ -165,7 +165,7 @@ export default {
         url: that.$url + 'DeletePostTheme/',
         method: 'get',
         params: {
-          postThemeId: that.postThemeId
+          postThemeId: that.postTheme.id
         }
       }).then(function (response) {
         console.log(response.data)

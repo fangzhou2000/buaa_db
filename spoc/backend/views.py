@@ -3,6 +3,30 @@ from rest_framework.response import Response
 from .base_mysql import MySQL
 
 
+class DeletePostTheme(APIView):
+    def get(self, request):
+        postThemeId = str(request.GET.get("postThemeId", None))
+        sql = MySQL()
+        sql.deletePostTheme(postThemeId)
+        return Response(0)
+
+
+class DeletePost(APIView):
+    def get(self, request):
+        postId = str(request.GET.get("postId", None))
+        sql = MySQL()
+        sql.deletePost(postId)
+        return Response(0)
+
+
+class DeleteComment(APIView):
+    def get(self, request):
+        commentId = str(request.GET.get("commentId", None))
+        sql = MySQL()
+        sql.deleteComment(commentId)
+        return Response(0)
+
+
 class BuildPost(APIView):
     def get(self, request):
         postThemeId = str(request.GET.get("postThemeId", None))
@@ -24,11 +48,13 @@ class GetPostList(APIView):
         postList = []
 
         for i in result:
-            postList.append({     "userName": i[0],
-                                  "userNickName": i[1],
-                                  "content": i[2],
-                                  "time": i[3]})
+            postList.append({"id": i[0],
+                             "userName": i[1],
+                             "userNickName": i[2],
+                             "content": i[3],
+                             "time": i[4]})
         return Response(postList)
+
 
 class BuildPostTheme(APIView):
     def get(self, request):
@@ -69,7 +95,8 @@ class GetCommentList(APIView):
         commentList = []
 
         for item in result:
-            commentList.append({"userName": item[0],
+            commentList.append({"id": item[4],
+                                "userName": item[0],
                                 "userNickName": item[1],
                                 "content": item[2],
                                 "time": item[3]})
