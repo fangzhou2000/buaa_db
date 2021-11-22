@@ -1,10 +1,10 @@
 body {
   margin: 0;
 }
-.main{
+.background {
   height: 1080px;
 }
-.background {
+.main{
   height: 1080px;
 }
 .toggle-btn :hover {

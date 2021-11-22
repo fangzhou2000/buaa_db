@@ -1,17 +1,20 @@
 <template>
   <div class="background">
-    <el-container class="header">
-      <el-header>
-        <span>{{userNickName}} 查看课程</span>
-        <el-button style="margin-top: 10px; float: right" v-on:click="goToHelloWorld">退出登录</el-button>
-      </el-header>
-    </el-container>
-
+<!--    <el-container class="header">-->
+<!--      <el-header>-->
+<!--        <span>{{userNickName}} 查看课程</span>-->
+<!--        <el-button style="margin-top: 10px; float: right" v-on:click="goToHelloWorld">退出登录</el-button>-->
+<!--      </el-header>-->
+<!--    </el-container>-->
     <el-container class="main">
-      <el-aside>
+      <el-aside width="show?'64px':'250px'">
         <TeacherNav></TeacherNav>
       </el-aside>
-      <el-main>
+      <el-container>
+        <el-header>
+          <TeacherHeading></TeacherHeading>
+        </el-header>
+        <el-main>
         <el-table :data="courseList">
           <el-table-column label="课程ID" prop="id"></el-table-column>
           <el-table-column label="课程名称" prop="name"></el-table-column>
@@ -19,15 +22,17 @@
           <el-table-column label="课程材料" prop="materialNameString"></el-table-column>
         </el-table>
       </el-main>
+      </el-container>
     </el-container>
   </div>
 </template>
 
 <script>
 import TeacherNav from '../TeacherNav'
+import TeacherHeading from '../TeacherHeading'
 export default {
   name: 'AllCourse',
-  components: {TeacherNav},
+  components: {TeacherNav, TeacherHeading},
   data: function () {
     return {
       userNickName: '',
@@ -84,3 +89,8 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+ @import "../../../assets/css/Nav.css";
+ @import "../../../assets/css/head.css";
+</style>

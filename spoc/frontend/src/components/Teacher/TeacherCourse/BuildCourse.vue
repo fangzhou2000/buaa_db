@@ -1,17 +1,20 @@
 <template>
   <div class="background">
-    <el-container class="header">
-      <el-header>
-        <span>{{userNickName}} 开设课程</span>
-        <el-button style="margin-top: 10px; float: right" v-on:click="goToHelloWorld">退出登录</el-button>
-      </el-header>
-    </el-container>
-
+<!--    <el-container class="header">-->
+<!--      <el-header>-->
+<!--        <span>{{userNickName}} 开设课程</span>-->
+<!--        <el-button style="margin-top: 10px; float: right" v-on:click="goToHelloWorld">退出登录</el-button>-->
+<!--      </el-header>-->
+<!--    </el-container>-->
     <el-container class="main">
-      <el-aside>
+      <el-aside width="show?'64px':'250px'">
         <TeacherNav></TeacherNav>
       </el-aside>
-      <el-main>
+      <el-container>
+        <el-header>
+          <TeacherHeading></TeacherHeading>
+        </el-header>
+        <el-main>
         <el-form label-position="top">
           <el-form-item label="课程名称">
             <el-col :span="6">
@@ -30,15 +33,17 @@
           </el-form-item>
         </el-form>
       </el-main>
+      </el-container>
     </el-container>
   </div>
 </template>
 
 <script>
 import TeacherNav from '../TeacherNav'
+import TeacherHeading from '../TeacherHeading'
 export default {
   name: 'BuildCourse',
-  components: {TeacherNav},
+  components: {TeacherNav, TeacherHeading},
   data: function () {
     return {
       userNickName: '',
@@ -93,3 +98,8 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+ @import "../../../assets/css/Nav.css";
+ @import "../../../assets/css/head.css";
+</style>
