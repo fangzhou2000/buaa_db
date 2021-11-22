@@ -74,9 +74,7 @@ Vue样式 (oyk)
 
 
 
-![er](./img/1122_er_full.svg)
-
-<img src="./img/1122_db.svg" alt="1122_db" style="zoom: 33%;" />
+<img src="./img/1122_db.svg" alt="1122_db" style="zoom: 25%;" />
 
 ### Plan Design
 
