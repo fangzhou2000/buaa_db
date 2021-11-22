@@ -1,52 +1,50 @@
 <template>
   <div class="background">
-    <el-container class="header">
-      <el-header>
-        <span>自由讨论</span>
-        <el-button style="margin-top: 10px; float: right" v-on:click="goToHelloWorld">退出登录</el-button>
-      </el-header>
-    </el-container>
-
     <el-container class="main">
-      <el-aside>
+      <el-aside width="show?'64px':'400px'">
         <StudentNav></StudentNav>
       </el-aside>
-      <el-main>
-        <el-button @click="buildThemeVisible = true">新建主题贴</el-button>
-        <el-dialog title="新建主题帖" :visible.sync = "buildThemeVisible">
-          <el-row style="margin-bottom: 10px">
-            <el-col>
-              <el-input v-model="input.title" placeholder="请输入标题"></el-input>
-            </el-col>
-          </el-row>
-          <el-row style="margin-bottom: 10px">
-            <el-col>
-              <el-input v-model="input.content" placeholder="请输入贴子的主题" type="textarea" :rows="10"></el-input>
-            </el-col>
-          </el-row>
-          <div slot="footer" class="dialog-footer">
-            <el-button @click="buildThemeVisible = false">取消</el-button>
-            <el-button type="primary" @click="buildPostTheme">确定</el-button>
-          </div>
-        </el-dialog>
-        <el-table :data="postThemeList">
-          <el-table-column label="主题贴ID" prop="id"></el-table-column>
-          <el-table-column label="主题贴标题" prop="title"></el-table-column>
-          <el-table-column label="进入贴子"> <template slot-scope="scope">
-        <el-button v-on:click="enterPostTheme(scope.$index)" type="primary">进入</el-button>
-      </template></el-table-column>
-        </el-table>
-      </el-main>
+      <el-container>
+        <el-header>
+          <StudentHeading></StudentHeading>
+        </el-header>
+        <el-main>
+          <el-button @click="buildThemeVisible = true">新建主题贴</el-button>
+          <el-dialog title="新建主题帖" :visible.sync = "buildThemeVisible">
+            <el-row style="margin-bottom: 10px">
+              <el-col>
+                <el-input v-model="input.title" placeholder="请输入标题"></el-input>
+              </el-col>
+            </el-row>
+            <el-row style="margin-bottom: 10px">
+              <el-col>
+                <el-input v-model="input.content" placeholder="请输入贴子的主题" type="textarea" :rows="10"></el-input>
+              </el-col>
+            </el-row>
+            <div slot="footer" class="dialog-footer">
+              <el-button @click="buildThemeVisible = false">取消</el-button>
+              <el-button type="primary" @click="buildPostTheme">确定</el-button>
+            </div>
+          </el-dialog>
+          <el-table :data="postThemeList">
+            <el-table-column label="主题贴ID" prop="id"></el-table-column>
+            <el-table-column label="主题贴标题" prop="title"></el-table-column>
+            <el-table-column label="进入贴子"> <template slot-scope="scope">
+          <el-button v-on:click="enterPostTheme(scope.$index)" type="primary">进入</el-button>
+        </template></el-table-column>
+          </el-table>
+        </el-main>
+      </el-container>
     </el-container>
   </div>
 </template>
 
 <script>
 import StudentNav from '../StudentNav'
-
+import StudentHeading from '../StudentHeading'
 export default {
   name: 'StudentAllDiscuss',
-  components: {StudentNav},
+  components: {StudentNav, StudentHeading},
   data: function () {
     return {
       userName: '',
@@ -158,5 +156,5 @@ export default {
 </script>
 
 <style scoped>
-
+  @import "../../../assets/css/head.css";
 </style>

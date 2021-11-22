@@ -1,17 +1,20 @@
 <template>
   <div>
-   <el-container class="header">
-      <el-header>
-        <span>贴子 {{postTheme.title}}</span>
-        <el-button class="exit" v-on:click="goToHelloWorld">退出登录</el-button>
-      </el-header>
-    </el-container>
-
+<!--   <el-container class="header">-->
+<!--      <el-header>-->
+<!--        <span>贴子 {{postTheme.title}}</span>-->
+<!--        <el-button class="exit" v-on:click="goToHelloWorld">退出登录</el-button>-->
+<!--      </el-header>-->
+<!--    </el-container>-->
     <el-container class="main">
-      <el-aside>
+      <el-aside width="show?'64px':'300px'">
         <StudentNav></StudentNav>
       </el-aside>
-      <el-main>
+      <el-container>
+        <el-header>
+          <StudentHeading></StudentHeading>
+        </el-header>
+        <el-main>
         <el-row class="buttons">
           <el-button v-on:click="buildPost" type="primary" size="small" >跟贴</el-button>
           <el-button v-on:click="returnStudentAllDiscuss" type="primary" size="small">返回</el-button>
@@ -56,6 +59,7 @@
           <el-divider></el-divider>
         </div>
       </el-main>
+      </el-container>
     </el-container>
   </div>
 </template>
@@ -83,10 +87,10 @@
 
 <script>
 import StudentNav from '../StudentNav'
-
+import StudentHeading from '../StudentHeading'
 export default {
   name: 'StudentDiscuss',
-  components: {StudentNav},
+  components: {StudentNav, StudentHeading},
   data: function () {
     return {
       postTheme: {

@@ -4,9 +4,10 @@
 
 <script>
 import StudentNav from '../StudentNav'
+import StudentHeading from '../StudentHeading'
 export default {
   name: 'StudentCourse',
-  components: {StudentNav}
+  components: {StudentNav, StudentHeading}
 }
 </script>
 

@@ -1,17 +1,21 @@
 <template>
   <div>
-   <el-container class="header">
-      <el-header>
-        <span>评价 {{courseName}}</span>
-        <el-button class="exit" v-on:click="goToHelloWorld">退出登录</el-button>
-      </el-header>
-    </el-container>
-
+<!--   <el-container class="header">-->
+<!--      <el-header>-->
+<!--        <span>评价 {{courseName}}</span>-->
+<!--        <el-button class="exit" v-on:click="goToHelloWorld">退出登录</el-button>-->
+<!--      </el-header>-->
+<!--    </el-container>-->
     <el-container class="main">
-      <el-aside>
+      <el-aside width="show?'64px':'400px'">
         <StudentNav></StudentNav>
       </el-aside>
-      <el-main>
+      <el-container>
+        <el-header>
+          <StudentHeading></StudentHeading>
+        </el-header>
+        <el-main>
+          <el-row>评价 {{courseName}}</el-row>
         <el-row class="buttons">
           <el-button v-on:click="commentCourse" type="primary" size="small" >发表评价</el-button>
           <el-button v-on:click="returnStudentAllComment" type="primary" size="small">返回</el-button>
@@ -41,6 +45,7 @@
           <el-divider></el-divider>
         </div>
       </el-main>
+      </el-container>
     </el-container>
   </div>
 </template>
@@ -67,10 +72,10 @@
 
 <script>
 import StudentNav from '../StudentNav'
-
+import StudentHeading from '../StudentHeading'
 export default {
   name: 'StudentComment',
-  components: {StudentNav},
+  components: {StudentNav, StudentHeading},
   data: function () {
     return {
       userName: '前端测试用户名',
@@ -213,3 +218,8 @@ export default {
   }
 }
 </script>
+
+<style scope>
+  @import "../../../assets/css/head.css";
+  @import "../../../assets/css/Nav.css";
+</style>

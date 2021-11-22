@@ -4,10 +4,10 @@
 
 <script>
 import StudentNav from '../StudentNav'
-
+import StudentHeading from '../StudentHeading'
 export default {
   name: 'StudentCommentAndDiscuss',
-  components: {StudentNav}
+  components: {StudentNav, StudentHeading}
 }
 </script>
 

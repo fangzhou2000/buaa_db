@@ -1,12 +1,12 @@
 body {
   margin: 0;
 }
-
-
 .main{
   height: 1080px;
 }
-
+.background {
+  height: 1080px;
+}
 .toggle-btn :hover {
   cursor: pointer;
 }

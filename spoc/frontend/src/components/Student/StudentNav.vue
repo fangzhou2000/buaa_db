@@ -19,7 +19,6 @@
         <el-menu-item class="subitem" index="/StudentChange/StudentChange">&emsp;&emsp;修改密码</el-menu-item>
       </el-submenu>
     </el-menu>
-<!--  </div>-->
 </template>
 
 <style>

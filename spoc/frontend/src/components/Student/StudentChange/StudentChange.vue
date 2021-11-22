@@ -1,17 +1,21 @@
 <template>
   <div>
-    <el-container class="header">
-      <el-header>
-        <span>{{userNickName}}  修改密码</span>
-        <el-button style="margin-top: 10px; float: right" v-on:click="goToHelloWorld">退出登录</el-button>
-      </el-header>
-    </el-container>
-
+<!--    <el-container class="header">-->
+<!--      <el-header>-->
+<!--        <span>{{userNickName}}  修改密码</span>-->
+<!--        <el-button style="margin-top: 10px; float: right" v-on:click="goToHelloWorld">退出登录</el-button>-->
+<!--      </el-header>-->
+<!--    </el-container>-->
     <el-container class="main">
-      <el-aside>
+      <el-aside width="show?'64px':'300px'">
         <StudentNav></StudentNav>
       </el-aside>
-      <el-main>
+      <el-container>
+        <el-header>
+          <StudentHeading></StudentHeading>
+        </el-header>
+        <el-main>
+          <el-row>{{userNickName}} 密码修改 </el-row>
         <el-form label-width="100px">
           <el-form-item label="原密码">
             <el-col span="6">
@@ -34,17 +38,18 @@
             </el-col>
           </el-form-item>
         </el-form>
-
-      </el-main>
+        </el-main>
+      </el-container>
     </el-container>
   </div>
 </template>
 
 <script>
 import StudentNav from '../StudentNav'
+import StudentHeading from '../StudentHeading'
 export default {
   name: 'StudentChange',
-  components: {StudentNav},
+  components: {StudentNav, StudentHeading},
   data: function () {
     return {
       userName: '',
@@ -105,5 +110,6 @@ export default {
 </script>
 
 <style scoped>
-
+  @import "../../../assets/css/head.css";
+  @import "../../../assets/css/Nav.css";
 </style>
