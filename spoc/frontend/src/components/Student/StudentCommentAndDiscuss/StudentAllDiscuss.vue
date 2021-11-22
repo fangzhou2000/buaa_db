@@ -57,7 +57,7 @@ export default {
       },
       postThemeList: [{
         id: '1',
-        userName: '学号1',
+        userName: 'admin',
         userNickName: '学生1',
         title: '前端测试贴标题',
         content: '前端测试贴内容',
@@ -105,7 +105,6 @@ export default {
     buildPostTheme: function () {
       let that = this
       that.getTime()
-      console.log(111)
       this.$http.request({
         url: that.$url + 'BuildPostTheme/',
         method: 'get',

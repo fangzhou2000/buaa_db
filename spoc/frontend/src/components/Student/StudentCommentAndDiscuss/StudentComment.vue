@@ -23,7 +23,7 @@
           </el-col>
         </el-row>
         <el-divider></el-divider>
-        <p v-for="(comment) in commentList" v-bind:key="comment">
+        <div v-for="(comment) in commentList" v-bind:key="comment">
           <el-row class="time">
             {{comment.time}}
           </el-row>
@@ -31,13 +31,15 @@
             {{comment.userNickName}}({{comment.userName}}) :
           </el-row>
           <el-row class="content">
-            <el-col :span="1">
-              &nbsp;
-            </el-col>
             {{comment.content}}
           </el-row>
+          <el-row class="delete">
+            <div v-if="comment.userName === userName">
+              <el-link type="danger" v-on:click="deleteComment(comment.id)">删除</el-link>
+            </div>
+          </el-row>
           <el-divider></el-divider>
-        </p>
+        </div>
       </el-main>
     </el-container>
   </div>
@@ -52,9 +54,11 @@
   }
   .time {
     font-size: small;
+    color: #e2e2e2;
   }
   .userName {
     font-size: medium;
+    color: #66b1ff;
   }
   .content {
     font-size: medium;
@@ -81,7 +85,7 @@ export default {
         content: '课程评价内容1',
         time: '2021-11-19 11:11:11'
       }, {
-        userName: '学号2',
+        userName: 'admin',
         userNickName: '学生2',
         content: '课程评价内容2',
         time: '2021-11-19 11:11:11'
@@ -117,6 +121,16 @@ export default {
     this.getCommentList()
   },
   methods: {
+    getTime: function () {
+      let dt = new Date()
+      let yyyy = dt.getFullYear()
+      let MM = (dt.getMonth() + 1).toString().padStart(2, '0')
+      let dd = dt.getDate().toString().padStart(2, '0')
+      let h = dt.getHours().toString().padStart(2, '0')
+      let m = dt.getMinutes().toString().padStart(2, '0')
+      let s = dt.getSeconds().toString().padStart(2, '0')
+      this.time = yyyy + '-' + MM + '-' + dd + ' ' + h + ':' + m + ':' + s
+    },
     getCommentList: function () {
       let that = this
       this.$http.request({
@@ -131,16 +145,6 @@ export default {
       }).catch(function (error) {
         console.log(error)
       })
-    },
-    getTime: function () {
-      let dt = new Date()
-      let yyyy = dt.getFullYear()
-      let MM = (dt.getMonth() + 1).toString().padStart(2, '0')
-      let dd = dt.getDate().toString().padStart(2, '0')
-      let h = dt.getHours().toString().padStart(2, '0')
-      let m = dt.getMinutes().toString().padStart(2, '0')
-      let s = dt.getSeconds().toString().padStart(2, '0')
-      this.time = yyyy + '-' + MM + '-' + dd + ' ' + h + ':' + m + ':' + s
     },
     commentCourse: function () {
       let that = this
@@ -161,6 +165,27 @@ export default {
           that.$message.success('评价成功')
           that.getCommentList()
           that.contentInput = ''
+        } else {
+          that.$message.error('未知错误')
+        }
+      }).catch(function (error) {
+        console.log(error)
+      })
+    },
+    deleteComment: function (commentId) {
+      let that = this
+      that.getTime()
+      this.$http.request({
+        url: that.$url + 'DeletePost/',
+        method: 'get',
+        params: {
+          commentId: commentId
+        }
+      }).then(function (response) {
+        console.log(response.data)
+        if (response.data === 0) {
+          that.$message.success('删除成功')
+          that.getPostList()
         } else {
           that.$message.error('未知错误')
         }

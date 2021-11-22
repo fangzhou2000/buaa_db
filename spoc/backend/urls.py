@@ -26,5 +26,5 @@ urlpatterns = [
     path('GetPostThemeList/', views.GetPostThemeList.as_view()),
     path('BuildPostTheme/', views.BuildPostTheme.as_view()),
     path('GetPostList/', views.GetPostList.as_view()),
-    path('buildPost/', views.buildPost.as_view())
+    path('BuildPost/', views.BuildPost.as_view())
 ]
