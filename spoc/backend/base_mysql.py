@@ -7,8 +7,8 @@ class MySQL:
         connection, cursor = self.connectDatabase()
 
         instruction = "SELECT s.id, s.name, p.content, p.time FROM " \
-                      "post as p, student_post as sp, student as s " \
-                      "WHERE p.posttheme_id=%s and p.id=sp.post_id and sp.student_id=s.id " \
+                      "post as p, student_post as sp, student as s, post_posttheme as pp " \
+                      "WHERE pp.posttheme_id=%s and pp.post_id=p.id and p.id=sp.post_id and sp.student_id=s.id " \
                       "ORDER by p.time desc"
         cursor.execute(instruction, [postThemeId])
         result = cursor.fetchall()
@@ -17,9 +17,9 @@ class MySQL:
 
     def buildPost(self, postThemeId, userName, content, ti):
         connection, cursor = self.connectDatabase()
-        instruction = "INSERT INTO post(posttheme_id, content, time) " \
-                      "values(%s, %s, %s)"
-        cursor.execute(instruction, [postThemeId, content, ti])
+        instruction = "INSERT INTO post( content, time) " \
+                      "values(%s, %s)"
+        cursor.execute(instruction, [content, ti])
         connection.commit()
 
         instruction = "SELECT MAX(id) FROM post"
@@ -31,6 +31,12 @@ class MySQL:
         instruction = "INSERT INTO student_post(student_id, post_id) " \
                       "VALUES (%s, %s)"
         cursor.execute(instruction, [userName, result])
+
+        connection.commit()
+
+        instruction = "INSERT INTO post_posttheme(posttheme_id, post_id) " \
+                      "VALUES (%s, %s)"
+        cursor.execute(instruction, [postThemeId, result])
 
         connection.commit()
 
@@ -78,8 +84,9 @@ class MySQL:
         connection, cursor = self.connectDatabase()
 
         instruction = "SELECT s.id, s.name, cc.c, cc.time FROM " \
-                      "(SELECT `time`, content, id FROM comment " \
-                      "WHERE course_id=%s) AS cc(time,c,id), student_comment as sc, student AS s " \
+                      "(SELECT `time`, content, id FROM comment, course_comment as cc " \
+                      "WHERE cc.course_id=%s and cc.comment_id=comment.id) AS cc(time,c,id), " \
+                      "student_comment as sc, student AS s " \
                       "WHERE cc.id=sc.comment_id AND sc.student_id=s.id " \
                       "ORDER BY cc.time desc"
 
@@ -92,10 +99,10 @@ class MySQL:
     def commentCourse(self, courseId, userName, content, ti):
         connection, cursor = self.connectDatabase()
 
-        instruction = "INSERT INTO comment(course_id, content, time) " \
-                      "values(%s, %s, %s)"
+        instruction = "INSERT INTO comment(content, time) " \
+                      "values(%s, %s)"
 
-        cursor.execute(instruction, [courseId, content, ti])
+        cursor.execute(instruction, [content, ti])
 
         connection.commit()
 
@@ -109,6 +116,13 @@ class MySQL:
                       "VALUES (%s, %s)"
 
         cursor.execute(instruction, [userName, result])
+
+        connection.commit()
+
+        instruction = "INSERT INTO course_comment(course_id, comment_id) " \
+                      "VALUES (%s, %s)"
+
+        cursor.execute(instruction, [courseId, result])
 
         connection.commit()
 
