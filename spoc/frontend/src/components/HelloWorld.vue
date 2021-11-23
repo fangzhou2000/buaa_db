@@ -131,6 +131,11 @@
           <p><a href="https://github.com/fangzhou0216/buaa_db" class="links">@方舟</a></p>
           <p><a href="https://www.icourse163.org/" class="links">中国大学MOOC</a></p>
         </div>
+        <div class="admin-enter-item">
+          <p class="admin-enter-text" @click="goToAdminLogin">
+            Be&nbsp;an&nbsp;Admin?
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -192,6 +197,11 @@ export default {
     goToTeacherLogin () {
       this.$router.push({
         name: 'TeacherLogin'
+      })
+    },
+    goToAdminLogin () {
+      this.$router.push({
+        name: 'AdminLogin'
       })
     }
   }

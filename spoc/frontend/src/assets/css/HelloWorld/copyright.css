@@ -39,12 +39,25 @@
     font-size: 30px;
     margin-bottom: 10px;
   }
-  .third-copyright-link {
-    margin-left: 25%;
-    text-decoration: none;
-    text-align: left !important;
+  .third-copyright-link, .links {
+    text-decoration: none !important;
+    text-align: center !important;
     font-family: 宋体,serif !important;
     font-size: 15px;
-    color: white;
+    color: white !important;
     margin-top: 15px;
   }
+  .admin-enter-item {
+    height: 20px;
+  }
+  .admin-enter-text {
+    text-decoration: underline;
+    color: white;
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+  .admin-enter-text:hover {
+    cursor: pointer;
+    color: cyan;
+  }
+

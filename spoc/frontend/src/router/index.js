@@ -201,33 +201,75 @@ export default new Router({
     },
     {
       path: '/AdminChange',
-      name: AdminChange,
-      component: AdminChange
+      name: 'AdminChange',
+      component: AdminChange,
+      children: [
+        {
+          path: 'AdminChange',
+          name: 'AdminChange',
+          component: AdminChange
+        }
+      ]
     },
     {
       path: '/StudentTable',
       name: 'StudentTable',
-      component: StudentTable
+      component: StudentTable,
+      children: [
+        {
+          path: 'StudentTable',
+          name: 'StudentTable',
+          component: StudentChange
+        }
+      ]
     },
     {
       path: '/CommentTable',
       name: 'CommentTable',
-      component: CommentTable
+      component: CommentTable,
+      children: [
+        {
+          path: 'CommentTable',
+          name: 'CommentTable',
+          component: CommentTable
+        }
+      ]
     },
     {
       path: '/CourseTable',
       name: 'CourseTable',
-      component: CourseTable
+      component: CourseTable,
+      children: [
+        {
+          path: 'CourseTable',
+          name: 'CourseTable',
+          component: CourseTable
+        }
+      ]
     },
     {
       path: '/MaterialTable',
       name: 'MaterialTable',
-      component: MaterialTable
+      component: MaterialTable,
+      children: [
+        {
+          path: 'MaterialTable',
+          name: 'MaterialTable',
+          component: MaterialTable
+        }
+      ]
     },
     {
       path: '/TeacherTable',
       name: 'TeacherTable',
-      component: TeacherTable
+      component: TeacherTable,
+      children: [
+        {
+          path: 'TeacherTable',
+          name: 'TeacherTable',
+          component: TeacherTable
+        }
+      ]
     }
   ]
 })

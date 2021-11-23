@@ -19,7 +19,7 @@
 
 <script>
 import Utils from '../../assets/js/util.js'
-import AdminNav from './AdminNav.vue'
+import AdminNav from './AdminNav'
 export default {
   name: 'AdminHeading',
   components: {AdminNav},
@@ -30,10 +30,6 @@ export default {
       show: false
     }
   },
-  // mounted: function () {
-  //   this.userName = this.cookie.getCookie('userName')
-  //   this.userNickName = this.cookie.getCookie('userNickName')
-  // },
   methods: {
     goToHelloWorld: function () {
       this.cookie.clearCookie('userName')
