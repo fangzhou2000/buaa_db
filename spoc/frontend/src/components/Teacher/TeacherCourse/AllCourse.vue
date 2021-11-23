@@ -9,7 +9,7 @@
           <TeacherHeading></TeacherHeading>
         </el-header>
         <el-main>
-        <el-table :data="courseList">
+        <el-table :data="courseList" v-loading="loading">
           <el-table-column label="课程ID" prop="id"></el-table-column>
           <el-table-column label="课程名称" prop="name"></el-table-column>
           <el-table-column label="课程材料ID" prop="materialIdString"></el-table-column>
@@ -29,6 +29,7 @@ export default {
   components: {TeacherNav, TeacherHeading},
   data: function () {
     return {
+      loading: true,
       userNickName: '',
       userName: '',
       courseList: [{
