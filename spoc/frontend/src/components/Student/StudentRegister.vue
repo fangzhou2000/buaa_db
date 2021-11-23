@@ -53,6 +53,9 @@ export default {
       userPassWord2: ''
     }
   },
+  mounted () {
+    window.addEventListener('keydown', this.keydown)
+  },
   methods: {
     goToStudentLogin: function () {
       this.$router.push({
@@ -96,7 +99,15 @@ export default {
           console.log(error)
         })
       }
+    },
+    keydown (e) {
+      if (e.keyCode === 13) {
+        this.Register()
+      }
     }
+  },
+  destroyed () {
+    window.removeEventListener('keydown', this.keydown, false)
   }
 }
 </script>

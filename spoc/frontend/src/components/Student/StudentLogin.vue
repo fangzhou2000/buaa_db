@@ -46,6 +46,9 @@ export default {
       status: -1
     }
   },
+  mounted() {
+    window.addEventListener('keydown', this.keydown)
+  },
   methods: {
     goToStudentHead: function () {
       let that = this
@@ -95,7 +98,15 @@ export default {
       this.$router.push({
         name: 'StudentRegister'
       })
+    },
+    keydown(e) {
+      if (e.keyCode === 13) {
+        this.goToStudentHead()
+      }
     }
+  },
+  destroyed() {
+    window.removeEventListener('keydown', this.keydown, false)
   }
 }
 </script>
