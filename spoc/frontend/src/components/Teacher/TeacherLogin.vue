@@ -1,5 +1,6 @@
 <template>
-  <div class="background">
+  <transition name="head-login-register">
+    <div class="background">
     <br>
     <div class="register_block">
       <div class="register_head">
@@ -32,6 +33,7 @@
       </el-form>
     </div>
   </div>
+  </transition>
 </template>
 
 <script>
@@ -52,7 +54,7 @@ export default {
   methods: {
     goToTeacherHead: function () {
       let that = this
-      let debug = false
+      let debug = true
       if (debug) {
         if (that.userName === 'admin' && that.userPassWord === '123456') {
           that.$router.push({
@@ -113,4 +115,5 @@ export default {
 
 <style scoped>
   @import "../../assets/css/login.css";
+  @import "../../assets/css/Transition/head-login-register.css";
 </style>

@@ -1,0 +1,11 @@
+.head-login-register-enter-active {
+  transition: all .2s ease;
+}
+.head-login-register-leave-active {
+  transition: all .5s ease;
+}
+.head-login-register-enter, .head-login-register-leave-to
+/* .head-login-register-leave-active for below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}

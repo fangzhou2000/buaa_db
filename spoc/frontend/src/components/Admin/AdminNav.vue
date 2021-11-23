@@ -16,5 +16,5 @@ export default {
 </script>
 
 <style scoped>
-
+  @import "../../assets/css/Nav.css";
 </style>

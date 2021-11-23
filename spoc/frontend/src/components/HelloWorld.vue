@@ -1,5 +1,6 @@
 <template>
-  <div class="welcome">
+  <transition name="head-login-register">
+    <div class="welcome">
     <div class="navigator">
       <div class="navigator-left">
         <i class="el-icon-s-platform"><span class="el-icon-s-platform-text">&nbsp;&nbsp;Spoc</span></i>
@@ -133,6 +134,7 @@
       </div>
     </div>
   </div>
+  </transition>
 </template>
 
 <script>
@@ -177,7 +179,8 @@ export default {
         'id': 'book',
         'title': '资料查询',
         'src': cardBook
-      }
+      },
+      fullscreenLoading: false
     }
   },
   methods: {
@@ -201,6 +204,7 @@ export default {
   @import "../assets/css/HelloWorld/copyright.css";
   @import "../assets/css/HelloWorld/introduction.css";
   @import "../assets/css/HelloWorld/navigator.css";
+  @import "../assets/css/Transition/head-login-register.css";
   .welcome {
     margin-left: 80px;
     margin-right: 80px;
@@ -212,5 +216,16 @@ export default {
     width: 100%;
     margin: 8px 0 !important;
 }
+  .in-helloworld-leave-active {
+    transition: all 2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .in-helloworld-leave-to
+  /* .slide-fade-leave-active for below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+  }
+  .in-helloworld-enter-active {
+    transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
 
 </style>

@@ -1,12 +1,5 @@
 <template>
   <div class="background">
-<!--    <el-container class="header">-->
-<!--      <el-header>-->
-<!--        <span>{{userNickName}}  新建学习材料</span>-->
-<!--        <el-button style="margin-top: 10px; float: right" v-on:click="goToHelloWorld">退出登录</el-button>-->
-<!--      </el-header>-->
-<!--    </el-container>-->
-
     <el-container class="main">
       <el-aside width="show?'64px':'250px'">
         <TeacherNav></TeacherNav>
@@ -16,7 +9,7 @@
           <TeacherHeading></TeacherHeading>
         </el-header>
         <el-main>
-        <el-form label-position="top">
+        <el-form label-position="top" v-loading="loading">
           <el-form-item label="学习材料名称">
             <el-col :span="6">
               <el-input placeholder="请输入学习材料名称" v-model="materialName"></el-input>
@@ -44,7 +37,8 @@ export default {
     return {
       userNickName: '',
       userName: '',
-      materialName: ''
+      materialName: '',
+      loading: false
     }
   },
   mounted: function () {
@@ -53,6 +47,7 @@ export default {
   },
   methods: {
     buildMaterial: function () {
+      this.startLoading()
       let that = this
       this.$http.request({
         url: that.$url + 'BuildMaterial/',
@@ -78,6 +73,12 @@ export default {
       this.cookie.clearCookie('userName')
       this.cookie.clearCookie('userNickName')
       this.$router.replace('/')
+    },
+    startLoading: function () {
+      this.loading = true
+      setTimeout(() => {
+        this.loading = false
+      }, 2000)
     }
   }
 }

@@ -1,12 +1,5 @@
 <template>
   <div class="background">
-<!--    <el-container class="header">-->
-<!--      <el-header>-->
-<!--        <span>{{userNickName}}  管理学习材料</span>-->
-<!--        <el-button style="margin-top: 10px; float: right" v-on:click="goToHelloWorld">退出登录</el-button>-->
-<!--      </el-header>-->
-<!--    </el-container>-->
-
     <el-container class="main">
       <el-aside width="show?'64px':'250px'">
         <TeacherNav></TeacherNav>
@@ -17,12 +10,14 @@
           </TeacherHeading>
         </el-header>
         <el-main>
-        <el-table :data="myMaterialList">
+        <el-table :data="myMaterialList" v-loading="loading">
           <el-table-column label="学习材料ID" prop="id"></el-table-column>
           <el-table-column label="学习材料名称" prop="name"></el-table-column>
           <el-table-column label="删除">
             <template slot-scope="scope">
-              <el-button v-on:click="deleteMaterial(scope.$index)" type="danger" size="small">删除</el-button>
+              <el-button v-on:click="deleteMaterial(scope.$index)"
+                         type="danger"
+                         size="small">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -45,7 +40,8 @@ export default {
       myMaterialList: [{
         id: '1',
         name: '前端测试学习材料'
-      }]
+      }],
+      loading: false,
     }
   },
   mounted: function () {
@@ -70,6 +66,7 @@ export default {
       })
     },
     deleteMaterial: function (index) {
+      this.startLoading()
       console.log(index)
       let that = this
       this.$http.request({
@@ -95,6 +92,12 @@ export default {
       this.cookie.clearCookie('userName')
       this.cookie.clearCookie('userNickName')
       this.$router.replace('/')
+    },
+    startLoading: function () {
+      this.loading = true
+      setTimeout(() => {
+        this.loading = false
+      }, 2000)
     }
   }
 }
