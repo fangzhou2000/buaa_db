@@ -62,44 +62,44 @@
         <el-row>
           <el-col :span="12">
             <el-timeline>
-              <el-timeline-item timestamp="2021/9/15" placement="Initial Commit">
+              <el-timeline-item timestamp="2021/9/15" placement="top">
                 <el-card>
-                  <p>开发环境建立</p>
-                  <p>提交于 2021/9/15 17:00</p>
+                  <p>Initial Commit</p>
+                  <p>Submitted on 2021/9/15 17:00</p>
                 </el-card>
               </el-timeline-item>
-              <el-timeline-item timestamp="2021/10/9" placement="HomeWork One Completed">
+              <el-timeline-item timestamp="2021/10/9" placement="top">
                 <el-card>
-                  <p>小作业基本构建</p>
-                  <p>提交于 2021/10/14 22:18</p>
+                  <p>HomeWork One Completed</p>
+                  <p>Submitted on 2021/10/14 22:18</p>
                 </el-card>
               </el-timeline-item>
-              <el-timeline-item timestamp="2021/11/3" placement="The Representation On DB Design">
+              <el-timeline-item timestamp="2021/11/3" placement="top">
                 <el-card>
-                  <p>更新E-R图与增加样式</p>
-                  <p>提交于 2021/11/3 16:16</p>
+                  <p>The Representation On DB Design</p>
+                  <p>Submitted on 2021/11/3 16:16</p>
                 </el-card>
               </el-timeline-item>
             </el-timeline>
           </el-col>
           <el-col :span="12">
             <el-timeline>
-              <el-timeline-item timestamp="2021/11/23" placement="The Second Check">
+              <el-timeline-item timestamp="2021/11/23" placement="top">
                 <el-card>
-                  <p>各个功能实现</p>
-                  <p>提交于 2021/11/23 01:20</p>
+                  <p>The Second Check</p>
+                  <p>Submitted on 2021/11/23 01:20</p>
                 </el-card>
               </el-timeline-item>
-              <el-timeline-item timestamp="2021/11/?" placement="HomeWork Two Completed">
+              <el-timeline-item timestamp="2021/11/?" placement="top">
                 <el-card>
-                  <p>优化与更新</p>
-                  <p>提交于 2021/11/? ??:??</p>
+                  <p>HomeWork Two Completed</p>
+                  <p>Submitted on 2021/11/? ??:??</p>
                 </el-card>
               </el-timeline-item>
-              <el-timeline-item timestamp="202?/?/?" placement="To be Continued...">
+              <el-timeline-item timestamp="202?/?/?" placement="top">
                 <el-card>
-                  <p>未完待续</p>
-                  <p></p>
+                  <p>To be Continued...</p>
+                  <p><span></span></p>
                 </el-card>
               </el-timeline-item>
             </el-timeline>
