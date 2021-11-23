@@ -1,13 +1,6 @@
 <template>
-<<<<<<< HEAD
-  <div class="background">
-    <el-container class="main">
-      <el-aside width="show?'64px':'250px'">
-=======
-  <div>
     <el-container class="background">
       <el-aside class="aside" width="show?'64px':'250px'">
->>>>>>> 95c021d7428876b97f16860f652eac139fb86e2b
         <TeacherNav></TeacherNav>
       </el-aside>
       <el-container class="main">
@@ -29,7 +22,6 @@
       </el-main>
       </el-container>
     </el-container>
-  </div>
 </template>
 
 <script>
@@ -46,7 +38,7 @@ export default {
         id: '1',
         name: '前端测试学习材料'
       }],
-      loading: false,
+      loading: false
     }
   },
   mounted: function () {
