@@ -58,7 +58,7 @@ export default {
         console.log(response.data)
         that.status = response.data
         if (that.status === 0) {
-          that.$message.success('创建成功')
+          setTimeout(that.$message.success('创建成功'), 2500)
         } else {
           that.$message.error('!')
         }

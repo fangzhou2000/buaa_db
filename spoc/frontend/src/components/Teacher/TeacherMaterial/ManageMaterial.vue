@@ -27,6 +27,7 @@
 <script>
 import TeacherNav from '../TeacherNav'
 import TeacherHeading from '../TeacherHeading'
+import Vue from 'vue'
 export default {
   name: 'ManageMaterial',
   components: {TeacherNav, TeacherHeading},
@@ -76,9 +77,13 @@ export default {
       }).then(function (response) {
         console.log(response.data)
         if (response.data === 0) {
-          that.$message.success('删除成功')
+          setTimeout(function () {
+            Vue.prototype.$message.success('删除成功')
+          }, 500)
         } else {
-          that.$message.error('!')
+          setTimeout(function () {
+            Vue.prototype.$message.error('删除失败')
+          }, 500)
         }
         that.getTeacherMaterialList()
       }).catch(function (error) {

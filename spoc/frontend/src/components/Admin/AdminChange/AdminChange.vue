@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'MaterialTable'
+  name: 'AdminChange'
 }
 </script>
 

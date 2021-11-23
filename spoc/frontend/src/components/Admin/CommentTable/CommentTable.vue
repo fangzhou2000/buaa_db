@@ -1,10 +1,10 @@
 <template>
-
+  <div></div>
 </template>
 
 <script>
 export default {
-  name: "CommentTable"
+  name: 'CommentTable'
 }
 </script>
 
