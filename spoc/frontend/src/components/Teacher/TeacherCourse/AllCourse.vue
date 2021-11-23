@@ -65,14 +65,17 @@ export default {
   methods: {
     getCourseList: function () {
       let that = this
+      that.loading = true
       this.$http.request({
         url: that.$url + 'GetCourseList/',
         method: 'get'
       }).then(function (response) {
         console.log(response.data)
+        that.loading = false
         that.courseList = response.data
       }).catch(function (error) {
         console.log(error)
+        that.loading = false
       })
     },
     goToHelloWorld: function () {

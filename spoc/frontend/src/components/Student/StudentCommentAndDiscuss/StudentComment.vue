@@ -178,24 +178,29 @@ export default {
       })
     },
     deleteComment: function (commentId) {
-      let that = this
-      that.getTime()
-      this.$http.request({
-        url: that.$url + 'DeleteComment/',
-        method: 'get',
-        params: {
-          commentId: commentId
-        }
-      }).then(function (response) {
-        console.log(response.data)
-        if (response.data === 0) {
-          that.$message.success('删除成功')
-          that.getCommentList()
-        } else {
-          that.$message.error('未知错误')
-        }
-      }).catch(function (error) {
-        console.log(error)
+      this.$confirm('此操作将永久删除该评价，是否继续？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消'
+      }).then(() => {
+        let that = this
+        that.getTime()
+        this.$http.request({
+          url: that.$url + 'DeleteComment/',
+          method: 'get',
+          params: {
+            commentId: commentId
+          }
+        }).then(function (response) {
+          console.log(response.data)
+          if (response.data === 0) {
+            that.$message.success('删除成功')
+            that.getCommentList()
+          } else {
+            that.$message.error('未知错误')
+          }
+        }).catch(function (error) {
+          console.log(error)
+        })
       })
     },
     returnStudentAllComment: function () {

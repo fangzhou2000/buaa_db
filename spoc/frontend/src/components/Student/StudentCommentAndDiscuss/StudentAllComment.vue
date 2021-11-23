@@ -13,7 +13,7 @@
             <el-table-column label="课程ID" prop="id"></el-table-column>
             <el-table-column label="课程名称" prop="name"></el-table-column>
             <el-table-column label="评价"> <template slot-scope="scope">
-          <el-button v-on:click="commentCourse(scope.$index)" type="primary">评价</el-button>
+          <el-button v-on:click="commentCourse(scope.$index)" type="primary" size="small">评价</el-button>
         </template></el-table-column>
           </el-table>
         </el-main>

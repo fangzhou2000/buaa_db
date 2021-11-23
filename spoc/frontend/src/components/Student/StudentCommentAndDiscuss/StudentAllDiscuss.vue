@@ -30,7 +30,7 @@
             <el-table-column label="主题贴ID" prop="id"></el-table-column>
             <el-table-column label="主题贴标题" prop="title"></el-table-column>
             <el-table-column label="进入贴子"> <template slot-scope="scope">
-          <el-button v-on:click="enterPostTheme(scope.$index)" type="primary">进入</el-button>
+          <el-button v-on:click="enterPostTheme(scope.$index)" type="primary" size="small">进入</el-button>
         </template></el-table-column>
           </el-table>
         </el-main>

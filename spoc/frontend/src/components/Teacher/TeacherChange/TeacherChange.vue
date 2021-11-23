@@ -62,6 +62,7 @@ export default {
       if (that.userPassWord1 === '') {
         that.$message.success('密码不能为空')
       } else {
+        that.loading = true
         this.$http.request({
           url: that.$url + 'TeacherChange/',
           method: 'get',
@@ -73,6 +74,7 @@ export default {
           }
         }).then(function (response) {
           console.log(response.data)
+          that.loading = false
           that.status = response.data
           if (that.status === 0) {
             that.$message.success('修改成功')
@@ -91,6 +93,7 @@ export default {
           }
         }).catch(function (error) {
           console.log(error)
+          that.loading = false
         })
       }
     },

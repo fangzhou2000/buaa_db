@@ -28,7 +28,7 @@
             </el-button>
         </div>
         <div class="return-text">
-           <el-link href="#/">返回</el-link>
+           <el-link href="#/" style="font-size: 8px; color: white">返回</el-link>
         </div>
       </el-form>
     </div>
@@ -62,9 +62,8 @@ export default {
           that.$router.push({
             name: 'StudentHead',
           })
-          console.log('from:' + that.userName)
         } else {
-          that.$message.error('!')
+          that.$message.error('!!!')
         }
       } else {
         this.$http.request({

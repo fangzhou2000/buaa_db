@@ -160,24 +160,30 @@ export default {
       that.time = yyyy + '-' + MM + '-' + dd + ' ' + h + ':' + m + ':' + s
     },
     deletePostTheme: function () {
-      let that = this
-      that.getTime()
-      this.$http.request({
-        url: that.$url + 'DeletePostTheme/',
-        method: 'get',
-        params: {
-          postThemeId: that.postTheme.id
-        }
-      }).then(function (response) {
-        console.log(response.data)
-        if (response.data === 0) {
-          that.$message.success('删除成功')
-          that.returnStudentAllDiscuss()
-        } else {
-          that.$message.error('未知错误')
-        }
-      }).catch(function (error) {
-        console.log(error)
+      this.$confirm('此操作将永久删除该主题贴及其跟贴，是否继续？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        let that = this
+        that.getTime()
+        this.$http.request({
+          url: that.$url + 'DeletePostTheme/',
+          method: 'get',
+          params: {
+            postThemeId: that.postTheme.id
+          }
+        }).then(function (response) {
+          console.log(response.data)
+          if (response.data === 0) {
+            that.$message.success('删除成功')
+            that.returnStudentAllDiscuss()
+          } else {
+            that.$message.error('未知错误')
+          }
+        }).catch(function (error) {
+          console.log(error)
+        })
       })
     },
     getPostList: function () {
@@ -222,24 +228,30 @@ export default {
       })
     },
     deletePost: function (postId) {
-      let that = this
-      that.getTime()
-      this.$http.request({
-        url: that.$url + 'DeletePost/',
-        method: 'get',
-        params: {
-          postId: postId
-        }
-      }).then(function (response) {
-        console.log(response.data)
-        if (response.data === 0) {
-          that.$message.success('删除成功')
-          that.getPostList()
-        } else {
-          that.$message.error('未知错误')
-        }
-      }).catch(function (error) {
-        console.log(error)
+      this.$confirm('此操作将永久删除该跟贴，是否继续？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        let that = this
+        that.getTime()
+        this.$http.request({
+          url: that.$url + 'DeletePost/',
+          method: 'get',
+          params: {
+            postId: postId
+          }
+        }).then(function (response) {
+          console.log(response.data)
+          if (response.data === 0) {
+            that.$message.success('删除成功')
+            that.getPostList()
+          } else {
+            that.$message.error('未知错误')
+          }
+        }).catch(function (error) {
+          console.log(error)
+        })
       })
     },
     returnStudentAllDiscuss: function () {

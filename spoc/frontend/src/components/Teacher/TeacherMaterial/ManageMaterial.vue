@@ -27,7 +27,6 @@
 <script>
 import TeacherNav from '../TeacherNav'
 import TeacherHeading from '../TeacherHeading'
-import Vue from 'vue'
 export default {
   name: 'ManageMaterial',
   components: {TeacherNav, TeacherHeading},
@@ -50,6 +49,7 @@ export default {
   methods: {
     getTeacherMaterialList: function () {
       let that = this
+      that.loading = true
       this.$http.request({
         url: that.$url + 'GetTeacherMaterialList/',
         method: 'get',
@@ -58,48 +58,48 @@ export default {
         }
       }).then(function (response) {
         console.log(response.data)
+        that.loading = false
         that.myMaterialList = response.data
       }).catch(function (error) {
         console.log(error)
+        that.loading = false
       })
     },
     deleteMaterial: function (index) {
-      this.startLoading()
-      console.log(index)
-      let that = this
-      this.$http.request({
-        url: that.$url + 'DeleteMaterial/',
-        method: 'get',
-        params: {
-          userName: that.userName,
-          id: that.myMaterialList[index].id
-        }
-      }).then(function (response) {
-        console.log(response.data)
-        if (response.data === 0) {
-          setTimeout(function () {
-            Vue.prototype.$message.success('删除成功')
-          }, 500)
-        } else {
-          setTimeout(function () {
-            Vue.prototype.$message.error('删除失败')
-          }, 500)
-        }
-        that.getTeacherMaterialList()
-      }).catch(function (error) {
-        console.log(error)
+      this.$confirm('此操作将永久删除该学习材料，是否继续？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        console.log(index)
+        let that = this
+        that.loading = true
+        this.$http.request({
+          url: that.$url + 'DeleteMaterial/',
+          method: 'get',
+          params: {
+            userName: that.userName,
+            id: that.myMaterialList[index].id
+          }
+        }).then(function (response) {
+          console.log(response.data)
+          that.loading = false
+          if (response.data === 0) {
+            that.$message.success('删除成功')
+          } else {
+            that.$message.error('未知错误')
+          }
+          that.getTeacherMaterialList()
+        }).catch(function (error) {
+          console.log(error)
+          that.loading = false
+        })
       })
     },
     goToHelloWorld: function () {
       this.cookie.clearCookie('userName')
       this.cookie.clearCookie('userNickName')
       this.$router.replace('/')
-    },
-    startLoading: function () {
-      this.loading = true
-      setTimeout(() => {
-        this.loading = false
-      }, 2000)
     }
   }
 }
