@@ -69,6 +69,7 @@ export default {
     },
     changeCourse: function () {
       let that = this
+      that.loading = true
       that.course.materialIdList = that.materialIdString.split(',')
       this.$http.request({
         url: that.$url + 'ChangeCourse/',
@@ -80,18 +81,20 @@ export default {
         }
       }).then(function (response) {
         console.log(response.data)
+        that.loading = false
         if (response.data === 0) {
           that.$message.success('修改成功')
           that.$router.push({
             name: 'ManageCourse'
           })
         } else if (response.data === 1) {
-          that.$message.error('学习材料编号错误')
+          that.$message.error('学习材料编号不存在')
         } else if (response.data === 2) {
           that.$message.error('课程名称不能为空')
         }
       }).catch(function (error) {
         console.log(error)
+        that.loading = false
       })
     },
     goToHelloWorld: function () {

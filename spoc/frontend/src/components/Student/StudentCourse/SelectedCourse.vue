@@ -14,7 +14,7 @@
             <el-table-column label="课程名称" prop="name"></el-table-column>
             <el-table-column label="课程材料" prop="materialIdString"></el-table-column>
             <el-table-column label="退课"> <template slot-scope="scope">
-          <el-button v-on:click="dropCourse(scope.$index)" type="danger">退课</el-button>
+          <el-button v-on:click="dropCourse(scope.$index)" type="danger" size="small">退课</el-button>
         </template></el-table-column>
           </el-table>
         </el-main>
@@ -62,22 +62,31 @@ export default {
       })
     },
     dropCourse: function (index) {
-      console.log(index)
-      let that = this
-      this.$http.request({
-        url: that.$url + 'DropCourse/',
-        method: 'get',
-        params: {
-          userName: that.userName,
-          id: that.myCourseList[index].id
-        }
-      }).then(function (response) {
-        console.log(response.data)
-        // that.myCourseList = response.data
-        that.getStudentCourseList()
-        that.$message.success('退课成功')
-      }).catch(function (error) {
-        console.log(error)
+      this.$confirm('此操作将退选该课程，是否继续？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        console.log(index)
+        let that = this
+        this.$http.request({
+          url: that.$url + 'DropCourse/',
+          method: 'get',
+          params: {
+            userName: that.userName,
+            id: that.myCourseList[index].id
+          }
+        }).then(function (response) {
+          console.log(response.data)
+          if (response.data === 0) {
+            that.$message.success('退课成功')
+          } else {
+            that.$message.error('未知错误')
+          }
+          that.getStudentCourseList()
+        }).catch(function (error) {
+          console.log(error)
+        })
       })
     },
     goToHelloWorld: function () {

@@ -88,13 +88,16 @@ export default {
   methods: {
     getMaterialList: function () {
       let that = this
+      that.loading = true
       this.$http.request({
         url: that.$url + 'GetMaterialList/',
         method: 'get'
       }).then(function (response) {
         console.log(response.data)
+        that.loading = false
         that.materialList = response.data
       }).catch(function (error) {
+        that.loading = false
         console.log(error)
       })
     },

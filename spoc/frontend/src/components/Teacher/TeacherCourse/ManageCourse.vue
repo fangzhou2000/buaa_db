@@ -20,7 +20,7 @@
           </el-table-column>
           <el-table-column label="停课">
             <template slot-scope="scope">
-              <el-button v-on:click="cancelCourse(scope.$index)" type="danger" size="small">停课</el-button>
+              <el-button v-on:click="cancelCourse" type="danger" size="small">停课</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -56,6 +56,7 @@ export default {
   methods: {
     getTeacherCourseList: function () {
       let that = this
+      that.loading = true
       this.$http.request({
         url: that.$url + 'GetTeacherCourseList/',
         method: 'get',
@@ -64,14 +65,16 @@ export default {
         }
       }).then(function (response) {
         console.log(response.data)
+        that.loading = false
         that.myCourseList = response.data
       }).catch(function (error) {
         console.log(error)
+        that.loading = false
       })
     },
     changeCourse: function (index) {
-      let that = this
       console.log(index)
+      let that = this
       this.$router.push({
         path: '/TeacherCourse/ChangeCourse',
         // 这里不能使用params传递参数，详见：
@@ -84,25 +87,34 @@ export default {
       })
     },
     cancelCourse: function (index) {
-      console.log(index)
-      let that = this
-      this.$http.request({
-        url: that.$url + 'CancelCourse/',
-        method: 'get',
-        params: {
-          userName: that.userName,
-          id: that.myCourseList[index].id
-        }
-      }).then(function (response) {
-        console.log(response.data)
-        if (response.data === 0) {
-          that.$message.success('停课成功')
-        } else {
-          that.$message.error('未知错误')
-        }
-        that.getTeacherCourseList()
-      }).catch(function (error) {
-        console.log(error)
+      this.$confirm('此操作将停开并删除该课程，是否继续？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        console.log(index)
+        let that = this
+        that.loading = true
+        this.$http.request({
+          url: that.$url + 'CancelCourse/',
+          method: 'get',
+          params: {
+            userName: that.userName,
+            id: that.myCourseList[index].id
+          }
+        }).then(function (response) {
+          console.log(response.data)
+          that.loading = false
+          if (response.data === 0) {
+            that.$message.success('停课成功')
+          } else {
+            that.$message.error('未知错误')
+          }
+          that.getTeacherCourseList()
+        }).catch(function (error) {
+          console.log(error)
+          that.loading = false
+        })
       })
     },
     goToHelloWorld: function () {

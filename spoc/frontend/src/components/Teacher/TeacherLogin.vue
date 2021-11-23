@@ -28,7 +28,7 @@
             </el-button>
         </div>
         <div class="return-text">
-           <el-link href="#/">返回</el-link>
+           <el-link href="#/" style="font-size: 8px; color: white">返回</el-link>
         </div>
       </el-form>
     </div>
@@ -57,16 +57,13 @@ export default {
       let debug = false
       if (debug) {
         if (that.userName === 'admin' && that.userPassWord === '123456') {
+          let loginInfo = {userName: 'admin', userNickName: '前端测试教师'}
+          that.cookie.setCookie(loginInfo)
           that.$router.push({
             name: 'TeacherHead',
-            params: {
-              userNickName: that.userNickName,
-              userName: that.userName
-            }
           })
-          console.log('from:' + that.userName)
         } else {
-          that.$message.error('!')
+          that.$message.error('!!!')
         }
       } else {
         this.$http.request({

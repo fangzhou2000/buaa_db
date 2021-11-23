@@ -45,8 +45,8 @@ export default {
   },
   methods: {
     buildMaterial: function () {
-      this.startLoading()
       let that = this
+      that.loading = true
       this.$http.request({
         url: that.$url + 'BuildMaterial/',
         method: 'get',
@@ -56,14 +56,16 @@ export default {
         }
       }).then(function (response) {
         console.log(response.data)
+        that.loading = false
         that.status = response.data
         if (that.status === 0) {
-          setTimeout(that.$message.success('创建成功'), 2500)
+          that.$message.success('创建成功')
         } else {
-          that.$message.error('!')
+          that.$message.error('未知错误')
         }
       }).catch(function (error) {
         console.log(error)
+        that.loading = false
       })
       that.materialName = ''
     },
@@ -71,12 +73,6 @@ export default {
       this.cookie.clearCookie('userName')
       this.cookie.clearCookie('userNickName')
       this.$router.replace('/')
-    },
-    startLoading: function () {
-      this.loading = true
-      setTimeout(() => {
-        this.loading = false
-      }, 2000)
     }
   }
 }

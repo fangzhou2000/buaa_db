@@ -56,6 +56,7 @@ export default {
   methods: {
     buildCourse: function () {
       let that = this
+      that.loading = true
       that.course.materialIdList = that.materialIdString.split(',')
       console.log(that.course.materialIdList)
       this.$http.request({
@@ -67,6 +68,7 @@ export default {
         }
       }).then(function (response) {
         console.log(response.data)
+        that.loading = false
         that.status = response.data
         if (that.status === 0) {
           that.$message.success('创建成功')
@@ -82,6 +84,7 @@ export default {
         }
       }).catch(function (error) {
         console.log(error)
+        that.loading = false
       })
     },
     goToHelloWorld: function () {
