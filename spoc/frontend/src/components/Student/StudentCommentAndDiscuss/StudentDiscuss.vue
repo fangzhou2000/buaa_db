@@ -1,64 +1,61 @@
 <template>
   <div>
-<!--   <el-container class="header">-->
-<!--      <el-header>-->
-<!--        <span>贴子 {{postTheme.title}}</span>-->
-<!--        <el-button class="exit" v-on:click="goToHelloWorld">退出登录</el-button>-->
-<!--      </el-header>-->
-<!--    </el-container>-->
-    <el-container class="main">
-      <el-aside width="show?'64px':'300px'">
+    <el-container class="background">
+      <el-aside class="aside" width="show?'64px':'300px'">
         <StudentNav></StudentNav>
       </el-aside>
-      <el-container>
+      <el-container class="main">
         <el-header>
           <StudentHeading></StudentHeading>
         </el-header>
         <el-main>
-        <el-row class="buttons">
-          <el-button v-on:click="buildPost" type="primary" size="small" >跟贴</el-button>
-          <el-button v-on:click="returnStudentAllDiscuss" type="primary" size="small">返回</el-button>
-        </el-row>
-        <el-row class="buttons">
-          <el-col :span="20">
-            <el-input class="input" v-model="input.content" type="textarea" :rows="2" placeholder="与主题相关的讨论">
-            </el-input>
-          </el-col>
-        </el-row>
-        <el-divider>楼主</el-divider>
-          <el-row class="time">
-            {{postTheme.time}}
+          <el-row class="buttons">
+            {{postTheme.title}}}
           </el-row>
-          <el-row class="userName">
-            {{postTheme.userNickName}}({{postTheme.userName}}) :
+          <el-row class="buttons">
+            <el-button v-on:click="buildPost" type="primary" size="small" >跟贴</el-button>
+            <el-button v-on:click="returnStudentAllDiscuss" type="primary" size="small">返回</el-button>
           </el-row>
-          <el-row class="content">
-            {{postTheme.content}}
+          <el-row class="buttons">
+            <el-col :span="20">
+              <el-input class="input" v-model="input.content" type="textarea" :rows="2" placeholder="与主题相关的讨论">
+              </el-input>
+            </el-col>
           </el-row>
-          <el-row class="delete">
-            <div v-if="postTheme.userName === userName">
-              <el-link type="danger" v-on:click="deletePostTheme">删除</el-link>
-            </div>
-          </el-row>
-        <el-divider>跟贴</el-divider>
-        <div v-for="(post) in postList" v-bind:key="post">
-          <el-row class="time">
-            {{post.time}}
-          </el-row>
-          <el-row class="userName">
-            {{post.userNickName}}({{post.userName}}) :
-          </el-row>
-          <el-row class="content">
-            {{post.content}}
-          </el-row>
-          <el-row class="delete">
-            <div v-if="post.userName === userName">
-              <el-link type="danger" v-on:click="deletePost(post.id)">删除</el-link>
-            </div>
-          </el-row>
-          <el-divider></el-divider>
-        </div>
-      </el-main>
+          <el-divider>楼主</el-divider>
+            <el-row class="time">
+              {{postTheme.time}}
+            </el-row>
+            <el-row class="userName">
+              {{postTheme.userNickName}}({{postTheme.userName}}) :
+            </el-row>
+            <el-row class="content">
+              {{postTheme.content}}
+            </el-row>
+            <el-row class="delete">
+              <div v-if="postTheme.userName === userName">
+                <el-link type="danger" v-on:click="deletePostTheme">删除</el-link>
+              </div>
+            </el-row>
+          <el-divider>跟贴</el-divider>
+          <div v-for="(post) in postList" v-bind:key="post">
+            <el-row class="time">
+              {{post.time}}
+            </el-row>
+            <el-row class="userName">
+              {{post.userNickName}}({{post.userName}}) :
+            </el-row>
+            <el-row class="content">
+              {{post.content}}
+            </el-row>
+            <el-row class="delete">
+              <div v-if="post.userName === userName">
+                <el-link type="danger" v-on:click="deletePost(post.id)">删除</el-link>
+              </div>
+            </el-row>
+            <el-divider></el-divider>
+          </div>
+        </el-main>
       </el-container>
     </el-container>
   </div>

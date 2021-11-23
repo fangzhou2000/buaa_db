@@ -1,10 +1,10 @@
 <template>
   <div>
-    <el-container class="main">
-      <el-aside width="show?'64px':30%">
+    <el-container class="background">
+      <el-aside class="aside" width="show?'64px':30%">
         <StudentNav></StudentNav>
       </el-aside>
-      <el-container>
+      <el-container class="main">
         <el-header>
           <StudentHeading></StudentHeading>
         </el-header>
@@ -26,5 +26,5 @@ export default {
 </script>
 
 <style scoped>
-  @import "../../assets/css/head.css";
+  @import "../../assets/css/back.css";
 </style>

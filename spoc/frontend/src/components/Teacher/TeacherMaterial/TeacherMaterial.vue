@@ -12,6 +12,6 @@ export default {
 </script>
 
 <style scoped>
- @import "../../../assets/css/Nav.css";
- @import "../../../assets/css/head.css";
+ @import "../../../assets/css/nav.css";
+ @import "../../../assets/css/back.css";
 </style>

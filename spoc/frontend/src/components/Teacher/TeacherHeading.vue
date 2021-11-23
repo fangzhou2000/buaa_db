@@ -53,5 +53,4 @@ export default {
 
 <style scoped>
   @import "../../assets/css/head.css";
-  @import "../../assets/css/Nav.css";
 </style>
