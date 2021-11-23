@@ -1,17 +1,13 @@
 <template>
-  <div class="background">
-<!--    <el-container class="header">-->
-<!--      <el-header>-->
-<!--        <span>{{userNickName}}  管理课程</span>-->
-<!--        <el-button style="margin-top: 10px; float: right" v-on:click="goToHelloWorld">退出登录</el-button>-->
-<!--      </el-header>-->
-<!--    </el-container>-->
-    <el-container class="main">
-      <el-aside width="show?'64px':'250px'">
+  <div>
+    <el-container class="background">
+      <el-aside class="aside" width="show?'64px':'250px'">
         <TeacherNav></TeacherNav>
       </el-aside>
-      <el-container>
-        <el-header><TeacherHeading></TeacherHeading></el-header>
+      <el-container class="main">
+        <el-header>
+          <TeacherHeading></TeacherHeading>
+        </el-header>
         <el-main>
         <el-table :data="myCourseList">
           <el-table-column label="课程ID" prop="id"></el-table-column>
@@ -119,6 +115,6 @@ export default {
 </script>
 
 <style scoped>
- @import "../../../assets/css/Nav.css";
- @import "../../../assets/css/head.css";
+ @import "../../../assets/css/nav.css";
+ @import "../../../assets/css/back.css";
 </style>

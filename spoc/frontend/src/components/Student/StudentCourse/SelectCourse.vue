@@ -1,10 +1,10 @@
 <template>
-  <div class="background">
-    <el-container class="main">
-      <el-aside width="show?'64px':'300px'">
+  <div>
+    <el-container class="background">
+      <el-aside class="aside" width="show?'64px':'300px'">
         <StudentNav></StudentNav>
       </el-aside>
-      <el-container>
+      <el-container class="main">
         <el-header>
           <StudentHeading></StudentHeading>
         </el-header>
@@ -34,6 +34,121 @@ export default {
       userName: '',
       userNickName: '',
       courseList: [{
+        id: '1',
+        name: '前端测试课程',
+        materialIdString: '1,2',
+        materialNameString: 'book1,book2'
+      }, {
+        id: '1',
+        name: '前端测试课程',
+        materialIdString: '1,2',
+        materialNameString: 'book1,book2'
+      }, {
+        id: '1',
+        name: '前端测试课程',
+        materialIdString: '1,2',
+        materialNameString: 'book1,book2'
+      }, {
+        id: '1',
+        name: '前端测试课程',
+        materialIdString: '1,2',
+        materialNameString: 'book1,book2'
+      }, {
+        id: '1',
+        name: '前端测试课程',
+        materialIdString: '1,2',
+        materialNameString: 'book1,book2'
+      }, {
+        id: '1',
+        name: '前端测试课程',
+        materialIdString: '1,2',
+        materialNameString: 'book1,book2'
+      }, {
+        id: '1',
+        name: '前端测试课程',
+        materialIdString: '1,2',
+        materialNameString: 'book1,book2'
+      }, {
+        id: '1',
+        name: '前端测试课程',
+        materialIdString: '1,2',
+        materialNameString: 'book1,book2'
+      }, {
+        id: '1',
+        name: '前端测试课程',
+        materialIdString: '1,2',
+        materialNameString: 'book1,book2'
+      }, {
+        id: '1',
+        name: '前端测试课程',
+        materialIdString: '1,2',
+        materialNameString: 'book1,book2'
+      }, {
+        id: '1',
+        name: '前端测试课程',
+        materialIdString: '1,2',
+        materialNameString: 'book1,book2'
+      }, {
+        id: '1',
+        name: '前端测试课程',
+        materialIdString: '1,2',
+        materialNameString: 'book1,book2'
+      }, {
+        id: '1',
+        name: '前端测试课程',
+        materialIdString: '1,2',
+        materialNameString: 'book1,book2'
+      }, {
+        id: '1',
+        name: '前端测试课程',
+        materialIdString: '1,2',
+        materialNameString: 'book1,book2'
+      }, {
+        id: '1',
+        name: '前端测试课程',
+        materialIdString: '1,2',
+        materialNameString: 'book1,book2'
+      }, {
+        id: '1',
+        name: '前端测试课程',
+        materialIdString: '1,2',
+        materialNameString: 'book1,book2'
+      }, {
+        id: '1',
+        name: '前端测试课程',
+        materialIdString: '1,2',
+        materialNameString: 'book1,book2'
+      }, {
+        id: '1',
+        name: '前端测试课程',
+        materialIdString: '1,2',
+        materialNameString: 'book1,book2'
+      }, {
+        id: '1',
+        name: '前端测试课程',
+        materialIdString: '1,2',
+        materialNameString: 'book1,book2'
+      }, {
+        id: '1',
+        name: '前端测试课程',
+        materialIdString: '1,2',
+        materialNameString: 'book1,book2'
+      }, {
+        id: '1',
+        name: '前端测试课程',
+        materialIdString: '1,2',
+        materialNameString: 'book1,book2'
+      }, {
+        id: '1',
+        name: '前端测试课程',
+        materialIdString: '1,2',
+        materialNameString: 'book1,book2'
+      }, {
+        id: '1',
+        name: '前端测试课程',
+        materialIdString: '1,2',
+        materialNameString: 'book1,book2'
+      }, {
         id: '1',
         name: '前端测试课程',
         materialIdString: '1,2',
@@ -91,5 +206,5 @@ export default {
 </script>
 
 <style scoped>
-  @import "../../../assets/css/head.css";
+  @import "../../../assets/css/back.css";
 </style>

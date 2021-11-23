@@ -6,23 +6,23 @@
       </el-menu-item>
       <el-submenu index="1">
         <template slot="title"><i class="el-icon-box"></i><span class="item">课程信息</span></template>
-        <el-menu-item class="subitem" index="/StudentCourse/SelectCourse">&emsp;&emsp;学生选课</el-menu-item>
-        <el-menu-item class="subitem" index="/StudentCourse/SelectedCourse">&emsp;&emsp;我的课程</el-menu-item>
+        <el-menu-item class="subitem" index="/StudentCourse/SelectCourse">学生选课</el-menu-item>
+        <el-menu-item class="subitem" index="/StudentCourse/SelectedCourse">我的课程</el-menu-item>
       </el-submenu>
       <el-submenu index="2">
         <template slot="title"><i class="el-icon-s-platform"></i><span class="item">留言板</span></template>
-        <el-menu-item class="subitem" index="/StudentCommentAndDiscuss/StudentAllComment">&emsp;&emsp;课程评价</el-menu-item>
-        <el-menu-item class="subitem" index="/StudentCommentAndDiscuss/StudentAllDiscuss">&emsp;&emsp;自由讨论</el-menu-item>
+        <el-menu-item class="subitem" index="/StudentCommentAndDiscuss/StudentAllComment">课程评价</el-menu-item>
+        <el-menu-item class="subitem" index="/StudentCommentAndDiscuss/StudentAllDiscuss">自由讨论</el-menu-item>
       </el-submenu>
       <el-submenu index="3">
         <template slot="title"><i class="el-icon-user"></i><span class="item">用户信息</span></template>
-        <el-menu-item class="subitem" index="/StudentChange/StudentChange">&emsp;&emsp;修改密码</el-menu-item>
+        <el-menu-item class="subitem" index="/StudentChange/StudentChange">修改密码</el-menu-item>
       </el-submenu>
     </el-menu>
 </template>
 
 <style>
-  @import "../../assets/css/Nav.css";
+  @import "../../assets/css/nav.css";
 </style>
 
 <script>

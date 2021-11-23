@@ -9,26 +9,25 @@
       </el-menu-item>
       <el-submenu index="1">
         <template slot="title"><i class="el-icon-location-information"></i><span class="item">课程信息</span></template>
-        <el-menu-item class="subitem" index="/TeacherCourse/AllCourse">&emsp;&emsp;查看课程</el-menu-item>
-        <el-menu-item class="subitem" index="/TeacherCourse/BuildCourse">&emsp;&emsp;开设课程</el-menu-item>
-        <el-menu-item class="subitem" index="/TeacherCourse/ManageCourse">&emsp;&emsp;管理课程</el-menu-item>
+        <el-menu-item class="subitem" index="/TeacherCourse/AllCourse">查看课程</el-menu-item>
+        <el-menu-item class="subitem" index="/TeacherCourse/BuildCourse">开设课程</el-menu-item>
+        <el-menu-item class="subitem" index="/TeacherCourse/ManageCourse">管理课程</el-menu-item>
       </el-submenu>
       <el-submenu index="2">
         <template slot="title"><i class="el-icon-s-marketing"></i><span class="item">学习材料</span></template>
-        <el-menu-item class="subitem" index="/TeacherMaterial/AllMaterial">&emsp;&emsp;&emsp;&emsp;查看学习材料</el-menu-item>
-        <el-menu-item class="subitem" index="/TeacherMaterial/BuildMaterial">&emsp;&emsp;&emsp;&emsp;新建学习材料</el-menu-item>
-        <el-menu-item class="subitem" index="/TeacherMaterial/ManageMaterial">&emsp;&emsp;&emsp;&emsp;管理学习材料</el-menu-item>
+        <el-menu-item class="subitem" index="/TeacherMaterial/AllMaterial">查看学习材料</el-menu-item>
+        <el-menu-item class="subitem" index="/TeacherMaterial/BuildMaterial">新建学习材料</el-menu-item>
+        <el-menu-item class="subitem" index="/TeacherMaterial/ManageMaterial">管理学习材料</el-menu-item>
       </el-submenu>
       <el-submenu index="3">
         <template slot="title"><i class="el-icon-user"></i><span class="item">用户信息</span></template>
-        <el-menu-item class="subitem" index="/TeacherChange/TeacherChange">&emsp;&emsp;修改密码</el-menu-item>
+        <el-menu-item class="subitem" index="/TeacherChange/TeacherChange">修改密码</el-menu-item>
       </el-submenu>
-<!--      <el-menu-item class="item" v-on:click="goToHelloWorld">退出登录</el-menu-item>-->
     </el-menu>
 </template>
 
 <style>
-  @import "../../assets/css/Nav.css";
+  @import "../../assets/css/nav.css";
 </style>
 
 <script>

@@ -1,16 +1,10 @@
 <template>
   <div>
-<!--    <el-container class="header">-->
-<!--      <el-header>-->
-<!--        <span>{{userNickName}}  修改密码</span>-->
-<!--        <el-button style="margin-top: 10px; float: right" v-on:click="goToHelloWorld">退出登录</el-button>-->
-<!--      </el-header>-->
-<!--    </el-container>-->
-    <el-container class="main">
-      <el-aside width="show?'64px':'300px'">
+    <el-container class="background">
+      <el-aside class="aside" width="show?'64px':'300px'">
         <StudentNav></StudentNav>
       </el-aside>
-      <el-container>
+      <el-container class="main">
         <el-header>
           <StudentHeading></StudentHeading>
         </el-header>
@@ -110,6 +104,5 @@ export default {
 </script>
 
 <style scoped>
-  @import "../../../assets/css/head.css";
-  @import "../../../assets/css/Nav.css";
+  @import "../../../assets/css/back.css";
 </style>

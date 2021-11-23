@@ -1,10 +1,16 @@
 <template>
+<<<<<<< HEAD
   <div class="background">
     <el-container class="main">
       <el-aside width="show?'64px':'250px'">
+=======
+  <div>
+    <el-container class="background">
+      <el-aside class="aside" width="show?'64px':'250px'">
+>>>>>>> 95c021d7428876b97f16860f652eac139fb86e2b
         <TeacherNav></TeacherNav>
       </el-aside>
-      <el-container>
+      <el-container class="main">
         <el-header>
           <TeacherHeading></TeacherHeading>
         </el-header>
@@ -85,6 +91,6 @@ export default {
 </script>
 
 <style scoped>
- @import "../../../assets/css/Nav.css";
- @import "../../../assets/css/head.css";
+ @import "../../../assets/css/nav.css";
+ @import "../../../assets/css/back.css";
 </style>

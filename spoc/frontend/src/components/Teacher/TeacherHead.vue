@@ -1,16 +1,10 @@
 <template>
   <div>
-<!--    <el-container class="header">-->
-<!--      <el-header>-->
-<!--        <span>{{userNickName}} 教师首页</span>-->
-<!--        <el-button style="margin-top: 10px; float: right" v-on:click="goToHelloWorld">退出登录</el-button>-->
-<!--      </el-header>-->
-<!--    </el-container>-->
-    <el-container class="main">
-      <el-aside width="show?'64px':30%">
+    <el-container class="background">
+      <el-aside class="aside" width="show?'64px':'250px'">
         <TeacherNav></TeacherNav>
       </el-aside>
-      <el-container>
+      <el-container class="main">
         <el-header>
           <TeacherHeading></TeacherHeading>
         </el-header>
@@ -32,6 +26,6 @@ export default {
 </script>
 
 <style scoped>
-  @import "../../assets/css/head.css";
-  @import "../../assets/css/Nav.css";
+  @import "../../assets/css/back.css";
+  @import "../../assets/css/nav.css";
 </style>

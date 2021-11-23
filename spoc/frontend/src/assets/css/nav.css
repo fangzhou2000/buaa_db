@@ -1,6 +1,6 @@
 body{
   margin: 0;
-  height: 1080px;
+  height: 100vh;
 }
 .el-header {
   text-align: center;
@@ -40,13 +40,13 @@ body{
 .item {
   background-color: black;
   font-size: 15px;
-  text-align: center;
+  text-align: left;
   color: white;
 }
 
 .subitem {
   background-color: black;
-  font-size: 12px;
+  font-size: 13px;
   text-align: center;
   color: white;
 }
