@@ -1,7 +1,7 @@
 
   .background{
     background-image: url("../img/Login.jpg");
-    height: 1080px;
+    height: 100vh;
   }
   .head{
     text-align: center;

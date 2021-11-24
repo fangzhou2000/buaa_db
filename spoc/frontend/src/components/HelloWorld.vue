@@ -3,7 +3,7 @@
     <div class="welcome">
     <div class="navigator">
       <div class="navigator-left">
-        <i class="el-icon-s-platform"><span class="el-icon-s-platform-text">&nbsp;&nbsp;Spoc</span></i>
+        <i class="el-icon-s-platform"><span class="el-icon-s-platform-text">&nbsp;&nbsp;FreeTalk选课系统</span></i>
       </div>
       <div class="navigator-right">
         <span><el-button class="buttons" @click="goToStudentLogin">学生登录</el-button></span>
