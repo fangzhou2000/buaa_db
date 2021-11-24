@@ -70,7 +70,9 @@ export default {
     changeCourse: function () {
       let that = this
       that.loading = true
-      that.course.materialIdList = that.materialIdString.split(',')
+      if (that.course.materialIdString !== '') {
+        that.course.materialIdList = that.materialIdString.split(',')
+      }
       this.$http.request({
         url: that.$url + 'ChangeCourse/',
         method: 'get',

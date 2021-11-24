@@ -406,11 +406,11 @@ class GetTeacherCourseList(APIView):
         print(result)
         for item in result:
             teacherCourseList.append(
-                {'id': item[0], 'name': item[1], 'materialIdString': str(item[2]) if item[2] != None else None})
+                {'id': item[0], 'name': item[1], 'materialIdString': str(item[2]) if item[2] != None else ''})
 
         print(teacherCourseList)
         for item in teacherCourseList:
-            if item['materialIdString'] != None:
+            if item['materialIdString'] != '':
                 material_id = item['materialIdString']
                 result = sql.getMaterialName(material_id)
                 item['materialString'] = str(result[0][0])
