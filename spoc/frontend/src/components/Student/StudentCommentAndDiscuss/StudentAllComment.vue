@@ -30,6 +30,7 @@ export default {
   components: {StudentNav, StudentHeading},
   data: function () {
     return {
+      loading: true,
       userName: '',
       userNickName: '',
       courseList: [{

@@ -7,7 +7,7 @@
       </div>
       <div class="navigator-right">
         <span><el-button class="buttons" @click="goToStudentLogin">学生登录</el-button></span>
-        <el-divider direction="vertical"></el-divider>
+        <span>&nbsp;&nbsp;</span>
         <span><el-button class="buttons" @click="goToTeacherLogin">教师登录</el-button></span>
       </div>
   </div>
@@ -219,23 +219,6 @@ export default {
     margin-left: 80px;
     margin-right: 80px;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)
-  }
-  .el-divider--horizontal {
-    display: block;
-    height: 1px;
-    width: 100%;
-    margin: 8px 0 !important;
-}
-  .in-helloworld-leave-active {
-    transition: all 2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-  }
-  .in-helloworld-leave-to
-  /* .slide-fade-leave-active for below version 2.1.8 */ {
-    transform: translateX(10px);
-    opacity: 0;
-  }
-  .in-helloworld-enter-active {
-    transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
   }
 
 </style>
