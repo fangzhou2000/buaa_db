@@ -9,7 +9,7 @@
           <TeacherHeading></TeacherHeading>
         </el-header>
         <el-main>
-        <el-form label-position="top">
+        <el-form label-position="top" v-loading="loading" >
           <el-form-item label="课程名称">
             <el-col :span="6">
               <el-input v-model="course.name"></el-input>

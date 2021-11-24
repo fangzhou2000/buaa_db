@@ -9,7 +9,7 @@
           <StudentHeading></StudentHeading>
         </el-header>
         <el-main>
-          <el-table :data="courseList">
+          <el-table :data="courseList"  v-loading="loading">
             <el-table-column label="课程ID" prop="id"></el-table-column>
             <el-table-column label="课程名称" prop="name"></el-table-column>
             <el-table-column label="评价"> <template slot-scope="scope">
@@ -53,14 +53,17 @@ export default {
   methods: {
     getCourseList: function () {
       let that = this
+      that.loading = true
       this.$http.request({
         url: that.$url + 'GetCourseList/',
         method: 'get'
       }).then(function (response) {
         console.log(response.data)
+        that.loading = false
         that.courseList = response.data
       }).catch(function (error) {
         console.log(error)
+        that.loading = false
       })
     },
     commentCourse: function (index) {

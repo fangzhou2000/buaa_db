@@ -9,7 +9,7 @@
           <TeacherHeading></TeacherHeading>
         </el-header>
         <el-main>
-        <el-table :data="myCourseList">
+        <el-table :data="myCourseList" v-loading="loading">
           <el-table-column label="课程ID" prop="id"></el-table-column>
           <el-table-column label="课程名称" prop="name"></el-table-column>
           <el-table-column label="课程材料" prop="materialString"></el-table-column>
@@ -20,7 +20,7 @@
           </el-table-column>
           <el-table-column label="停课">
             <template slot-scope="scope">
-              <el-button v-on:click="cancelCourse" type="danger" size="small">停课</el-button>
+              <el-button v-on:click="cancelCourse(scope.$index)" type="danger" size="small">停课</el-button>
             </template>
           </el-table-column>
         </el-table>

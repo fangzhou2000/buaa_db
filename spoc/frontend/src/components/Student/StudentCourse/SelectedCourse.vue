@@ -9,7 +9,7 @@
           <StudentHeading></StudentHeading>
         </el-header>
         <el-main>
-          <el-table :data="myCourseList">
+          <el-table :data="myCourseList" v-loading="loading" >
             <el-table-column label="课程ID" prop="id"></el-table-column>
             <el-table-column label="课程名称" prop="name"></el-table-column>
             <el-table-column label="课程材料" prop="materialIdString"></el-table-column>
@@ -48,6 +48,7 @@ export default {
   methods: {
     getStudentCourseList: function () {
       let that = this
+      that.loading = true
       this.$http.request({
         url: that.$url + 'GetStudentCourseList/',
         method: 'get',
@@ -56,9 +57,11 @@ export default {
         }
       }).then(function (response) {
         console.log(response.data)
+        that.loading = false
         that.myCourseList = response.data
       }).catch(function (error) {
         console.log(error)
+        that.loading = false
       })
     },
     dropCourse: function (index) {
