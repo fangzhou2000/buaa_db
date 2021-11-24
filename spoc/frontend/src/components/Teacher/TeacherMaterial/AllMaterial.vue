@@ -9,7 +9,7 @@
           <TeacherHeading></TeacherHeading>
         </el-header>
         <el-main>
-          <el-table :data="materialList">
+          <el-table :data="materialList" v-loading="loading">
             <el-table-column label="学习材料ID" prop="id"></el-table-column>
             <el-table-column label="学习材料名称" prop="name"></el-table-column>
           </el-table>
@@ -37,45 +37,6 @@ export default {
         name: '前端测试课程材料'
       }, {
         id: '1',
-        name: '前端测试课程材料'
-      }, {
-        id: '1',
-        name: '前端测试课程材料'
-      }, {
-        id: '1',
-        name: '前端测试课程材料'
-      }, {
-        id: '1',
-        name: '前端测试课程材料'
-      }, {
-        id: '1',
-        name: '前端测试课程材料'
-      }, {
-        id: '1',
-        name: '前端测试课程材料'
-      }, {
-        id: '1',
-        name: '前端测试课程材料'
-      }, {
-        id: '1',
-        name: '前端测试课程材料'
-      }, {
-        id: '1',
-        name: '前端测试课程材料'
-      }, {
-        id: '2',
-        name: '前端测试课程材料'
-      }, {
-        id: '2',
-        name: '前端测试课程材料'
-      }, {
-        id: '2',
-        name: '前端测试课程材料'
-      }, {
-        id: '2',
-        name: '前端测试课程材料'
-      }, {
-        id: '2',
         name: '前端测试课程材料'
       }]
     }

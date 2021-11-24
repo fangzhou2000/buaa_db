@@ -8,7 +8,7 @@
           <TeacherHeading></TeacherHeading>
         </el-header>
         <el-main>
-        <el-table :data="myMaterialList" v-loading="loading">
+        <el-table :data="myMaterialList" v-loading="loading" >
           <el-table-column label="学习材料ID" prop="id"></el-table-column>
           <el-table-column label="学习材料名称" prop="name"></el-table-column>
           <el-table-column label="删除">

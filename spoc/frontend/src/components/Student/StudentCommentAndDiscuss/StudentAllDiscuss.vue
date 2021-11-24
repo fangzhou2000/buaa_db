@@ -26,7 +26,7 @@
               <el-button type="primary" @click="buildPostTheme">确定</el-button>
             </div>
           </el-dialog>
-          <el-table :data="postThemeList">
+          <el-table :data="postThemeList" v-loading="loading">
             <el-table-column label="主题贴ID" prop="id"></el-table-column>
             <el-table-column label="主题贴标题" prop="title"></el-table-column>
             <el-table-column label="进入贴子"> <template slot-scope="scope">
@@ -80,14 +80,17 @@ export default {
   methods: {
     getPostThemeList: function () {
       let that = this
+      that.loading = true
       this.$http.request({
         url: that.$url + 'GetPostThemeList/',
         method: 'get'
       }).then(function (response) {
         console.log(response.data)
+        that.loading = false
         that.postThemeList = response.data
       }).catch(function (error) {
         console.log(error)
+        that.loading = false
       })
     },
     getTime: function () {
