@@ -61,6 +61,7 @@
   }
   .content {
     font-size: medium;
+    word-break: break-all;
   }
 </style>
 
@@ -83,36 +84,6 @@ export default {
         userName: '学号1',
         userNickName: '学生1',
         content: '课程评价内容1',
-        time: '2021-11-19 11:11:11'
-      }, {
-        id: 2,
-        userName: 'admin',
-        userNickName: '学生2',
-        content: '课程评价内容2',
-        time: '2021-11-19 11:11:11'
-      }, {
-        id: 3,
-        userName: '学号3',
-        userNickName: '学生3',
-        content: '课程评价内容3',
-        time: '2021-11-19 11:11:11'
-      }, {
-        id: 4,
-        userName: '学号1',
-        userNickName: '学生1',
-        content: '课程评价内容1',
-        time: '2021-11-19 11:11:11'
-      }, {
-        id: 5,
-        userName: '学号2',
-        userNickName: '学生2',
-        content: '课程评价内容2',
-        time: '2021-11-19 11:11:11'
-      }, {
-        id: 6,
-        userName: '学号3',
-        userNickName: '学生3',
-        content: '课程评价内容3',
         time: '2021-11-19 11:11:11'
       }
       ]

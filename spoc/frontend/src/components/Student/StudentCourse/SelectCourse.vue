@@ -11,17 +11,44 @@
         <el-main>
           <el-table :data="courseList" v-loading="loading" >
             <el-table-column label="课程ID" prop="id"></el-table-column>
-            <el-table-column label="课程名称" prop="name"></el-table-column>
-            <el-table-column label="课程材料" prop="materialIdString"></el-table-column>
-            <el-table-column label="选课"> <template slot-scope="scope">
-          <el-button v-on:click="selectCourse(scope.$index)" type="primary">选课</el-button>
-        </template></el-table-column>
+            <el-table-column label="课程名称（可点击查看信息）">
+              <template slot-scope="scope">
+                <el-link type="primart" v-on:click="courseInfoVisible = true">
+                  {{courseList[scope.$index].name}}
+                </el-link>
+                <el-dialog title="提示" :visible.sync="courseInfoVisible" width="50%">
+                  <el-row class="info">
+                    课程名称(id)：{{courseList[scope.$index].name}}({{courseList[scope.$index].id}})
+                  </el-row>
+                  <el-row class="info">
+                    学习材料(id)：<a v-for="(m) in courseList[scope.$index].materialList" v-bind:key="m.id">{{m.name}}({{m.id}})，</a>
+                  </el-row>
+                  <el-row class="info">
+                    课程介绍：{{courseList[scope.$index].introduction}}
+                  </el-row>
+                  <el-button @click="courseInfoVisible = false">取 消</el-button>
+                  <el-button type="primary" @click="courseInfoVisible = false">确 定</el-button>
+                </el-dialog>
+              </template>
+            </el-table-column>
+            <el-table-column label="选课">
+              <template slot-scope="scope">
+                <el-button v-on:click="selectCourse(scope.$index)" type="primary">选课</el-button>
+              </template>
+            </el-table-column>
           </el-table>
         </el-main>
       </el-container>
     </el-container>
   </div>
 </template>
+
+<style scoped>
+.info {
+  margin-bottom: 20px;
+  word-break: break-all;
+}
+</style>
 
 <script>
 import StudentNav from '../StudentNav'
@@ -31,15 +58,22 @@ export default {
   components: {StudentNav, StudentHeading},
   data: function () {
     return {
-      loading: true,
+      courseInfoVisible: false,
+      loading: false,
       userName: '',
       userNickName: '',
       courseList: [{
         id: '1',
-        name: '前端测试课程',
-        materialIdString: '1,2',
-        materialNameString: 'book1,book2'
-      }]
+        name: '课程1',
+        materialList: [{
+          id: '01',
+          name: '材料01'
+        }, {
+          id: '02',
+          name: '材料02'
+        }]
+      }],
+      introduction: ''
     }
   },
   mounted: function () {

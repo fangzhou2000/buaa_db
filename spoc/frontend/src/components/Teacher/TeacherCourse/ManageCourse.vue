@@ -38,6 +38,7 @@ export default {
   components: {TeacherNav, TeacherHeading},
   data: function () {
     return {
+      loading: true,
       userNickName: '',
       userName: '',
       myCourseList: [{
