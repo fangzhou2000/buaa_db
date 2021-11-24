@@ -65,20 +65,20 @@
             <el-timeline>
               <el-timeline-item timestamp="2021/9/15" placement="top">
                 <el-card>
-                  <p>Initial Commit</p>
-                  <p>Submitted on 2021/9/15 17:00</p>
+                  <strong style="font-size: 20px">Initial Commit</strong>
+                  <p>Submitted on <i>2021/9/15 17:00</i></p>
                 </el-card>
               </el-timeline-item>
               <el-timeline-item timestamp="2021/10/9" placement="top">
                 <el-card>
-                  <p>HomeWork One Completed</p>
-                  <p>Submitted on 2021/10/14 22:18</p>
+                  <strong style="font-size: 20px">HomeWork One Completed</strong>
+                  <p>Submitted on <i>2021/10/14 22:18</i></p>
                 </el-card>
               </el-timeline-item>
               <el-timeline-item timestamp="2021/11/3" placement="top">
                 <el-card>
-                  <p>The Representation On DB Design</p>
-                  <p>Submitted on 2021/11/3 16:16</p>
+                  <strong style="font-size: 20px">The Representation On DB Design</strong>
+                  <p>Submitted on <i>2021/11/3 16:16</i></p>
                 </el-card>
               </el-timeline-item>
             </el-timeline>
@@ -87,19 +87,19 @@
             <el-timeline>
               <el-timeline-item timestamp="2021/11/23" placement="top">
                 <el-card>
-                  <p>The Second Check</p>
-                  <p>Submitted on 2021/11/23 01:20</p>
+                  <strong style="font-size: 20px">The Second Check</strong>
+                  <p>Submitted on <i>2021/11/23 01:20</i></p>
                 </el-card>
               </el-timeline-item>
               <el-timeline-item timestamp="2021/11/?" placement="top">
                 <el-card>
-                  <p>HomeWork Two Completed</p>
-                  <p>Submitted on 2021/11/? ??:??</p>
+                  <strong style="font-size: 20px">HomeWork Two Completed</strong>
+                  <p>Submitted on <i>2021/11/? ??:??</i>></p>
                 </el-card>
               </el-timeline-item>
               <el-timeline-item timestamp="202?/?/?" placement="top">
                 <el-card>
-                  <p>To be Continued...</p>
+                  <strong style="font-size: 20px">To be Continued...</strong>
                   <p><span></span></p>
                 </el-card>
               </el-timeline-item>

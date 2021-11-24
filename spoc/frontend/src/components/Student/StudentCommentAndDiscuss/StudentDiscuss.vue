@@ -10,7 +10,7 @@
         </el-header>
         <el-main>
           <el-row class="buttons">
-            {{postTheme.title}}}
+            {{postTheme.title}}
           </el-row>
           <el-row class="buttons">
             <el-button v-on:click="buildPost" type="primary" size="small" >跟贴</el-button>
