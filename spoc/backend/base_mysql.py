@@ -294,15 +294,13 @@ class MySQL:
     def getTeacherCourseList(self, teacher_id):
         connection, cursor = self.connectDatabase()
 
-        instruction = "SELECT c.id, c.name, cm.material_id " \
+        instruction = "SELECT ans.id, ans.n, teacher.name, ans.mid, ans.mn, ans.i " \
                       "FROM " \
-                      "(SELECT c.id, c.name " \
-                      "FROM course AS c, teacher_course AS tc " \
-                      "WHERE tc.teacher_id=%s AND c.id=tc.course_id " \
-                      "ORDER BY c.id)" \
-                      "AS c(id,name) " \
-                      "LEFT OUTER JOIN course_material AS cm " \
-                      "ON (c.id=cm.course_id)"
+                      " (SELECT c.id, c.introduction, c.name, cm.material_id, cm.name " \
+                      "FROM course as c LEFT OUTER JOIN (select * from material, course_material where course_material.material_id=material.id) AS cm " \
+                      "ON (c.id=cm.course_id) ) AS ans(id, i, n,mid, mn), teacher_course AS tc, teacher " \
+                      "WHERE tc.course_id=ans.id AND tc.teacher_id=teacher.id AND teacher.id=%s " \
+                      "ORDER BY ans.id"
 
         cursor.execute(instruction, [teacher_id])
         return cursor.fetchall()
@@ -314,20 +312,13 @@ class MySQL:
     def getStudentCourseList(self, student_id):
         connection, cursor = self.connectDatabase()
 
-        instruction = "SELECT c.id, c.name, cm.material_id " \
+        instruction = "SELECT ans.id, ans.n, teacher.name, ans.mid, ans.mn, ans.i " \
                       "FROM " \
-                      "(SELECT c.id, c.name " \
-                      "FROM course AS c, student_course AS tc " \
-                      "WHERE tc.student_id=%s AND c.id=tc.course_id " \
-                      "ORDER BY c.id)" \
-                      "AS c(id,name) " \
-                      "LEFT OUTER JOIN course_material AS cm " \
-                      "ON (c.id=cm.course_id)"
-
-        # instruction = "SELECT c.id, c.name " \
-        #               "FROM course AS c, student_course AS sc " \
-        #               "WHERE c.id=sc.course_id AND sc.student_id=%s " \
-        #               "ORDER BY c.id"
+                      " (SELECT c.id, c.introduction, c.name, cm.material_id, cm.name " \
+                      "FROM course as c LEFT OUTER JOIN (select * from material, course_material where course_material.material_id=material.id) AS cm " \
+                      "ON (c.id=cm.course_id) ) AS ans(id, i, n,mid, mn), teacher_course AS tc, teacher, student_course as sc " \
+                      "WHERE tc.course_id=ans.id AND tc.teacher_id=teacher.id AND ans.id=sc.course_id AND sc.student_id=%s " \
+                      "ORDER BY ans.id"
 
         cursor.execute(instruction, [student_id])
 
@@ -338,12 +329,13 @@ class MySQL:
     def getCourseList(self):
         connection, cursor = self.connectDatabase()
 
-        # instruction = "SELECT c.id, c.name, cm.material_id " \
-        #               "FROM course AS c, course_material AS cm " \
-        #               "WHERE c.id=cm.course_id"
-        instruction = "SELECT c.id, c.name, cm.material_id " \
-                      "FROM course AS c LEFT OUTER JOIN course_material AS cm " \
-                      "ON (c.id=cm.course_id)"
+        instruction = "SELECT ans.id, ans.n, teacher.name, ans.mid, ans.mn, ans.i " \
+                      "FROM " \
+                      " (SELECT c.id, c.introduction, c.name, cm.material_id, cm.name " \
+                      "FROM course as c LEFT OUTER JOIN (select * from material, course_material where course_material.material_id=material.id) AS cm " \
+                      "ON (c.id=cm.course_id) ) AS ans(id, i, n,mid, mn), teacher_course AS tc, teacher " \
+                      "WHERE tc.course_id=ans.id AND tc.teacher_id=teacher.id " \
+                      "ORDER BY ans.id"
 
         cursor.execute(instruction)
         result = cursor.fetchall()
