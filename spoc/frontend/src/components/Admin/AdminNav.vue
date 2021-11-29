@@ -42,7 +42,7 @@ export default {
     return {
       userName: '',
       userNickName: '',
-      isCollapsed: true
+      isCollapsed: this.$root.isCollapsed
     }
   },
   mounted: function () {
@@ -70,6 +70,7 @@ export default {
     },
     toggleCollapse: function () {
       this.isCollapsed = !this.isCollapsed
+      this.$root.isCollapsed = this.isCollapsed
     }
   }
 }
