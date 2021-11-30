@@ -1,6 +1,6 @@
 #  BUAA DB
 
-2021年北航数据库大作业
+2021年秋北航数据库大作业
 
 
 ## Description 
@@ -9,11 +9,6 @@
 ### build and run：
 
 ```shell
-frontend:
-$ cd spoc/frontend
-$ npm run build/start
-
-backend:
 $ cd spoc
 $ python manage.py runserver
 ```
@@ -112,7 +107,7 @@ grade() //打分
 
 ## License
 
-
+[MIT](./LICENSE)
 
 
 [tqj]: https://github.com/fangzhou0216
