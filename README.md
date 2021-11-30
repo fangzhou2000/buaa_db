@@ -4,11 +4,16 @@
 
 
 ## Description 
- [![](https://img.shields.io/badge/frontend-Vue.js-9cf)](https://vuejs.org/)   [![](https://img.shields.io/badge/backend-Django-9cf)](https://www.djangoproject.com/) 
+ [![](https://img.shields.io/badge/frontend-Vue.js-9cf)](https://vuejs.org/)   [![](https://img.shields.io/badge/backend-Django-96d6d1)](https://www.djangoproject.com/)  [![](https://img.shields.io/badge/UI%20Toolkit-Element-3F93B3)](https://element.eleme.io/)
 
 ### build and run：
 
 ```shell
+frontend:
+$ cd spoc/frontend
+$ npm run build/start
+
+backend:
 $ cd spoc
 $ python manage.py runserver
 ```
