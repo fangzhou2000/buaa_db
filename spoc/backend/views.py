@@ -259,7 +259,8 @@ class GetCourseList(APIView):
             i += 1
 
         for item in courseList:
-            print(item['materialList'])
+            print(item['materialList'], end=" ")
+            print(item['id'], item['name'], item['teacherName'], item['introduction'])
 
         return Response(courseList)
 
@@ -311,7 +312,8 @@ class GetStudentCourseList(APIView):
             i += 1
 
         for item in studentCourseList:
-            print(item['materialList'])
+            print(item['materialList'], end=" ")
+            print(item['id'], item['name'], item['teacherName'], item['introduction'])
 
         return Response(studentCourseList)
 
@@ -399,7 +401,8 @@ class GetTeacherCourseList(APIView):
             i += 1
 
         for item in teacherCourseList:
-            print(item['materialList'])
+            print(item['materialList'], end=" ")
+            print(item['id'], item['name'], item['teacherName'], item['introduction'])
 
         return Response(teacherCourseList)
 
