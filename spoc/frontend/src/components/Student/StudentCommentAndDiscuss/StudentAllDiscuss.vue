@@ -114,7 +114,6 @@ export default {
         method: 'get',
         params: {
           userName: that.userName,
-          userNickName: that.userNickName,
           title: that.input.title,
           content: that.input.content,
           time: that.time,

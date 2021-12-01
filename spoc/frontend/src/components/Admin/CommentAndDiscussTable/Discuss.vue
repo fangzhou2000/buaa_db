@@ -225,7 +225,6 @@ export default {
         params: {
           postThemeId: that.postTheme.id,
           userName: that.userName,
-          userNickName: that.userNickName,
           content: that.input.content,
           time: that.time,
           isTeacher: true

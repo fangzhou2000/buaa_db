@@ -47,7 +47,7 @@ export default {
       id: '',
       name: '',
       materialIdString: '',
-      materialIdList: [],
+      materialIdList: '',
       introduction: ''
     }
   },
@@ -70,18 +70,17 @@ export default {
     changeCourse: function () {
       let that = this
       that.loading = true
-      if (that.course.materialIdString !== '') {
-        that.materialIdList = that.materialIdString.split(',')
-      } else {
-        that.materialIdList = []
-      }
+      that.materialIdList = that.materialIdString.split(',')
+      console.log(that.materialIdList)
       this.$http.request({
         url: that.$url + 'ChangeCourse/',
         method: 'get',
         params: {
           id: that.id,
           name: that.name,
-          materialIdList: that.materialIdList,
+          // materialIdList: that.materialIdList,
+          // 这里传List接受不到数据
+          materialIdString: that.materialIdString,
           introduction: that.introduction,
           userName: that.userName
         }
