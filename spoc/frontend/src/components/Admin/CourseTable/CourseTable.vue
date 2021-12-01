@@ -13,18 +13,18 @@
             <el-table-column label="课程ID" prop="id"></el-table-column>
             <el-table-column label="课程名称（可点击查看信息）">
               <template slot-scope="scope">
-                <el-link type="primary" v-on:click="courseInfoVisible = true">
+                <el-link type="primary" v-on:click="getCourseInfo(scope.$index)">
                   {{courseList[scope.$index].name}}
                 </el-link>
-                <el-dialog title="提示" :visible.sync="courseInfoVisible" width="50%">
+                <el-dialog title="提示" :visible.sync="courseInfoVisible" width="40%">
                   <el-row class="info">
-                    课程名称(id)：{{courseList[scope.$index].name}}({{courseList[scope.$index].id}})
+                    课程名称(id)：{{courseInfo.name}}({{courseInfo.id}})
                   </el-row>
                   <el-row class="info">
-                    学习材料(id)：<a v-for="(m) in courseList[scope.$index].materialList" v-bind:key="m.id">{{m.name}}({{m.id}})，</a>
+                    学习材料(id)：<a v-for="(m) in courseInfo.materialList" v-bind:key="m.id">{{m.name}}({{m.id}})，</a>
                   </el-row>
                   <el-row class="info">
-                    课程介绍：{{courseList[scope.$index].introduction}}
+                    课程介绍：{{courseInfo.introduction}}
                   </el-row>
                   <div slot="footer" class="dialog-footer">
                     <el-button type="primary" @click="courseInfoVisible = false">确 定</el-button>
@@ -53,6 +53,15 @@ export default {
   data: function () {
     return {
       courseInfoVisible: false,
+      courseInfo: {
+        id: '',
+        name: '',
+        materialList: [{
+          id: '',
+          name: ''
+        }],
+        introduction: ''
+      },
       loading: false,
       userName: '',
       userNickName: '',
@@ -67,6 +76,17 @@ export default {
           name: '材料02'
         }],
         introduction: ''
+      }, {
+        id: '2',
+        name: '课程2',
+        materialList: [{
+          id: '03',
+          name: '材料03'
+        }, {
+          id: '04',
+          name: '材料04'
+        }],
+        introduction: ''
       }]
     }
   },
@@ -76,6 +96,11 @@ export default {
     this.getCourseList()
   },
   methods: {
+    getCourseInfo: function (index) {
+      let that = this
+      that.courseInfo = that.courseList[index]
+      that.courseInfoVisible = true
+    },
     getCourseList: function () {
       let that = this
       that.loading = true

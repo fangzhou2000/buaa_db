@@ -54,7 +54,7 @@ export default {
   methods: {
     goToStudentHead: function () {
       let that = this
-      let debug = true
+      let debug = false
       if (debug) {
         if (that.userName === 'admin' && that.userPassWord === '123456') {
           let loginInfo = {userName: 'admin', userNickName: '前端测试用户'}
