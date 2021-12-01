@@ -2,11 +2,11 @@
   <div>
     <el-container class="background">
       <el-aside class="aside" width="show?'64px':'300px'">
-        <StudentNav></StudentNav>
+        <TeacherNav></TeacherNav>
       </el-aside>
       <el-container class="main">
         <el-header>
-          <StudentHeading></StudentHeading>
+          <TeacherHeading></TeacherHeading>
         </el-header>
         <el-main>
           <el-row class="buttons">
@@ -93,11 +93,11 @@
 </style>
 
 <script>
-import StudentNav from '../StudentNav'
-import StudentHeading from '../StudentHeading'
+import TeacherNav from '../TeacherNav'
+import TeacherHeading from '../TeacherHeading'
 export default {
-  name: 'StudentDiscuss',
-  components: {StudentNav, StudentHeading},
+  name: 'TeacherDiscuss',
+  components: {TeacherNav, TeacherHeading},
   data: function () {
     return {
       postTheme: {
@@ -230,7 +230,7 @@ export default {
           userNickName: that.userNickName,
           content: that.input.content,
           time: that.time,
-          isTeacher: false
+          isTeacher: true
         }
       }).then(function (response) {
         console.log(response.data)
@@ -275,7 +275,7 @@ export default {
     returnStudentAllDiscuss: function () {
       let that = this
       that.$router.push({
-        name: 'StudentAllDiscuss'
+        name: 'TeacherAllDiscuss'
       })
     },
     goToHelloWorld: function () {

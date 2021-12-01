@@ -34,6 +34,11 @@ import CommentTable from '../components/Admin/CommentTable/CommentTable'
 import CourseTable from '../components/Admin/CourseTable/CourseTable'
 import MaterialTable from '../components/Admin/MaterialTable/MaterialTable'
 import TeacherTable from '../components/Admin/TeacherTable/TeacherTable'
+import TeacherCommentAndDiscuss from '../components/Teacher/TeacherCommentAndDiscuss/TeacherCommentAndDiscuss'
+import TeacherAllComment from '../components/Teacher/TeacherCommentAndDiscuss/TeacherAllComment'
+import TeacherComment from '../components/Teacher/TeacherCommentAndDiscuss/TeacherComment'
+import TeacherAllDiscuss from '../components/Teacher/TeacherCommentAndDiscuss/TeacherAllDiscuss'
+import TeacherDiscuss from '../components/Teacher/TeacherCommentAndDiscuss/TeacherDiscuss'
 
 Vue.use(Router)
 
@@ -186,6 +191,33 @@ export default new Router({
           path: 'StudentDiscuss',
           name: 'StudentDiscuss',
           component: StudentDiscuss
+        }
+      ]
+    },
+    {
+      path: '/TeacherCommentAndDiscuss',
+      name: 'TeacherCommentAndDiscuss',
+      component: TeacherCommentAndDiscuss,
+      children: [
+        {
+          path: 'TeacherAllComment',
+          name: 'TeacherAllComment',
+          component: TeacherAllComment
+        },
+        {
+          path: 'TeacherComment',
+          name: 'TeacherComment',
+          component: TeacherComment
+        },
+        {
+          path: 'TeacherAllDiscuss',
+          name: 'TeacherAllDiscuss',
+          component: TeacherAllDiscuss
+        },
+        {
+          path: 'TeacherDiscuss',
+          name: 'TeacherDiscuss',
+          component: TeacherDiscuss
         }
       ]
     },

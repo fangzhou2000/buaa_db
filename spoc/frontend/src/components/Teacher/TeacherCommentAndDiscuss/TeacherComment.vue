@@ -2,23 +2,16 @@
   <div>
     <el-container class="background">
       <el-aside class="aside" width="show?'64px':'400px'">
-        <StudentNav></StudentNav>
+        <TeacherNav></TeacherNav>
       </el-aside>
       <el-container class="main">
         <el-header>
-          <StudentHeading></StudentHeading>
+          <TeacherHeading></TeacherHeading>
         </el-header>
         <el-main>
           <el-row class="buttons">评价 {{courseName}}</el-row>
           <el-row class="buttons">
-            <el-button v-on:click="commentCourse" type="primary" size="small" >发表评价</el-button>
             <el-button v-on:click="returnStudentAllComment" type="primary" size="small">返回</el-button>
-          </el-row>
-          <el-row class="buttons">
-            <el-col :span="20">
-              <el-input class="input" v-model="contentInput" type="textarea" :rows="2" placeholder="对于课程内容、讲课质量、考核方式等的评价">
-              </el-input>
-            </el-col>
           </el-row>
           <el-divider></el-divider>
           <div v-for="(comment) in commentList" v-bind:key="comment">
@@ -30,11 +23,6 @@
             </el-row>
             <el-row class="content">
               {{comment.content}}
-            </el-row>
-            <el-row class="delete">
-              <div v-if="comment.userName === userName">
-                <el-link type="danger" v-on:click="deleteComment(comment.id)">删除</el-link>
-              </div>
             </el-row>
             <el-divider></el-divider>
           </div>
@@ -67,11 +55,11 @@
 </style>
 
 <script>
-import StudentNav from '../StudentNav'
-import StudentHeading from '../StudentHeading'
+import TeacherNav from '../TeacherNav'
+import TeacherHeading from '../TeacherHeading'
 export default {
-  name: 'StudentComment',
-  components: {StudentNav, StudentHeading},
+  name: 'TeacherComment',
+  components: {TeacherNav, TeacherHeading},
   data: function () {
     return {
       userName: '前端测试用户名',
@@ -123,62 +111,10 @@ export default {
         console.log(error)
       })
     },
-    commentCourse: function () {
-      let that = this
-      that.getTime()
-      this.$http.request({
-        url: that.$url + 'CommentCourse/',
-        method: 'get',
-        params: {
-          courseId: that.courseId,
-          userName: that.userName,
-          userNickName: that.userNickName,
-          content: that.contentInput,
-          time: that.time
-        }
-      }).then(function (response) {
-        console.log(response.data)
-        if (response.data === 0) {
-          that.$message.success('评价成功')
-          that.getCommentList()
-          that.contentInput = ''
-        } else {
-          that.$message.error('未知错误')
-        }
-      }).catch(function (error) {
-        console.log(error)
-      })
-    },
-    deleteComment: function (commentId) {
-      this.$confirm('此操作将永久删除该评价，是否继续？', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消'
-      }).then(() => {
-        let that = this
-        that.getTime()
-        this.$http.request({
-          url: that.$url + 'DeleteComment/',
-          method: 'get',
-          params: {
-            commentId: commentId
-          }
-        }).then(function (response) {
-          console.log(response.data)
-          if (response.data === 0) {
-            that.$message.success('删除成功')
-            that.getCommentList()
-          } else {
-            that.$message.error('未知错误')
-          }
-        }).catch(function (error) {
-          console.log(error)
-        })
-      })
-    },
     returnStudentAllComment: function () {
       let that = this
       that.$router.push({
-        name: 'StudentAllComment'
+        name: 'TeacherAllComment'
       })
     },
     goToHelloWorld: function () {

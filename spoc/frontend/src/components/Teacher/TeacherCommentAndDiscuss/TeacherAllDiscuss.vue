@@ -2,11 +2,11 @@
   <div>
     <el-container class="background">
       <el-aside class="aside" width="show?'64px':'400px'">
-        <StudentNav></StudentNav>
+        <TeacherNav></TeacherNav>
       </el-aside>
       <el-container class="main">
         <el-header>
-          <StudentHeading></StudentHeading>
+          <TeacherHeading></TeacherHeading>
         </el-header>
         <el-main>
           <el-button @click="buildThemeVisible = true">新建主题贴</el-button>
@@ -40,11 +40,11 @@
 </template>
 
 <script>
-import StudentNav from '../StudentNav'
-import StudentHeading from '../StudentHeading'
+import TeacherNav from '../TeacherNav'
+import TeacherHeading from '../TeacherHeading'
 export default {
-  name: 'StudentAllDiscuss',
-  components: {StudentNav, StudentHeading},
+  name: 'TeacherAllDiscuss',
+  components: {TeacherNav, TeacherHeading},
   data: function () {
     return {
       loading: true,
@@ -61,7 +61,7 @@ export default {
         title: '前端测试贴标题',
         content: '前端测试贴内容',
         time: 'xxxx',
-        isTeacher: true
+        isTeacher: false
       }, {
         id: '2',
         userName: '学号1',
@@ -118,7 +118,7 @@ export default {
           title: that.input.title,
           content: that.input.content,
           time: that.time,
-          isTeacher: false
+          isTeacher: true
         }
       }).then(function (response) {
         console.log(response.data)
@@ -140,7 +140,7 @@ export default {
     enterPostTheme: function (index) {
       let that = this
       this.$router.push({
-        name: 'StudentDiscuss',
+        name: 'TeacherDiscuss',
         query: {
           postTheme: {
             id: that.postThemeList[index].id,
@@ -148,8 +148,7 @@ export default {
             userNickName: that.postThemeList[index].userNickName,
             title: that.postThemeList[index].title,
             content: that.postThemeList[index].content,
-            time: that.postThemeList[index].time,
-            isTeacher: that.postThemeList[index].isTeacher
+            time: that.postThemeList[index].time
           }
         }
       })

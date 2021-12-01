@@ -20,6 +20,11 @@
         <el-menu-item class="subitem" index="/TeacherMaterial/ManageMaterial">管理学习材料</el-menu-item>
       </el-submenu>
       <el-submenu index="3">
+        <template slot="title"><i class="el-icon-s-platform"></i><span class="item">留言板</span></template>
+        <el-menu-item class="subitem" index="/TeacherCommentAndDiscuss/TeacherAllComment">课程评价</el-menu-item>
+        <el-menu-item class="subitem" index="/TeacherCommentAndDiscuss/TeacherAllDiscuss">自由讨论</el-menu-item>
+      </el-submenu>
+      <el-submenu index="4">
         <template slot="title"><i class="el-icon-user"></i><span class="item">用户信息</span></template>
         <el-menu-item class="subitem" index="/TeacherChange/TeacherChange">修改密码</el-menu-item>
       </el-submenu>
