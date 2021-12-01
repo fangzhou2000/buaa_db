@@ -12,7 +12,7 @@
         <el-form label-position="top" v-loading="loading">
           <el-form-item label="课程名称">
             <el-col :span="6">
-              <el-input v-model="course.name"></el-input>
+              <el-input v-model="name"></el-input>
             </el-col>
           </el-form-item>
           <el-form-item label="学习材料 (如有多个请用','隔开)">
@@ -41,16 +41,14 @@ export default {
   components: {TeacherNav, TeacherHeading},
   data: function () {
     return {
-      loading: true,
+      loading: false,
       userName: '',
       userNickName: '',
       id: '',
       name: '',
       materialIdString: '',
-      course: {
-        name: '',
-        materialIdList: []
-      }
+      materialIdList: [],
+      introduction: ''
     }
   },
   mounted () {
@@ -58,8 +56,9 @@ export default {
     this.userNickName = this.cookie.getCookie('userNickName')
     this.id = this.$route.query.id
     this.name = this.$route.query.name
-    this.course.name = this.name
     this.materialIdString = this.$route.query.materialIdString
+    this.introduction = this.$route.query.introduction
+    console.log(this.materialIdString)
   },
   methods: {
     returnManageCourse: function () {
@@ -72,14 +71,18 @@ export default {
       let that = this
       that.loading = true
       if (that.course.materialIdString !== '') {
-        that.course.materialIdList = that.materialIdString.split(',')
+        that.materialIdList = that.materialIdString.split(',')
+      } else {
+        that.materialIdList = []
       }
       this.$http.request({
         url: that.$url + 'ChangeCourse/',
         method: 'get',
         params: {
           id: that.id,
-          course: that.course,
+          name: that.name,
+          materialIdList: that.materialIdList,
+          introduction: that.introduction,
           userName: that.userName
         }
       }).then(function (response) {

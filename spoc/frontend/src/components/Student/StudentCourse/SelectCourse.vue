@@ -13,7 +13,7 @@
             <el-table-column label="课程ID" prop="id"></el-table-column>
             <el-table-column label="课程名称（可点击查看信息）">
               <template slot-scope="scope">
-                <el-link type="primart" v-on:click="courseInfoVisible = true">
+                <el-link type="primary" v-on:click="courseInfoVisible = true">
                   {{courseList[scope.$index].name}}
                 </el-link>
                 <el-dialog title="提示" :visible.sync="courseInfoVisible" width="50%">
@@ -26,8 +26,9 @@
                   <el-row class="info">
                     课程介绍：{{courseList[scope.$index].introduction}}
                   </el-row>
-                  <el-button @click="courseInfoVisible = false">取 消</el-button>
-                  <el-button type="primary" @click="courseInfoVisible = false">确 定</el-button>
+                  <div slot="footer" class="dialog-footer">
+                    <el-button type="primary" @click="courseInfoVisible = false">确 定</el-button>
+                  </div>
                 </el-dialog>
               </template>
             </el-table-column>
@@ -71,9 +72,9 @@ export default {
         }, {
           id: '02',
           name: '材料02'
-        }]
-      }],
-      introduction: ''
+        }],
+        introduction: ''
+      }]
     }
   },
   mounted: function () {

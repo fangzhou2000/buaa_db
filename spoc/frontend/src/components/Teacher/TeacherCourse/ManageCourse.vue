@@ -11,8 +11,27 @@
         <el-main>
         <el-table :data="myCourseList" v-loading="loading">
           <el-table-column label="课程ID" prop="id"></el-table-column>
-          <el-table-column label="课程名称" prop="name"></el-table-column>
-          <el-table-column label="课程材料" prop="materialString"></el-table-column>
+          <el-table-column label="课程名称（可点击查看信息）">
+              <template slot-scope="scope">
+                <el-link type="primary" v-on:click="courseInfoVisible = true">
+                  {{myCourseList[scope.$index].name}}
+                </el-link>
+                <el-dialog title="提示" :visible.sync="courseInfoVisible" width="50%">
+                  <el-row class="info">
+                    课程名称(id)：{{myCourseList[scope.$index].name}}({{myCourseList[scope.$index].id}})
+                  </el-row>
+                  <el-row class="info">
+                    学习材料(id)：<a v-for="(m) in myCourseList[scope.$index].materialList" v-bind:key="m.id">{{m.name}}({{m.id}})，</a>
+                  </el-row>
+                  <el-row class="info">
+                    课程介绍：{{myCourseList[scope.$index].introduction}}
+                  </el-row>
+                  <div slot="footer" class="dialog-footer">
+                    <el-button type="primary" @click="courseInfoVisible = false">确定</el-button>
+                  </div>
+                </el-dialog>
+              </template>
+            </el-table-column>
           <el-table-column label="修改课程">
             <template slot-scope="scope">
               <el-button v-on:click="changeCourse(scope.$index)" type="warning" size="small">修改课程</el-button>
@@ -38,14 +57,21 @@ export default {
   components: {TeacherNav, TeacherHeading},
   data: function () {
     return {
+      courseInfoVisible: false,
       loading: true,
       userNickName: '',
       userName: '',
       myCourseList: [{
         id: '1',
-        name: '前端测试课程',
-        materialIdString: '资料',
-        materialString: ''
+        name: '课程1',
+        materialList: [{
+          id: '01',
+          name: '材料01'
+        }, {
+          id: '02',
+          name: '材料02'
+        }],
+        introduction: ''
       }]
     }
   },
@@ -76,6 +102,14 @@ export default {
     changeCourse: function (index) {
       console.log(index)
       let that = this
+      let materialIdString = ''
+      for (var i = 0; i < that.myCourseList[index].materialList.length; i++) {
+        if (i === 0) {
+          materialIdString = (that.myCourseList[index].materialList[i].id)
+        } else {
+          materialIdString = materialIdString + ',' + (that.myCourseList[index].materialList[i].id)
+        }
+      }
       this.$router.push({
         path: '/TeacherCourse/ChangeCourse',
         // 这里不能使用params传递参数，详见：
@@ -83,7 +117,8 @@ export default {
         query: {
           id: that.myCourseList[index].id,
           name: that.myCourseList[index].name,
-          materialIdString: that.myCourseList[index].materialIdString
+          materialIdString: materialIdString,
+          introduction: that.myCourseList[index].introduction
         }
       })
     },

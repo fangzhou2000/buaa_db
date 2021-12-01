@@ -11,9 +11,27 @@
         <el-main>
         <el-table :data="courseList" v-loading="loading">
           <el-table-column label="课程ID" prop="id"></el-table-column>
-          <el-table-column label="课程名称" prop="name"></el-table-column>
-          <el-table-column label="课程材料ID" prop="materialIdString"></el-table-column>
-          <el-table-column label="课程材料" prop="materialNameString"></el-table-column>
+          <el-table-column label="课程名称（可点击查看信息）">
+              <template slot-scope="scope">
+                <el-link type="primary" v-on:click="courseInfoVisible = true">
+                  {{courseList[scope.$index].name}}
+                </el-link>
+                <el-dialog title="提示" :visible.sync="courseInfoVisible" width="50%">
+                  <el-row class="info">
+                    课程名称(id)：{{courseList[scope.$index].name}}({{courseList[scope.$index].id}})
+                  </el-row>
+                  <el-row class="info">
+                    学习材料(id)：<a v-for="(m) in courseList[scope.$index].materialList" v-bind:key="m.id">{{m.name}}({{m.id}})，</a>
+                  </el-row>
+                  <el-row class="info">
+                    课程介绍：{{courseList[scope.$index].introduction}}
+                  </el-row>
+                  <div slot="footer" class="dialog-footer">
+                    <el-button type="primary" @click="courseInfoVisible = false">确 定</el-button>
+                  </div>
+                </el-dialog>
+              </template>
+            </el-table-column>
         </el-table>
       </el-main>
       </el-container>
@@ -29,32 +47,21 @@ export default {
   components: {TeacherNav, TeacherHeading},
   data: function () {
     return {
+      courseInfoVisible: false,
       loading: true,
       userNickName: '',
       userName: '',
       courseList: [{
         id: '1',
-        name: '前端测试课程',
-        materialIdString: [{
-          id: '1',
-          name: 'book1'
+        name: '课程1',
+        materialList: [{
+          id: '01',
+          name: '材料01'
+        }, {
+          id: '02',
+          name: '材料02'
         }],
-        materialNameString: 'book1,book2'
-      }, {
-        id: '2',
-        name: '前端测试课程',
-        materialIdString: '12',
-        materialNameString: 'book1'
-      }, {
-        id: '3',
-        name: '前端测试课程',
-        materialIdString: '13',
-        materialNameString: 'book1'
-      }, {
-        id: '4',
-        name: '前端测试课程',
-        materialIdString: '14',
-        materialNameString: 'book1'
+        introduction: ''
       }]
     }
   },

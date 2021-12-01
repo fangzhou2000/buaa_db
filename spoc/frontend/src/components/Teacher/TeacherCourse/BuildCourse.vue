@@ -15,7 +15,7 @@
               <el-input v-model="course.name"></el-input>
             </el-col>
           </el-form-item>
-          <el-form-item label="学习材料 (如有多个请用','隔开)">
+          <el-form-item label="学习材料ID (如有多个请用','隔开)">
             <el-col :span="6">
               <el-input v-model="materialIdString"></el-input>
             </el-col>
@@ -40,7 +40,7 @@ export default {
   components: {TeacherNav, TeacherHeading},
   data: function () {
     return {
-      loading: true,
+      loading: false,
       userNickName: '',
       userName: '',
       materialIdString: '',
