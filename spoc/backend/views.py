@@ -38,7 +38,7 @@ class BuildPost(APIView):
         time = str(request.GET.get("time", None))
 
         isTeacher = str(request.GET.get("isTeacher", None))
-        isTeacher = 1 if isTeacher == "true" else 0
+        # isTeacher = 1 if isTeacher == "true" else 0
 
         sql = MySQL()
         sql.buildPost(postThemeId, userName, content, time, isTeacher)
@@ -58,8 +58,8 @@ class GetPostList(APIView):
                              "userNickName": i[2],
                              "content": i[3],
                              "time": i[4],
-                             "isTeacher": "true" if i[5] == 1 else "false"})
-        postList.sort(key=lambda x:x['time'], reverse=True)
+                             "isTeacher": i[5]})
+        postList.sort(key=lambda x: x['time'], reverse=True)
         return Response(postList)
 
 
@@ -71,7 +71,7 @@ class BuildPostTheme(APIView):
         time = str(request.GET.get("time", None))
         isTeacher = str(request.GET.get("isTeacher", None))
 
-        isTeacher = 1 if isTeacher == "true" else 0
+        # isTeacher = 1 if isTeacher == "true" else 0
 
         sql = MySQL()
         sql.buildPostTheme(userName, title, content, time, isTeacher)
@@ -92,8 +92,8 @@ class GetPostThemeList(APIView):
                                   "title": i[2],
                                   "content": i[3],
                                   "time": i[4],
-                                  "isTeacher": "true" if i[6] == 1 else "false"})
-        postThemeList.sort(key=lambda x:x['id'])
+                                  "isTeacher": i[6]})
+        postThemeList.sort(key=lambda x: x['id'])
         return Response(postThemeList)
 
 

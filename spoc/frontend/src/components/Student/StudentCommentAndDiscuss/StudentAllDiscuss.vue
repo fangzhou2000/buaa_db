@@ -61,7 +61,7 @@ export default {
         title: '前端测试贴标题',
         content: '前端测试贴内容',
         time: 'xxxx',
-        isTeacher: true
+        isTeacher: 1
       }, {
         id: '2',
         userName: '学号1',
@@ -69,7 +69,7 @@ export default {
         title: '前端测试贴标题',
         content: '前端测试贴内容',
         time: 'xxxx',
-        isTeacher: false
+        isTeacher: 0
       }],
       buildThemeVisible: false,
       time: ''
@@ -117,7 +117,7 @@ export default {
           title: that.input.title,
           content: that.input.content,
           time: that.time,
-          isTeacher: false
+          isTeacher: 0
         }
       }).then(function (response) {
         console.log(response.data)

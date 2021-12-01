@@ -105,7 +105,7 @@ export default {
         title: '前端测试贴标题',
         content: '前端测试贴内容',
         time: '111',
-        isTeacher: true
+        isTeacher: 1
       },
       input: {
         content: ''
@@ -116,42 +116,42 @@ export default {
         userNickName: '学生1',
         content: '课程评价内容1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111',
         time: '2021-11-19 11:11:11',
-        isTeacher: false
+        isTeacher: 1
       }, {
         id: '1',
         userName: '学号2',
         userNickName: '学生2',
         content: '课程评价内容2',
         time: '2021-11-19 11:11:11',
-        isTeacher: true
+        isTeacher: 1
       }, {
         id: '1',
         userName: '学号3',
         userNickName: '学生3',
         content: '课程评价内容3',
         time: '2021-11-19 11:11:11',
-        isTeacher: false
+        isTeacher: 0
       }, {
         id: '1',
         userName: 'admin',
         userNickName: '学生1',
         content: '课程评价内容1',
         time: '2021-11-19 11:11:11',
-        isTeacher: false
+        isTeacher: 0
       }, {
         id: '1',
         userName: '学号2',
         userNickName: '学生2',
         content: '课程评价内容2',
         time: '2021-11-19 11:11:11',
-        isTeacher: false
+        isTeacher: 0
       }, {
         id: '1',
         userName: '学号3',
         userNickName: '学生3',
         content: '课程评价内容3',
         time: '2021-11-19 11:11:11',
-        isTeacher: false
+        isTeacher: 0
       }],
       time: ''
     }

@@ -74,7 +74,7 @@ class MySQL:
         result = cursor.fetchall();
         result = result[0][0]
 
-        if isTeacher == 0:
+        if isTeacher == 0 or isTeacher == "0":
             instruction = "INSERT INTO student_post(student_id, post_id) " \
                           "VALUES (%s, %s)"
         else:
@@ -128,7 +128,7 @@ class MySQL:
         result = cursor.fetchall();
         result = result[0][0]
 
-        if isTeacher == 0:
+        if isTeacher == 0 or isTeacher == "0":
             instruction = "INSERT INTO student_posttheme(student_id, posttheme_id) " \
                           "VALUES (%s, %s)"
         else:
