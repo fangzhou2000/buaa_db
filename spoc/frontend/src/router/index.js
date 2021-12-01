@@ -30,7 +30,6 @@ import AdminLogin from '../components/Admin/AdminLogin'
 import AdminHead from '../components/Admin/AdminHead'
 import AdminChange from '../components/Admin/AdminChange/AdminChange'
 import StudentTable from '../components/Admin/StudentTable/StudentTable'
-import CommentTable from '../components/Admin/CommentTable/CommentTable'
 import CourseTable from '../components/Admin/CourseTable/CourseTable'
 import MaterialTable from '../components/Admin/MaterialTable/MaterialTable'
 import TeacherTable from '../components/Admin/TeacherTable/TeacherTable'
@@ -39,6 +38,11 @@ import TeacherAllComment from '../components/Teacher/TeacherCommentAndDiscuss/Te
 import TeacherComment from '../components/Teacher/TeacherCommentAndDiscuss/TeacherComment'
 import TeacherAllDiscuss from '../components/Teacher/TeacherCommentAndDiscuss/TeacherAllDiscuss'
 import TeacherDiscuss from '../components/Teacher/TeacherCommentAndDiscuss/TeacherDiscuss'
+import Discuss from '../components/Admin/CommentAndDiscussTable/Discuss'
+import Comment from '../components/Admin/CommentAndDiscussTable/Comment'
+import DiscussTable from '../components/Admin/CommentAndDiscussTable/DiscussTable'
+import CommentTable from '../components/Admin/CommentAndDiscussTable/CommentTable'
+import CommentAndDiscussTable from '../components/Admin/CommentAndDiscussTable/CommentAndDiscussTable'
 
 Vue.use(Router)
 
@@ -238,7 +242,6 @@ export default new Router({
       children: [
         {
           path: 'AdminChange',
-          name: 'AdminChange',
           component: AdminChange
         }
       ]
@@ -250,20 +253,34 @@ export default new Router({
       children: [
         {
           path: 'StudentTable',
-          name: 'StudentTable',
           component: StudentChange
         }
       ]
     },
     {
-      path: '/CommentTable',
-      name: 'CommentTable',
-      component: CommentTable,
+      path: '/CommentAndDiscussTable',
+      name: 'CommentAndDiscussTable',
+      component: CommentAndDiscussTable,
       children: [
         {
           path: 'CommentTable',
           name: 'CommentTable',
           component: CommentTable
+        },
+        {
+          path: 'Comment',
+          name: 'Comment',
+          component: Comment
+        },
+        {
+          path: 'DiscussTable',
+          name: 'DiscussTable',
+          component: DiscussTable
+        },
+        {
+          path: 'Discuss',
+          name: 'Discuss',
+          component: Discuss
         }
       ]
     },
@@ -274,7 +291,6 @@ export default new Router({
       children: [
         {
           path: 'CourseTable',
-          name: 'CourseTable',
           component: CourseTable
         }
       ]
@@ -286,7 +302,6 @@ export default new Router({
       children: [
         {
           path: 'MaterialTable',
-          name: 'MaterialTable',
           component: MaterialTable
         }
       ]
@@ -298,7 +313,6 @@ export default new Router({
       children: [
         {
           path: 'TeacherTable',
-          name: 'TeacherTable',
           component: TeacherTable
         }
       ]

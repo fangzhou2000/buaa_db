@@ -2,11 +2,11 @@
   <div>
     <el-container class="background">
       <el-aside class="aside" width="show?'64px':'300px'">
-        <TeacherNav></TeacherNav>
+        <AdminNav></AdminNav>
       </el-aside>
       <el-container class="main">
         <el-header>
-          <TeacherHeading></TeacherHeading>
+          <AdminHeading></AdminHeading>
         </el-header>
         <el-main>
           <el-row class="buttons">
@@ -38,9 +38,7 @@
               {{postTheme.content}}
             </el-row>
             <el-row class="delete">
-              <div v-if="postTheme.userName === userName">
-                <el-link type="danger" v-on:click="deletePostTheme">删除</el-link>
-              </div>
+              <el-link type="danger" v-on:click="deletePostTheme">删除</el-link>
             </el-row>
           <el-divider>跟贴</el-divider>
           <div v-for="(post) in postList" v-bind:key="post.id">
@@ -59,9 +57,7 @@
               {{post.content}}
             </el-row>
             <el-row class="delete">
-              <div v-if="post.userName === userName">
-                <el-link type="danger" v-on:click="deletePost(post.id)">删除</el-link>
-              </div>
+              <el-link type="danger" v-on:click="deletePost(post.id)">删除</el-link>
             </el-row>
             <el-divider></el-divider>
           </div>
@@ -93,13 +89,15 @@
 </style>
 
 <script>
-import TeacherNav from '../TeacherNav'
-import TeacherHeading from '../TeacherHeading'
+import AdminNav from '../AdminNav'
+import AdminHeading from '../AdminHeading'
 export default {
-  name: 'TeacherDiscuss',
-  components: {TeacherNav, TeacherHeading},
+  name: 'DiscussTable',
+  components: {AdminNav, AdminHeading},
   data: function () {
     return {
+      userName: '前端测试用户名',
+      userNickName: '前端测试姓名',
       postTheme: {
         id: '测试id',
         userName: 'admin',
@@ -275,7 +273,7 @@ export default {
     returnStudentAllDiscuss: function () {
       let that = this
       that.$router.push({
-        name: 'TeacherAllDiscuss'
+        name: 'DiscussTable'
       })
     },
     goToHelloWorld: function () {

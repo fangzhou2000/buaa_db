@@ -23,7 +23,7 @@
             </el-button>
         </div>
         <div class="register-button">
-            <el-button id="button_re" type="primary" plain="true" size="small" v-on:click="goToStudentRegister">
+            <el-button id="button_re" type="primary" :plain="true" size="small" v-on:click="goToStudentRegister">
               注册
             </el-button>
         </div>

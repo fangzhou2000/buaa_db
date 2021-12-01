@@ -1,6 +1,5 @@
 <template>
     <el-menu :default-active="this.$route.path"
-             @open="handleOpen" @close="handleClose"
              router
              :collapse="isCollapsed" class="el-head-menu">
       <el-menu-item class="item" index="/TeacherHead">
@@ -56,12 +55,6 @@ export default {
     })
   },
   methods: {
-    handleOpen (key, keyPath) {
-      console.log(key, keyPath)
-    },
-    handleClose (key, keyPath) {
-      console.log(key, keyPath)
-    },
     goToHelloWorld: function () {
       this.cookie.clearCookie('userName')
       this.cookie.clearCookie('userNickName')

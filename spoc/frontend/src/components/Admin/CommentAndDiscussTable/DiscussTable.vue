@@ -2,11 +2,11 @@
   <div>
     <el-container class="background">
       <el-aside class="aside" width="show?'64px':'400px'">
-        <TeacherNav></TeacherNav>
+        <AdminNav></AdminNav>
       </el-aside>
       <el-container class="main">
         <el-header>
-          <TeacherHeading></TeacherHeading>
+          <AdminHeading></AdminHeading>
         </el-header>
         <el-main>
           <el-button @click="buildThemeVisible = true">新建主题贴</el-button>
@@ -40,11 +40,11 @@
 </template>
 
 <script>
-import TeacherNav from '../TeacherNav'
-import TeacherHeading from '../TeacherHeading'
+import AdminNav from '../AdminNav'
+import AdminHeading from '../AdminHeading'
 export default {
-  name: 'TeacherAllDiscuss',
-  components: {TeacherNav, TeacherHeading},
+  name: 'DiscussTable',
+  components: {AdminNav, AdminHeading},
   data: function () {
     return {
       loading: true,
@@ -140,7 +140,7 @@ export default {
     enterPostTheme: function (index) {
       let that = this
       this.$router.push({
-        name: 'TeacherDiscuss',
+        name: 'Discuss',
         query: {
           postTheme: {
             id: that.postThemeList[index].id,

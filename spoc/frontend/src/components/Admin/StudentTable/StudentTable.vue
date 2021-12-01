@@ -9,7 +9,7 @@
           <AdminHeading></AdminHeading>
         </el-header>
         <el-main>
-          <el-table :data="studentList">
+          <el-table :data="studentList" v-loading="loading">
             <el-table-column label="学号" prop="id"></el-table-column>
             <el-table-column label="姓名" prop="name"></el-table-column>
           </el-table>
@@ -27,6 +27,9 @@ export default {
   components: {AdminHeading, AdminNav},
   data: function () {
     return {
+      loading: true,
+      userName: '',
+      userNickName: '',
       studentList: [
         {
           id: 19373686,
@@ -39,16 +42,30 @@ export default {
         {
           id: 19373136,
           name: '郭明明'
-        },
-        {
-          id: 19373000,
-          name: null
-        },
-        {
-          id: null,
-          name: null
         }
       ]
+    }
+  },
+  mounted: function () {
+    this.userName = this.cookie.getCookie('userName')
+    this.userNickName = this.cookie.getCookie('userNickName')
+    this.getStudentList()
+  },
+  methods: {
+    getStudentList: function () {
+      let that = this
+      that.loading = true
+      this.$http.request({
+        url: that.$url + 'GetStudentList/',
+        method: 'get'
+      }).then(function (response) {
+        console.log(response.data)
+        that.loading = false
+        that.courseList = response.data
+      }).catch(function (error) {
+        console.log(error)
+        that.loading = false
+      })
     }
   }
 }

@@ -23,7 +23,7 @@
             </el-button>
         </div>
         <div class="return-text">
-           <el-link href="#/">返回</el-link>
+           <el-link href="#/" style="font-size: 8px; color: white">返回</el-link>
         </div>
       </el-form>
     </div>
@@ -48,17 +48,45 @@ export default {
   methods: {
     goToAdminHead: function () {
       let that = this
-      if ((that.userName === 'tqj' || that.userName === 'oyk' || that.userName === 'gmm') && that.userPassWord === '123456') {
-        that.$router.push({
-          name: 'AdminHead'
-        })
-        console.log('from' + that.userName)
-      } else {
-        if (that.userName === '' || that.userPassWord === '') {
-          that.$message.info('请输入正确的形式！')
+      let debug = true
+      if (debug) {
+        if (that.userName === 'admin' && that.userPassWord === '123456') {
+          let loginInfo = {userName: 'admin', userNickName: '前端测试管理员'}
+          that.cookie.setCookie(loginInfo)
+          that.$router.push({
+            name: 'AdminHead'
+          })
         } else {
-          that.$message.error('不存在该管理员')
+          that.$message.error('!!!')
         }
+      } else {
+        this.$http.request({
+          url: that.$url + 'AdminLogin/',
+          method: 'get',
+          params: {
+            userNickName: that.userNickName,
+            userName: that.userName,
+            userPassWord: that.userPassWord
+          }
+        }).then(function (response) {
+          console.log(response.data)
+          that.status = response.data.value
+          if (that.status === 0) {
+            let loginInfo = {userName: that.userName, userNickName: response.data.userNickName}
+            that.cookie.setCookie(loginInfo)
+            that.$router.push({
+              name: 'AdminHead'
+            })
+          } else if (that.status === 1) {
+            that.$message.error('管理员账号不存在')
+          } else if (that.status === 2) {
+            that.$message.error('密码错误')
+          } else {
+            that.$message.info('请输入管理员账号')
+          }
+        }).catch(function (error) {
+          console.log(error)
+        })
       }
     },
     keydown (e) {

@@ -43,7 +43,7 @@
               </div>
             </el-row>
           <el-divider>跟贴</el-divider>
-          <div v-for="(post) in postList" v-bind:key="post">
+          <div v-for="(post) in postList" v-bind:key="post.id">
             <el-row class="time">
               {{post.time}}
             </el-row>
@@ -100,6 +100,8 @@ export default {
   components: {StudentNav, StudentHeading},
   data: function () {
     return {
+      userName: '前端测试用户名',
+      userNickName: '前端测试姓名',
       postTheme: {
         id: '测试id',
         userName: 'admin',
