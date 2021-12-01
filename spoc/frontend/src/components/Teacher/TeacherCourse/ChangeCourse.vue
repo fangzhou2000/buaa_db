@@ -47,7 +47,7 @@ export default {
       id: '',
       name: '',
       materialIdString: '',
-      materialIdList: '',
+      materialIdList: [],
       introduction: ''
     }
   },
@@ -71,6 +71,7 @@ export default {
       let that = this
       that.loading = true
       that.materialIdList = that.materialIdString.split(',')
+      // 这里不用判空
       console.log(that.materialIdList)
       this.$http.request({
         url: that.$url + 'ChangeCourse/',
@@ -79,7 +80,7 @@ export default {
           id: that.id,
           name: that.name,
           // materialIdList: that.materialIdList,
-          // 这里传List接受不到数据
+          // 这里传List接受不到数据，改为传string
           materialIdString: that.materialIdString,
           introduction: that.introduction,
           userName: that.userName
