@@ -14,7 +14,7 @@
           </el-row>
           <el-row class="buttons">
             <el-button v-on:click="buildPost" type="primary" size="small" >跟贴</el-button>
-            <el-button v-on:click="returnStudentAllDiscuss" type="primary" size="small">返回</el-button>
+            <el-button v-on:click="returnStudentAllDiscuss" size="small">返回</el-button>
           </el-row>
           <el-row class="buttons">
             <el-col :span="20">
@@ -72,6 +72,7 @@
 </template>
 
 <style scoped>
+@import "../../../assets/css/back.css";
   .buttons {
     margin-bottom: 10px;
   }

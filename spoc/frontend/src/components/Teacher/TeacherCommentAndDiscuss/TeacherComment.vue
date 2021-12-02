@@ -11,7 +11,7 @@
         <el-main>
           <el-row class="buttons">评价 {{courseName}}</el-row>
           <el-row class="buttons">
-            <el-button v-on:click="returnStudentAllComment" type="primary" size="small">返回</el-button>
+            <el-button v-on:click="returnStudentAllComment" size="small">返回</el-button>
           </el-row>
           <el-divider></el-divider>
           <div v-for="(comment) in commentList" v-bind:key="comment">

@@ -9,31 +9,31 @@
           <TeacherHeading></TeacherHeading>
         </el-header>
         <el-main>
-        <el-table :data="courseList" v-loading="loading">
-          <el-table-column label="课程ID" prop="id"></el-table-column>
-          <el-table-column label="课程名称（可点击查看信息）">
+          <el-table :data="courseList" v-loading="loading">
+            <el-table-column label="课程ID" prop="id"></el-table-column>
+            <el-table-column label="课程名称（可点击查看信息）">
               <template slot-scope="scope">
                 <el-link type="primary" v-on:click="getCourseInfo(scope.$index)">
-                  {{courseList[scope.$index].name}}
+                  {{ courseList[scope.$index].name }}
                 </el-link>
-                <el-dialog title="提示" :visible.sync="courseInfoVisible" width="40%">
-                  <el-row class="info">
-                    课程名称(id)：{{courseInfo.name}}({{courseInfo.id}})
-                  </el-row>
-                  <el-row class="info">
-                    学习材料(id)：<a v-for="(m) in courseInfo.materialList" v-bind:key="m.id">{{m.name}}({{m.id}})，</a>
-                  </el-row>
-                  <el-row class="info">
-                    课程介绍：{{courseInfo.introduction}}
-                  </el-row>
-                  <div slot="footer" class="dialog-footer">
-                    <el-button type="primary" @click="courseInfoVisible = false">确 定</el-button>
-                  </div>
-                </el-dialog>
               </template>
             </el-table-column>
-        </el-table>
-      </el-main>
+          </el-table>
+          <el-dialog title="提示" :visible.sync="courseInfoVisible" width="40%">
+            <el-row class="info">
+              课程名称(id)：{{ courseInfo.name }}({{ courseInfo.id }})
+            </el-row>
+            <el-row class="info">
+              学习材料(id)：<a v-for="(m) in courseInfo.materialList" v-bind:key="m.id">{{ m.name }}({{ m.id }})，</a>
+            </el-row>
+            <el-row class="info">
+              课程介绍：{{ courseInfo.introduction }}
+            </el-row>
+            <div slot="footer" class="dialog-footer">
+              <el-button type="primary" @click="courseInfoVisible = false">确 定</el-button>
+            </div>
+          </el-dialog>
+        </el-main>
       </el-container>
     </el-container>
   </div>
@@ -42,7 +42,9 @@
 <script>
 import TeacherNav from '../TeacherNav'
 import TeacherHeading from '../TeacherHeading'
+
 export default {
+  /* eslint-disable */
   name: 'AllCourse',
   components: {TeacherNav, TeacherHeading},
   data: function () {
@@ -121,6 +123,10 @@ export default {
 </script>
 
 <style scoped>
- @import "../../../assets/css/nav.css";
- @import "../../../assets/css/back.css";
+@import "../../../assets/css/nav.css";
+@import "../../../assets/css/back.css";
+.info {
+  margin-bottom: 20px;
+  word-break: break-all;
+}
 </style>

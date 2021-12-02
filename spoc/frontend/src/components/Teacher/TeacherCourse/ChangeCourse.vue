@@ -20,10 +20,15 @@
               <el-input v-model="materialIdString"></el-input>
             </el-col>
           </el-form-item>
+          <el-form-item label="课程介绍">
+            <el-col :span="12">
+              <el-input v-model="introduction" type="textarea" :rows="4"></el-input>
+            </el-col>
+          </el-form-item>
           <el-form-item>
             <el-col :span="6">
               <el-button v-on:click="changeCourse" type="primary" >确认</el-button>
-              <el-button v-on:click="returnManageCourse" type="primary" >返回</el-button>
+              <el-button v-on:click="returnManageCourse">返回</el-button>
             </el-col>
           </el-form-item>
         </el-form>
@@ -37,6 +42,7 @@
 import TeacherNav from '../TeacherNav'
 import TeacherHeading from '../TeacherHeading'
 export default {
+  /* eslint-disable */
   name: 'ChangeCourse',
   components: {TeacherNav, TeacherHeading},
   data: function () {
@@ -58,7 +64,6 @@ export default {
     this.name = this.$route.query.name
     this.materialIdString = this.$route.query.materialIdString
     this.introduction = this.$route.query.introduction
-    console.log(this.materialIdString)
   },
   methods: {
     returnManageCourse: function () {
@@ -70,8 +75,7 @@ export default {
     changeCourse: function () {
       let that = this
       that.loading = true
-      that.materialIdList = that.materialIdString.split(',')
-      // 这里不用判空
+      // that.materialIdList = that.materialIdString.split(',')
       console.log(that.materialIdList)
       this.$http.request({
         url: that.$url + 'ChangeCourse/',

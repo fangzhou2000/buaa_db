@@ -20,6 +20,11 @@
               <el-input v-model="materialIdString"></el-input>
             </el-col>
           </el-form-item>
+          <el-form-item label="课程介绍">
+            <el-col :span="12">
+              <el-input v-model="course.introduction" type="textarea" :rows="4"></el-input>
+            </el-col>
+          </el-form-item>
           <el-form-item>
             <el-col :span="6">
               <el-button v-on:click="buildCourse" type="primary" >确认</el-button>
@@ -46,7 +51,8 @@ export default {
       materialIdString: '',
       course: {
         name: '',
-        materialIdList: []
+        materialIdList: [],
+        introduction: ''
       }
     }
   },
