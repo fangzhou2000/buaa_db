@@ -374,12 +374,12 @@ class MySQL:
         self.closeDatabase(connection, cursor)
         return
 
-    def buildCourse(self, teacher_id, course_name, materialIdList):
+    def buildCourse(self, teacher_id, course_name, materialIdList, introduction):
         connection, cursor = self.connectDatabase()
 
-        instruction = "INSERT INTO course(name) " \
-                      "VALUES(%s)"
-        cursor.execute(instruction, [course_name])
+        instruction = "INSERT INTO course(name, introduction) " \
+                      "VALUES(%s, %s)"
+        cursor.execute(instruction, [course_name, introduction])
         connection.commit()
 
         instruction = "SELECT max(id) " \

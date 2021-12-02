@@ -1,9 +1,25 @@
-import time
-
-import requests
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .base_mysql import MySQL
+
+
+# class AdminLogin(APIView):
+#     def get(self, request):
+#         userName = str(request.GET.get('userName', None))
+#         userPassWord = str(request.GET.get('userPassWord', None))
+#
+#         sql = MySQL()
+#         result = sql.findAdmin(userName)
+#         flag = not not result
+#
+#         if flag:
+#             # 有该管理员
+#             if userPassWord == result[0][1]:
+#                 return Response(dict([('value', 0), ('userNickName', result[0][2])]))
+#             else:
+#                 return Response(dict([('value', 2)]))
+#         else:
+#             return Response(dict([('value', 1)]))
 
 
 class DeletePostTheme(APIView):
@@ -444,7 +460,7 @@ class BuildCourse(APIView):
             if not sql.getMaterialName(item):
                 return Response(1)
 
-        sql.buildCourse(userName, course['name'], course['materialIdList'])
+        sql.buildCourse(userName, course['name'], course['materialIdList'], course['introduction'])
         return Response(0)
 
 
