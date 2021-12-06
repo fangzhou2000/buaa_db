@@ -34,6 +34,7 @@ import CommentTable from '../components/Admin/CommentTable/CommentTable'
 import CourseTable from '../components/Admin/CourseTable/CourseTable'
 import MaterialTable from '../components/Admin/MaterialTable/MaterialTable'
 import TeacherTable from '../components/Admin/TeacherTable/TeacherTable'
+import CommentPlatForm from "../components/CommentPlatForm/CommentPlatForm";
 
 Vue.use(Router)
 
@@ -270,6 +271,11 @@ export default new Router({
           component: TeacherTable
         }
       ]
+    },
+    {
+      path: '/CommentPlatForm',
+      name: 'CommentPlatForm',
+      component: CommentPlatForm
     }
   ]
 })
