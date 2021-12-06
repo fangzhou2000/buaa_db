@@ -8,8 +8,7 @@
     display: inline-flex;
     float: left;
     margin-left: 50px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 25px;
   }
   .el-icon-s-platform-text {
     font-family: "华文仿宋",sans-serif;
@@ -18,8 +17,8 @@
     align-self: center;
     display: inline-flex;
     float: right;
-    margin-right: 5%;
-    margin-top: 1%;
+    margin-right: 50px;
+    margin-top: 20px;
   }
   .buttons{
     display: inline-flex;

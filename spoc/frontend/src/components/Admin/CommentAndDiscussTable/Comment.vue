@@ -2,23 +2,16 @@
   <div>
     <el-container class="background">
       <el-aside class="aside" width="show?'64px':'400px'">
-        <StudentNav></StudentNav>
+        <AdminNav></AdminNav>
       </el-aside>
       <el-container class="main">
         <el-header>
-          <StudentHeading></StudentHeading>
+          <AdminHeading></AdminHeading>
         </el-header>
         <el-main>
           <el-row class="buttons">评价 {{courseName}}</el-row>
           <el-row class="buttons">
-            <el-button v-on:click="commentCourse" type="primary" size="small" >发表评价</el-button>
             <el-button v-on:click="returnStudentAllComment" size="small">返回</el-button>
-          </el-row>
-          <el-row class="buttons">
-            <el-col :span="20">
-              <el-input class="input" v-model="contentInput" type="textarea" :rows="2" placeholder="对于课程内容、讲课质量、考核方式等的评价">
-              </el-input>
-            </el-col>
           </el-row>
           <el-divider></el-divider>
           <div v-for="(comment) in commentList" v-bind:key="comment">
@@ -32,9 +25,7 @@
               {{comment.content}}
             </el-row>
             <el-row class="delete">
-              <div v-if="comment.userName === userName">
-                <el-link type="danger" v-on:click="deleteComment(comment.id)">删除</el-link>
-              </div>
+              <el-link type="danger" v-on:click="deleteComment(comment.id)">删除</el-link>
             </el-row>
             <el-divider></el-divider>
           </div>
@@ -67,11 +58,11 @@
 </style>
 
 <script>
-import StudentNav from '../StudentNav'
-import StudentHeading from '../StudentHeading'
+import AdminNav from '../AdminNav'
+import AdminHeading from '../AdminHeading'
 export default {
-  name: 'StudentComment',
-  components: {StudentNav, StudentHeading},
+  name: 'Comment',
+  components: {AdminNav, AdminHeading},
   data: function () {
     return {
       userName: '前端测试用户名',
@@ -178,7 +169,7 @@ export default {
     returnStudentAllComment: function () {
       let that = this
       that.$router.push({
-        name: 'StudentAllComment'
+        name: 'CommentTable'
       })
     },
     goToHelloWorld: function () {

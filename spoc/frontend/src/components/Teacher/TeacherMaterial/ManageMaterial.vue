@@ -32,13 +32,13 @@ export default {
   components: {TeacherNav, TeacherHeading},
   data: function () {
     return {
+      loading: true,
       userNickName: '',
       userName: '',
       myMaterialList: [{
         id: '1',
         name: '前端测试学习材料'
-      }],
-      loading: false
+      }]
     }
   },
   mounted: function () {

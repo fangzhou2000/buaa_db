@@ -42,7 +42,7 @@
 import StudentNav from '../StudentNav'
 import StudentHeading from '../StudentHeading'
 export default {
-  name: 'StudentChange',
+  name: 'StudentChangePassword',
   components: {StudentNav, StudentHeading},
   data: function () {
     return {

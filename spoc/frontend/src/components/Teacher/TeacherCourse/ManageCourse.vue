@@ -9,22 +9,41 @@
           <TeacherHeading></TeacherHeading>
         </el-header>
         <el-main>
-        <el-table :data="myCourseList" v-loading="loading">
-          <el-table-column label="课程ID" prop="id"></el-table-column>
-          <el-table-column label="课程名称" prop="name"></el-table-column>
-          <el-table-column label="课程材料" prop="materialString"></el-table-column>
-          <el-table-column label="修改课程">
-            <template slot-scope="scope">
-              <el-button v-on:click="changeCourse(scope.$index)" type="warning" size="small">修改课程</el-button>
-            </template>
-          </el-table-column>
-          <el-table-column label="停课">
-            <template slot-scope="scope">
-              <el-button v-on:click="cancelCourse(scope.$index)" type="danger" size="small">停课</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
-      </el-main>
+          <el-table :data="myCourseList" v-loading="loading">
+            <el-table-column label="课程ID" prop="id"></el-table-column>
+            <el-table-column label="课程名称（可点击查看信息）">
+              <template slot-scope="scope">
+                <el-link type="primary" v-on:click="getCourseInfo(scope.$index)">
+                  {{ myCourseList[scope.$index].name }}
+                </el-link>
+              </template>
+            </el-table-column>
+            <el-table-column label="修改课程">
+              <template slot-scope="scope">
+                <el-button v-on:click="changeCourse(scope.$index)" type="warning" size="small">修改课程</el-button>
+              </template>
+            </el-table-column>
+            <el-table-column label="停课">
+              <template slot-scope="scope">
+                <el-button v-on:click="cancelCourse(scope.$index)" type="danger" size="small">停课</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+          <el-dialog title="提示" :visible.sync="courseInfoVisible" width="40%">
+            <el-row class="info">
+              课程名称(id)：{{ courseInfo.name }}({{ courseInfo.id }})
+            </el-row>
+            <el-row class="info">
+              学习材料(id)：<a v-for="(m) in courseInfo.materialList" v-bind:key="m.id">{{ m.name }}({{ m.id }})，</a>
+            </el-row>
+            <el-row class="info">
+              课程介绍：{{ courseInfo.introduction }}
+            </el-row>
+            <div slot="footer" class="dialog-footer">
+              <el-button type="primary" @click="courseInfoVisible = false">确 定</el-button>
+            </div>
+          </el-dialog>
+        </el-main>
       </el-container>
     </el-container>
   </div>
@@ -33,18 +52,48 @@
 <script>
 import TeacherNav from '../TeacherNav'
 import TeacherHeading from '../TeacherHeading'
+
 export default {
+  /* eslint-disable */
   name: 'ManageCourse',
   components: {TeacherNav, TeacherHeading},
   data: function () {
     return {
+      courseInfoVisible: false,
+      courseInfo: {
+        id: '',
+        name: '',
+        materialList: [{
+          id: '',
+          name: ''
+        }],
+        introduction: ''
+      },
+      loading: true,
       userNickName: '',
       userName: '',
       myCourseList: [{
         id: '1',
-        name: '前端测试课程',
-        materialIdString: '资料',
-        materialString: ''
+        name: '课程1',
+        materialList: [{
+          id: '01',
+          name: '材料01'
+        }, {
+          id: '02',
+          name: '材料02'
+        }],
+        introduction: ''
+      }, {
+        id: '2',
+        name: '课程2',
+        materialList: [{
+          id: '03',
+          name: '材料03'
+        }, {
+          id: '04',
+          name: '材料03'
+        }],
+        introduction: ''
       }]
     }
   },
@@ -54,6 +103,11 @@ export default {
     this.getTeacherCourseList()
   },
   methods: {
+    getCourseInfo: function (index) {
+      let that = this
+      that.courseInfo = that.myCourseList[index]
+      that.courseInfoVisible = true
+    },
     getTeacherCourseList: function () {
       let that = this
       that.loading = true
@@ -75,6 +129,14 @@ export default {
     changeCourse: function (index) {
       console.log(index)
       let that = this
+      let materialIdString = ''
+      for (var i = 0; i < that.myCourseList[index].materialList.length; i++) {
+        if (i === 0) {
+          materialIdString = (that.myCourseList[index].materialList[i].id)
+        } else {
+          materialIdString = materialIdString + ',' + (that.myCourseList[index].materialList[i].id)
+        }
+      }
       this.$router.push({
         path: '/TeacherCourse/ChangeCourse',
         // 这里不能使用params传递参数，详见：
@@ -82,7 +144,8 @@ export default {
         query: {
           id: that.myCourseList[index].id,
           name: that.myCourseList[index].name,
-          materialIdString: that.myCourseList[index].materialIdString
+          materialIdString: materialIdString,
+          introduction: that.myCourseList[index].introduction
         }
       })
     },
@@ -127,6 +190,10 @@ export default {
 </script>
 
 <style scoped>
- @import "../../../assets/css/nav.css";
- @import "../../../assets/css/back.css";
+@import "../../../assets/css/nav.css";
+@import "../../../assets/css/back.css";
+.info {
+  margin-bottom: 20px;
+  word-break: break-all;
+}
 </style>

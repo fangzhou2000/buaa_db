@@ -19,5 +19,10 @@ new Vue({
   el: '#app',
   router,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  data: function () {
+    return {
+      isCollapsed: true
+    }
+  }
 })

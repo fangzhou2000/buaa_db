@@ -1,8 +1,25 @@
-import time
-
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .base_mysql import MySQL
+
+
+# class AdminLogin(APIView):
+#     def get(self, request):
+#         userName = str(request.GET.get('userName', None))
+#         userPassWord = str(request.GET.get('userPassWord', None))
+#
+#         sql = MySQL()
+#         result = sql.findAdmin(userName)
+#         flag = not not result
+#
+#         if flag:
+#             # 有该管理员
+#             if userPassWord == result[0][1]:
+#                 return Response(dict([('value', 0), ('userNickName', result[0][2])]))
+#             else:
+#                 return Response(dict([('value', 2)]))
+#         else:
+#             return Response(dict([('value', 1)]))
 
 
 class DeletePostTheme(APIView):
@@ -33,12 +50,14 @@ class BuildPost(APIView):
     def get(self, request):
         postThemeId = str(request.GET.get("postThemeId", None))
         userName = str(request.GET.get("userName", None))
-        userNickName = str(request.GET.get("userNickName", None))
         content = str(request.GET.get("content", None))
         time = str(request.GET.get("time", None))
 
+        isTeacher = str(request.GET.get("isTeacher", None))
+        # isTeacher = 1 if isTeacher == "true" else 0
+
         sql = MySQL()
-        sql.buildPost(postThemeId, userName, content, time)
+        sql.buildPost(postThemeId, userName, content, time, isTeacher)
         return Response(0)
 
 
@@ -54,20 +73,24 @@ class GetPostList(APIView):
                              "userName": i[1],
                              "userNickName": i[2],
                              "content": i[3],
-                             "time": i[4]})
+                             "time": i[4],
+                             "isTeacher": i[5]})
+        postList.sort(key=lambda x: x['time'], reverse=True)
         return Response(postList)
 
 
 class BuildPostTheme(APIView):
     def get(self, request):
         userName = str(request.GET.get("userName", None))
-        userNickName = str(request.GET.get("userNickName", None))
         title = str(request.GET.get("title", None))
         content = str(request.GET.get("content", None))
         time = str(request.GET.get("time", None))
+        isTeacher = str(request.GET.get("isTeacher", None))
+
+        # isTeacher = 1 if isTeacher == "true" else 0
 
         sql = MySQL()
-        sql.buildPostTheme(userName, title, content, time)
+        sql.buildPostTheme(userName, title, content, time, isTeacher)
 
         return Response(0)
 
@@ -84,7 +107,9 @@ class GetPostThemeList(APIView):
                                   "userNickName": i[1],
                                   "title": i[2],
                                   "content": i[3],
-                                  "time": i[4]})
+                                  "time": i[4],
+                                  "isTeacher": i[6]})
+        postThemeList.sort(key=lambda x: x['id'])
         return Response(postThemeList)
 
 
@@ -240,23 +265,28 @@ class GetCourseList(APIView):
         sql = MySQL()
         result = sql.getCourseList()
         courseList = []  # 字典列表
+
         for item in result:
-            courseList.append({'id': item[0], 'name': item[1], 'materialIdString': item[2]})
+            courseList.append({'id': item[0], 'name': item[1], 'teacherName': item[2], 'introduction': item[5] if
+            item[5] is not None else '', 'materialList': [], 'm_id': item[3] if item[3] is not None else '',
+                               'm_name': item[4] if item[4] is not None else ''})
 
-        for item in courseList:
-            if item['materialIdString'] != None:
-                material_id = item['materialIdString']
-                result = sql.getMaterialName(material_id)
-                item['materialIdString'] = result[0][0]
-
-        i = 1
+        i = 0
         while i < len(courseList):
-            if courseList[i - 1]['id'] == courseList[i]['id']:
-                courseList[i - 1]['materialIdString'] += ","
-                courseList[i - 1]['materialIdString'] += courseList[i]['materialIdString']
-                courseList.pop(i)
+            if courseList[i]['m_id'] != '' and len(courseList[i]['materialList']) == 0:
+                courseList[i]['materialList'].append({'id': courseList[i]['m_id'], 'name': courseList[i]['m_name']});
+
+            if i != len(courseList) - 1 and courseList[i]['id'] == courseList[i + 1]['id']:
+                courseList[i]['materialList'].append(
+                    {'id': courseList[i + 1]['m_id'], 'name': courseList[i + 1]['m_name']});
+                courseList.pop(i + 1)
                 i -= 1
             i += 1
+
+        for item in courseList:
+            print(item['materialList'], end=" ")
+            print(item['id'], item['name'], item['teacherName'], item['introduction'])
+
         return Response(courseList)
 
 
@@ -288,54 +318,30 @@ class GetStudentCourseList(APIView):
         sql = MySQL()
         result = sql.getStudentCourseList(userName)
         studentCourseList = []  # 字典列表
-        for item in result:
-            studentCourseList.append({'id': item[0], 'name': item[1], 'materialIdString': item[2]})
-        for item in studentCourseList:
-            if item['materialIdString'] != None:
-                material_id = item['materialIdString']
-                result = sql.getMaterialName(material_id)
-                item['materialIdString'] = result[0][0]
 
-        i = 1
+        for item in result:
+            studentCourseList.append({'id': item[0], 'name': item[1], 'teacherName': item[2], 'introduction': item[5] if
+            item[5] is not None else '', 'materialList': [], 'm_id': item[3] if item[3] is not None else '',
+                                      'm_name': item[4] if item[4] is not None else ''})
+
+        i = 0
         while i < len(studentCourseList):
-            if studentCourseList[i - 1]['id'] == studentCourseList[i]['id']:
-                studentCourseList[i - 1]['materialIdString'] += ","
-                studentCourseList[i - 1]['materialIdString'] += studentCourseList[i]['materialIdString']
-                studentCourseList.pop(i)
+            if studentCourseList[i]['m_id'] != '' and len(studentCourseList[i]['materialList']) == 0:
+                studentCourseList[i]['materialList'].append(
+                    {'id': studentCourseList[i]['m_id'], 'name': studentCourseList[i]['m_name']});
+
+            if i != len(studentCourseList) - 1 and studentCourseList[i]['id'] == studentCourseList[i + 1]['id']:
+                studentCourseList[i]['materialList'].append(
+                    {'id': studentCourseList[i + 1]['m_id'], 'name': studentCourseList[i + 1]['m_name']});
+                studentCourseList.pop(i + 1)
                 i -= 1
             i += 1
-        print(studentCourseList)
+
+        for item in studentCourseList:
+            print(item['materialList'], end=" ")
+            print(item['id'], item['name'], item['teacherName'], item['introduction'])
+
         return Response(studentCourseList)
-
-
-"""
- userName = str(request.GET.get('userName', None))
-        # 从课程表里查询该教师开设的课程，返回课程列表，（BuildCourse时会传入教师用户名，记录是哪个教师开的课。）
-
-        sql = MySQL()
-        result = sql.getTeacherCourseList(userName)
-        teacherCourseList = []  # 字典列表
-        print(result)
-        for item in result:
-            teacherCourseList.append({'id': item[0], 'name': item[1], 'materialIdString': item[2]})
-
-        for item in teacherCourseList:
-            if item['materialIdString'] != None:
-                material_id = item['materialIdString']
-                result = sql.getMaterialName(material_id)
-                item['materialIdString'] = result[0][0]
-
-        i = 1
-        while i < len(teacherCourseList):
-            if teacherCourseList[i - 1]['id'] == teacherCourseList[i]['id']:
-                teacherCourseList[i - 1]['materialIdString'] += ","
-                teacherCourseList[i - 1]['materialIdString'] += teacherCourseList[i]['materialIdString']
-                teacherCourseList.pop(i)
-                i -= 1
-            i += 1
-
-        return Response(teacherCourseList)
-"""
 
 
 class DropCourse(APIView):
@@ -403,28 +409,28 @@ class GetTeacherCourseList(APIView):
         sql = MySQL()
         result = sql.getTeacherCourseList(userName)
         teacherCourseList = []  # 字典列表
-        print(result)
+
         for item in result:
-            teacherCourseList.append(
-                {'id': item[0], 'name': item[1], 'materialIdString': str(item[2]) if item[2] != None else ''})
+            teacherCourseList.append({'id': item[0], 'name': item[1], 'teacherName': item[2], 'introduction': item[5] if
+            item[5] is not None else '', 'materialList': [], 'm_id': item[3] if item[3] is not None else '',
+                                      'm_name': item[4] if item[4] is not None else ''})
 
-        print(teacherCourseList)
-        for item in teacherCourseList:
-            if item['materialIdString'] != '':
-                material_id = item['materialIdString']
-                result = sql.getMaterialName(material_id)
-                item['materialString'] = str(result[0][0])
-
-        i = 1
+        i = 0
         while i < len(teacherCourseList):
-            if teacherCourseList[i - 1]['id'] == teacherCourseList[i]['id']:
-                teacherCourseList[i - 1]['materialIdString'] += ","
-                teacherCourseList[i - 1]['materialIdString'] += teacherCourseList[i]['materialIdString']
-                teacherCourseList[i - 1]['materialString'] += ","
-                teacherCourseList[i - 1]['materialString'] += teacherCourseList[i]['materialString']
-                teacherCourseList.pop(i)
+            if teacherCourseList[i]['m_id'] != '' and len(teacherCourseList[i]['materialList']) == 0:
+                teacherCourseList[i]['materialList'].append(
+                    {'id': teacherCourseList[i]['m_id'], 'name': teacherCourseList[i]['m_name']});
+
+            if i != len(teacherCourseList) - 1 and teacherCourseList[i]['id'] == teacherCourseList[i + 1]['id']:
+                teacherCourseList[i]['materialList'].append(
+                    {'id': teacherCourseList[i + 1]['m_id'], 'name': teacherCourseList[i + 1]['m_name']});
+                teacherCourseList.pop(i + 1)
                 i -= 1
             i += 1
+
+        for item in teacherCourseList:
+            print(item['materialList'], end=" ")
+            print(item['id'], item['name'], item['teacherName'], item['introduction'])
 
         return Response(teacherCourseList)
 
@@ -454,28 +460,38 @@ class BuildCourse(APIView):
             if not sql.getMaterialName(item):
                 return Response(1)
 
-        sql.buildCourse(userName, course['name'], course['materialIdList'])
+        sql.buildCourse(userName, course['name'], course['materialIdList'], course['introduction'])
         return Response(0)
 
 
 class ChangeCourse(APIView):
     def get(self, request):
-        teacher_id = str(request.GET.get('userName', None))
         course_id = str(request.GET.get('id', None))
-        course = request.GET.get('course', None)
-        # 教师改课程名，只能改自己开的课程的名，成功返回0
-        course = eval(course)
+        course_name = str(request.GET.get('name', None))
+        introduction = str(request.GET.get('introduction', None))
+        teacher_id = str(request.GET.get('userName', None))
 
-        if course['name'] == '':
+        materialIdString = str(request.GET.get('materialIdString', None))
+
+        print(materialIdString)
+
+        materialIdList = materialIdString.split(',')
+
+        # course = request.GET.get('course', None)
+        # 教师改课程名，只能改自己开的课程的名，成功返回0
+        # course = eval(course)
+
+        if course_name == '':
             return Response(2)
 
         sql = MySQL()
-        for item in course['materialIdList']:
+
+        for item in materialIdList:
             if item == '':
                 continue
             if not sql.getMaterialName(item):
                 return Response(1)
-        sql.changeCourse(teacher_id, course_id, course['name'], course['materialIdList'])
+        sql.changeCourse(teacher_id, course_id, course_name, materialIdList, introduction)
         return Response(0)
 
 

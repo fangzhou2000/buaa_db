@@ -33,10 +33,10 @@ export default {
   components: {TeacherNav, TeacherHeading},
   data: function () {
     return {
+      loading: false,
       userNickName: '',
       userName: '',
-      materialName: '',
-      loading: false
+      materialName: ''
     }
   },
   mounted: function () {

@@ -3,3 +3,4 @@
 spoc/backend/__pycache__/
 spoc/admin/__pycache__/
 spoc/backend/migrations/
+spoc/__pycache__/

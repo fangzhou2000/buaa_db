@@ -25,10 +25,14 @@ export default {
   components: {AdminNav},
   data: function () {
     return {
-      userName: 'Admin',
-      userNickName: 'Admin',
+      userName: 'admin',
+      userNickName: 'admin',
       show: false
     }
+  },
+  mounted: function () {
+    this.userName = this.cookie.getCookie('userName')
+    this.userNickName = this.cookie.getCookie('userNickName')
   },
   methods: {
     goToHelloWorld: function () {

@@ -2,11 +2,11 @@
   <div>
     <el-container class="background">
       <el-aside class="aside" width="show?'64px':'400px'">
-        <StudentNav></StudentNav>
+        <AdminNav></AdminNav>
       </el-aside>
       <el-container class="main">
         <el-header>
-          <StudentHeading></StudentHeading>
+          <AdminHeading></AdminHeading>
         </el-header>
         <el-main>
           <el-table :data="courseList"  v-loading="loading">
@@ -23,11 +23,11 @@
 </template>
 
 <script>
-import StudentNav from '../StudentNav'
-import StudentHeading from '../StudentHeading'
+import AdminNav from '../AdminNav'
+import AdminHeading from '../AdminHeading'
 export default {
-  name: 'StudentAllComment',
-  components: {StudentNav, StudentHeading},
+  name: 'CommentTable',
+  components: {AdminNav, AdminHeading},
   data: function () {
     return {
       loading: true,
@@ -70,7 +70,7 @@ export default {
     commentCourse: function (index) {
       let that = this
       this.$router.push({
-        path: '/StudentCommentAndDiscuss/StudentComment',
+        path: '/CommentAndDiscussTable/Comment',
         query: {
           courseId: that.courseList[index].id,
           courseName: that.courseList[index].name

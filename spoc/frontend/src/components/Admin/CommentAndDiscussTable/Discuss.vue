@@ -2,11 +2,11 @@
   <div>
     <el-container class="background">
       <el-aside class="aside" width="show?'64px':'300px'">
-        <StudentNav></StudentNav>
+        <AdminNav></AdminNav>
       </el-aside>
       <el-container class="main">
         <el-header>
-          <StudentHeading></StudentHeading>
+          <AdminHeading></AdminHeading>
         </el-header>
         <el-main>
           <el-row class="buttons">
@@ -27,7 +27,7 @@
               {{postTheme.time}}
             </el-row>
             <el-row class="userName">
-              <div v-if="postTheme.isTeacher === 1">
+              <div v-if="postTheme.isTeacher === true">
                 {{postTheme.userNickName}}({{postTheme.userName}}) (教师) :
               </div>
               <div v-else>
@@ -38,9 +38,7 @@
               {{postTheme.content}}
             </el-row>
             <el-row class="delete">
-              <div v-if="postTheme.userName === userName">
-                <el-link type="danger" v-on:click="deletePostTheme">删除</el-link>
-              </div>
+              <el-link type="danger" v-on:click="deletePostTheme">删除</el-link>
             </el-row>
           <el-divider>跟贴</el-divider>
           <div v-for="(post) in postList" v-bind:key="post.id">
@@ -48,7 +46,7 @@
               {{post.time}}
             </el-row>
             <el-row class="userName">
-              <div v-if="post.isTeacher === 1">
+              <div v-if="post.isTeacher === true">
                 {{post.userNickName}}({{post.userName}}) (教师) :
               </div>
               <div v-else>
@@ -59,9 +57,7 @@
               {{post.content}}
             </el-row>
             <el-row class="delete">
-              <div v-if="post.userName === userName">
-                <el-link type="danger" v-on:click="deletePost(post.id)">删除</el-link>
-              </div>
+              <el-link type="danger" v-on:click="deletePost(post.id)">删除</el-link>
             </el-row>
             <el-divider></el-divider>
           </div>
@@ -94,11 +90,11 @@
 </style>
 
 <script>
-import StudentNav from '../StudentNav'
-import StudentHeading from '../StudentHeading'
+import AdminNav from '../AdminNav'
+import AdminHeading from '../AdminHeading'
 export default {
-  name: 'StudentDiscuss',
-  components: {StudentNav, StudentHeading},
+  name: 'DiscussTable',
+  components: {AdminNav, AdminHeading},
   data: function () {
     return {
       userName: '前端测试用户名',
@@ -121,7 +117,7 @@ export default {
         userNickName: '学生1',
         content: '课程评价内容1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111',
         time: '2021-11-19 11:11:11',
-        isTeacher: 0
+        isTeacher: 1
       }, {
         id: '1',
         userName: '学号2',
@@ -232,7 +228,7 @@ export default {
           userName: that.userName,
           content: that.input.content,
           time: that.time,
-          isTeacher: 0
+          isTeacher: true
         }
       }).then(function (response) {
         console.log(response.data)
@@ -277,7 +273,7 @@ export default {
     returnStudentAllDiscuss: function () {
       let that = this
       that.$router.push({
-        name: 'StudentAllDiscuss'
+        name: 'DiscussTable'
       })
     },
     goToHelloWorld: function () {

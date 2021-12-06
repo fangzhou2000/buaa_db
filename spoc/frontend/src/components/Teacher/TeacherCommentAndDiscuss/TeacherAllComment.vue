@@ -2,18 +2,18 @@
   <div>
     <el-container class="background">
       <el-aside class="aside" width="show?'64px':'400px'">
-        <StudentNav></StudentNav>
+        <TeacherNav></TeacherNav>
       </el-aside>
       <el-container class="main">
         <el-header>
-          <StudentHeading></StudentHeading>
+          <TeacherHeading></TeacherHeading>
         </el-header>
         <el-main>
           <el-table :data="courseList"  v-loading="loading">
             <el-table-column label="课程ID" prop="id"></el-table-column>
             <el-table-column label="课程名称" prop="name"></el-table-column>
-            <el-table-column label="评价"> <template slot-scope="scope">
-          <el-button v-on:click="commentCourse(scope.$index)" type="primary" size="small">评价</el-button>
+            <el-table-column label="查看评价"> <template slot-scope="scope">
+          <el-button v-on:click="commentCourse(scope.$index)" type="primary" size="small">查看评价</el-button>
         </template></el-table-column>
           </el-table>
         </el-main>
@@ -23,11 +23,11 @@
 </template>
 
 <script>
-import StudentNav from '../StudentNav'
-import StudentHeading from '../StudentHeading'
+import TeacherNav from '../TeacherNav'
+import TeacherHeading from '../TeacherHeading'
 export default {
-  name: 'StudentAllComment',
-  components: {StudentNav, StudentHeading},
+  name: 'TeacherAllComment',
+  components: {TeacherNav, TeacherHeading},
   data: function () {
     return {
       loading: true,
@@ -70,7 +70,7 @@ export default {
     commentCourse: function (index) {
       let that = this
       this.$router.push({
-        path: '/StudentCommentAndDiscuss/StudentComment',
+        path: '/TeacherCommentAndDiscuss/TeacherComment',
         query: {
           courseId: that.courseList[index].id,
           courseName: that.courseList[index].name

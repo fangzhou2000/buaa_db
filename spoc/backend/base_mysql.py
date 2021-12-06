@@ -44,20 +44,28 @@ class MySQL:
     def getPostList(self, postThemeId):
         connection, cursor = self.connectDatabase()
 
-        instruction = "SELECT p.id, s.id, s.name, p.content, p.time FROM " \
+        instruction = "SELECT p.id, s.id, s.name, p.content, p.time, p.isTeacher FROM " \
                       "post as p, student_post as sp, student as s, post_posttheme as pp " \
                       "WHERE pp.posttheme_id=%s and pp.post_id=p.id and p.id=sp.post_id and sp.student_id=s.id " \
                       "ORDER by p.time desc"
         cursor.execute(instruction, [postThemeId])
         result = cursor.fetchall()
+
+        instruction = "SELECT p.id, t.id, t.name, p.content, p.time, p.isTeacher FROM " \
+                      "post as p, teacher_post as tp, teacher as t, post_posttheme as pp " \
+                      "WHERE pp.posttheme_id=%s and pp.post_id=p.id and p.id=tp.post_id and tp.teacher_id=t.id " \
+                      "ORDER by p.time desc"
+        cursor.execute(instruction, [postThemeId])
+        result += cursor.fetchall()
+
         self.closeDatabase(connection, cursor)
         return result
 
-    def buildPost(self, postThemeId, userName, content, ti):
+    def buildPost(self, postThemeId, userName, content, ti, isTeacher):
         connection, cursor = self.connectDatabase()
-        instruction = "INSERT INTO post( content, time) " \
-                      "values(%s, %s)"
-        cursor.execute(instruction, [content, ti])
+        instruction = "INSERT INTO post( content, time, isTeacher) " \
+                      "values(%s, %s, %s)"
+        cursor.execute(instruction, [content, ti, isTeacher])
         connection.commit()
 
         instruction = "SELECT MAX(id) FROM post"
@@ -66,8 +74,12 @@ class MySQL:
         result = cursor.fetchall();
         result = result[0][0]
 
-        instruction = "INSERT INTO student_post(student_id, post_id) " \
-                      "VALUES (%s, %s)"
+        if isTeacher == 0 or isTeacher == "0":
+            instruction = "INSERT INTO student_post(student_id, post_id) " \
+                          "VALUES (%s, %s)"
+        else:
+            instruction = "INSERT INTO teacher_post(teacher_id, post_id) " \
+                          "VALUES (%s, %s)"
         cursor.execute(instruction, [userName, result])
 
         connection.commit()
@@ -85,22 +97,29 @@ class MySQL:
     def getPostThemeList(self):
         connection, cursor = self.connectDatabase()
 
-        instruction = "SELECT s.id, s.name, pt.title, pt.content, pt.time, pt.id FROM " \
+        instruction = "SELECT s.id, s.name, pt.title, pt.content, pt.time, pt.id, pt.isTeacher FROM " \
                       "posttheme as pt, student_posttheme as sp, student as s " \
                       "WHERE pt.id=sp.posttheme_id AND sp.student_id=s.id " \
                       "ORDER BY pt.id"
         cursor.execute(instruction)
         result = cursor.fetchall()
 
+        instruction = "SELECT t.id, t.name, pt.title, pt.content, pt.time, pt.id, pt.isTeacher FROM " \
+                      "posttheme as pt, teacher_posttheme as tp, teacher as t " \
+                      "WHERE pt.id=tp.posttheme_id AND tp.teacher_id=t.id " \
+                      "ORDER BY pt.id"
+        cursor.execute(instruction)
+        result += cursor.fetchall()
+
         self.closeDatabase(connection, cursor)
         return result
 
-    def buildPostTheme(self, userName, title, content, ti):
+    def buildPostTheme(self, userName, title, content, ti, isTeacher):
         connection, cursor = self.connectDatabase()
 
-        instruction = "INSERT INTO posttheme(title, content, time) " \
-                      "values(%s, %s, %s)"
-        cursor.execute(instruction, [title, content, ti])
+        instruction = "INSERT INTO posttheme(title, content, time, isTeacher) " \
+                      "values(%s, %s, %s, %s)"
+        cursor.execute(instruction, [title, content, ti, isTeacher])
         connection.commit()
 
         instruction = "SELECT MAX(id) FROM posttheme"
@@ -109,8 +128,12 @@ class MySQL:
         result = cursor.fetchall();
         result = result[0][0]
 
-        instruction = "INSERT INTO student_posttheme(student_id, posttheme_id) " \
-                      "VALUES (%s, %s)"
+        if isTeacher == 0 or isTeacher == "0":
+            instruction = "INSERT INTO student_posttheme(student_id, posttheme_id) " \
+                          "VALUES (%s, %s)"
+        else:
+            instruction = "INSERT INTO teacher_posttheme(teacher_id, posttheme_id) " \
+                          "VALUES (%s, %s)"
         cursor.execute(instruction, [userName, result])
 
         connection.commit()
@@ -294,15 +317,13 @@ class MySQL:
     def getTeacherCourseList(self, teacher_id):
         connection, cursor = self.connectDatabase()
 
-        instruction = "SELECT c.id, c.name, cm.material_id " \
+        instruction = "SELECT ans.id, ans.n, teacher.name, ans.mid, ans.mn, ans.i " \
                       "FROM " \
-                      "(SELECT c.id, c.name " \
-                      "FROM course AS c, teacher_course AS tc " \
-                      "WHERE tc.teacher_id=%s AND c.id=tc.course_id " \
-                      "ORDER BY c.id)" \
-                      "AS c(id,name) " \
-                      "LEFT OUTER JOIN course_material AS cm " \
-                      "ON (c.id=cm.course_id)"
+                      " (SELECT c.id, c.introduction, c.name, cm.material_id, cm.name " \
+                      "FROM course as c LEFT OUTER JOIN (select * from material, course_material where course_material.material_id=material.id) AS cm " \
+                      "ON (c.id=cm.course_id) ) AS ans(id, i, n,mid, mn), teacher_course AS tc, teacher " \
+                      "WHERE tc.course_id=ans.id AND tc.teacher_id=teacher.id AND teacher.id=%s " \
+                      "ORDER BY ans.id"
 
         cursor.execute(instruction, [teacher_id])
         return cursor.fetchall()
@@ -314,20 +335,13 @@ class MySQL:
     def getStudentCourseList(self, student_id):
         connection, cursor = self.connectDatabase()
 
-        instruction = "SELECT c.id, c.name, cm.material_id " \
+        instruction = "SELECT ans.id, ans.n, teacher.name, ans.mid, ans.mn, ans.i " \
                       "FROM " \
-                      "(SELECT c.id, c.name " \
-                      "FROM course AS c, student_course AS tc " \
-                      "WHERE tc.student_id=%s AND c.id=tc.course_id " \
-                      "ORDER BY c.id)" \
-                      "AS c(id,name) " \
-                      "LEFT OUTER JOIN course_material AS cm " \
-                      "ON (c.id=cm.course_id)"
-
-        # instruction = "SELECT c.id, c.name " \
-        #               "FROM course AS c, student_course AS sc " \
-        #               "WHERE c.id=sc.course_id AND sc.student_id=%s " \
-        #               "ORDER BY c.id"
+                      " (SELECT c.id, c.introduction, c.name, cm.material_id, cm.name " \
+                      "FROM course as c LEFT OUTER JOIN (select * from material, course_material where course_material.material_id=material.id) AS cm " \
+                      "ON (c.id=cm.course_id) ) AS ans(id, i, n,mid, mn), teacher_course AS tc, teacher, student_course as sc " \
+                      "WHERE tc.course_id=ans.id AND tc.teacher_id=teacher.id AND ans.id=sc.course_id AND sc.student_id=%s " \
+                      "ORDER BY ans.id"
 
         cursor.execute(instruction, [student_id])
 
@@ -338,12 +352,13 @@ class MySQL:
     def getCourseList(self):
         connection, cursor = self.connectDatabase()
 
-        # instruction = "SELECT c.id, c.name, cm.material_id " \
-        #               "FROM course AS c, course_material AS cm " \
-        #               "WHERE c.id=cm.course_id"
-        instruction = "SELECT c.id, c.name, cm.material_id " \
-                      "FROM course AS c LEFT OUTER JOIN course_material AS cm " \
-                      "ON (c.id=cm.course_id)"
+        instruction = "SELECT ans.id, ans.n, teacher.name, ans.mid, ans.mn, ans.i " \
+                      "FROM " \
+                      " (SELECT c.id, c.introduction, c.name, cm.material_id, cm.name " \
+                      "FROM course as c LEFT OUTER JOIN (select * from material, course_material where course_material.material_id=material.id) AS cm " \
+                      "ON (c.id=cm.course_id) ) AS ans(id, i, n,mid, mn), teacher_course AS tc, teacher " \
+                      "WHERE tc.course_id=ans.id AND tc.teacher_id=teacher.id " \
+                      "ORDER BY ans.id"
 
         cursor.execute(instruction)
         result = cursor.fetchall()
@@ -359,12 +374,12 @@ class MySQL:
         self.closeDatabase(connection, cursor)
         return
 
-    def buildCourse(self, teacher_id, course_name, materialIdList):
+    def buildCourse(self, teacher_id, course_name, materialIdList, introduction):
         connection, cursor = self.connectDatabase()
 
-        instruction = "INSERT INTO course(name) " \
-                      "VALUES(%s)"
-        cursor.execute(instruction, [course_name])
+        instruction = "INSERT INTO course(name, introduction) " \
+                      "VALUES(%s, %s)"
+        cursor.execute(instruction, [course_name, introduction])
         connection.commit()
 
         instruction = "SELECT max(id) " \
@@ -462,12 +477,12 @@ class MySQL:
         self.closeDatabase(connection, cursor)
         return
 
-    def changeCourse(self, teacher_id, course_id, course_name, materialIdList):
+    def changeCourse(self, teacher_id, course_id, course_name, materialIdList, introduction):
         connection, cursor = self.connectDatabase()
         instruction = "UPDATE course " \
-                      "SET name=%s " \
+                      "SET name=%s, introduction=%s " \
                       "WHERE id=%s"
-        cursor.execute(instruction, [course_name, course_id])
+        cursor.execute(instruction, [course_name, introduction, course_id])
         connection.commit()
 
         # 找旧的课程资料id：
@@ -479,6 +494,7 @@ class MySQL:
 
         print(result)
         print(materialIdList)
+
         for item in result:
             material_id = str(item[0])
             if materialIdList.count(material_id):

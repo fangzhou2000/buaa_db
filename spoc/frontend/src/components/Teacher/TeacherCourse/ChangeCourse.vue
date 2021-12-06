@@ -12,7 +12,7 @@
         <el-form label-position="top" v-loading="loading">
           <el-form-item label="课程名称">
             <el-col :span="6">
-              <el-input v-model="course.name"></el-input>
+              <el-input v-model="name"></el-input>
             </el-col>
           </el-form-item>
           <el-form-item label="学习材料 (如有多个请用','隔开)">
@@ -20,10 +20,15 @@
               <el-input v-model="materialIdString"></el-input>
             </el-col>
           </el-form-item>
+          <el-form-item label="课程介绍">
+            <el-col :span="12">
+              <el-input v-model="introduction" type="textarea" :rows="4"></el-input>
+            </el-col>
+          </el-form-item>
           <el-form-item>
             <el-col :span="6">
               <el-button v-on:click="changeCourse" type="primary" >确认</el-button>
-              <el-button v-on:click="returnManageCourse" type="primary" >返回</el-button>
+              <el-button v-on:click="returnManageCourse">返回</el-button>
             </el-col>
           </el-form-item>
         </el-form>
@@ -37,19 +42,19 @@
 import TeacherNav from '../TeacherNav'
 import TeacherHeading from '../TeacherHeading'
 export default {
+  /* eslint-disable */
   name: 'ChangeCourse',
   components: {TeacherNav, TeacherHeading},
   data: function () {
     return {
+      loading: false,
       userName: '',
       userNickName: '',
       id: '',
       name: '',
       materialIdString: '',
-      course: {
-        name: '',
-        materialIdList: []
-      }
+      materialIdList: [],
+      introduction: ''
     }
   },
   mounted () {
@@ -57,8 +62,8 @@ export default {
     this.userNickName = this.cookie.getCookie('userNickName')
     this.id = this.$route.query.id
     this.name = this.$route.query.name
-    this.course.name = this.name
     this.materialIdString = this.$route.query.materialIdString
+    this.introduction = this.$route.query.introduction
   },
   methods: {
     returnManageCourse: function () {
@@ -70,15 +75,18 @@ export default {
     changeCourse: function () {
       let that = this
       that.loading = true
-      if (that.course.materialIdString !== '') {
-        that.course.materialIdList = that.materialIdString.split(',')
-      }
+      // that.materialIdList = that.materialIdString.split(',')
+      console.log(that.materialIdList)
       this.$http.request({
         url: that.$url + 'ChangeCourse/',
         method: 'get',
         params: {
           id: that.id,
-          course: that.course,
+          name: that.name,
+          // materialIdList: that.materialIdList,
+          // 这里传List接受不到数据，改为传string
+          materialIdString: that.materialIdString,
+          introduction: that.introduction,
           userName: that.userName
         }
       }).then(function (response) {

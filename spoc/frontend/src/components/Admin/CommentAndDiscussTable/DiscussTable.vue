@@ -2,11 +2,11 @@
   <div>
     <el-container class="background">
       <el-aside class="aside" width="show?'64px':'400px'">
-        <StudentNav></StudentNav>
+        <AdminNav></AdminNav>
       </el-aside>
       <el-container class="main">
         <el-header>
-          <StudentHeading></StudentHeading>
+          <AdminHeading></AdminHeading>
         </el-header>
         <el-main>
           <el-button @click="buildThemeVisible = true">新建主题贴</el-button>
@@ -40,11 +40,11 @@
 </template>
 
 <script>
-import StudentNav from '../StudentNav'
-import StudentHeading from '../StudentHeading'
+import AdminNav from '../AdminNav'
+import AdminHeading from '../AdminHeading'
 export default {
-  name: 'StudentAllDiscuss',
-  components: {StudentNav, StudentHeading},
+  name: 'DiscussTable',
+  components: {AdminNav, AdminHeading},
   data: function () {
     return {
       loading: true,
@@ -61,7 +61,7 @@ export default {
         title: '前端测试贴标题',
         content: '前端测试贴内容',
         time: 'xxxx',
-        isTeacher: 1
+        isTeacher: 0
       }, {
         id: '2',
         userName: '学号1',
@@ -117,7 +117,7 @@ export default {
           title: that.input.title,
           content: that.input.content,
           time: that.time,
-          isTeacher: 0
+          isTeacher: true
         }
       }).then(function (response) {
         console.log(response.data)
@@ -139,7 +139,7 @@ export default {
     enterPostTheme: function (index) {
       let that = this
       this.$router.push({
-        name: 'StudentDiscuss',
+        name: 'Discuss',
         query: {
           postTheme: {
             id: that.postThemeList[index].id,

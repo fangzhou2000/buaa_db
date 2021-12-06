@@ -1,6 +1,5 @@
 <template>
     <el-menu :default-active="this.$route.path"
-             @open="handleOpen" @close="handleClose"
              router
              :collapse="isCollapsed" class="el-head-menu">
       <el-menu-item class="item" index="/TeacherHead">
@@ -20,6 +19,11 @@
         <el-menu-item class="subitem" index="/TeacherMaterial/ManageMaterial">管理学习材料</el-menu-item>
       </el-submenu>
       <el-submenu index="3">
+        <template slot="title"><i class="el-icon-s-platform"></i><span class="item">留言板</span></template>
+        <el-menu-item class="subitem" index="/TeacherCommentAndDiscuss/TeacherAllComment">课程评价</el-menu-item>
+        <el-menu-item class="subitem" index="/TeacherCommentAndDiscuss/TeacherAllDiscuss">自由讨论</el-menu-item>
+      </el-submenu>
+      <el-submenu index="4">
         <template slot="title"><i class="el-icon-user"></i><span class="item">用户信息</span></template>
         <el-menu-item class="subitem" index="/TeacherChange/TeacherChange">修改密码</el-menu-item>
       </el-submenu>
@@ -38,7 +42,7 @@ export default {
     return {
       userName: '',
       userNickName: '',
-      isCollapsed: true
+      isCollapsed: this.$root.isCollapsed
     }
   },
   mounted: function () {
@@ -51,12 +55,6 @@ export default {
     })
   },
   methods: {
-    handleOpen (key, keyPath) {
-      console.log(key, keyPath)
-    },
-    handleClose (key, keyPath) {
-      console.log(key, keyPath)
-    },
     goToHelloWorld: function () {
       this.cookie.clearCookie('userName')
       this.cookie.clearCookie('userNickName')
@@ -64,6 +62,7 @@ export default {
     },
     toggleCollapse: function () {
       this.isCollapsed = !this.isCollapsed
+      this.$root.isCollapsed = this.isCollapsed
     }
   }
 }
