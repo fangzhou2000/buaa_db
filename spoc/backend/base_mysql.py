@@ -3,6 +3,34 @@ import pymysql
 
 class MySQL:
 
+    def getTeacherList(self):
+        connection, cursor = self.connectDatabase()
+        instruction = "SELECT id, name from teacher"
+        cursor.execute(instruction)
+        result = cursor.fetchall()
+        self.closeDatabase(connection, cursor)
+        return result
+
+    def getStudentList(self):
+        connection, cursor = self.connectDatabase()
+
+        instruction = "SELECT id,name FROM student"
+        cursor.execute(instruction)
+        result = cursor.fetchall()
+        self.closeDatabase(connection, cursor)
+        return result
+
+    def findAdmin(self, admin_id):
+        connection, cursor = self.connectDatabase()
+
+        instruction = "SELECT *\
+                FROM admin\
+                Where id=%s"
+        cursor.execute(instruction, [admin_id])
+        result = cursor.fetchall()
+        self.closeDatabase(connection, cursor)
+        return result
+
     def deletePostTheme(self, postThemeId):
         connection, cursor = self.connectDatabase()
 
@@ -58,6 +86,13 @@ class MySQL:
         cursor.execute(instruction, [postThemeId])
         result += cursor.fetchall()
 
+        instruction = "SELECT p.id, t.id, t.name, p.content, p.time, p.isTeacher FROM " \
+                      "post as p, admin_post as tp, `admin` as t, post_posttheme as pp " \
+                      "WHERE pp.posttheme_id=%s and pp.post_id=p.id and p.id=tp.post_id and tp.admin_id=t.id " \
+                      "ORDER by p.time desc"
+        cursor.execute(instruction, [postThemeId])
+        result += cursor.fetchall()
+
         self.closeDatabase(connection, cursor)
         return result
 
@@ -76,6 +111,9 @@ class MySQL:
 
         if isTeacher == 0 or isTeacher == "0":
             instruction = "INSERT INTO student_post(student_id, post_id) " \
+                          "VALUES (%s, %s)"
+        elif isTeacher == 2 or isTeacher == "2":
+            instruction = "INSERT INTO admin_post(admin_id, post_id) " \
                           "VALUES (%s, %s)"
         else:
             instruction = "INSERT INTO teacher_post(teacher_id, post_id) " \
@@ -111,6 +149,13 @@ class MySQL:
         cursor.execute(instruction)
         result += cursor.fetchall()
 
+        instruction = "SELECT t.id, t.name, pt.title, pt.content, pt.time, pt.id, pt.isTeacher FROM " \
+                      "posttheme as pt, admin_posttheme as tp, `admin` as t " \
+                      "WHERE pt.id=tp.posttheme_id AND tp.admin_id=t.id " \
+                      "ORDER BY pt.id"
+        cursor.execute(instruction)
+        result += cursor.fetchall()
+
         self.closeDatabase(connection, cursor)
         return result
 
@@ -130,6 +175,9 @@ class MySQL:
 
         if isTeacher == 0 or isTeacher == "0":
             instruction = "INSERT INTO student_posttheme(student_id, posttheme_id) " \
+                          "VALUES (%s, %s)"
+        elif isTeacher == 2 or isTeacher == "2":
+            instruction = "INSERT INTO admin_posttheme(admin_id, posttheme_id) " \
                           "VALUES (%s, %s)"
         else:
             instruction = "INSERT INTO teacher_posttheme(teacher_id, posttheme_id) " \

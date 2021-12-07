@@ -2,24 +2,47 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .base_mysql import MySQL
 
+class GetTeacherList(APIView):
+    def get(self, request):
+        sql =MySQL()
+        result = sql.getTeacherList()
 
-# class AdminLogin(APIView):
-#     def get(self, request):
-#         userName = str(request.GET.get('userName', None))
-#         userPassWord = str(request.GET.get('userPassWord', None))
-#
-#         sql = MySQL()
-#         result = sql.findAdmin(userName)
-#         flag = not not result
-#
-#         if flag:
-#             # 有该管理员
-#             if userPassWord == result[0][1]:
-#                 return Response(dict([('value', 0), ('userNickName', result[0][2])]))
-#             else:
-#                 return Response(dict([('value', 2)]))
-#         else:
-#             return Response(dict([('value', 1)]))
+        teacherList = []
+        for item in result:
+            teacherList.append(dict([("id", item[0]), ("name", item[1])]))
+        print(teacherList)
+        return Response(teacherList)
+
+
+class GetStudentList(APIView):
+    def get(self, request):
+        sql = MySQL()
+        result = sql.getStudentList()
+
+        studentList = []
+        for item in result:
+            studentList.append(dict([("id", item[0]), ("name", item[1])]))
+        print(studentList)
+        return Response(studentList)
+
+
+class AdminLogin(APIView):
+    def get(self, request):
+        userName = str(request.GET.get('userName', None))
+        userPassWord = str(request.GET.get('userPassWord', None))
+
+        sql = MySQL()
+        result = sql.findAdmin(userName)
+        flag = not not result
+
+        if flag:
+            # 有该管理员
+            if userPassWord == result[0][1]:
+                return Response(dict([('value', 0), ('userNickName', result[0][2])]))
+            else:
+                return Response(dict([('value', 2)]))
+        else:
+            return Response(dict([('value', 1)]))
 
 
 class DeletePostTheme(APIView):

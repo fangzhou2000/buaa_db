@@ -5,7 +5,7 @@
 
 ## Description [![](https://img.shields.io/badge/frontend-Vue.js-9cf)](https://vuejs.org/)   [![](https://img.shields.io/badge/backend-Django-96d6d1)](https://www.djangoproject.com/)  [![](https://img.shields.io/badge/UI%20Toolkit-Element-3F93B3)](https://element.eleme.io/)
 
-（待定）FreeTalk选课平台，实现了学生选、退课，查看课程信息，课程评论，论坛讨论；教师开始、关闭、修改课程，添加、删除学习资料，关联课程和学习资料等功能。
+FreeTalk课程平台，实现了学生选、退课，查看课程信息，课程评论，论坛讨论；教师开始、关闭、修改课程，添加、删除学习资料，关联课程和学习资料，发布通知；管理员统筹所有信息等功能。
 
 ### build and run：
 
@@ -56,6 +56,7 @@ Vue样式 (oyk)
 |     `comment(id, content, time)`      | `id` |    评论     |
 | `posttheme(id, title, content, time)` | `id` |   主题帖    |
 |       `post(id, content, time)`       | `id` |    跟帖     |
+|      `admin(id, password, name)`      | `id` |   管理员    |
 
 **Relation：**
 

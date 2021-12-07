@@ -61,7 +61,7 @@ export default {
       }).then(function (response) {
         console.log(response.data)
         that.loading = false
-        that.courseList = response.data
+        that.teacherList = response.data
       }).catch(function (error) {
         console.log(error)
         that.loading = false
