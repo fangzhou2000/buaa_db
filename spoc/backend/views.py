@@ -2,9 +2,28 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .base_mysql import MySQL
 
+
+class AdminChange(APIView):
+    def get(self, request):
+        userName = str(request.GET.get('userName', None))  # 管理员账号
+        userPassWord0 = str(request.GET.get('userPassWord0', None))  # 原密码
+        userPassWord1 = str(request.GET.get('userPassWord1', None))  # 新密码
+        userPassWord2 = str(request.GET.get('userPassWord2', None))  # 确认新密码
+        sql = MySQL()
+        result = sql.findAdmin(userName)
+        print(result)
+        if userPassWord0 != result[0][1]:
+            return Response(1)
+        elif userPassWord2 != userPassWord1:
+            return Response(2)
+        else:
+            sql.adminChange(userName, userPassWord1)
+            return Response(0)
+
+
 class GetTeacherList(APIView):
     def get(self, request):
-        sql =MySQL()
+        sql = MySQL()
         result = sql.getTeacherList()
 
         teacherList = []

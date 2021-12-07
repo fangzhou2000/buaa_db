@@ -78,7 +78,7 @@ export default {
           method: 'get',
           params: {
             userName: that.userName,
-            id: that.myMaterialList[index].id
+            id: that.materialList[index].id
           }
         }).then(function (response) {
           console.log(response.data)
@@ -88,7 +88,7 @@ export default {
           } else {
             that.$message.error('未知错误')
           }
-          that.getTeacherMaterialList()
+          that.getMaterialList()
         }).catch(function (error) {
           console.log(error)
           that.loading = false

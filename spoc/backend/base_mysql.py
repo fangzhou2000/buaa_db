@@ -3,6 +3,16 @@ import pymysql
 
 class MySQL:
 
+    def adminChange(self, username, password):
+        connection, cursor = self.connectDatabase()
+        instruction = "UPDATE `admin` " \
+                      "SET password=%s " \
+                      "WHERE id=%s"
+        cursor.execute(instruction, [password, username])
+        connection.commit()
+        self.closeDatabase(connection, cursor)
+        return
+
     def getTeacherList(self):
         connection, cursor = self.connectDatabase()
         instruction = "SELECT id, name from teacher"

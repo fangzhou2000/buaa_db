@@ -77,7 +77,7 @@ export default {
           if (that.status === 0) {
             that.$message.success('修改成功')
             that.$router.push({
-              name: 'StudentLogin',
+              name: 'AdminLogin',
               params: {
                 userName: that.userName
               }

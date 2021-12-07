@@ -32,5 +32,6 @@ urlpatterns = [
     path('DeleteComment/', views.DeleteComment.as_view()),
     path('AdminLogin/', views.AdminLogin.as_view()),
     path('GetStudentList/', views.GetStudentList.as_view()),
-    path('GetTeacherList/', views.GetTeacherList.as_view())
+    path('GetTeacherList/', views.GetTeacherList.as_view()),
+    path('AdminChange/', views.AdminChange.as_view())
 ]
