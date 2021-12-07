@@ -60,17 +60,21 @@ Vue样式 (oyk)
 
 **Relation：**
 
-|                   Relation                    |    Key    |  Description   |
-| :-------------------------------------------: | :-------: | :------------: |
-|    `student_course(student_id, course_id)`    | `all-key` |    学生选课    |
-|    `teacher_course(teacher_id, course_id)`    | `all-key` |    教师开课    |
-|  `teacher_material(teacher_id, material_id)`  | `all-key` |  教师提供材料  |
-|   `course_material(course_id, material_id)`   | `all-key` |  课程对应材料  |
-|   `student_comment(student_id, comment_id)`   | `all-key` |  学生发表评论  |
-| `student_posttheme(student_id, posttheme_id)` | `all-key` | 学生发表主题帖 |
-|      `student_post(student_id, post_id)`      | `all-key` |    学生跟帖    |
-|    `course_comment(course_id, comment_id)`    | `all-key` |  课程对应评价  |
-|    `post_posttheme(post_id, posttheme_id)`    | `all-key` | 跟帖对应主题帖 |
+|                   Relation                    |    Key    |   Description    |
+| :-------------------------------------------: | :-------: | :--------------: |
+|    `student_course(student_id, course_id)`    | `all-key` |     学生选课     |
+|    `teacher_course(teacher_id, course_id)`    | `all-key` |     教师开课     |
+|  `teacher_material(teacher_id, material_id)`  | `all-key` |   教师提供材料   |
+|   `course_material(course_id, material_id)`   | `all-key` |   课程对应材料   |
+|   `student_comment(student_id, comment_id)`   | `all-key` |   学生发表评论   |
+| `student_posttheme(student_id, posttheme_id)` | `all-key` |  学生发表主题帖  |
+|      `student_post(student_id, post_id)`      | `all-key` |     学生跟帖     |
+|    `course_comment(course_id, comment_id)`    | `all-key` |   课程对应评价   |
+|    `post_posttheme(post_id, posttheme_id)`    | `all-key` |  跟帖对应主题帖  |
+|   `admin_posttheme(admin_id, posttheme_id)`   | `all-key` | 管理员发表主题帖 |
+|        `admin_post(admin_id, post_id)`        | `all-key` |    管理员跟帖    |
+| `teacher_posttheme(teacher_id, posttheme_id)` | `all-key` |  教师发表主题帖  |
+|      `teacher_post(teacher_id, post_id)`      | `all-key` |     教师跟帖     |
 
 ### E-R Diagram
 
