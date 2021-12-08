@@ -64,7 +64,7 @@ export default {
           url: that.$url + 'AdminLogin/',
           method: 'get',
           params: {
-            userNickName: that.userNickName,
+            // userNickName: that.userNickName,
             userName: that.userName,
             userPassWord: that.userPassWord
           }

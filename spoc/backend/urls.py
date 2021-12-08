@@ -29,5 +29,9 @@ urlpatterns = [
     path('BuildPost/', views.BuildPost.as_view()),
     path('DeletePostTheme/', views.DeletePostTheme.as_view()),
     path('DeletePost/', views.DeletePost.as_view()),
-    path('DeleteComment/', views.DeleteComment.as_view())
+    path('DeleteComment/', views.DeleteComment.as_view()),
+    path('AdminLogin/', views.AdminLogin.as_view()),
+    path('GetStudentList/', views.GetStudentList.as_view()),
+    path('GetTeacherList/', views.GetTeacherList.as_view()),
+    path('AdminChange/', views.AdminChange.as_view())
 ]

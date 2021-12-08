@@ -27,8 +27,11 @@
               {{postTheme.time}}
             </el-row>
             <el-row class="userName">
-              <div v-if="postTheme.isTeacher === true">
+              <div v-if="postTheme.isTeacher === 1">
                 {{postTheme.userNickName}}({{postTheme.userName}}) (教师) :
+              </div>
+              <div v-else-if="postTheme.isTeacher === 2">
+                {{postTheme.userNickName}}({{postTheme.userName}}) (管理员) :
               </div>
               <div v-else>
                 {{postTheme.userNickName}}({{postTheme.userName}}) :
@@ -46,8 +49,11 @@
               {{post.time}}
             </el-row>
             <el-row class="userName">
-              <div v-if="post.isTeacher === true">
+              <div v-if="post.isTeacher === 1">
                 {{post.userNickName}}({{post.userName}}) (教师) :
+              </div>
+              <div v-else-if="post.isTeacher === 2">
+                {{postTheme.userNickName}}({{postTheme.userName}}) (管理员) :
               </div>
               <div v-else>
                 {{post.userNickName}}({{post.userName}}) :
@@ -228,7 +234,7 @@ export default {
           userName: that.userName,
           content: that.input.content,
           time: that.time,
-          isTeacher: true
+          isTeacher: 2
         }
       }).then(function (response) {
         console.log(response.data)

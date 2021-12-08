@@ -132,7 +132,7 @@ export default {
           method: 'get',
           params: {
             userName: that.userName,
-            id: that.myCourseList[index].id
+            id: that.courseList[index].id
           }
         }).then(function (response) {
           console.log(response.data)
@@ -142,7 +142,7 @@ export default {
           } else {
             that.$message.error('未知错误')
           }
-          that.getTeacherCourseList()
+          that.getCourseList()
         }).catch(function (error) {
           console.log(error)
           that.loading = false

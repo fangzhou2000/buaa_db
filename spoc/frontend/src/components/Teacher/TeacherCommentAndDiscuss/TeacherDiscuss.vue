@@ -30,6 +30,9 @@
               <div v-if="postTheme.isTeacher === 1">
                 {{postTheme.userNickName}}({{postTheme.userName}}) (教师) :
               </div>
+              <div v-else-if="postTheme.isTeacher === 2">
+                {{postTheme.userNickName}}({{postTheme.userName}}) (管理员) :
+              </div>
               <div v-else>
                 {{postTheme.userNickName}}({{postTheme.userName}}) :
               </div>
@@ -50,6 +53,9 @@
             <el-row class="userName">
               <div v-if="post.isTeacher === 1">
                 {{post.userNickName}}({{post.userName}}) (教师) :
+              </div>
+              <div v-else-if="post.isTeacher === 2">
+                {{postTheme.userNickName}}({{postTheme.userName}}) (管理员) :
               </div>
               <div v-else>
                 {{post.userNickName}}({{post.userName}}) :
