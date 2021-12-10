@@ -47,16 +47,16 @@ Vue样式 (oyk)
 
 **Entity：**
 
-|                Entity                 | Key  | Description |
-| :-----------------------------------: | :--: | :---------: |
-|     `student(id, password, name)`     | `id` |  学生信息   |
-|     `teacher(id, password, name)`     | `id` |  教师信息   |
-|         `material(id, name)`          | `id` |  学习材料   |
-|   `course(id, name, introduction)`    | `id` |  课程信息   |
-|     `comment(id, content, time)`      | `id` |    评论     |
-| `posttheme(id, title, content, time)` | `id` |   主题帖    |
-|       `post(id, content, time)`       | `id` |    跟帖     |
-|      `admin(id, password, name)`      | `id` |   管理员    |
+|                      Entity                      | Key  | Description |
+| :----------------------------------------------: | :--: | :---------: |
+|          `student(id, password, name)`           | `id` |  学生信息   |
+|          `teacher(id, password, name)`           | `id` |  教师信息   |
+|               `material(id, name)`               | `id` |  学习材料   |
+|         `course(id, name, introduction)`         | `id` |  课程信息   |
+|           `comment(id, content, time)`           | `id` |    评论     |
+| `posttheme(id, title, content, time, isTeacher)` | `id` |   主题帖    |
+|       `post(id, content, time, isTeacher)`       | `id` |    跟帖     |
+|           `admin(id, password, name)`            | `id` |   管理员    |
 
 **Relation：**
 
@@ -64,8 +64,8 @@ Vue样式 (oyk)
 | :-------------------------------------------: | :-------: | :--------------: |
 |    `student_course(student_id, course_id)`    | `all-key` |     学生选课     |
 |    `teacher_course(teacher_id, course_id)`    | `all-key` |     教师开课     |
-|  `teacher_material(teacher_id, material_id)`  | `all-key` |   教师提供教材   |
-|   `course_material(course_id, material_id)`   | `all-key` |   课程对应教材   |
+|  `teacher_material(teacher_id, material_id)`  | `all-key` |   教师提供学习材料   |
+|   `course_material(course_id, material_id)`   | `all-key` |   课程对应学习材料   |
 |   `student_comment(student_id, comment_id)`   | `all-key` |   学生发表评论   |
 | `student_posttheme(student_id, posttheme_id)` | `all-key` |  学生发表主题帖  |
 |      `student_post(student_id, post_id)`      | `all-key` |     学生跟帖     |
@@ -78,10 +78,10 @@ Vue样式 (oyk)
 
 ### E-R Diagram
 
-![2](./img/1123_er.svg)
+![2](./img/1211_er.png)
 
 
-full img: [e-r](./img/1123_er_full.svg), [db](./img/1123_db.png)
+full img: [e-r](./img/1211_er_full.svg), [db](./img/1211_db.svg)
 
 ### Plan Design
 
