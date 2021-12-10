@@ -52,7 +52,7 @@ Vue样式 (oyk)
 |     `student(id, password, name)`     | `id` |  学生信息   |
 |     `teacher(id, password, name)`     | `id` |  教师信息   |
 |         `material(id, name)`          | `id` |  学习材料   |
-|          `course(id, name)`           | `id` |  课程信息   |
+|   `course(id, name, introduction)`    | `id` |  课程信息   |
 |     `comment(id, content, time)`      | `id` |    评论     |
 | `posttheme(id, title, content, time)` | `id` |   主题帖    |
 |       `post(id, content, time)`       | `id` |    跟帖     |
@@ -64,8 +64,8 @@ Vue样式 (oyk)
 | :-------------------------------------------: | :-------: | :--------------: |
 |    `student_course(student_id, course_id)`    | `all-key` |     学生选课     |
 |    `teacher_course(teacher_id, course_id)`    | `all-key` |     教师开课     |
-|  `teacher_material(teacher_id, material_id)`  | `all-key` |   教师提供材料   |
-|   `course_material(course_id, material_id)`   | `all-key` |   课程对应材料   |
+|  `teacher_material(teacher_id, material_id)`  | `all-key` |   教师提供教材   |
+|   `course_material(course_id, material_id)`   | `all-key` |   课程对应教材   |
 |   `student_comment(student_id, comment_id)`   | `all-key` |   学生发表评论   |
 | `student_posttheme(student_id, posttheme_id)` | `all-key` |  学生发表主题帖  |
 |      `student_post(student_id, post_id)`      | `all-key` |     学生跟帖     |
