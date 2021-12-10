@@ -16,9 +16,12 @@
   "dependencies": {
     "axios": "^0.21.4",
     "element-ui": "^2.15.6",
+    "highlight.js": "^11.3.1",
+    "marked": "^4.0.7",
     "stylus": "^0.55.0",
     "stylus-loader": "^6.2.0",
     "vue": "^2.5.2",
+    "vue-quill-editor": "^3.0.6",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {

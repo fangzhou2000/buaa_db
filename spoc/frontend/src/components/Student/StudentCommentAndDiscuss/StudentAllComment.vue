@@ -8,14 +8,84 @@
         <el-header>
           <StudentHeading></StudentHeading>
         </el-header>
-        <el-main>
-          <el-table :data="courseList"  v-loading="loading">
-            <el-table-column label="课程ID" prop="id"></el-table-column>
-            <el-table-column label="课程名称" prop="name"></el-table-column>
-            <el-table-column label="评价"> <template slot-scope="scope">
-          <el-button v-on:click="commentCourse(scope.$index)" type="primary" size="small">评价</el-button>
-        </template></el-table-column>
-          </el-table>
+        <el-main style="padding-left: 10%; padding-right: 10%">
+          <el-row>
+            <el-col :span="14" class="left-information" style="width: 50%">
+              <el-row>
+                <el-col :span="22">
+                  <el-input
+                    placeholder="查找您的相关课程"
+                    prefix-icon="el-icon-search" v-model="input2"
+                    style="margin-bottom: 5%"></el-input>
+                </el-col>
+                <el-col :span="2">
+                  <el-button
+                    type="primary"
+                    icon="el-icon-search"
+                    style="float: right"
+                    circle></el-button>
+                </el-col>
+              </el-row>
+              <el-card v-for="(course, index) in courseList" :key="index" shadow="hover" style="margin-bottom: 2%">
+                <el-row>
+                  <el-col :offset="2" :span="2">
+                    <el-empty :image-size="50" style="margin: 0 !important; padding: 0 !important;"></el-empty>
+                  </el-col>
+                  <el-col :offset="2" :span="18">
+                    <el-row>
+                      <el-col :span="18">
+                        <strong>{{course.name}}</strong>
+                      </el-col>
+                      <el-col :span="4" :offset="2">
+                        <el-button v-on:click="commentCourse(index)" type="text" style="float: right">查看</el-button>
+                      </el-col>
+                    </el-row>
+                    <el-row>
+                      <el-divider>
+                      </el-divider>
+                    </el-row>
+                    <el-row>
+                      <div style="font-size: 12px; text-overflow: ellipsis ;max-height: 100px; overflow: hidden; white-space: nowrap;">
+                        {{course.introduction}}
+                      </div>
+                    </el-row>
+                  </el-col>
+                </el-row>
+              </el-card>
+            </el-col>
+            <el-col :span="8" :offset="2" class="right-information">
+              <el-card shadow="hover" style="width: 100%">
+                <el-row>
+                  <el-col :span="12">
+                    <el-empty :image-size="80" style="margin: 0 !important; padding: 0 !important;"></el-empty>
+                  </el-col>
+                  <el-col :span="12">
+                    <el-descriptions :column="1">
+                      <el-descriptions-item label="用户名">{{userNickName}}</el-descriptions-item>
+                      <el-descriptions-item label="学号">{{userName}}</el-descriptions-item>
+                      <el-descriptions-item label="已选课程">{{courseNum}}</el-descriptions-item>
+                      <el-descriptions-item label="参与评价">{{commentNum}}</el-descriptions-item>
+                    </el-descriptions>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-divider></el-divider>
+                </el-row>
+                <el-row>
+                  <el-descriptions :column="1" v-if="showIt">
+                      <el-descriptions-item label="用户名">{{userNickName}}</el-descriptions-item>
+                      <el-descriptions-item label="学号">{{userName}}</el-descriptions-item>
+                  </el-descriptions>
+                </el-row>
+                <el-row class="el-row-button-head">
+                  <el-button @click="changeShowIt" type="text" class="el-row-button">
+                    <i v-if="showIt" class="el-icon-caret-top">隐藏</i>
+                    <i v-else class="el-icon-caret-bottom">展开</i>
+                  </el-button>
+                </el-row>
+              </el-card>
+            </el-col>
+          </el-row>
         </el-main>
       </el-container>
     </el-container>
@@ -33,14 +103,21 @@ export default {
       loading: true,
       userName: '',
       userNickName: '',
+      commentNum: '1',
+      courseNum: '1',
+      input2: '',
+      showIt: false,
+      url: '../../../assets/img/learning-hard.png',
       courseList: [{
         id: '1',
         name: '前端测试课程1',
+        introduction: '前端介绍测试1',
         materialIdString: '1,2',
         materialNameString: 'book1,book2'
       }, {
         id: '2',
         name: '前端测试课程2',
+        introduction: '前端测试介绍2',
         materialIdString: '1,2',
         materialNameString: 'book1,book2'
       }]
@@ -81,6 +158,9 @@ export default {
       this.cookie.clearCookie('userName')
       this.cookie.clearCookie('userNickName')
       this.$router.replace('/')
+    },
+    changeShowIt: function () {
+      this.showIt = !this.showIt
     }
   }
 }
@@ -88,4 +168,13 @@ export default {
 
 <style scoped>
   @import "../../../assets/css/back.css";
+  .el-row-button {
+    width: 100% !important;
+  }
+  .el-row-button :hover {
+    background-color: initial;
+  }
+  .el-row-button-head :hover {
+    background-color: hsla(0, 0%, 74%, 0.2);
+  }
 </style>

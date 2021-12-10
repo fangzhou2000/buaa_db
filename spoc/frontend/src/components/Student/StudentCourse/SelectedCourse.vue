@@ -9,6 +9,7 @@
           <StudentHeading></StudentHeading>
         </el-header>
         <el-main>
+          <el-card></el-card>
           <el-table :data="myCourseList" v-loading="loading">
             <el-table-column label="课程ID" prop="id"></el-table-column>
             <el-table-column label="课程名称（可点击查看信息）">

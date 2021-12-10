@@ -46,6 +46,18 @@ export default {
     },
     handleCommand (command) {
       this.goToHelloWorld()
+    },
+    goToCommentPlatform () {
+      let that = this
+      let loginInfo =
+        { userName: that.userName,
+          userNickName: that.userNickName,
+          userType: 'student'
+        }
+      that.cookie.setCookie(loginInfo)
+      that.$router.push({
+        name: 'CommentPlatForm'
+      })
     }
   }
 }

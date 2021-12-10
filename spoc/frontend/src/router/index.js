@@ -33,9 +33,6 @@ import StudentTable from '../components/Admin/StudentTable/StudentTable'
 import CourseTable from '../components/Admin/CourseTable/CourseTable'
 import MaterialTable from '../components/Admin/MaterialTable/MaterialTable'
 import TeacherTable from '../components/Admin/TeacherTable/TeacherTable'
-<<<<<<< HEAD
-import CommentPlatForm from "../components/CommentPlatForm/CommentPlatForm";
-=======
 import TeacherCommentAndDiscuss from '../components/Teacher/TeacherCommentAndDiscuss/TeacherCommentAndDiscuss'
 import TeacherAllComment from '../components/Teacher/TeacherCommentAndDiscuss/TeacherAllComment'
 import TeacherComment from '../components/Teacher/TeacherCommentAndDiscuss/TeacherComment'
@@ -46,7 +43,6 @@ import Comment from '../components/Admin/CommentAndDiscussTable/Comment'
 import DiscussTable from '../components/Admin/CommentAndDiscussTable/DiscussTable'
 import CommentTable from '../components/Admin/CommentAndDiscussTable/CommentTable'
 import CommentAndDiscussTable from '../components/Admin/CommentAndDiscussTable/CommentAndDiscussTable'
->>>>>>> 83519bf503a5eb2ad491de5f5ee89927af49c5bf
 
 Vue.use(Router)
 
@@ -320,11 +316,6 @@ export default new Router({
           component: TeacherTable
         }
       ]
-    },
-    {
-      path: '/CommentPlatForm',
-      name: 'CommentPlatForm',
-      component: CommentPlatForm
     }
   ]
 })

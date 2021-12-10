@@ -8,38 +8,94 @@
         <el-header>
           <StudentHeading></StudentHeading>
         </el-header>
-        <el-main>
-          <el-button @click="buildThemeVisible = true">新建主题贴</el-button>
-          <el-dialog title="新建主题帖" :visible.sync = "buildThemeVisible">
-            <el-row style="margin-bottom: 10px">
-              <el-col>
-                <el-input v-model="input.title" placeholder="请输入标题"></el-input>
-              </el-col>
-            </el-row>
-            <el-row style="margin-bottom: 10px">
-              <el-col>
-                <el-input v-model="input.content" placeholder="请输入贴子的主题" type="textarea" :rows="10"></el-input>
-              </el-col>
-            </el-row>
-            <div slot="footer" class="dialog-footer">
-              <el-button @click="buildThemeVisible = false">取消</el-button>
-              <el-button type="primary" @click="buildPostTheme">确定</el-button>
-            </div>
-          </el-dialog>
-          <el-table :data="postThemeList" v-loading="loading">
-            <el-table-column label="主题贴ID" prop="id"></el-table-column>
-            <el-table-column label="主题贴标题" prop="title"></el-table-column>
-            <el-table-column label="发帖者" prop="isTeacher">
-              <template slot-scope="scope">
-                <span v-if="postThemeList[scope.$index].isTeacher === 0">学生</span>
-                <span v-if="postThemeList[scope.$index].isTeacher === 1">教师</span>
-                <span v-if="postThemeList[scope.$index].isTeacher === 2">管理员</span>
-              </template>
-            </el-table-column>
-            <el-table-column label="进入贴子"> <template slot-scope="scope">
-          <el-button v-on:click="enterPostTheme(scope.$index)" type="primary" size="small">进入</el-button>
-        </template></el-table-column>
-          </el-table>
+        <el-main style="margin-left: 10%; margin-right: 10%">
+          <el-row>
+            <el-col :span="14" class="left-information" style="width: 50%">
+              <el-row>
+                <el-col :span="22">
+                  <el-input
+                    placeholder="查找相关帖子"
+                    prefix-icon="el-icon-search" v-model="input2"
+                    style="margin-bottom: 5%"></el-input>
+                </el-col>
+                <el-col :span="2">
+                  <el-button
+                    type="primary"
+                    icon="el-icon-search"
+                    style="float: right"
+                    circle></el-button>
+                </el-col>
+              </el-row>
+              <el-card v-for="(postTheme, index) in postThemeList" :key="index" shadow="hover" style="margin-bottom: 2%">
+                <div class="clearfix">
+                  <span><strong>{{postTheme.title}}</strong></span>
+                  <el-button style="float: right; padding: 3px 0" type="text"
+                             v-on:click="enterPostTheme(index)">进入帖子</el-button>
+                </div>
+                <div class="textitem" style="font-size: 10px">
+                  <span v-if="postTheme.isTeacher === 0">学生</span>
+                  <span v-else-if="postTheme.isTeacher === 1">教师</span>
+                  <span v-else-if="postTheme.isTeacher === 2">管理员</span>
+                </div>
+              </el-card>
+            </el-col>
+            <el-col :span="8" :offset="2" class="right-information">
+              <el-card shadow="hover" style="width: 100%">
+                <el-row>
+                  <el-col :span="12">
+                    <el-empty :image-size="80" style="margin: 0 !important; padding: 0 !important;"></el-empty>
+                  </el-col>
+                  <el-col :span="12">
+                    <el-descriptions :column="1">
+                      <el-descriptions-item label="用户名">{{userNickName}}</el-descriptions-item>
+                      <el-descriptions-item label="学号">{{userName}}</el-descriptions-item>
+                      <el-descriptions-item label="已发帖子">{{discussNum}}</el-descriptions-item>
+                    </el-descriptions>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-divider></el-divider>
+                </el-row>
+                <el-row>
+                  <el-button @click="buildThemeVisible = true" style="width: 100%" type="primary">新建主题贴</el-button>
+                  <el-dialog title="新建主题帖" :visible.sync = "buildThemeVisible" width="70%">
+                    <el-row style="margin-bottom: 10px">
+                      <el-col>
+                        <el-input v-model="input.title" placeholder="请输入标题"></el-input>
+                      </el-col>
+                    </el-row>
+                    <el-row style="margin-bottom: 10px">
+                      <el-col>
+<!--                        <el-input v-model="input.content" placeholder="请输入贴子的主题" type="textarea" :rows="10"></el-input>-->
+                        <quill-editor ref="text" v-model="input.content" style="height: 400px"></quill-editor>
+                      </el-col>
+                    </el-row>
+                    <div slot="footer" class="dialog-footer">
+                      <el-button @click="buildThemeVisible = false">取消</el-button>
+                      <el-button type="primary" @click="buildPostTheme">确定</el-button>
+                    </div>
+                  </el-dialog>
+                </el-row>
+              </el-card>
+            </el-col>
+          </el-row>
+
+<!--          <el-table :data="postThemeList" v-loading="loading">-->
+<!--            <el-table-column label="主题贴ID" prop="id"></el-table-column>-->
+<!--            <el-table-column label="主题贴标题" prop="title"></el-table-column>-->
+<!--            <el-table-column label="发帖者" prop="isTeacher">-->
+<!--              <template slot-scope="scope">-->
+<!--                <span v-if="postThemeList[scope.$index].isTeacher === 0">学生</span>-->
+<!--                <span v-if="postThemeList[scope.$index].isTeacher === 1">教师</span>-->
+<!--                <span v-if="postThemeList[scope.$index].isTeacher === 2">管理员</span>-->
+<!--              </template>-->
+<!--            </el-table-column>-->
+<!--            <el-table-column label="进入贴子">-->
+<!--              <template slot-scope="scope">-->
+<!--                <el-button v-on:click="enterPostTheme(scope.$index)" type="primary" size="small">进入</el-button>-->
+<!--              </template>-->
+<!--            </el-table-column>-->
+<!--          </el-table>-->
         </el-main>
       </el-container>
     </el-container>
@@ -49,18 +105,24 @@
 <script>
 import StudentNav from '../StudentNav'
 import StudentHeading from '../StudentHeading'
+import {quillEditor} from 'vue-quill-editor'
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
 export default {
   name: 'StudentAllDiscuss',
-  components: {StudentNav, StudentHeading},
+  components: {StudentNav, StudentHeading, quillEditor},
   data: function () {
     return {
       loading: true,
       userName: '',
       userNickName: '',
+      discussNum: '1',
       input: {
         title: '',
         content: ''
       },
+      input2: '',
       postThemeList: [{
         id: '1',
         userName: 'admin',
@@ -69,7 +131,8 @@ export default {
         content: '前端测试贴内容',
         time: 'xxxx',
         isTeacher: 1
-      }, {
+      },
+      {
         id: '2',
         userName: '学号1',
         userNickName: '学生1',

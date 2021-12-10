@@ -8,34 +8,85 @@
         <el-header>
           <StudentHeading></StudentHeading>
         </el-header>
-        <el-main>
-          <el-row class="buttons">评价 {{courseName}}</el-row>
-          <el-row class="buttons">
-            <el-button v-on:click="commentCourse" type="primary" size="small" >发表评价</el-button>
-            <el-button v-on:click="returnStudentAllComment" size="small">返回</el-button>
+        <el-main style="padding-left: 10%; padding-right: 10%">
+          <el-page-header @back="returnStudentAllComment" :content="courseName" style="margin-bottom: 2%"></el-page-header>
+<!--          <el-row class="buttons">评价 {{courseName}}</el-row>-->
+          <el-card shadow="hover" style="margin-bottom: 2%">
+            <el-row>
+              <el-col :offset="2" :span="2">
+                <el-empty :image-size="100" style="margin: 0 !important; padding: 0 !important;"></el-empty>
+              </el-col>
+              <el-col :offset="2" :span="18">
+                <el-row>
+                  <el-col :span="18">
+                    <strong>{{courseName}}</strong>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-divider>
+                  </el-divider>
+                </el-row>
+                <el-row>
+                  <div style="font-size: 12px">
+                    <h4>课程概述</h4>
+                    <p>这里是标题</p>
+                    <h4>课程资料</h4>
+                    <p>这里是所有的资料</p>
+                  </div>
+                </el-row>
+              </el-col>
+            </el-row>
+          </el-card>
+          <el-row>
+            <el-divider></el-divider>
           </el-row>
-          <el-row class="buttons">
-            <el-col :span="20">
-              <el-input class="input" v-model="contentInput" type="textarea" :rows="2" placeholder="对于课程内容、讲课质量、考核方式等的评价">
+          <el-row>
+            <el-col>
+              <el-input class="input" v-model="contentInput" type="textarea" :rows="3" placeholder="对于课程内容、讲课质量、考核方式等的评价">
               </el-input>
             </el-col>
+            <el-button v-on:click="commentCourse" type="primary" size="small" style="float: right">添加评价</el-button>
           </el-row>
+<!--          <el-row>-->
+<!--            <quill-editor ref="text" v-model="contentInput" style="height: 100px"></quill-editor>-->
+<!--          </el-row>-->
+
           <el-divider></el-divider>
           <div v-for="(comment) in commentList" v-bind:key="comment">
             <el-row class="time">
-              {{comment.time}}
+              <el-col :span="1">
+                <el-avatar></el-avatar>
+              </el-col>
+              <el-col :span="3">
+
+                <el-row class="userName">
+                  {{comment.userNickName}}({{comment.userName}}) :
+                </el-row>
+                <el-row>{{comment.time}}</el-row>
+
+              </el-col>
+              <el-col :span="20" class="content">
+                <el-row>
+                {{comment.content}}
+                </el-row>
+                <el-row class="delete">
+                  <div v-if="comment.userName === userName">
+                    <el-link type="danger" v-on:click="deleteComment(comment.id)">删除</el-link>
+                  </div>
+                </el-row>
+              </el-col>
             </el-row>
-            <el-row class="userName">
-              {{comment.userNickName}}({{comment.userName}}) :
-            </el-row>
-            <el-row class="content">
-              {{comment.content}}
-            </el-row>
-            <el-row class="delete">
-              <div v-if="comment.userName === userName">
-                <el-link type="danger" v-on:click="deleteComment(comment.id)">删除</el-link>
-              </div>
-            </el-row>
+<!--            <el-row class="userName">-->
+<!--              {{comment.userNickName}}({{comment.userName}}) :-->
+<!--            </el-row>-->
+<!--            <el-row class="content">-->
+<!--              {{comment.content}}-->
+<!--            </el-row>-->
+<!--            <el-row class="delete">-->
+<!--              <div v-if="comment.userName === userName">-->
+<!--                <el-link type="danger" v-on:click="deleteComment(comment.id)">删除</el-link>-->
+<!--              </div>-->
+<!--            </el-row>-->
             <el-divider></el-divider>
           </div>
       </el-main>
@@ -69,6 +120,10 @@
 <script>
 import StudentNav from '../StudentNav'
 import StudentHeading from '../StudentHeading'
+// import {quillEditor} from 'vue-quill-editor'
+// import 'quill/dist/quill.core.css'
+// import 'quill/dist/quill.snow.css'
+// import 'quill/dist/quill.bubble.css'
 export default {
   name: 'StudentComment',
   components: {StudentNav, StudentHeading},
@@ -84,7 +139,8 @@ export default {
         id: 1,
         userName: '学号1',
         userNickName: '学生1',
-        content: '课程评价内容1',
+        content: '课程评价内容1课程评价内容1课程评价内容1课程评价内容1课程评价内容1课程评价内容1课程评价内容1课程评价内容1课程评价内容1' +
+          '课程评价内容1课程评价内容1课程评价内容1课程评价内容1课程评价内容1课程评价内容1课程评价内容1',
         time: '2021-11-19 11:11:11'
       }
       ]
