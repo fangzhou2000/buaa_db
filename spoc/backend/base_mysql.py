@@ -21,6 +21,85 @@ import pymysql
 
 class MySQL:
 
+    def getCourseDegree(self, courseID):
+        connection, cursor = self.connectDatabase()
+        result = ""
+        try:
+            cursor.callproc('COMMENT_DEGREE', args=(courseID, 0,0,0,0,0,0,0))
+            cursor.execute(query='select @_COMMENT_DEGREE_0, @_COMMENT_DEGREE_1,@_COMMENT_DEGREE_2,@_COMMENT_DEGREE_3,'
+                                 '@_COMMENT_DEGREE_4,@_COMMENT_DEGREE_5,@_COMMENT_DEGREE_6, @_COMMENT_DEGREE_7;')
+            result = cursor.fetchall()
+        except Exception as e:
+            connection.rollback()
+            print("error")
+        self.closeDatabase(connection, cursor)
+        return result
+
+    def getTeacherDisCussNum(self, userName):
+        connection, cursor = self.connectDatabase()
+        instruction = "SELECT count_discuss FROM teacher where id=%s"
+        result = ""
+        try:
+            cursor.execute(instruction, [userName])
+            result = cursor.fetchall()
+        except Exception as e:
+            connection.rollback()
+            print("error")
+        self.closeDatabase(connection, cursor)
+        return result
+
+    def getTeacherCourseNum(self, userName):
+        connection, cursor = self.connectDatabase()
+        instruction = "SELECT count_course FROM teacher where id=%s"
+        result = ""
+        try:
+            cursor.execute(instruction, [userName])
+            result = cursor.fetchall()
+        except Exception as e:
+            connection.rollback()
+            print("error")
+        self.closeDatabase(connection, cursor)
+        return result
+
+    def getStudentDiscussNum(self, userName):
+        connection, cursor = self.connectDatabase()
+        instruction = "SELECT count_discuss FROM student where id=%s"
+        result = ""
+        try:
+            cursor.execute(instruction, [userName])
+            result = cursor.fetchall()
+        except Exception as e:
+            connection.rollback()
+            print("error")
+        self.closeDatabase(connection, cursor)
+        return result
+
+    def getStudentCommentNum(self, userName):
+        connection, cursor = self.connectDatabase()
+        instruction = "SELECT count_comment FROM student where id=%s"
+        result = ""
+        try:
+            cursor.execute(instruction, [userName])
+            result = cursor.fetchall()
+        except Exception as e:
+            connection.rollback()
+            print("error")
+        self.closeDatabase(connection, cursor)
+        return result
+
+    def getStudentCourseNum(self, userName):
+        connection, cursor = self.connectDatabase()
+        instruction = "SELECT count_course FROM student where id=%s"
+        result = ""
+        try:
+            cursor.execute(instruction, [userName])
+            result = cursor.fetchall()
+        except Exception as e:
+            connection.rollback()
+            print("error")
+        self.closeDatabase(connection, cursor)
+        return result
+
     def procedure01(self):
         connection, cursor = self.connectDatabase()
 
@@ -278,13 +357,13 @@ class MySQL:
         self.closeDatabase(connection, cursor)
         return result
 
-    def commentCourse(self, courseId, userName, content, ti):
+    def commentCourse(self, courseId, userName, content, ti, degree):
         connection, cursor = self.connectDatabase()
         try:
-            instruction = "INSERT INTO comment(content, time) " \
-                          "values(%s, %s)"
+            instruction = "INSERT INTO comment(content, time, degree) " \
+                          "values(%s, %s, %s)"
 
-            cursor.execute(instruction, [content, ti])
+            cursor.execute(instruction, [content, ti, degree])
 
             connection.commit()
 
@@ -720,7 +799,10 @@ class MySQL:
 if __name__ == "__main__":
     sql = MySQL()
     # sql.test()
+    # result = sql.getStudentCourseNum("19373136")
+    # print(result[0][0])
 
+    sql.getCourseDegree(26)
     #
     # sql.commentCourse(1, 19373136, 1, "2021-20-22 11:12:22")
     #
