@@ -159,11 +159,11 @@ export default {
       this.$router.push({
         path: '/TeacherCommentAndDiscuss/TeacherComment',
         query: {
-          courseId: that.courseList[index].id,
-          courseName: that.courseList[index].name,
-          courseIntroduction: that.courseList[index].courseIntroduction,
+          courseId: that.showCourseList[index].id,
+          courseName: that.showCourseList[index].name,
+          courseIntroduction: that.showCourseList[index].introduction,
           // courseAssessment: that.courseList[index].courseAssessment,
-          courseMaterial: that.courseList[index].materialNameString
+          courseMaterial: that.showCourseList[index].materialNameString
         }
       })
     },

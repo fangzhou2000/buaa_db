@@ -29,9 +29,9 @@
                 <el-row>
                   <div style="font-size: 12px">
                     <h4>课程概述</h4>
-                    <p>这里是标题</p>
+                    {{ courseIntroduction }}
                     <h4>课程资料</h4>
-                    <p>这里是所有的资料</p>
+                    <p>{{ courseMaterial }}</p>
                   </div>
                 </el-row>
               </el-col>
@@ -136,6 +136,9 @@ export default {
       userNickName: '前端测试姓名',
       courseId: '前端测试课程id',
       courseName: '前端测试课程名称',
+      courseIntroduction: '前端测试课程介绍',
+      courseAssessment: '5',
+      courseMaterial: '前端测试学习资料',
       contentInput: '',
       time: '',
       commentList: [{
@@ -154,6 +157,10 @@ export default {
     this.userNickName = this.cookie.getCookie('userNickName')
     this.courseId = this.$route.query.courseId
     this.courseName = this.$route.query.courseName
+    this.courseIntroduction = this.$route.query.courseIntroduction
+    // this.courseAssessment = this.$route.query.courseAssessment
+    this.courseMaterial = this.$route.query.courseMaterial
+    console.log(this.$route.query)
     this.getCommentList()
   },
   methods: {
