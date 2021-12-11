@@ -33,5 +33,12 @@ urlpatterns = [
     path('AdminLogin/', views.AdminLogin.as_view()),
     path('GetStudentList/', views.GetStudentList.as_view()),
     path('GetTeacherList/', views.GetTeacherList.as_view()),
-    path('AdminChange/', views.AdminChange.as_view())
+    path('AdminChange/', views.AdminChange.as_view()),
+    path('GetStudentCourseNum/', views.GetStudentCourseNum.as_view()),
+    path('GetStudentCommentNum/', views.GetStudentCommentNum.as_view()),
+    path('GetStudentDisCussNum/', views.GetStudentDiscussNum.as_view()),
+    path('GetTeacherCourseNum/', views.GetTeacherCourseNum.as_view()),
+    path('GetTeacherDiscussNum/', views.GetTeacherDisCussNum.as_view()),
+    path('PushDegree/', views.PushDegree.as_view()),
+    path('GetDegree/', views.GetDegree.as_view())
 ]
