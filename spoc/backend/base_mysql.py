@@ -1,32 +1,56 @@
 import pymysql
 
-""" 索引index
-1. 
-CREATE UNIQUE INDEX index01 
-ON TABLE column;
-2. 
+""" 
+# 索引index
+# 1. 
+# CREATE UNIQUE INDEX index01 
+# ON TABLE column;
+# 2. 
 """
 
-"""触发器trigger
+"""
+# 触发器trigger
 
 """
+
+"""
+# 存储过程
+
+"""
+
 
 class MySQL:
 
+    def procedure01(self):
+        connection, cursor = self.connectDatabase()
+
+        cursor.callproc()
+        self.closeDatabase(connection, cursor)
+        return
+
     def adminChange(self, username, password):
         connection, cursor = self.connectDatabase()
+
         instruction = "UPDATE `admin` " \
                       "SET password=%s " \
                       "WHERE id=%s"
-        cursor.execute(instruction, [password, username])
-        connection.commit()
+        try:
+            cursor.execute(instruction, [password, username])
+            connection.commit()
+        except Exception as e:
+            connection.rollback()
+            print("执行MySQL错误")
         self.closeDatabase(connection, cursor)
         return
 
     def getTeacherList(self):
         connection, cursor = self.connectDatabase()
         instruction = "SELECT id, name from teacher"
-        cursor.execute(instruction)
+        try:
+            cursor.execute(instruction)
+        except Exception as e:
+            connection.rollback()
+            print("执行MySQL错误")
         result = cursor.fetchall()
         self.closeDatabase(connection, cursor)
         return result
@@ -35,7 +59,11 @@ class MySQL:
         connection, cursor = self.connectDatabase()
 
         instruction = "SELECT id,name FROM student"
-        cursor.execute(instruction)
+        try:
+            cursor.execute(instruction)
+        except Exception as e:
+            connection.rollback()
+            print("执行MySQL错误")
         result = cursor.fetchall()
         self.closeDatabase(connection, cursor)
         return result
@@ -46,215 +74,242 @@ class MySQL:
         instruction = "SELECT *\
                 FROM admin\
                 Where id=%s"
-        cursor.execute(instruction, [admin_id])
+        try:
+            cursor.execute(instruction, [admin_id])
+        except Exception as e:
+            connection.rollback()
+            print("执行MySQL错误")
         result = cursor.fetchall()
         self.closeDatabase(connection, cursor)
         return result
 
     def deletePostTheme(self, postThemeId):
         connection, cursor = self.connectDatabase()
-
-        instruction = "DELETE FROM post " \
-                      "WHERE id in (" \
-                      "SELECT post_id from post_posttheme where posttheme_id=%s" \
-                      ")"
-        cursor.execute(instruction, [postThemeId])
-        connection.commit()
-        instruction = "DELETE FROM posttheme " \
-                      "WHERE id=%s"
-        cursor.execute(instruction, [postThemeId])
-        connection.commit()
+        try:
+            instruction = "DELETE FROM post " \
+                          "WHERE id in (" \
+                          "SELECT post_id from post_posttheme where posttheme_id=%s" \
+                          ")"
+            cursor.execute(instruction, [postThemeId])
+            connection.commit()
+            instruction = "DELETE FROM posttheme " \
+                          "WHERE id=%s"
+            cursor.execute(instruction, [postThemeId])
+            connection.commit()
+        except Exception as e:
+            connection.rollback()
+            print("执行MySQL错误")
         self.closeDatabase(connection, cursor)
         return
 
     def deleteComment(self, commentId):
         connection, cursor = self.connectDatabase()
-
-        instruction = "DELETE FROM comment " \
-                      "where id=%s"
-        cursor.execute(instruction, [commentId])
-        connection.commit()
+        try:
+            instruction = "DELETE FROM comment " \
+                          "where id=%s"
+            cursor.execute(instruction, [commentId])
+            connection.commit()
+        except Exception as e:
+            connection.rollback()
+            print("执行MySQL错误")
         self.closeDatabase(connection, cursor)
         return
 
     def deletePost(self, postId):
         connection, cursor = self.connectDatabase()
-
-        # 这里只需要删除post，关系设置了外键，自动删除消失的post的关系
-        instruction = "DELETE FROM post " \
-                      "WHERE id=%s"
-        cursor.execute(instruction, [postId])
-        connection.commit()
-
+        try:
+            # 这里只需要删除post，关系设置了外键，自动删除消失的post的关系
+            instruction = "DELETE FROM post " \
+                          "WHERE id=%s"
+            cursor.execute(instruction, [postId])
+            connection.commit()
+        except Exception as e:
+            connection.rollback()
+            print("执行MySQL错误")
         self.closeDatabase(connection, cursor)
         return
 
     def getPostList(self, postThemeId):
         connection, cursor = self.connectDatabase()
+        result = ""
+        try:
+            instruction = "SELECT p.id, s.id, s.name, p.content, p.time, p.isTeacher FROM " \
+                          "post as p, student_post as sp, student as s, post_posttheme as pp " \
+                          "WHERE pp.posttheme_id=%s and pp.post_id=p.id and p.id=sp.post_id and sp.student_id=s.id "
+            # "ORDER by p.time desc"
+            cursor.execute(instruction, [postThemeId])
+            result = cursor.fetchall()
 
-        instruction = "SELECT p.id, s.id, s.name, p.content, p.time, p.isTeacher FROM " \
-                      "post as p, student_post as sp, student as s, post_posttheme as pp " \
-                      "WHERE pp.posttheme_id=%s and pp.post_id=p.id and p.id=sp.post_id and sp.student_id=s.id "
-                      # "ORDER by p.time desc"
-        cursor.execute(instruction, [postThemeId])
-        result = cursor.fetchall()
+            instruction = "SELECT p.id, t.id, t.name, p.content, p.time, p.isTeacher FROM " \
+                          "post as p, teacher_post as tp, teacher as t, post_posttheme as pp " \
+                          "WHERE pp.posttheme_id=%s and pp.post_id=p.id and p.id=tp.post_id and tp.teacher_id=t.id "
+            # "ORDER by p.time desc"
+            cursor.execute(instruction, [postThemeId])
+            result += cursor.fetchall()
 
-        instruction = "SELECT p.id, t.id, t.name, p.content, p.time, p.isTeacher FROM " \
-                      "post as p, teacher_post as tp, teacher as t, post_posttheme as pp " \
-                      "WHERE pp.posttheme_id=%s and pp.post_id=p.id and p.id=tp.post_id and tp.teacher_id=t.id "
-                      # "ORDER by p.time desc"
-        cursor.execute(instruction, [postThemeId])
-        result += cursor.fetchall()
-
-        instruction = "SELECT p.id, t.id, t.name, p.content, p.time, p.isTeacher FROM " \
-                      "post as p, admin_post as tp, `admin` as t, post_posttheme as pp " \
-                      "WHERE pp.posttheme_id=%s and pp.post_id=p.id and p.id=tp.post_id and tp.admin_id=t.id "
-                      # "ORDER by p.time desc"
-        cursor.execute(instruction, [postThemeId])
-        result += cursor.fetchall()
-
+            instruction = "SELECT p.id, t.id, t.name, p.content, p.time, p.isTeacher FROM " \
+                          "post as p, admin_post as tp, `admin` as t, post_posttheme as pp " \
+                          "WHERE pp.posttheme_id=%s and pp.post_id=p.id and p.id=tp.post_id and tp.admin_id=t.id "
+            # "ORDER by p.time desc"
+            cursor.execute(instruction, [postThemeId])
+            result += cursor.fetchall()
+        except Exception as e:
+            connection.rollback()
+            print("执行MySQL错误")
         self.closeDatabase(connection, cursor)
         return result
 
     def buildPost(self, postThemeId, userName, content, ti, isTeacher):
         connection, cursor = self.connectDatabase()
-        instruction = "INSERT INTO post( content, time, isTeacher) " \
-                      "values(%s, %s, %s)"
-        cursor.execute(instruction, [content, ti, isTeacher])
-        connection.commit()
+        try:
+            instruction = "INSERT INTO post( content, time, isTeacher) " \
+                          "values(%s, %s, %s)"
+            cursor.execute(instruction, [content, ti, isTeacher])
+            connection.commit()
 
-        instruction = "SELECT MAX(id) FROM post"
+            instruction = "SELECT MAX(id) FROM post"
 
-        cursor.execute(instruction)
-        result = cursor.fetchall();
-        result = result[0][0]
+            cursor.execute(instruction)
+            result = cursor.fetchall();
+            result = result[0][0]
 
-        if isTeacher == 0 or isTeacher == "0":
-            instruction = "INSERT INTO student_post(student_id, post_id) " \
+            if isTeacher == 0 or isTeacher == "0":
+                instruction = "INSERT INTO student_post(student_id, post_id) " \
+                              "VALUES (%s, %s)"
+            elif isTeacher == 2 or isTeacher == "2":
+                instruction = "INSERT INTO admin_post(admin_id, post_id) " \
+                              "VALUES (%s, %s)"
+            else:
+                instruction = "INSERT INTO teacher_post(teacher_id, post_id) " \
+                              "VALUES (%s, %s)"
+            cursor.execute(instruction, [userName, result])
+
+            connection.commit()
+
+            instruction = "INSERT INTO post_posttheme(posttheme_id, post_id) " \
                           "VALUES (%s, %s)"
-        elif isTeacher == 2 or isTeacher == "2":
-            instruction = "INSERT INTO admin_post(admin_id, post_id) " \
-                          "VALUES (%s, %s)"
-        else:
-            instruction = "INSERT INTO teacher_post(teacher_id, post_id) " \
-                          "VALUES (%s, %s)"
-        cursor.execute(instruction, [userName, result])
+            cursor.execute(instruction, [postThemeId, result])
 
-        connection.commit()
-
-        instruction = "INSERT INTO post_posttheme(posttheme_id, post_id) " \
-                      "VALUES (%s, %s)"
-        cursor.execute(instruction, [postThemeId, result])
-
-        connection.commit()
-
+            connection.commit()
+        except Exception as e:
+            connection.rollback()
+            print("执行MySQL错误")
         self.closeDatabase(connection, cursor)
-
         return
 
     def getPostThemeList(self):
         connection, cursor = self.connectDatabase()
+        result = ""
+        try:
+            instruction = "SELECT s.id, s.name, pt.title, pt.content, pt.time, pt.id, pt.isTeacher FROM " \
+                          "posttheme as pt, student_posttheme as sp, student as s " \
+                          "WHERE pt.id=sp.posttheme_id AND sp.student_id=s.id "
+            # "ORDER BY pt.id"
+            cursor.execute(instruction)
+            result = cursor.fetchall()
 
-        instruction = "SELECT s.id, s.name, pt.title, pt.content, pt.time, pt.id, pt.isTeacher FROM " \
-                      "posttheme as pt, student_posttheme as sp, student as s " \
-                      "WHERE pt.id=sp.posttheme_id AND sp.student_id=s.id "
-                      # "ORDER BY pt.id"
-        cursor.execute(instruction)
-        result = cursor.fetchall()
+            instruction = "SELECT t.id, t.name, pt.title, pt.content, pt.time, pt.id, pt.isTeacher FROM " \
+                          "posttheme as pt, teacher_posttheme as tp, teacher as t " \
+                          "WHERE pt.id=tp.posttheme_id AND tp.teacher_id=t.id "
+            # "ORDER BY pt.id"
+            cursor.execute(instruction)
+            result += cursor.fetchall()
 
-        instruction = "SELECT t.id, t.name, pt.title, pt.content, pt.time, pt.id, pt.isTeacher FROM " \
-                      "posttheme as pt, teacher_posttheme as tp, teacher as t " \
-                      "WHERE pt.id=tp.posttheme_id AND tp.teacher_id=t.id "
-                      # "ORDER BY pt.id"
-        cursor.execute(instruction)
-        result += cursor.fetchall()
-
-        instruction = "SELECT t.id, t.name, pt.title, pt.content, pt.time, pt.id, pt.isTeacher FROM " \
-                      "posttheme as pt, admin_posttheme as tp, `admin` as t " \
-                      "WHERE pt.id=tp.posttheme_id AND tp.admin_id=t.id "
-                      # "ORDER BY pt.id"
-        cursor.execute(instruction)
-        result += cursor.fetchall()
-
+            instruction = "SELECT t.id, t.name, pt.title, pt.content, pt.time, pt.id, pt.isTeacher FROM " \
+                          "posttheme as pt, admin_posttheme as tp, `admin` as t " \
+                          "WHERE pt.id=tp.posttheme_id AND tp.admin_id=t.id "
+            # "ORDER BY pt.id"
+            cursor.execute(instruction)
+            result += cursor.fetchall()
+        except Exception as e:
+            connection.rollback()
+            print("执行MySQL错误")
         self.closeDatabase(connection, cursor)
         return result
 
     def buildPostTheme(self, userName, title, content, ti, isTeacher):
         connection, cursor = self.connectDatabase()
-
-        instruction = "INSERT INTO posttheme(title, content, time, isTeacher) " \
-                      "values(%s, %s, %s, %s)"
-        cursor.execute(instruction, [title, content, ti, isTeacher])
-        connection.commit()
-
-        instruction = "SELECT MAX(id) FROM posttheme"
-
-        cursor.execute(instruction)
-        result = cursor.fetchall();
-        result = result[0][0]
-
-        if isTeacher == 0 or isTeacher == "0":
-            instruction = "INSERT INTO student_posttheme(student_id, posttheme_id) " \
-                          "VALUES (%s, %s)"
-        elif isTeacher == 2 or isTeacher == "2":
-            instruction = "INSERT INTO admin_posttheme(admin_id, posttheme_id) " \
-                          "VALUES (%s, %s)"
-        else:
-            instruction = "INSERT INTO teacher_posttheme(teacher_id, posttheme_id) " \
-                          "VALUES (%s, %s)"
-        cursor.execute(instruction, [userName, result])
-
-        connection.commit()
-
+        try:
+            cursor.callproc('BUILDPT', args=(userName, title, content, ti, isTeacher))
+            # instruction = "INSERT INTO posttheme(title, content, time, isTeacher) " \
+            #               "values(%s, %s, %s, %s)"
+            # cursor.execute(instruction, [title, content, ti, isTeacher])
+            # connection.commit()
+            #
+            # instruction = "SELECT MAX(id) FROM posttheme"
+            #
+            # cursor.execute(instruction)
+            # result = cursor.fetchall();
+            # result = result[0][0]
+            #
+            # if isTeacher == 0 or isTeacher == "0":
+            #     instruction = "INSERT INTO student_posttheme(student_id, posttheme_id) " \
+            #                   "VALUES (%s, %s)"
+            # elif isTeacher == 2 or isTeacher == "2":
+            #     instruction = "INSERT INTO admin_posttheme(admin_id, posttheme_id) " \
+            #                   "VALUES (%s, %s)"
+            # else:
+            #     instruction = "INSERT INTO teacher_posttheme(teacher_id, posttheme_id) " \
+            #                   "VALUES (%s, %s)"
+            # cursor.execute(instruction, [userName, result])
+            #
+            # connection.commit()
+        except Exception as e:
+            connection.rollback()
+            print("执行MySQL错误")
         self.closeDatabase(connection, cursor)
         return
 
     def getCommentList(self, courseId):
         connection, cursor = self.connectDatabase()
+        try:
+            instruction = "SELECT s.id, s.name, cc.c, cc.time, cc.id FROM " \
+                          "(SELECT `time`, content, id FROM comment, course_comment as cc " \
+                          "WHERE cc.course_id=%s and cc.comment_id=comment.id) AS cc(time,c,id), " \
+                          "student_comment as sc, student AS s " \
+                          "WHERE cc.id=sc.comment_id AND sc.student_id=s.id "
+            # "ORDER BY cc.time desc"
 
-        instruction = "SELECT s.id, s.name, cc.c, cc.time, cc.id FROM " \
-                      "(SELECT `time`, content, id FROM comment, course_comment as cc " \
-                      "WHERE cc.course_id=%s and cc.comment_id=comment.id) AS cc(time,c,id), " \
-                      "student_comment as sc, student AS s " \
-                      "WHERE cc.id=sc.comment_id AND sc.student_id=s.id "
-                      # "ORDER BY cc.time desc"
-
-        cursor.execute(instruction, [courseId])
+            cursor.execute(instruction, [courseId])
+        except Exception as e:
+            connection.rollback()
+            print("执行MySQL错误")
         result = cursor.fetchall()
-
         self.closeDatabase(connection, cursor)
         return result
 
     def commentCourse(self, courseId, userName, content, ti):
         connection, cursor = self.connectDatabase()
+        try:
+            instruction = "INSERT INTO comment(content, time) " \
+                          "values(%s, %s)"
 
-        instruction = "INSERT INTO comment(content, time) " \
-                      "values(%s, %s)"
+            cursor.execute(instruction, [content, ti])
 
-        cursor.execute(instruction, [content, ti])
+            connection.commit()
 
-        connection.commit()
+            instruction = "SELECT MAX(id) FROM comment"
 
-        instruction = "SELECT MAX(id) FROM comment"
+            cursor.execute(instruction)
+            result = cursor.fetchall();
+            result = result[0][0]
 
-        cursor.execute(instruction)
-        result = cursor.fetchall();
-        result = result[0][0]
+            instruction = "INSERT INTO student_comment(student_id, comment_id) " \
+                          "VALUES (%s, %s)"
 
-        instruction = "INSERT INTO student_comment(student_id, comment_id) " \
-                      "VALUES (%s, %s)"
+            cursor.execute(instruction, [userName, result])
 
-        cursor.execute(instruction, [userName, result])
+            connection.commit()
 
-        connection.commit()
+            instruction = "INSERT INTO course_comment(course_id, comment_id) " \
+                          "VALUES (%s, %s)"
 
-        instruction = "INSERT INTO course_comment(course_id, comment_id) " \
-                      "VALUES (%s, %s)"
+            cursor.execute(instruction, [courseId, result])
 
-        cursor.execute(instruction, [courseId, result])
-
-        connection.commit()
-
+            connection.commit()
+        except Exception as e:
+            connection.rollback()
+            print("执行MySQL错误")
         self.closeDatabase(connection, cursor)
         return
 
@@ -273,14 +328,15 @@ class MySQL:
 
     def deleteMaterial(self, teached_id, material_id):
         connection, cursor = self.connectDatabase()
+        try:
+            instruction = "DELETE FROM material " \
+                          "WHERE id=%s"
 
-        instruction = "DELETE FROM material " \
-                      "WHERE id=%s"
-
-        cursor.execute(instruction, [material_id])
-
-        connection.commit()
-
+            cursor.execute(instruction, [material_id])
+            connection.commit()
+        except Exception as e:
+            connection.rollback()
+            print("执行MySQL错误")
         self.closeDatabase(connection, cursor)
         return
 
@@ -311,27 +367,29 @@ class MySQL:
 
     def buildMaterial(self, teacher_id, materialName):
         connection, cursor = self.connectDatabase()
+        try:
+            instruction = "INSERT INTO material(name) " \
+                          "VALUES(%s) "
 
-        instruction = "INSERT INTO material(name) " \
-                      "VALUES(%s) "
+            cursor.execute(instruction, [materialName])
+            connection.commit()
 
-        cursor.execute(instruction, [materialName])
-        connection.commit()
+            instruction = "SELECT id " \
+                          "FROM material " \
+                          "WHERE name=%s"
 
-        instruction = "SELECT id " \
-                      "FROM material " \
-                      "WHERE name=%s"
+            cursor.execute(instruction, [materialName])
+            result = cursor.fetchall()
 
-        cursor.execute(instruction, [materialName])
-        result = cursor.fetchall()
+            material_id = result[len(result) - 1][0]
 
-        material_id = result[len(result) - 1][0]
-
-        instruction = "INSERT INTO teacher_material(teacher_id, material_id) " \
-                      "VALUES(%s, %s)"
-        cursor.execute(instruction, [teacher_id, material_id])
-        connection.commit()
-
+            instruction = "INSERT INTO teacher_material(teacher_id, material_id) " \
+                          "VALUES(%s, %s)"
+            cursor.execute(instruction, [teacher_id, material_id])
+            connection.commit()
+        except Exception as e:
+            connection.rollback()
+            print("执行MySQL错误")
         self.closeDatabase(connection, cursor)
         return
 
@@ -350,35 +408,34 @@ class MySQL:
         instruction = "SELECT *\
                     FROM student_course\
                     Where student_id=%s AND course_id=%s"
-
         cursor.execute(instruction, [student_id, course_id])
-
         result = cursor.fetchall()
-
         self.closeDatabase(connection, cursor)
         return result
 
     def selectCourse(self, student_id, course_id):
         connection, cursor = self.connectDatabase()
-
-        instruction = "INSERT INTO student_course(student_id, course_id) " \
-                      "values(%s, %s)"
-
-        cursor.execute(instruction, [student_id, course_id])
-        connection.commit()
-
+        try:
+            instruction = "INSERT INTO student_course(student_id, course_id) " \
+                          "values(%s, %s)"
+            cursor.execute(instruction, [student_id, course_id])
+            connection.commit()
+        except Exception as e:
+            connection.rollback()
+            print("执行MySQL错误")
         self.closeDatabase(connection, cursor)
-
         return
 
     def dropStudentCourse(self, student_id, course_id):
         connection, cursor = self.connectDatabase()
-
-        instruction = "DELETE FROM student_course " \
-                      "WHERE student_id=%s AND course_id=%s "
-        cursor.execute(instruction, [student_id, course_id])
-        connection.commit()
-
+        try:
+            instruction = "DELETE FROM student_course " \
+                          "WHERE student_id=%s AND course_id=%s "
+            cursor.execute(instruction, [student_id, course_id])
+            connection.commit()
+        except Exception as e:
+            connection.rollback()
+            print("执行MySQL错误")
         self.closeDatabase(connection, cursor)
         return
 
@@ -391,7 +448,7 @@ class MySQL:
                       "FROM course as c LEFT OUTER JOIN (select * from material, course_material where course_material.material_id=material.id) AS cm " \
                       "ON (c.id=cm.course_id) ) AS ans(id, i, n,mid, mn), teacher_course AS tc, teacher " \
                       "WHERE tc.course_id=ans.id AND tc.teacher_id=teacher.id AND teacher.id=%s "
-                      # "ORDER BY ans.id"
+        # "ORDER BY ans.id"
 
         cursor.execute(instruction, [teacher_id])
         return cursor.fetchall()
@@ -409,7 +466,7 @@ class MySQL:
                       "FROM course as c LEFT OUTER JOIN (select * from material, course_material where course_material.material_id=material.id) AS cm " \
                       "ON (c.id=cm.course_id) ) AS ans(id, i, n,mid, mn), teacher_course AS tc, teacher, student_course as sc " \
                       "WHERE tc.course_id=ans.id AND tc.teacher_id=teacher.id AND ans.id=sc.course_id AND sc.student_id=%s "
-                      # "ORDER BY ans.id"
+        # "ORDER BY ans.id"
 
         cursor.execute(instruction, [student_id])
 
@@ -426,7 +483,7 @@ class MySQL:
                       "FROM course as c LEFT OUTER JOIN (select * from material, course_material where course_material.material_id=material.id) AS cm " \
                       "ON (c.id=cm.course_id) ) AS ans(id, i, n,mid, mn), teacher_course AS tc, teacher " \
                       "WHERE tc.course_id=ans.id AND tc.teacher_id=teacher.id "
-                      # "ORDER BY ans.id"
+        # "ORDER BY ans.id"
 
         cursor.execute(instruction)
         result = cursor.fetchall()
@@ -435,44 +492,50 @@ class MySQL:
 
     def buildCourseMaterial(self, course_id, material_id):
         connection, cursor = self.connectDatabase()
-        instruction = "INSERT INTO course_material(material_id, course_id) " \
-                      "VALUES(%s, %s)"
-        cursor.execute(instruction, [material_id, course_id])
-        connection.commit()
+        try:
+            instruction = "INSERT INTO course_material(material_id, course_id) " \
+                          "VALUES(%s, %s)"
+            cursor.execute(instruction, [material_id, course_id])
+            connection.commit()
+        except Exception as e:
+            connection.rollback()
+            print("执行MySQL错误")
         self.closeDatabase(connection, cursor)
         return
 
     def buildCourse(self, teacher_id, course_name, materialIdList, introduction):
         connection, cursor = self.connectDatabase()
+        try:
+            instruction = "INSERT INTO course(name, introduction) " \
+                          "VALUES(%s, %s)"
+            cursor.execute(instruction, [course_name, introduction])
+            connection.commit()
 
-        instruction = "INSERT INTO course(name, introduction) " \
-                      "VALUES(%s, %s)"
-        cursor.execute(instruction, [course_name, introduction])
-        connection.commit()
+            instruction = "SELECT max(id) " \
+                          "FROM course "
+            cursor.execute(instruction)
+            result = cursor.fetchall()
 
-        instruction = "SELECT max(id) " \
-                      "FROM course "
-        cursor.execute(instruction)
-        result = cursor.fetchall()
+            course_id = result[0][0]
 
-        course_id = result[0][0]
+            instruction = "INSERT INTO teacher_course(teacher_id, course_id) " \
+                          "VALUES(%s, %s)"
 
-        instruction = "INSERT INTO teacher_course(teacher_id, course_id) " \
-                      "VALUES(%s, %s)"
+            cursor.execute(instruction, [teacher_id, course_id])
+            connection.commit()
 
-        cursor.execute(instruction, [teacher_id, course_id])
-        connection.commit()
+            if (materialIdList[0] != ''):
 
-        if (materialIdList[0] != ''):
+                for material_id in materialIdList:
+                    if material_id == "":
+                        continue
 
-            for material_id in materialIdList:
-                if material_id == "":
-                    continue
+                    self.buildCourseMaterial(course_id, material_id)
 
-                self.buildCourseMaterial(course_id, material_id)
-
-        self.closeDatabase(connection, cursor)
-
+            self.closeDatabase(connection, cursor)
+        except Exception as e:
+            connection.rollback()
+            print("执行MySQL错误")
         return
 
     def closeDatabase(self, connection, cursor):
@@ -481,25 +544,29 @@ class MySQL:
 
     def registerStudent(self, student_id, password, student_name):
         connection, cursor = self.connectDatabase()
+        try:
+            instruction = "INSERT INTO student " \
+                          "values(%s, %s, %s)"
 
-        instruction = "INSERT INTO student " \
-                      "values(%s, %s, %s)"
-
-        cursor.execute(instruction, [student_id, password, student_name])
-        connection.commit()
-
+            cursor.execute(instruction, [student_id, password, student_name])
+            connection.commit()
+        except Exception as e:
+            connection.rollback()
+            print("执行MySQL错误")
         self.closeDatabase(connection, cursor)
         return
 
     def registerTeacher(self, teacher_id, password, teacher_name):
         connection, cursor = self.connectDatabase()
+        try:
+            instruction = "INSERT INTO teacher " \
+                          "values(%s, %s, %s)"
 
-        instruction = "INSERT INTO teacher " \
-                      "values(%s, %s, %s)"
-
-        cursor.execute(instruction, [teacher_id, password, teacher_name])
-        connection.commit()
-
+            cursor.execute(instruction, [teacher_id, password, teacher_name])
+            connection.commit()
+        except Exception as e:
+            connection.rollback()
+            print("执行MySQL错误")
         self.closeDatabase(connection, cursor)
         return
 
@@ -535,50 +602,57 @@ class MySQL:
 
     def studentPasswordChange(self, student_id, password):
         connection, cursor = self.connectDatabase()
+        try:
+            instruction = "UPDATE student " \
+                          "SET password=%s " \
+                          "WHERE id=%s"
+            cursor.execute(instruction, [password, student_id])
 
-        instruction = "UPDATE student " \
-                      "SET password=%s " \
-                      "WHERE id=%s"
-        cursor.execute(instruction, [password, student_id])
-
-        connection.commit()
-        self.closeDatabase(connection, cursor)
+            connection.commit()
+            self.closeDatabase(connection, cursor)
+        except Exception as e:
+            connection.rollback()
+            print("执行MySQL错误")
         return
 
     def changeCourse(self, teacher_id, course_id, course_name, materialIdList, introduction):
         connection, cursor = self.connectDatabase()
-        instruction = "UPDATE course " \
-                      "SET name=%s, introduction=%s " \
-                      "WHERE id=%s"
-        cursor.execute(instruction, [course_name, introduction, course_id])
-        connection.commit()
+        try:
+            instruction = "UPDATE course " \
+                          "SET name=%s, introduction=%s " \
+                          "WHERE id=%s"
+            cursor.execute(instruction, [course_name, introduction, course_id])
+            connection.commit()
 
-        # 找旧的课程资料id：
-        instruction = "SELECT m.id " \
-                      "FROM material AS m, course_material AS cm " \
-                      "WHERE cm.material_id=m.id AND cm.course_id=%s"
-        cursor.execute(instruction, [course_id])
-        result = cursor.fetchall()
+            # 找旧的课程资料id：
+            instruction = "SELECT m.id " \
+                          "FROM material AS m, course_material AS cm " \
+                          "WHERE cm.material_id=m.id AND cm.course_id=%s"
+            cursor.execute(instruction, [course_id])
+            result = cursor.fetchall()
 
-        print(result)
-        print(materialIdList)
+            print(result)
+            print(materialIdList)
 
-        for item in result:
-            material_id = str(item[0])
-            if materialIdList.count(material_id):
-                materialIdList.remove(material_id)
-            else:
-                instruction = "DELETE FROM course_material " \
-                              "WHERE course_id=%s AND material_id=%s"
-                cursor.execute(instruction, [course_id, material_id])
-                connection.commit()
+            for item in result:
+                material_id = str(item[0])
+                if materialIdList.count(material_id):
+                    materialIdList.remove(material_id)
+                else:
+                    instruction = "DELETE FROM course_material " \
+                                  "WHERE course_id=%s AND material_id=%s"
+                    cursor.execute(instruction, [course_id, material_id])
+                    connection.commit()
 
-        for material_id in materialIdList:
-            if material_id == "":
-                continue
-            self.buildCourseMaterial(course_id, material_id)
+            for material_id in materialIdList:
+                if material_id == "":
+                    continue
+                self.buildCourseMaterial(course_id, material_id)
 
-        self.closeDatabase(connection, cursor)
+            self.closeDatabase(connection, cursor)
+        except Exception as e:
+            connection.rollback()
+            print("执行MySQL错误")
         return
 
     def cancelCourse(self, teacher_id, course_id):
@@ -594,32 +668,39 @@ class MySQL:
         #               ")"
         # cursor.execute(instruction, [course_id])
         # connection.commit()
-        instruction = "DELETE FROM comment " \
-                      "WHERE id in (" \
-                      "SELECT comment_id from course_comment WHERE course_id=%s" \
-                      ")"
-        cursor.execute(instruction, [course_id])
-        connection.commit()
+        try:
+            instruction = "DELETE FROM comment " \
+                          "WHERE id in (" \
+                          "SELECT comment_id from course_comment WHERE course_id=%s" \
+                          ")"
+            cursor.execute(instruction, [course_id])
+            connection.commit()
 
-        instruction = "DELETE FROM course " \
-                      "WHERE id=%s"
+            instruction = "DELETE FROM course " \
+                          "WHERE id=%s"
 
-        cursor.execute(instruction, [course_id])
-        connection.commit()
+            cursor.execute(instruction, [course_id])
+            connection.commit()
 
-        self.closeDatabase(connection, cursor)
+            self.closeDatabase(connection, cursor)
+        except Exception as e:
+            connection.rollback()
+            print("执行MySQL错误")
         return
 
     def teacherPasswordChange(self, teacher_id, password):
         connection, cursor = self.connectDatabase()
+        try:
+            instruction = "UPDATE teacher " \
+                          "SET password=%s " \
+                          "WHERE id=%s"
+            cursor.execute(instruction, [password, teacher_id])
 
-        instruction = "UPDATE teacher " \
-                      "SET password=%s " \
-                      "WHERE id=%s"
-        cursor.execute(instruction, [password, teacher_id])
-
-        connection.commit()
-        self.closeDatabase(connection, cursor)
+            connection.commit()
+            self.closeDatabase(connection, cursor)
+        except Exception as e:
+            connection.rollback()
+            print("执行MySQL错误")
         return
 
     def test(self):

@@ -131,8 +131,6 @@ class BuildPostTheme(APIView):
         time = str(request.GET.get("time", None))
         isTeacher = str(request.GET.get("isTeacher", None))
 
-        # isTeacher = 1 if isTeacher == "true" else 0
-
         sql = MySQL()
         sql.buildPostTheme(userName, title, content, time, isTeacher)
 
