@@ -8,37 +8,64 @@
         <el-header>
           <TeacherHeading></TeacherHeading>
         </el-header>
-        <el-main>
-          <el-table :data="myCourseList" v-loading="loading">
-            <el-table-column label="课程ID" prop="id"></el-table-column>
-            <el-table-column label="课程名称（可点击查看信息）">
-              <template slot-scope="scope">
-                <el-link type="primary" v-on:click="getCourseInfo(scope.$index)">
-                  {{ myCourseList[scope.$index].name }}
-                </el-link>
-              </template>
-            </el-table-column>
-            <el-table-column label="修改课程">
-              <template slot-scope="scope">
-                <el-button v-on:click="changeCourse(scope.$index)" type="warning" size="small">修改课程</el-button>
-              </template>
-            </el-table-column>
-            <el-table-column label="停课">
-              <template slot-scope="scope">
-                <el-button v-on:click="cancelCourse(scope.$index)" type="danger" size="small">停课</el-button>
-              </template>
-            </el-table-column>
-          </el-table>
+        <el-main style="padding-left: 10%; padding-right: 10%">
+          <el-row>
+            <el-col :span="23">
+              <el-input
+                placeholder="查找您的相关课程"
+                prefix-icon="el-icon-search" v-model="inputSearch"
+                style="margin-bottom: 5%"></el-input>
+            </el-col>
+            <el-col :span="1">
+              <el-button
+                type="primary"
+                icon="el-icon-search"
+                style="float: right"
+                @click="searchCourse(inputSearch)"
+                circle></el-button>
+            </el-col>
+          </el-row>
+          <el-card v-for="(course, index) in showMyCourseList" :key="index" shadow="hover" style="margin-bottom: 2%">
+            <el-row>
+              <el-col :offset="2" :span="2">
+                <el-empty :image-size="50" style="margin: 0 !important; padding: 0 !important;"></el-empty>
+              </el-col>
+              <el-col :offset="2" :span="16">
+                <el-row style="margin-bottom: 3%">
+                  <el-link type="primary" v-on:click="getCourseInfo(index)">
+                    <span style="font-size: 16px"><strong>{{ course.name }}</strong></span>
+                  </el-link>
+                </el-row>
+                <el-row>
+                  <el-tag type="info">课程编号</el-tag>&nbsp;&nbsp;<span style="color: gray">{{course.id}}</span>
+                </el-row>
+              </el-col>
+              <el-col :span="2">
+                <el-button-group style="margin-bottom: 1%">
+                  <el-button type="primary" icon="el-icon-edit" v-on:click="changeCourse(index)">编辑</el-button>
+                </el-button-group>
+                <el-button-group>
+                  <el-button type="primary" icon="el-icon-delete" v-on:click="cancelCourse(index)">停课</el-button>
+                </el-button-group>
+              </el-col>
+            </el-row>
+          </el-card>
+
           <el-dialog title="提示" :visible.sync="courseInfoVisible" width="40%">
-            <el-row class="info">
-              课程名称(id)：{{ courseInfo.name }}({{ courseInfo.id }})
-            </el-row>
-            <el-row class="info">
-              学习材料(id)：<a v-for="(m) in courseInfo.materialList" v-bind:key="m.id">{{ m.name }}({{ m.id }})，</a>
-            </el-row>
-            <el-row class="info">
-              课程介绍：{{ courseInfo.introduction }}
-            </el-row>
+            <el-descriptions class="info" direction="vertical">
+              <el-descriptions-item label="课程名称(ID)">
+                &nbsp;&nbsp;{{courseInfo.name}}({{courseInfo.id}})
+              </el-descriptions-item>
+              <el-descriptions-item label="学习材料ID">
+                &nbsp;&nbsp;
+                <a v-for="(m) in courseInfo.materialList" v-bind:key="m.id">{{ m.name }}({{ m.id }})，</a>
+              </el-descriptions-item>
+              <el-descriptions-item label="课程介绍">
+                &nbsp;&nbsp;
+                {{ courseInfo.introduction }}
+              </el-descriptions-item>
+            </el-descriptions>
+
             <div slot="footer" class="dialog-footer">
               <el-button type="primary" @click="courseInfoVisible = false">确 定</el-button>
             </div>
@@ -94,7 +121,9 @@ export default {
           name: '材料03'
         }],
         introduction: ''
-      }]
+      }],
+      showMyCourseList: this.myCourseList,
+      inputSearch: ''
     }
   },
   mounted: function () {
@@ -105,7 +134,7 @@ export default {
   methods: {
     getCourseInfo: function (index) {
       let that = this
-      that.courseInfo = that.myCourseList[index]
+      that.courseInfo = that.showMyCourseList[index]
       that.courseInfoVisible = true
     },
     getTeacherCourseList: function () {
@@ -121,6 +150,7 @@ export default {
         console.log(response.data)
         that.loading = false
         that.myCourseList = response.data
+        that.showMyCourseList = response.data
       }).catch(function (error) {
         console.log(error)
         that.loading = false
@@ -130,11 +160,11 @@ export default {
       console.log(index)
       let that = this
       let materialIdString = ''
-      for (var i = 0; i < that.myCourseList[index].materialList.length; i++) {
+      for (var i = 0; i < that.showMyCourseList[index].materialList.length; i++) {
         if (i === 0) {
-          materialIdString = (that.myCourseList[index].materialList[i].id)
+          materialIdString = (that.showMyCourseList[index].materialList[i].id)
         } else {
-          materialIdString = materialIdString + ',' + (that.myCourseList[index].materialList[i].id)
+          materialIdString = materialIdString + ',' + (that.showMyCourseList[index].materialList[i].id)
         }
       }
       this.$router.push({
@@ -142,10 +172,10 @@ export default {
         // 这里不能使用params传递参数，详见：
         // https://blog.csdn.net/qq_37548296/article/details/90446430
         query: {
-          id: that.myCourseList[index].id,
-          name: that.myCourseList[index].name,
+          id: that.showMyCourseList[index].id,
+          name: that.showMyCourseList[index].name,
           materialIdString: materialIdString,
-          introduction: that.myCourseList[index].introduction
+          introduction: that.showMyCourseList[index].introduction
         }
       })
     },
@@ -163,7 +193,7 @@ export default {
           method: 'get',
           params: {
             userName: that.userName,
-            id: that.myCourseList[index].id
+            id: that.showMyCourseList[index].id
           }
         }).then(function (response) {
           console.log(response.data)
@@ -184,6 +214,26 @@ export default {
       this.cookie.clearCookie('userName')
       this.cookie.clearCookie('userNickName')
       this.$router.replace('/')
+    },
+    searchCourse: function (inputSearch) {
+      let that = this
+      that.showMyCourseList = this.searchByIndexOf(inputSearch, that.myCourseList)
+    },
+    searchByIndexOf: function (keyWord, list) {
+      if (!(list instanceof Array)) {
+        return
+      } else if (keyWord === '') {
+        return list
+      }
+      const len = list.length
+      const arr = []
+      for (let i = 0; i < len; i++) {
+        // 如果字符串中不包含目标字符会返回-1
+        if (list[i].name.indexOf(keyWord) >= 0) {
+          arr.push(list[i])
+        }
+      }
+      return arr
     }
   }
 }

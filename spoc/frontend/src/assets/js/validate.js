@@ -1,4 +1,4 @@
-export function validatePassword(rule, value, callback) {
+export function validatePassword (rule, value, callback) {
   const passwordRegex = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/
   if (value === '' || value === undefined || value === null) {
     callback()
@@ -11,7 +11,7 @@ export function validatePassword(rule, value, callback) {
   }
 }
 
-export function validateStudentUserName(rule, value, callback) {
+export function validateStudentUserName (rule, value, callback) {
   const userName = /[0-9]{6}/
   if (value === '' || value === undefined || value === null) {
     callback()

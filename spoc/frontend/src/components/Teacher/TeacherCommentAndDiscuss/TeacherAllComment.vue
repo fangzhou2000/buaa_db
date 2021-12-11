@@ -9,15 +9,6 @@
           <TeacherHeading></TeacherHeading>
         </el-header>
         <el-main style="padding-right: 10%; padding-left: 10%">
-<!--          <el-table :data="courseList"  v-loading="loading">-->
-<!--            <el-table-column label="课程ID" prop="id"></el-table-column>-->
-<!--            <el-table-column label="课程名称" prop="name"></el-table-column>-->
-<!--            <el-table-column label="查看评价">-->
-<!--              <template slot-scope="scope">-->
-<!--                <el-button v-on:click="commentCourse(scope.$index)" type="primary" size="small">查看评价</el-button>-->
-<!--              </template>-->
-<!--            </el-table-column>-->
-<!--          </el-table>-->
           <el-row>
             <el-col :span="14" class="left-information" style="width: 50%">
               <el-row>
@@ -60,6 +51,16 @@
                       </div>
                     </el-row>
                   </el-col>
+<!--                  <el-col :offset="1" :span="3">-->
+<!--                    <div><strong>评分</strong></div>-->
+<!--                    <el-rate-->
+<!--                      v-model="course.assessment"-->
+<!--                      disabled-->
+<!--                      show-score-->
+<!--                      text-color="#ff9900"-->
+<!--                      score-template="{course.assessment}">-->
+<!--                    </el-rate>-->
+<!--                  </el-col>-->
                 </el-row>
               </el-card>
             </el-col>
@@ -119,12 +120,14 @@ export default {
         id: '1',
         name: '前端测试课程1',
         materialIdString: '1,2',
-        materialNameString: 'book1,book2'
+        materialNameString: 'book1,book2',
+        assessment: '5'
       }, {
         id: '2',
         name: '前端测试课程2',
         materialIdString: '1,2',
-        materialNameString: 'book1,book2'
+        materialNameString: 'book1,book2',
+        assessment: '5'
       }],
       showCourseList: this.courseList
     }
@@ -157,7 +160,10 @@ export default {
         path: '/TeacherCommentAndDiscuss/TeacherComment',
         query: {
           courseId: that.courseList[index].id,
-          courseName: that.courseList[index].name
+          courseName: that.courseList[index].name,
+          courseIntroduction: that.courseList[index].courseIntroduction,
+          // courseAssessment: that.courseList[index].courseAssessment,
+          courseMaterial: that.courseList[index].materialNameString
         }
       })
     },
