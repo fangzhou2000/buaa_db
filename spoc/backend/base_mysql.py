@@ -25,7 +25,7 @@ class MySQL:
         connection, cursor = self.connectDatabase()
         result = ""
         try:
-            cursor.callproc('COMMENT_DEGREE', args=(courseID, 0,0,0,0,0,0,0))
+            cursor.callproc('COMMENT_DEGREE', args=(courseID, 0, 0, 0, 0, 0, 0, 0))
             cursor.execute(query='select @_COMMENT_DEGREE_0, @_COMMENT_DEGREE_1,@_COMMENT_DEGREE_2,@_COMMENT_DEGREE_3,'
                                  '@_COMMENT_DEGREE_4,@_COMMENT_DEGREE_5,@_COMMENT_DEGREE_6, @_COMMENT_DEGREE_7;')
             result = cursor.fetchall()
@@ -360,17 +360,17 @@ class MySQL:
     def commentCourse(self, courseId, userName, content, ti, degree):
         connection, cursor = self.connectDatabase()
         try:
-            instruction = "INSERT INTO comment(content, time, degree) " \
-                          "values(%s, %s, %s)"
+            instruction = "INSERT INTO comment(content, time) " \
+                          "values(%s, %s)"
 
-            cursor.execute(instruction, [content, ti, degree])
+            cursor.execute(instruction, [content, ti])
 
             connection.commit()
 
             instruction = "SELECT MAX(id) FROM comment"
 
             cursor.execute(instruction)
-            result = cursor.fetchall();
+            result = cursor.fetchall()
             result = result[0][0]
 
             instruction = "INSERT INTO student_comment(student_id, comment_id) " \
@@ -380,10 +380,10 @@ class MySQL:
 
             connection.commit()
 
-            instruction = "INSERT INTO course_comment(course_id, comment_id) " \
-                          "VALUES (%s, %s)"
+            instruction = "INSERT INTO course_comment(course_id, comment_id, degree) " \
+                          "VALUES (%s, %s, %s)"
 
-            cursor.execute(instruction, [courseId, result])
+            cursor.execute(instruction, [courseId, result, degree])
 
             connection.commit()
         except Exception as e:
