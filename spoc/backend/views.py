@@ -131,8 +131,6 @@ class BuildPostTheme(APIView):
         time = str(request.GET.get("time", None))
         isTeacher = str(request.GET.get("isTeacher", None))
 
-        # isTeacher = 1 if isTeacher == "true" else 0
-
         sql = MySQL()
         sql.buildPostTheme(userName, title, content, time, isTeacher)
 
@@ -183,9 +181,10 @@ class CommentCourse(APIView):
         userNickName = str(request.GET.get("userNickName", None))
         content = str(request.GET.get("content", None))
         time = str(request.GET.get("time", None))
+        degree = str(request.GET.get('degree', None))
 
         sql = MySQL()
-        sql.commentCourse(courseId, userName, content, time)
+        sql.commentCourse(courseId, userName, content, time, degree)
 
         return Response(0)
 
@@ -460,7 +459,7 @@ class GetTeacherCourseList(APIView):
             item[5] is not None else '', 'materialList': [], 'm_id': item[3] if item[3] is not None else '',
                                       'm_name': item[4] if item[4] is not None else ''})
 
-        teacherCourseList.sort(key=lambda x:x['id'])
+        teacherCourseList.sort(key=lambda x: x['id'])
         i = 0
         while i < len(teacherCourseList):
             if teacherCourseList[i]['m_id'] != '' and len(teacherCourseList[i]['materialList']) == 0:
@@ -606,24 +605,37 @@ class GetStudentCourseNum(APIView):
     def get(self, request):
         userName = str(request.GET.get('userName', None))
         # 传入学生的学号
+        sql = MySQL()
+        result = sql.getStudentCourseNum(userName)
+        # ((0,),)
+        return Response(result[0][0])
         # 返回一个courseNum
 
 
 class GetStudentCommentNum(APIView):
     def get(self, request):
         userName = str(request.GET.get('userName', None))
-        #同上，返回commentNum
+        sql = MySQL()
+        result = sql.getStudentCommentNum(userName)
+        return Response(result[0][0])
+        # 同上，返回commentNum
 
 
 class GetStudentDiscussNum(APIView):
     def get(self, request):
         userName = str(request.GET.get('userName', None))
+        sql = MySQL()
+        result = sql.getStudentDiscussNum(userName)
+        return Response(result[0][0])
 
 
 class GetTeacherCourseNum(APIView):
     def get(self, request):
         userName = str(request.GET.get('userName', None))
         # 传入老师工号
+        sql = MySQL()
+        result = sql.getTeacherCourseNum(userName)
+        return Response(result[0][0])
         # 返回开设课程数
 
 
@@ -631,12 +643,15 @@ class GetTeacherDisCussNum(APIView):
     def get(self, request):
         userName = str(request.GET.get('userName', None))
         # 传入老师工号
+        sql = MySQL()
+        result = sql.getTeacherDisCussNum(userName)
+        return Response(result[0][0])
         # 返回评论数目
 
 
 class PushDegree(APIView):
     def get(self, request):
-        #课程id
+        # 课程id
         id = str(request.GET.get('id', None))
 
         # 传入的评价等级分为1,2,3,4,5五个
@@ -647,11 +662,18 @@ class PushDegree(APIView):
         # 将评价人的评价（1，2,3，4,5）存在对应的表中   (if)
         # 不用返回
 
+
 class GetDegree(APIView):
     def get(self, request):
         id = str(request.GET.get('id', None))
-
+        id = int(id)
+        sql = MySQL()
+        result = sql.getCourseDegree(id);
         # 返回课程对应的评价表，计算平均值交给前端
-        # 评价表为{1：number， 2：number， 3：number， 4：number， 5：number, totalNum(所有评价人数): number}
-
-
+        # 评价表为{1：float， 2：float， 3：float， 4：float， 5：float, totalNum: number, avgDegree(平均分): float}
+        # print(result)
+        dic = {"1": result[0][1], "2": result[0][2], "3": result[0][3],
+               "4": result[0][4], "5": result[0][5], "totalNum": result[0][6],
+               "avgDegree": result[0][7]}
+        print(dic)
+        return Response(dic)
