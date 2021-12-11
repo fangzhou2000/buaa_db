@@ -8,21 +8,60 @@
         <el-header>
           <TeacherHeading></TeacherHeading>
         </el-header>
-        <el-main>
-          <el-row class="buttons">评价 {{courseName}}</el-row>
-          <el-row class="buttons">
-            <el-button v-on:click="returnStudentAllComment" size="small">返回</el-button>
+        <el-main style="padding-left: 10%; padding-right: 10%">
+          <el-page-header @back="returnStudentAllComment" :content="courseName" style="margin-bottom: 2%">
+          </el-page-header>
+          <el-card shadow="hover" style="margin-bottom: 2%">
+            <el-row>
+              <el-col :offset="2" :span="2">
+                <el-empty :image-size="100" style="margin: 0 !important; padding: 0 !important;"></el-empty>
+              </el-col>
+              <el-col :offset="2" :span="18">
+                <el-row>
+                  <el-col :span="18">
+                    <strong>{{courseName}}</strong>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-divider>
+                  </el-divider>
+                </el-row>
+                <el-row>
+                  <div style="font-size: 12px">
+                    <h4>课程概述</h4>
+                    <p>这里是标题</p>
+                    <h4>课程资料</h4>
+                    <p>这里是所有的资料</p>
+                  </div>
+                </el-row>
+              </el-col>
+            </el-row>
+          </el-card>
+          <el-row>
+            <el-divider></el-divider>
           </el-row>
-          <el-divider></el-divider>
+
           <div v-for="(comment) in commentList" v-bind:key="comment">
             <el-row class="time">
-              {{comment.time}}
-            </el-row>
-            <el-row class="userName">
-              {{comment.userNickName}}({{comment.userName}}) :
-            </el-row>
-            <el-row class="content">
-              {{comment.content}}
+              <el-col :span="1">
+                <el-avatar></el-avatar>
+              </el-col>
+              <el-col :span="3">
+                <el-row class="userName">
+                  {{comment.userNickName}}({{comment.userName}}) :
+                </el-row>
+                <el-row>{{comment.time}}</el-row>
+              </el-col>
+              <el-col :span="20" class="content">
+                <el-row class="content-of-comment">
+                {{comment.content}}
+                </el-row>
+                <el-row class="delete">
+                  <div v-if="comment.userName === userName">
+                    <el-link type="danger" v-on:click="deleteComment(comment.id)">删除</el-link>
+                  </div>
+                </el-row>
+              </el-col>
             </el-row>
             <el-divider></el-divider>
           </div>

@@ -11,19 +11,8 @@
         <el-main style="padding-left: 10%; padding-right: 10%">
           <el-page-header @back="returnStudentAllDiscuss" :content="postTheme.title" style="margin-bottom: 2%">
           </el-page-header>
-<!--          <el-row class="buttons">-->
-<!--            {{postTheme.title}}-->
-<!--          </el-row>-->
           <el-row class="buttons">
-<!--            <el-button v-on:click="buildPost" type="primary" size="small" >跟贴</el-button>-->
-<!--            <el-button v-on:click="returnStudentAllDiscuss" size="small">返回</el-button>-->
           </el-row>
-<!--          <el-row class="buttons">-->
-<!--            <el-col :span="24">-->
-<!--              <el-input class="input" v-model="input.content" type="textarea" :rows="4" placeholder="与主题相关的讨论">-->
-<!--              </el-input>-->
-<!--            </el-col>-->
-<!--          </el-row>-->
           <el-divider>楼主</el-divider>
           <el-card shadow="hover" style="margin-bottom: 2%">
             <el-row>
@@ -57,12 +46,11 @@
               </el-col>
               <el-col :offset="1" :span="1">
                 <el-button v-on:click="dialogFormVisible = true" type="primary" size="small" >跟贴</el-button>
-<!--            <el-button v-on:click="returnStudentAllDiscuss" size="small">返回</el-button>-->
               </el-col>
             </el-row>
           </el-card>
 
-          <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
+          <el-dialog :visible.sync="dialogFormVisible">
             <el-input class="input" v-model="input.content" type="textarea" :rows="4" placeholder="与主题相关的讨论">
 
             </el-input>
@@ -71,28 +59,6 @@
               <el-button type="primary" @click="buildPost">确 定</el-button>
             </div>
           </el-dialog>
-<!--          <el-row class="time">-->
-<!--            {{postTheme.time}}-->
-<!--          </el-row>-->
-<!--          <el-row class="userName">-->
-<!--            <div v-if="postTheme.isTeacher === 1">-->
-<!--              {{postTheme.userNickName}}({{postTheme.userName}}) (教师) :-->
-<!--            </div>-->
-<!--            <div v-else-if="postTheme.isTeacher === 2">-->
-<!--              {{postTheme.userNickName}}({{postTheme.userName}}) (管理员) :-->
-<!--            </div>-->
-<!--            <div v-else>-->
-<!--              {{postTheme.userNickName}}({{postTheme.userName}}) :-->
-<!--            </div>-->
-<!--          </el-row>-->
-<!--          <el-row class="content">-->
-<!--            {{postTheme.content}}-->
-<!--          </el-row>-->
-<!--          <el-row class="delete">-->
-<!--            <div v-if="postTheme.userName === userName">-->
-<!--              <el-link type="danger" v-on:click="deletePostTheme">删除</el-link>-->
-<!--            </div>-->
-<!--          </el-row>-->
           <el-divider>跟贴</el-divider>
           <div v-for="(post, index) in postList" v-bind:key="index">
             <el-row>
@@ -124,14 +90,6 @@
                 </div>
               </el-col>
             </el-row>
-<!--            <el-col class="content">-->
-<!--              {{post.content}}-->
-<!--            </el-col>-->
-<!--            <el-row class="delete">-->
-<!--              <div v-if="post.userName === userName">-->
-<!--                <el-link type="danger" v-on:click="deletePost(post.id)">删除</el-link>-->
-<!--              </div>-->
-<!--            </el-row>-->
             <el-divider></el-divider>
           </div>
         </el-main>
