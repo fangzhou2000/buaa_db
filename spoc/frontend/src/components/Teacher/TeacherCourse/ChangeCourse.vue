@@ -8,27 +8,37 @@
         <el-header>
           <TeacherHeading></TeacherHeading>
         </el-header>
-        <el-main>
+        <el-main style="padding-left: 30%; padding-right: 10%">
+        <el-page-header @back="returnManageCourse" :content="name" style="margin-bottom: 2%">
+        </el-page-header>
         <el-form label-position="top" v-loading="loading">
           <el-form-item label="课程名称">
-            <el-col :span="6">
+            <el-col :span="12">
               <el-input v-model="name"></el-input>
             </el-col>
           </el-form-item>
-          <el-form-item label="学习材料 (如有多个请用','隔开)">
-            <el-col :span="6">
-              <el-input v-model="materialIdString"></el-input>
-            </el-col>
+          <el-form-item label="学习材料">
+<!--            <el-col :span="6" id="material_block">-->
+<!--              <el-input v-model="materialIdString"></el-input>-->
+<!--            </el-col>-->
+            <el-select v-model="materialIdString" multiple placeholder="请选择" style="width: 50%">
+              <el-option
+                v-for="(item, index) in materialList"
+                :key="index"
+                :label="item.name"
+                :value="item.id">
+              </el-option>
+            </el-select>
           </el-form-item>
           <el-form-item label="课程介绍">
             <el-col :span="12">
-              <el-input v-model="introduction" type="textarea" :rows="4"></el-input>
+              <quill-editor ref="text" v-model="introduction" style="height: 200px"></quill-editor>
             </el-col>
           </el-form-item>
-          <el-form-item>
+          <el-form-item style="margin-top: 10%">
             <el-col :span="6">
-              <el-button v-on:click="changeCourse" type="primary" >确认</el-button>
-              <el-button v-on:click="returnManageCourse">返回</el-button>
+              <el-button v-on:click="changeCourse" type="primary">确认</el-button>
+<!--              <el-button v-on:click="returnManageCourse">返回</el-button>-->
             </el-col>
           </el-form-item>
         </el-form>
@@ -41,10 +51,14 @@
 <script>
 import TeacherNav from '../TeacherNav'
 import TeacherHeading from '../TeacherHeading'
+import {quillEditor} from 'vue-quill-editor'
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
 export default {
   /* eslint-disable */
   name: 'ChangeCourse',
-  components: {TeacherNav, TeacherHeading},
+  components: {TeacherNav, TeacherHeading, quillEditor},
   data: function () {
     return {
       loading: false,
@@ -54,7 +68,8 @@ export default {
       name: '',
       materialIdString: '',
       materialIdList: [],
-      introduction: ''
+      introduction: '',
+      materialList: ''
     }
   },
   mounted () {
@@ -64,12 +79,28 @@ export default {
     this.name = this.$route.query.name
     this.materialIdString = this.$route.query.materialIdString
     this.introduction = this.$route.query.introduction
+    this.getMaterialList()
   },
   methods: {
     returnManageCourse: function () {
       let that = this
       that.$router.push({
         name: 'ManageCourse'
+      })
+    },
+    getMaterialList: function () {
+      let that = this
+      that.loading = true
+      this.$http.request({
+        url: that.$url + 'GetMaterialList/',
+        method: 'get'
+      }).then(function (response) {
+        console.log(response.data)
+        that.loading = false
+        that.materialList = response.data
+      }).catch(function (error) {
+        that.loading = false
+        console.log(error)
       })
     },
     changeCourse: function () {
@@ -85,7 +116,7 @@ export default {
           name: that.name,
           // materialIdList: that.materialIdList,
           // 这里传List接受不到数据，改为传string
-          materialIdString: that.materialIdString,
+          materialIdString: that.materialIdString.join(','),
           introduction: that.introduction,
           userName: that.userName
         }

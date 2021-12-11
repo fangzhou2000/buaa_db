@@ -8,24 +8,32 @@
         <el-header>
           <TeacherHeading></TeacherHeading>
         </el-header>
-        <el-main>
+        <el-main style="padding-left: 30%; padding-right: 10%">
         <el-form label-position="top" v-loading="loading" >
           <el-form-item label="课程名称">
-            <el-col :span="6">
+            <el-col :span="12">
               <el-input v-model="course.name"></el-input>
             </el-col>
           </el-form-item>
           <el-form-item label="学习材料ID (如有多个请用','隔开)">
-            <el-col :span="6">
-              <el-input v-model="materialIdString"></el-input>
-            </el-col>
+<!--            <el-col :span="6">-->
+<!--              <el-input v-model="materialIdString"></el-input>-->
+<!--            </el-col>-->
+            <el-select v-model="materialIdString" multiple placeholder="请选择" style="width: 50%">
+              <el-option
+                v-for="(item, index) in materialList"
+                :key="index"
+                :label="item.name"
+                :value="item.id">
+              </el-option>
+            </el-select>
           </el-form-item>
           <el-form-item label="课程介绍">
             <el-col :span="12">
-              <el-input v-model="course.introduction" type="textarea" :rows="4"></el-input>
+              <quill-editor ref="text" v-model="course.introduction" style="height: 200px"></quill-editor>
             </el-col>
           </el-form-item>
-          <el-form-item>
+          <el-form-item style="margin-top: 10%">
             <el-col :span="6">
               <el-button v-on:click="buildCourse" type="primary" >确认</el-button>
             </el-col>
@@ -40,15 +48,20 @@
 <script>
 import TeacherNav from '../TeacherNav'
 import TeacherHeading from '../TeacherHeading'
+import {quillEditor} from 'vue-quill-editor'
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
 export default {
   name: 'BuildCourse',
-  components: {TeacherNav, TeacherHeading},
+  components: {TeacherNav, TeacherHeading, quillEditor},
   data: function () {
     return {
       loading: false,
       userNickName: '',
       userName: '',
       materialIdString: '',
+      materialList: '',
       course: {
         name: '',
         materialIdList: [],
@@ -59,12 +72,29 @@ export default {
   mounted: function () {
     this.userNickName = this.cookie.getCookie('userNickName')
     this.userName = this.cookie.getCookie('userName')
+    this.getMaterialList()
   },
   methods: {
+    getMaterialList: function () {
+      let that = this
+      that.loading = true
+      this.$http.request({
+        url: that.$url + 'GetMaterialList/',
+        method: 'get'
+      }).then(function (response) {
+        console.log(response.data)
+        that.loading = false
+        that.materialList = response.data
+      }).catch(function (error) {
+        that.loading = false
+        console.log(error)
+      })
+    },
     buildCourse: function () {
       let that = this
       that.loading = true
-      that.course.materialIdList = that.materialIdString.split(',')
+      that.course.materialIdList = that.materialIdString
+        // .split(',')
       console.log(that.course.materialIdList)
       this.$http.request({
         url: that.$url + 'BuildCourse/',

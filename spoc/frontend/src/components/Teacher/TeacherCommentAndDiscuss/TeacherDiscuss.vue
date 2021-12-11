@@ -11,26 +11,10 @@
         <el-main style="padding-left: 10%; padding-right: 10%">
           <el-page-header @back="returnStudentAllDiscuss" :content="postTheme.title" style="margin-bottom: 2%">
           </el-page-header>
-<!--          <el-row class="buttons">-->
-<!--&lt;!&ndash;            {{postTheme.title}}&ndash;&gt;-->
-<!--          </el-row>-->
-<!--          <el-row class="buttons">-->
-<!--            <el-button v-on:click="buildPost" type="primary" size="small" >跟贴</el-button>-->
-<!--            <el-button v-on:click="returnStudentAllDiscuss" size="small">返回</el-button>-->
-<!--          </el-row>-->
-<!--          <el-row class="buttons">-->
-<!--            <el-col :span="20">-->
-<!--              <el-input class="input" v-model="input.content" type="textarea" :rows="2" placeholder="与主题相关的讨论">-->
-<!--              </el-input>-->
-<!--            </el-col>-->
-<!--          </el-row>-->
           <el-divider>楼主</el-divider>
           <el-card shadow="hover" style="margin-bottom: 2%">
             <el-row>
               <el-col :offset="2" :span="2">
-<!--                <el-row>-->
-<!--                  <el-empty :image-size="80" style="margin: 0 !important; padding: 0 !important;"></el-empty>-->
-<!--                </el-row>-->
                 <el-row class="time">
                   {{postTheme.time}}
                 </el-row>
@@ -60,7 +44,6 @@
               </el-col>
             </el-row>
           </el-card>
-
           <el-dialog :visible.sync="dialogFormVisible">
             <el-input class="input" v-model="input.content" type="textarea" :rows="4" placeholder="与主题相关的讨论">
 
@@ -93,7 +76,6 @@
                 </el-row>
               </el-col>
               <el-col class="content" :span="19" v-html="post.content">
-<!--                {{post.content}}-->
               </el-col>
               <el-col class="delete" :span="1" style="float: right">
                 <div v-if="post.userName === userName">
@@ -103,54 +85,6 @@
             </el-row>
             <el-divider></el-divider>
           </div>
-<!--            <el-row class="time">-->
-<!--              {{postTheme.time}}-->
-<!--            </el-row>-->
-<!--            <el-row class="userName">-->
-<!--              <div v-if="postTheme.isTeacher === 1">-->
-<!--                {{postTheme.userNickName}}({{postTheme.userName}}) (教师) :-->
-<!--              </div>-->
-<!--              <div v-else-if="postTheme.isTeacher === 2">-->
-<!--                {{postTheme.userNickName}}({{postTheme.userName}}) (管理员) :-->
-<!--              </div>-->
-<!--              <div v-else>-->
-<!--                {{postTheme.userNickName}}({{postTheme.userName}}) :-->
-<!--              </div>-->
-<!--            </el-row>-->
-<!--            <el-row class="content">-->
-<!--              {{postTheme.content}}-->
-<!--            </el-row>-->
-<!--            <el-row class="delete">-->
-<!--              <div v-if="postTheme.userName === userName">-->
-<!--                <el-link type="danger" v-on:click="deletePostTheme">删除</el-link>-->
-<!--              </div>-->
-<!--            </el-row>-->
-<!--          <el-divider>跟贴</el-divider>-->
-<!--          <div v-for="(post) in postList" v-bind:key="post.id">-->
-<!--            <el-row class="time">-->
-<!--              {{post.time}}-->
-<!--            </el-row>-->
-<!--            <el-row class="userName">-->
-<!--              <div v-if="post.isTeacher === 1">-->
-<!--                {{post.userNickName}}({{post.userName}}) (教师) :-->
-<!--              </div>-->
-<!--              <div v-else-if="post.isTeacher === 2">-->
-<!--                {{postTheme.userNickName}}({{postTheme.userName}}) (管理员) :-->
-<!--              </div>-->
-<!--              <div v-else>-->
-<!--                {{post.userNickName}}({{post.userName}}) :-->
-<!--              </div>-->
-<!--            </el-row>-->
-<!--            <el-row class="content">-->
-<!--              {{post.content}}-->
-<!--            </el-row>-->
-<!--            <el-row class="delete">-->
-<!--              <div v-if="post.userName === userName">-->
-<!--                <el-link type="danger" v-on:click="deletePost(post.id)">删除</el-link>-->
-<!--              </div>-->
-<!--            </el-row>-->
-<!--            <el-divider></el-divider>-->
-<!--          </div>-->
         </el-main>
       </el-container>
     </el-container>
@@ -188,6 +122,7 @@ export default {
   data: function () {
     return {
       dialogFormVisible: false,
+      userName: '前端测试教师',
       postTheme: {
         id: '测试id',
         userName: 'admin',

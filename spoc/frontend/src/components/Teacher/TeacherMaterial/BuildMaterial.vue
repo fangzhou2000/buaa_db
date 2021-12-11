@@ -7,7 +7,7 @@
         <el-header>
           <TeacherHeading></TeacherHeading>
         </el-header>
-        <el-main>
+        <el-main style="padding-left: 10%; padding-right: 10%">
         <el-form label-position="top" v-loading="loading">
           <el-form-item label="学习材料名称">
             <el-col :span="6">

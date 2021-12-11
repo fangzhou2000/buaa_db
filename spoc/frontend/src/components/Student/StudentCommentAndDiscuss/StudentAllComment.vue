@@ -153,7 +153,10 @@ export default {
         path: '/StudentCommentAndDiscuss/StudentComment',
         query: {
           courseId: that.showCourseList[index].id,
-          courseName: that.showCourseList[index].name
+          courseName: that.showCourseList[index].name,
+          courseIntroduction: that.showCourseList[index].introduction,
+          // courseAssessment: that.courseList[index].courseAssessment,
+          courseMaterial: that.showCourseList[index].materialNameString
         }
       })
     },

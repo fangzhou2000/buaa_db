@@ -41,7 +41,6 @@
 <script>
 import StudentNav from '../StudentNav'
 import StudentHeading from '../StudentHeading'
-import {validatePassword} from "../../../assets/js/validate";
 
 export default {
   name: 'StudentChangePassword',
@@ -52,7 +51,7 @@ export default {
       userNickName: '',
       userPassWord0: '',
       userPassWord1: '',
-      userPassWord2: '',
+      userPassWord2: ''
     }
   },
   mounted: function () {
