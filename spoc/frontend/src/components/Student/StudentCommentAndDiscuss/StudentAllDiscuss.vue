@@ -85,23 +85,6 @@
               </el-card>
             </el-col>
           </el-row>
-
-<!--          <el-table :data="postThemeList" v-loading="loading">-->
-<!--            <el-table-column label="主题贴ID" prop="id"></el-table-column>-->
-<!--            <el-table-column label="主题贴标题" prop="title"></el-table-column>-->
-<!--            <el-table-column label="发帖者" prop="isTeacher">-->
-<!--              <template slot-scope="scope">-->
-<!--                <span v-if="postThemeList[scope.$index].isTeacher === 0">学生</span>-->
-<!--                <span v-if="postThemeList[scope.$index].isTeacher === 1">教师</span>-->
-<!--                <span v-if="postThemeList[scope.$index].isTeacher === 2">管理员</span>-->
-<!--              </template>-->
-<!--            </el-table-column>-->
-<!--            <el-table-column label="进入贴子">-->
-<!--              <template slot-scope="scope">-->
-<!--                <el-button v-on:click="enterPostTheme(scope.$index)" type="primary" size="small">进入</el-button>-->
-<!--              </template>-->
-<!--            </el-table-column>-->
-<!--          </el-table>-->
         </el-main>
       </el-container>
     </el-container>
