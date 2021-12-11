@@ -598,3 +598,58 @@ class DeleteMaterial(APIView):
         sql.deleteMaterial(userName, id)
 
         return Response(0)
+
+
+class GetStudentCourseNum(APIView):
+    def get(self, request):
+        userName = str(request.GET.get('userName', None))
+        # 传入学生的学号
+        # 返回一个courseNum
+
+
+class GetStudentCommentNum(APIView):
+    def get(self, request):
+        userName = str(request.GET.get('userName', None))
+        #同上，返回commentNum
+
+
+class GetStudentDiscussNum(APIView):
+    def get(self, request):
+        userName = str(request.GET.get('userName', None))
+
+
+class GetTeacherCourseNum(APIView):
+    def get(self, request):
+        userName = str(request.GET.get('userName', None))
+        # 传入老师工号
+        # 返回开设课程数
+
+
+class GetTeacherDisCussNum(APIView):
+    def get(self, request):
+        userName = str(request.GET.get('userName', None))
+        # 传入老师工号
+        # 返回评论数目
+
+
+class PushDegree(APIView):
+    def get(self, request):
+        #课程id
+        id = str(request.GET.get('id', None))
+
+        # 传入的评价等级分为1,2,3,4,5五个
+        # 只能是这五个
+        degree = str(request.GET.get('degree', None))
+        userName = str(request.GET.get('userName', None))
+
+        # 将评价人的评价（1，2,3，4,5）存在对应的表中   (if)
+        # 不用返回
+
+class GetDegree(APIView):
+    def get(self, request):
+        id = str(request.GET.get('id', None))
+
+        # 返回课程对应的评价表，计算平均值交给前端
+        # 评价表为{1：number， 2：number， 3：number， 4：number， 5：number, totalNum(所有评价人数): number}
+
+
