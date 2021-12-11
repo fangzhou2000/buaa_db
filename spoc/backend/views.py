@@ -106,6 +106,7 @@ class BuildPost(APIView):
 class GetPostList(APIView):
     def get(self, request):
         postThemeId = str(request.GET.get("postThemeId", None))
+        print(postThemeId)
         sql = MySQL()
         result = sql.getPostList(postThemeId)
         postList = []
@@ -118,6 +119,7 @@ class GetPostList(APIView):
                              "time": i[4],
                              "isTeacher": i[5]})
         postList.sort(key=lambda x: x['time'], reverse=True)
+        print(postList)
         return Response(postList)
 
 
@@ -151,7 +153,7 @@ class GetPostThemeList(APIView):
                                   "content": i[3],
                                   "time": i[4],
                                   "isTeacher": i[6]})
-        postThemeList.sort(key=lambda x: x['id'])
+        postThemeList.sort(key=lambda x: x['id'], reverse=True)
         return Response(postThemeList)
 
 
@@ -169,6 +171,7 @@ class GetCommentList(APIView):
                                 "userNickName": item[1],
                                 "content": item[2],
                                 "time": item[3]})
+        commentList.sort(key=lambda x: x['time'], reverse=True)
         return Response(commentList)
 
 
@@ -312,7 +315,7 @@ class GetCourseList(APIView):
             courseList.append({'id': item[0], 'name': item[1], 'teacherName': item[2], 'introduction': item[5] if
             item[5] is not None else '', 'materialList': [], 'm_id': item[3] if item[3] is not None else '',
                                'm_name': item[4] if item[4] is not None else ''})
-
+        courseList.sort(key=lambda x: x['id'], reverse=False)
         i = 0
         while i < len(courseList):
             if courseList[i]['m_id'] != '' and len(courseList[i]['materialList']) == 0:
@@ -365,7 +368,7 @@ class GetStudentCourseList(APIView):
             studentCourseList.append({'id': item[0], 'name': item[1], 'teacherName': item[2], 'introduction': item[5] if
             item[5] is not None else '', 'materialList': [], 'm_id': item[3] if item[3] is not None else '',
                                       'm_name': item[4] if item[4] is not None else ''})
-
+        studentCourseList.sort(key=lambda x: x['id'])
         i = 0
         while i < len(studentCourseList):
             if studentCourseList[i]['m_id'] != '' and len(studentCourseList[i]['materialList']) == 0:
@@ -457,6 +460,7 @@ class GetTeacherCourseList(APIView):
             item[5] is not None else '', 'materialList': [], 'm_id': item[3] if item[3] is not None else '',
                                       'm_name': item[4] if item[4] is not None else ''})
 
+        teacherCourseList.sort(key=lambda x:x['id'])
         i = 0
         while i < len(teacherCourseList):
             if teacherCourseList[i]['m_id'] != '' and len(teacherCourseList[i]['materialList']) == 0:
@@ -473,7 +477,6 @@ class GetTeacherCourseList(APIView):
         for item in teacherCourseList:
             print(item['materialList'], end=" ")
             print(item['id'], item['name'], item['teacherName'], item['introduction'])
-
         return Response(teacherCourseList)
 
 

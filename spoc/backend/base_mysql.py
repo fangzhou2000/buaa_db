@@ -1,5 +1,15 @@
 import pymysql
 
+""" 索引index
+1. 
+CREATE UNIQUE INDEX index01 
+ON TABLE column;
+2. 
+"""
+
+"""触发器trigger
+
+"""
 
 class MySQL:
 
@@ -84,22 +94,22 @@ class MySQL:
 
         instruction = "SELECT p.id, s.id, s.name, p.content, p.time, p.isTeacher FROM " \
                       "post as p, student_post as sp, student as s, post_posttheme as pp " \
-                      "WHERE pp.posttheme_id=%s and pp.post_id=p.id and p.id=sp.post_id and sp.student_id=s.id " \
-                      "ORDER by p.time desc"
+                      "WHERE pp.posttheme_id=%s and pp.post_id=p.id and p.id=sp.post_id and sp.student_id=s.id "
+                      # "ORDER by p.time desc"
         cursor.execute(instruction, [postThemeId])
         result = cursor.fetchall()
 
         instruction = "SELECT p.id, t.id, t.name, p.content, p.time, p.isTeacher FROM " \
                       "post as p, teacher_post as tp, teacher as t, post_posttheme as pp " \
-                      "WHERE pp.posttheme_id=%s and pp.post_id=p.id and p.id=tp.post_id and tp.teacher_id=t.id " \
-                      "ORDER by p.time desc"
+                      "WHERE pp.posttheme_id=%s and pp.post_id=p.id and p.id=tp.post_id and tp.teacher_id=t.id "
+                      # "ORDER by p.time desc"
         cursor.execute(instruction, [postThemeId])
         result += cursor.fetchall()
 
         instruction = "SELECT p.id, t.id, t.name, p.content, p.time, p.isTeacher FROM " \
                       "post as p, admin_post as tp, `admin` as t, post_posttheme as pp " \
-                      "WHERE pp.posttheme_id=%s and pp.post_id=p.id and p.id=tp.post_id and tp.admin_id=t.id " \
-                      "ORDER by p.time desc"
+                      "WHERE pp.posttheme_id=%s and pp.post_id=p.id and p.id=tp.post_id and tp.admin_id=t.id "
+                      # "ORDER by p.time desc"
         cursor.execute(instruction, [postThemeId])
         result += cursor.fetchall()
 
@@ -147,22 +157,22 @@ class MySQL:
 
         instruction = "SELECT s.id, s.name, pt.title, pt.content, pt.time, pt.id, pt.isTeacher FROM " \
                       "posttheme as pt, student_posttheme as sp, student as s " \
-                      "WHERE pt.id=sp.posttheme_id AND sp.student_id=s.id " \
-                      "ORDER BY pt.id"
+                      "WHERE pt.id=sp.posttheme_id AND sp.student_id=s.id "
+                      # "ORDER BY pt.id"
         cursor.execute(instruction)
         result = cursor.fetchall()
 
         instruction = "SELECT t.id, t.name, pt.title, pt.content, pt.time, pt.id, pt.isTeacher FROM " \
                       "posttheme as pt, teacher_posttheme as tp, teacher as t " \
-                      "WHERE pt.id=tp.posttheme_id AND tp.teacher_id=t.id " \
-                      "ORDER BY pt.id"
+                      "WHERE pt.id=tp.posttheme_id AND tp.teacher_id=t.id "
+                      # "ORDER BY pt.id"
         cursor.execute(instruction)
         result += cursor.fetchall()
 
         instruction = "SELECT t.id, t.name, pt.title, pt.content, pt.time, pt.id, pt.isTeacher FROM " \
                       "posttheme as pt, admin_posttheme as tp, `admin` as t " \
-                      "WHERE pt.id=tp.posttheme_id AND tp.admin_id=t.id " \
-                      "ORDER BY pt.id"
+                      "WHERE pt.id=tp.posttheme_id AND tp.admin_id=t.id "
+                      # "ORDER BY pt.id"
         cursor.execute(instruction)
         result += cursor.fetchall()
 
@@ -206,8 +216,8 @@ class MySQL:
                       "(SELECT `time`, content, id FROM comment, course_comment as cc " \
                       "WHERE cc.course_id=%s and cc.comment_id=comment.id) AS cc(time,c,id), " \
                       "student_comment as sc, student AS s " \
-                      "WHERE cc.id=sc.comment_id AND sc.student_id=s.id " \
-                      "ORDER BY cc.time desc"
+                      "WHERE cc.id=sc.comment_id AND sc.student_id=s.id "
+                      # "ORDER BY cc.time desc"
 
         cursor.execute(instruction, [courseId])
         result = cursor.fetchall()
@@ -380,8 +390,8 @@ class MySQL:
                       " (SELECT c.id, c.introduction, c.name, cm.material_id, cm.name " \
                       "FROM course as c LEFT OUTER JOIN (select * from material, course_material where course_material.material_id=material.id) AS cm " \
                       "ON (c.id=cm.course_id) ) AS ans(id, i, n,mid, mn), teacher_course AS tc, teacher " \
-                      "WHERE tc.course_id=ans.id AND tc.teacher_id=teacher.id AND teacher.id=%s " \
-                      "ORDER BY ans.id"
+                      "WHERE tc.course_id=ans.id AND tc.teacher_id=teacher.id AND teacher.id=%s "
+                      # "ORDER BY ans.id"
 
         cursor.execute(instruction, [teacher_id])
         return cursor.fetchall()
@@ -398,8 +408,8 @@ class MySQL:
                       " (SELECT c.id, c.introduction, c.name, cm.material_id, cm.name " \
                       "FROM course as c LEFT OUTER JOIN (select * from material, course_material where course_material.material_id=material.id) AS cm " \
                       "ON (c.id=cm.course_id) ) AS ans(id, i, n,mid, mn), teacher_course AS tc, teacher, student_course as sc " \
-                      "WHERE tc.course_id=ans.id AND tc.teacher_id=teacher.id AND ans.id=sc.course_id AND sc.student_id=%s " \
-                      "ORDER BY ans.id"
+                      "WHERE tc.course_id=ans.id AND tc.teacher_id=teacher.id AND ans.id=sc.course_id AND sc.student_id=%s "
+                      # "ORDER BY ans.id"
 
         cursor.execute(instruction, [student_id])
 
@@ -415,8 +425,8 @@ class MySQL:
                       " (SELECT c.id, c.introduction, c.name, cm.material_id, cm.name " \
                       "FROM course as c LEFT OUTER JOIN (select * from material, course_material where course_material.material_id=material.id) AS cm " \
                       "ON (c.id=cm.course_id) ) AS ans(id, i, n,mid, mn), teacher_course AS tc, teacher " \
-                      "WHERE tc.course_id=ans.id AND tc.teacher_id=teacher.id " \
-                      "ORDER BY ans.id"
+                      "WHERE tc.course_id=ans.id AND tc.teacher_id=teacher.id "
+                      # "ORDER BY ans.id"
 
         cursor.execute(instruction)
         result = cursor.fetchall()
