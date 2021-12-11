@@ -66,7 +66,7 @@
 
               </el-col>
               <el-col :span="20" class="content">
-                <el-row>
+                <el-row class="content-of-comment">
                 {{comment.content}}
                 </el-row>
                 <el-row class="delete">
@@ -114,6 +114,9 @@
   .content {
     font-size: medium;
     word-break: break-all;
+  }
+  .content-of-comment {
+    color: black;
   }
 </style>
 

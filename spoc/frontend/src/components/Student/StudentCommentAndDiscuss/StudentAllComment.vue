@@ -15,7 +15,7 @@
                 <el-col :span="22">
                   <el-input
                     placeholder="查找您的相关课程"
-                    prefix-icon="el-icon-search" v-model="input2"
+                    prefix-icon="el-icon-search" v-model="inputSearch"
                     style="margin-bottom: 5%"></el-input>
                 </el-col>
                 <el-col :span="2">
@@ -23,10 +23,11 @@
                     type="primary"
                     icon="el-icon-search"
                     style="float: right"
+                    @click="searchCourse(inputSearch)"
                     circle></el-button>
                 </el-col>
               </el-row>
-              <el-card v-for="(course, index) in courseList" :key="index" shadow="hover" style="margin-bottom: 2%">
+              <el-card v-for="(course, index) in showCourseList" :key="index" shadow="hover" style="margin-bottom: 2%">
                 <el-row>
                   <el-col :offset="2" :span="2">
                     <el-empty :image-size="50" style="margin: 0 !important; padding: 0 !important;"></el-empty>
@@ -105,7 +106,7 @@ export default {
       userNickName: '',
       commentNum: '1',
       courseNum: '1',
-      input2: '',
+      inputSearch: '',
       showIt: false,
       url: '../../../assets/img/learning-hard.png',
       courseList: [{
@@ -120,7 +121,8 @@ export default {
         introduction: '前端测试介绍2',
         materialIdString: '1,2',
         materialNameString: 'book1,book2'
-      }]
+      }],
+      showCourseList: this.courseList
     }
   },
   mounted: function () {
@@ -139,6 +141,7 @@ export default {
         console.log(response.data)
         that.loading = false
         that.courseList = response.data
+        that.showCourseList = response.data
       }).catch(function (error) {
         console.log(error)
         that.loading = false
@@ -149,8 +152,8 @@ export default {
       this.$router.push({
         path: '/StudentCommentAndDiscuss/StudentComment',
         query: {
-          courseId: that.courseList[index].id,
-          courseName: that.courseList[index].name
+          courseId: that.showCourseList[index].id,
+          courseName: that.showCourseList[index].name
         }
       })
     },
@@ -161,6 +164,25 @@ export default {
     },
     changeShowIt: function () {
       this.showIt = !this.showIt
+    },
+    searchCourse: function (inputSearch) {
+      this.showCourseList = this.searchByIndexOf(inputSearch, this.courseList)
+    },
+    searchByIndexOf: function (keyWord, list) {
+      if (!(list instanceof Array)) {
+        return
+      } else if (keyWord === '') {
+        return list
+      }
+      const len = list.length
+      const arr = []
+      for (let i = 0; i < len; i++) {
+        // 如果字符串中不包含目标字符会返回-1
+        if (list[i].name.indexOf(keyWord) >= 0) {
+          arr.push(list[i])
+        }
+      }
+      return arr
     }
   }
 }

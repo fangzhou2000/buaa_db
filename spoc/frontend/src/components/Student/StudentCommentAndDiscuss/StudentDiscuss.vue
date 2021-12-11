@@ -9,20 +9,21 @@
           <StudentHeading></StudentHeading>
         </el-header>
         <el-main style="padding-left: 10%; padding-right: 10%">
-          <el-page-header @back="returnStudentAllDiscuss" :content="courseName" style="margin-bottom: 2%"></el-page-header>
+          <el-page-header @back="returnStudentAllDiscuss" :content="postTheme.title" style="margin-bottom: 2%">
+          </el-page-header>
+<!--          <el-row class="buttons">-->
+<!--            {{postTheme.title}}-->
+<!--          </el-row>-->
           <el-row class="buttons">
-            {{postTheme.title}}
-          </el-row>
-          <el-row class="buttons">
-            <el-button v-on:click="buildPost" type="primary" size="small" >跟贴</el-button>
+<!--            <el-button v-on:click="buildPost" type="primary" size="small" >跟贴</el-button>-->
 <!--            <el-button v-on:click="returnStudentAllDiscuss" size="small">返回</el-button>-->
           </el-row>
-          <el-row class="buttons">
-            <el-col :span="20">
-              <el-input class="input" v-model="input.content" type="textarea" :rows="2" placeholder="与主题相关的讨论">
-              </el-input>
-            </el-col>
-          </el-row>
+<!--          <el-row class="buttons">-->
+<!--            <el-col :span="24">-->
+<!--              <el-input class="input" v-model="input.content" type="textarea" :rows="4" placeholder="与主题相关的讨论">-->
+<!--              </el-input>-->
+<!--            </el-col>-->
+<!--          </el-row>-->
           <el-divider>楼主</el-divider>
           <el-card shadow="hover" style="margin-bottom: 2%">
             <el-row>
@@ -45,9 +46,8 @@
                   </el-col>
                 </el-row>
               </el-col>
-              <el-col :offset="2" :span="18">
-                <el-row class="content">
-                    {{postTheme.content}}
+              <el-col :offset="2" :span="16">
+                <el-row class="content" v-html="postTheme.content">
                 </el-row>
                 <el-row class="delete">
                   <div v-if="postTheme.userName === userName">
@@ -55,8 +55,22 @@
                   </div>
                 </el-row>
               </el-col>
+              <el-col :offset="1" :span="1">
+                <el-button v-on:click="dialogFormVisible = true" type="primary" size="small" >跟贴</el-button>
+<!--            <el-button v-on:click="returnStudentAllDiscuss" size="small">返回</el-button>-->
+              </el-col>
             </el-row>
           </el-card>
+
+          <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
+            <el-input class="input" v-model="input.content" type="textarea" :rows="4" placeholder="与主题相关的讨论">
+
+            </el-input>
+            <div slot="footer" class="dialog-footer">
+              <el-button @click="dialogFormVisible = false">取 消</el-button>
+              <el-button type="primary" @click="buildPost">确 定</el-button>
+            </div>
+          </el-dialog>
 <!--          <el-row class="time">-->
 <!--            {{postTheme.time}}-->
 <!--          </el-row>-->
@@ -80,29 +94,44 @@
 <!--            </div>-->
 <!--          </el-row>-->
           <el-divider>跟贴</el-divider>
-          <div v-for="(post) in postList" v-bind:key="post.id">
-            <el-row class="time">
-              {{post.time}}
+          <div v-for="(post, index) in postList" v-bind:key="index">
+            <el-row>
+              <el-col :span="1">
+                <el-avatar></el-avatar>
+              </el-col>
+              <el-col :span="3">
+                <el-row class="time">
+                  {{post.time}}
+                </el-row>
+                <el-row class="userName">
+                  <div v-if="post.isTeacher === 1">
+                    {{post.userNickName}}({{post.userName}}) (教师) :
+                  </div>
+                  <div v-else-if="post.isTeacher === 2">
+                    {{postTheme.userNickName}}({{postTheme.userName}}) (管理员) :
+                  </div>
+                  <div v-else>
+                    {{post.userNickName}}({{post.userName}}) :
+                  </div>
+                </el-row>
+              </el-col>
+              <el-col class="content" :span="19" v-html="post.content">
+<!--                {{post.content}}-->
+              </el-col>
+              <el-col class="delete" :span="1" style="float: right">
+                <div v-if="post.userName === userName">
+                  <el-link type="danger" v-on:click="deletePost(post.id)">删除</el-link>
+                </div>
+              </el-col>
             </el-row>
-            <el-row class="userName">
-              <div v-if="post.isTeacher === 1">
-                {{post.userNickName}}({{post.userName}}) (教师) :
-              </div>
-              <div v-else-if="post.isTeacher === 2">
-                {{postTheme.userNickName}}({{postTheme.userName}}) (管理员) :
-              </div>
-              <div v-else>
-                {{post.userNickName}}({{post.userName}}) :
-              </div>
-            </el-row>
-            <el-row class="content">
-              {{post.content}}
-            </el-row>
-            <el-row class="delete">
-              <div v-if="post.userName === userName">
-                <el-link type="danger" v-on:click="deletePost(post.id)">删除</el-link>
-              </div>
-            </el-row>
+<!--            <el-col class="content">-->
+<!--              {{post.content}}-->
+<!--            </el-col>-->
+<!--            <el-row class="delete">-->
+<!--              <div v-if="post.userName === userName">-->
+<!--                <el-link type="danger" v-on:click="deletePost(post.id)">删除</el-link>-->
+<!--              </div>-->
+<!--            </el-row>-->
             <el-divider></el-divider>
           </div>
         </el-main>
@@ -143,6 +172,7 @@ export default {
     return {
       userName: '前端测试用户名',
       userNickName: '前端测试姓名',
+      dialogFormVisible: false,
       postTheme: {
         id: '测试id',
         userName: 'admin',
@@ -204,8 +234,10 @@ export default {
   mounted () {
     this.userName = this.cookie.getCookie('userName')
     this.userNickName = this.cookie.getCookie('userNickName')
-    this.postTheme = this.$route.query.postTheme
+    this.postTheme = this.$route.query.newPostTheme
     this.getPostList()
+    console.log('Checking...')
+    console.log(this.postTheme)
   },
   methods: {
     getTime: function () {
@@ -262,6 +294,7 @@ export default {
       })
     },
     buildPost: function () {
+      this.dialogFormVisible = false
       let that = this
       that.getTime()
       this.$http.request({

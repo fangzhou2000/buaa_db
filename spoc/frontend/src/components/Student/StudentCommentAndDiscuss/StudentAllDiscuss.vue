@@ -8,14 +8,14 @@
         <el-header>
           <StudentHeading></StudentHeading>
         </el-header>
-        <el-main style="margin-left: 10%; margin-right: 10%">
+        <el-main style="padding-left: 10%; padding-right: 10%">
           <el-row>
             <el-col :span="14" class="left-information" style="width: 50%">
               <el-row>
                 <el-col :span="22">
                   <el-input
                     placeholder="查找相关帖子"
-                    prefix-icon="el-icon-search" v-model="input2"
+                    prefix-icon="el-icon-search" v-model="inputSearch"
                     style="margin-bottom: 5%"></el-input>
                 </el-col>
                 <el-col :span="2">
@@ -23,19 +23,25 @@
                     type="primary"
                     icon="el-icon-search"
                     style="float: right"
+                    @click="searchDiscuss(inputSearch)"
                     circle></el-button>
                 </el-col>
               </el-row>
-              <el-card v-for="(postTheme, index) in postThemeList" :key="index" shadow="hover" style="margin-bottom: 2%">
+              <el-card v-for="(postTheme, index) in showPostThemeList" :key="index" shadow="hover" style="margin-bottom: 2%">
                 <div class="clearfix">
                   <span><strong>{{postTheme.title}}</strong></span>
                   <el-button style="float: right; padding: 3px 0" type="text"
                              v-on:click="enterPostTheme(index)">进入帖子</el-button>
                 </div>
-                <div class="textitem" style="font-size: 10px">
+                <div class="textitem" style="font-size: 10px; margin-top: 2%; margin-bottom: 2%">
+                  <el-tag size="mini">
                   <span v-if="postTheme.isTeacher === 0">学生</span>
                   <span v-else-if="postTheme.isTeacher === 1">教师</span>
                   <span v-else-if="postTheme.isTeacher === 2">管理员</span>
+                  </el-tag>
+                </div>
+                <div>
+                  <span style="color: gray; font-size: 8px">发表于-{{postTheme.time}}</span>
                 </div>
               </el-card>
             </el-col>
@@ -122,7 +128,7 @@ export default {
         title: '',
         content: ''
       },
-      input2: '',
+      inputSearch: '',
       postThemeList: [{
         id: '1',
         userName: 'admin',
@@ -141,6 +147,26 @@ export default {
         time: 'xxxx',
         isTeacher: 0
       }],
+      showPostThemeList: [
+        {
+          id: '1',
+          userName: 'admin',
+          userNickName: '学生1',
+          title: '前端测试贴标题',
+          content: '前端测试贴内容',
+          time: 'xxxx',
+          isTeacher: 1
+        },
+        {
+          id: '2',
+          userName: '学号1',
+          userNickName: '学生1',
+          title: '前端测试贴标题',
+          content: '前端测试贴内容',
+          time: 'xxxx',
+          isTeacher: 0
+        }
+      ],
       buildThemeVisible: false,
       time: ''
     }
@@ -161,6 +187,7 @@ export default {
         console.log(response.data)
         that.loading = false
         that.postThemeList = response.data
+        that.showPostThemeList = response.data
       }).catch(function (error) {
         console.log(error)
         that.loading = false
@@ -211,14 +238,14 @@ export default {
       this.$router.push({
         name: 'StudentDiscuss',
         query: {
-          postTheme: {
-            id: that.postThemeList[index].id,
-            userName: that.postThemeList[index].userName,
-            userNickName: that.postThemeList[index].userNickName,
-            title: that.postThemeList[index].title,
-            content: that.postThemeList[index].content,
-            time: that.postThemeList[index].time,
-            isTeacher: that.postThemeList[index].isTeacher
+          newPostTheme: {
+            id: that.showPostThemeList[index].id,
+            userName: that.showPostThemeList[index].userName,
+            userNickName: that.showPostThemeList[index].userNickName,
+            title: that.showPostThemeList[index].title,
+            content: that.showPostThemeList[index].content,
+            time: that.showPostThemeList[index].time,
+            isTeacher: that.showPostThemeList[index].isTeacher
           }
         }
       })
@@ -227,6 +254,25 @@ export default {
       this.cookie.clearCookie('userName')
       this.cookie.clearCookie('userNickName')
       this.$router.replace('/')
+    },
+    searchDiscuss: function (inputSearch) {
+      this.showPostThemeList = this.searchByIndexOf(inputSearch, this.postThemeList)
+    },
+    searchByIndexOf: function (keyWord, list) {
+      if (!(list instanceof Array)) {
+        return
+      } else if (keyWord === '') {
+        return list
+      }
+      const len = list.length
+      const arr = []
+      for (let i = 0; i < len; i++) {
+        // 如果字符串中不包含目标字符会返回-1
+        if (list[i].title.indexOf(keyWord) >= 0) {
+          arr.push(list[i])
+        }
+      }
+      return arr
     }
   }
 }
