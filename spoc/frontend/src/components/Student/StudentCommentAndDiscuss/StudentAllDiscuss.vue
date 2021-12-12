@@ -27,7 +27,7 @@
                     circle></el-button>
                 </el-col>
               </el-row>
-              <el-card v-for="(postTheme, index) in showPostThemeList" :key="index" shadow="hover" style="margin-bottom: 2%">
+              <el-card v-for="(postTheme, index) in showPostThemeList" :key="index" v-loading="loading" shadow="hover" style="margin-bottom: 2%">
                 <div class="clearfix">
                   <span><strong>{{postTheme.title}}</strong></span>
                   <el-button style="float: right; padding: 3px 0" type="text"

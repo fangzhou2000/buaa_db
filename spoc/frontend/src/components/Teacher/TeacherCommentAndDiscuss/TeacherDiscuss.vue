@@ -13,7 +13,7 @@
           </el-page-header>
           <el-divider>楼主</el-divider>
           <el-card shadow="hover" style="margin-bottom: 2%">
-            <el-row>
+            <el-row v-loading="loading">
               <el-col :offset="2" :span="2">
                 <el-row class="time">
                   {{postTheme.time}}
@@ -126,6 +126,7 @@ export default {
   components: {TeacherNav, TeacherHeading},
   data: function () {
     return {
+      loading: true,
       dialogFormVisible: false,
       userName: '前端测试教师',
       studentImg: StudentImg,
@@ -201,6 +202,7 @@ export default {
   methods: {
     getPostTheme: function () {
       let that = this
+      that.loading = true
       this.$http.request({
         url: that.$url + 'GetPostTheme/',
         method: 'get',
@@ -209,9 +211,11 @@ export default {
         }
       }).then(function (response) {
         console.log(response.data)
+        that.loading = false
         that.postTheme = response.data
       }).catch(function (error) {
         console.log(error)
+        that.loading = false
       })
     },
     getTime: function () {

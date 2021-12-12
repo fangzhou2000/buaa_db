@@ -3,31 +3,29 @@
     :default-active="this.$route.path" router
     :collapse="isCollapsed" class="el-head-menu">
     <el-menu-item class="item" index="/AdminHead">
-      <i class="el-icon-headset"></i>
+      <i class="el-icon-s-home"></i>
       <span class="item">首页</span>
     </el-menu-item>
     <el-submenu index="1">
-      <template slot="title"><i class="el-icon-location-information"></i><span class="item">课程信息</span></template>
+      <template slot="title"><i class="el-icon-reading"></i><span class="item">课程信息</span></template>
       <el-menu-item class="subitem" index="/CourseTable/CourseTable">课程信息</el-menu-item>
-<!--        <el-menu-item class="subitem" index="/AdminHead">查看课程</el-menu-item>-->
     </el-submenu>
     <el-submenu index="2">
-        <template slot="title"><i class="el-icon-male"></i><span class="item">学生信息</span></template>
+        <template slot="title"><i class="el-icon-document"></i><span class="item">学生信息</span></template>
         <el-menu-item class="subitem" index="/StudentTable/StudentTable">学生信息</el-menu-item>
-<!--        <el-menu-item class="subitem" index="/AdminHead">学生资料</el-menu-item>-->
     </el-submenu>
     <el-submenu index="3">
-        <template slot="title"><i class="el-icon-female"></i><span class="item">教师信息</span></template>
+        <template slot="title"><i class="el-icon-document-copy"></i><span class="item">教师信息</span></template>
         <el-menu-item class="subitem" index="/TeacherTable/TeacherTable">教师信息</el-menu-item>
 <!--        <el-menu-item class="subitem" index="/AdminHead">查看教师信息</el-menu-item>-->
       </el-submenu>
     <el-submenu index="4">
-        <template slot="title"><i class="el-icon-s-marketing"></i><span class="item">材料信息</span></template>
+        <template slot="title"><i class="el-icon-s-data"></i><span class="item">材料信息</span></template>
         <el-menu-item class="subitem" index="/MaterialTable/MaterialTable">学习材料信息</el-menu-item>
 <!--        <el-menu-item class="subitem" index="/AdminHead">查看学习材料</el-menu-item>-->
     </el-submenu>
     <el-submenu index="5">
-        <template slot="title"><i class="el-icon-user"></i><span class="item">留言信息</span></template>
+        <template slot="title"><i class="el-icon-share"></i><span class="item">留言信息</span></template>
         <el-menu-item class="subitem" index="/CommentAndDiscussTable/CommentTable">课程评价</el-menu-item>
         <el-menu-item class="subitem" index="/CommentAndDiscussTable/DiscussTable">讨论信息</el-menu-item>
 <!--        <el-menu-item class="subitem" index="/AdminHead">修改密码</el-menu-item>-->

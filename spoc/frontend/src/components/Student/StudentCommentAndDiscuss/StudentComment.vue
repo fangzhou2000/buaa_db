@@ -73,21 +73,18 @@
           </el-row>
           <el-divider></el-divider>
           <div v-for="(comment) in commentList" v-bind:key="comment">
-            <el-row class="time">
+            <el-row class="time" v-loading="loading">
               <el-col :span="1">
                 <el-image :src="studentImg" fit="contain" lazy></el-image>
               </el-col>
               <el-col :span="3" :offset="1">
-
                 <el-row class="userName">
                   {{comment.userNickName}}({{comment.userName}}) :
                 </el-row>
                 <el-row>{{comment.time}}</el-row>
-
               </el-col>
               <el-col :span="19" class="content">
-                <el-row class="content-of-comment">
-                {{comment.content}}
+                <el-row class="content-of-comment" v-html="comment.content">
                 </el-row>
                 <el-row class="delete">
                   <div v-if="comment.userName === userName">
@@ -139,6 +136,7 @@ export default {
   components: {StudentNav, StudentHeading},
   data: function () {
     return {
+      loading: true,
       userName: '前端测试用户名',
       userNickName: '前端测试姓名',
       courseId: '前端测试课程id',
@@ -203,6 +201,7 @@ export default {
     },
     getCommentList: function () {
       let that = this
+      that.loading = true
       this.$http.request({
         url: that.$url + 'GetCommentList/',
         method: 'get',
@@ -211,9 +210,11 @@ export default {
         }
       }).then(function (response) {
         console.log(response.data)
+        that.loading = false
         that.commentList = response.data
       }).catch(function (error) {
         console.log(error)
+        that.loading = false
       })
     },
     getDegree: function () {

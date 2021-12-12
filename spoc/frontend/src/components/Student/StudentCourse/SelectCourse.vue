@@ -25,7 +25,10 @@
                 circle></el-button>
             </el-col>
           </el-row>
-          <el-card v-for="(course, index) in showCourseList" :key="index" shadow="hover" style="margin-bottom: 2%">
+          <el-card v-for="(course, index) in showCourseList" :key="index"
+                   v-loading="loading"
+                   shadow="hover"
+                   style="margin-bottom: 2%">
             <el-row>
               <el-col :offset="1" :span="2">
                 <el-image :src="courseImg" lazy></el-image>
@@ -48,7 +51,7 @@
             </el-row>
           </el-card>
           <el-dialog title="提示" :visible.sync="courseInfoVisible" width="40%">
-            <el-descriptions class="info" direction="vertical">
+            <el-descriptions class="info">
               <el-descriptions-item label="课程名称(ID)">
                 &nbsp;&nbsp;
                 {{courseInfo.name}}({{courseInfo.id}})

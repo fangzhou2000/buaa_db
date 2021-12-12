@@ -27,54 +27,50 @@
                     circle></el-button>
                 </el-col>
               </el-row>
-              <el-card v-for="(course, index) in showCourseList" :key="index" shadow="hover" style="margin-bottom: 2%">
-                <el-row>
-                  <el-col :offset="1" :span="2">
+              <el-card
+                v-for="(course, index) in showCourseList" :key="index"
+                v-loading="loading"
+                shadow="hover"
+                style="font-size: small; margin-bottom: 2%;">
+                <div slot="header" class="clearfix">
+                  <el-col :span="2">
                     <el-image :src="courseImg" lazy></el-image>
                   </el-col>
-                  <el-col :offset="2" :span="18">
-                    <el-row>
-                      <el-col :span="14">
-                        <strong>{{course.name}}</strong>
-                      </el-col>
-                      <el-col :span="8" :offset="2">
-                        <el-row>
-                          <span style="font-size: 15px;">综合评分&nbsp;</span>
-                          <el-rate
-                            v-model="course.avgDegree"
-                            disabled
-                            show-score
-                            text-color="#ff9900">
-                          </el-rate>
-                          <el-button v-on:click="commentCourse(index)" type="text" >进入评价</el-button>
-                        </el-row>
-                      </el-col>
-                    </el-row>
-                    <el-row>
-                      <el-divider>
-                      </el-divider>
-                    </el-row>
-                    <el-row>
-                      <div style="font-size: 12px; text-overflow: ellipsis ;max-height: 100px; overflow: hidden; white-space: nowrap;">
-                        {{course.introduction}}
-                      </div>
-                    </el-row>
-                  </el-col>
-                </el-row>
+                  {{ course.name }}
+                  <el-button v-on:click="commentCourse(index)" type="text" style="font-size: smaller; float: right">
+                    进入评价
+                  </el-button>
+                  <el-rate
+                    v-model="course.avgDegree"
+                    disabled
+                    show-score
+                    text-color="#ff9900">
+                  </el-rate>
+                </div>
+                <div
+                  style="font-size: x-small; text-overflow: ellipsis ;max-height: 50px; overflow: hidden; white-space: nowrap;">
+                  {{ course.introduction }}
+                </div>
               </el-card>
             </el-col>
             <el-col :span="8" :offset="2" class="right-information">
               <el-card shadow="hover" style="width: 100%">
                 <el-row>
-                  <el-col :span="11" >
+                  <el-col :span="2" >
+                    &nbsp;
+                  </el-col>
+                  <el-col :span="6">
                     <el-image :src="studentImg" lazy></el-image>
+                  </el-col>
+                  <el-col :span="2" >
+                    &nbsp;
                   </el-col>
                   <el-col :span="12" :offset="1">
                     <el-descriptions :column="1">
-                      <el-descriptions-item label="用户名">{{userNickName}}</el-descriptions-item>
-                      <el-descriptions-item label="学号">{{userName}}</el-descriptions-item>
-                      <el-descriptions-item label="已选课程">{{courseNum}}</el-descriptions-item>
-                      <el-descriptions-item label="参与评价">{{commentNum}}</el-descriptions-item>
+                      <el-descriptions-item label="用户名">{{ userNickName }}</el-descriptions-item>
+                      <el-descriptions-item label="学号">{{ userName }}</el-descriptions-item>
+                      <el-descriptions-item label="已选课程">{{ courseNum }}</el-descriptions-item>
+                      <el-descriptions-item label="参与评价">{{ commentNum }}</el-descriptions-item>
                     </el-descriptions>
                   </el-col>
                 </el-row>
@@ -83,8 +79,8 @@
                 </el-row>
                 <el-row>
                   <el-descriptions :column="1" v-if="showIt">
-                      <el-descriptions-item label="用户名">{{userNickName}}</el-descriptions-item>
-                      <el-descriptions-item label="学号">{{userName}}</el-descriptions-item>
+                    <el-descriptions-item label="用户名">{{ userNickName }}</el-descriptions-item>
+                    <el-descriptions-item label="学号">{{ userName }}</el-descriptions-item>
                   </el-descriptions>
                 </el-row>
                 <el-row class="el-row-button-head">
@@ -107,6 +103,7 @@ import StudentNav from '../StudentNav'
 import StudentHeading from '../StudentHeading'
 import StudentImg from '../../../assets/img/student.png'
 import CourseImg from '../../../assets/img/buaa_class_img.jpg'
+
 export default {
   name: 'StudentAllComment',
   components: {StudentNav, StudentHeading},
@@ -132,7 +129,7 @@ export default {
           id: '04',
           name: '材料04'
         }],
-        avgDegree: 3.0
+        avgDegree: 3.6
       }, {
         id: '2',
         name: '前端测试课程2',
@@ -261,14 +258,17 @@ export default {
 </script>
 
 <style scoped>
-  @import "../../../assets/css/back.css";
-  .el-row-button {
-    width: 100% !important;
-  }
-  .el-row-button :hover {
-    background-color: initial;
-  }
-  .el-row-button-head :hover {
-    background-color: hsla(0, 0%, 74%, 0.2);
-  }
+@import "../../../assets/css/back.css";
+
+.el-row-button {
+  width: 100% !important;
+}
+
+.el-row-button :hover {
+  background-color: initial;
+}
+
+.el-row-button-head :hover {
+  background-color: hsla(0, 0%, 74%, 0.2);
+}
 </style>

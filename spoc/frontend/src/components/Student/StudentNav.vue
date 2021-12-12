@@ -1,16 +1,16 @@
 <template>
   <el-menu :default-active="this.$route.path" router :collapse="isCollapsed" class="el-head-menu">
     <el-menu-item class="item" index="/StudentHead">
-      <i class="el-icon-headset"></i>
+      <i class="el-icon-s-home"></i>
       <span class="item">首页</span>
     </el-menu-item>
     <el-submenu index="1">
-      <template slot="title"><i class="el-icon-box"></i><span class="item">课程信息</span></template>
+      <template slot="title"><i class="el-icon-reading"></i><span class="item">课程信息</span></template>
       <el-menu-item class="subitem" index="/StudentCourse/SelectCourse">学生选课</el-menu-item>
       <el-menu-item class="subitem" index="/StudentCourse/SelectedCourse">我的课程</el-menu-item>
     </el-submenu>
     <el-submenu index="2">
-      <template slot="title"><i class="el-icon-s-platform"></i><span class="item">留言板</span></template>
+      <template slot="title"><i class="el-icon-share"></i><span class="item">留言板</span></template>
       <el-menu-item class="subitem" index="/StudentCommentAndDiscuss/StudentAllComment">课程评价</el-menu-item>
       <el-menu-item class="subitem" index="/StudentCommentAndDiscuss/StudentAllDiscuss">自由讨论</el-menu-item>
     </el-submenu>
