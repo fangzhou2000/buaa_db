@@ -153,26 +153,6 @@ export default {
     this.getStudentCourseNum()
   },
   methods: {
-    getDegree: function (index, identity) {
-      console.log(index)
-      console.log(identity)
-      let that = this
-      this.$http.request({
-        url: that.$url + 'GetDegree/',
-        method: 'get',
-        params: {
-          id: identity
-        }
-      }).then(function (response) {
-        console.log(response.data)
-        that.courseList[index].degree = response.data
-        console.log(that.courseList[index])
-        that.showCourseList[index].degree = response.data
-        console.log(that.showCourseList[index])
-      }).catch(function (error) {
-        console.log(error)
-      })
-    },
     getStudentCourseNum: function () {
       let that = this
       this.$http.request({
@@ -228,7 +208,8 @@ export default {
           courseName: that.showCourseList[index].name,
           courseIntroduction: that.showCourseList[index].introduction,
           // courseAssessment: that.courseList[index].courseAssessment,
-          courseMaterial: that.showCourseList[index].materialNameString
+          courseMaterial: that.showCourseList[index].materialNameString,
+          OriginDegree: that.showCourseList[index].degree
         }
       })
     },
