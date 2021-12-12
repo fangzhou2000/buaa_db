@@ -29,7 +29,7 @@
               </el-row>
               <el-card v-for="(postTheme, index) in showPostThemeList" :key="index" v-loading="loading" shadow="hover" style="margin-bottom: 2%">
                 <div class="clearfix">
-                  <span><strong>{{postTheme.title}}</strong></span>
+                  <span>{{postTheme.title}}</span>
                   <el-button style="float: right; padding: 3px 0" type="text"
                              v-on:click="enterPostTheme(index)">进入帖子</el-button>
                 </div>

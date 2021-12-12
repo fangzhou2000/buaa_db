@@ -203,6 +203,9 @@ export default {
       }).then(function (response) {
         console.log(response.data)
         that.courseAvgDegree = response.data.avgDegree
+        if (that.courseAvgDegree !== 5) {
+          that.courseAvgDegree = Number(that.courseAvgDegree).toFixed(1)
+        }
       })
     },
     returnStudentAllComment: function () {
