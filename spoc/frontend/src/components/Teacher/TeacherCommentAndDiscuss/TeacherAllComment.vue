@@ -51,16 +51,6 @@
                       </div>
                     </el-row>
                   </el-col>
-<!--                  <el-col :offset="1" :span="3">-->
-<!--                    <div><strong>评分</strong></div>-->
-<!--                    <el-rate-->
-<!--                      v-model="course.assessment"-->
-<!--                      disabled-->
-<!--                      show-score-->
-<!--                      text-color="#ff9900"-->
-<!--                      score-template="{course.assessment}">-->
-<!--                    </el-rate>-->
-<!--                  </el-col>-->
                 </el-row>
               </el-card>
             </el-col>

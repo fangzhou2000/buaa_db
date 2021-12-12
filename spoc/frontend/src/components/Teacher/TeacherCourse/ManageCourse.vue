@@ -37,7 +37,7 @@
                   </el-link>
                 </el-row>
                 <el-row>
-                  <el-tag type="primary">课程编号&nbsp;&nbsp;<span>{{course.id}}</span></el-tag>
+                  <el-tag type="info">课程编号&nbsp;&nbsp;<span>{{course.id}}</span></el-tag>
                 </el-row>
               </el-col>
               <el-col :span="2">
@@ -50,7 +50,6 @@
               </el-col>
             </el-row>
           </el-card>
-
           <el-dialog title="提示" :visible.sync="courseInfoVisible" width="40%">
             <el-descriptions class="info" direction="vertical">
               <el-descriptions-item label="课程名称(ID)">

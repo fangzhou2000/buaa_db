@@ -37,7 +37,7 @@
                   </el-link>
                 </el-row>
                 <el-row>
-                  <el-tag type="primary">课程编号<span>&nbsp;&nbsp;{{course.id}}</span></el-tag>
+                  <el-tag type="info">课程编号<span>&nbsp;&nbsp;{{course.id}}</span></el-tag>
                 </el-row>
               </el-col>
               <el-col :span="2">
