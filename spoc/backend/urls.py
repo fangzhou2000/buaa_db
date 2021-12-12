@@ -40,5 +40,6 @@ urlpatterns = [
     path('GetTeacherCourseNum/', views.GetTeacherCourseNum.as_view()),
     path('GetTeacherDiscussNum/', views.GetTeacherDisCussNum.as_view()),
     path('PushDegree/', views.PushDegree.as_view()),
-    path('GetDegree/', views.GetDegree.as_view())
+    path('GetDegree/', views.GetDegree.as_view()),
+    path('GetPostTheme/', views.GetPostTheme.as_view())
 ]
