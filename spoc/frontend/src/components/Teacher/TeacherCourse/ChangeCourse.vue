@@ -18,9 +18,6 @@
             </el-col>
           </el-form-item>
           <el-form-item label="学习材料">
-<!--            <el-col :span="6" id="material_block">-->
-<!--              <el-input v-model="materialIdString"></el-input>-->
-<!--            </el-col>-->
             <el-select v-model="materialIdString" multiple placeholder="请选择" style="width: 50%">
               <el-option
                 v-for="(item, index) in materialList"
@@ -38,7 +35,6 @@
           <el-form-item style="margin-top: 20%">
             <el-col :span="6">
               <el-button v-on:click="changeCourse" type="primary">确认</el-button>
-<!--              <el-button v-on:click="returnManageCourse">返回</el-button>-->
             </el-col>
           </el-form-item>
         </el-form>
@@ -82,6 +78,25 @@ export default {
     this.getMaterialList()
   },
   methods: {
+    getCourseInfo: function () {
+      let that = this
+      that.loading = true
+      this.$http.request({
+        url: that.$url + 'GetCourseInfo/',
+        method: 'get',
+        params: {
+          id: that.id
+        }
+      }).then(function (response) {
+        console.log(response.data)
+        that.loading = false
+
+        // that.materialList = response.data
+      }).catch(function (error) {
+        that.loading = false
+        console.log(error)
+      })
+    },
     returnManageCourse: function () {
       let that = this
       that.$router.push({

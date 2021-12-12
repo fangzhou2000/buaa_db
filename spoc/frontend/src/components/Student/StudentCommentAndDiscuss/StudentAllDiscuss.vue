@@ -27,8 +27,7 @@
                     circle></el-button>
                 </el-col>
               </el-row>
-              <el-row v-loading="loading">
-              <el-card v-for="(postTheme, index) in showPostThemeList" :key="index" shadow="hover" style="margin-bottom: 2%">
+              <el-card v-for="(postTheme, index) in showPostThemeList" :key="index" v-loading="loading" shadow="hover" style="margin-bottom: 2%">
                 <div class="clearfix">
                   <span><strong>{{postTheme.title}}</strong></span>
                   <el-button style="float: right; padding: 3px 0" type="text"
@@ -45,7 +44,6 @@
                   <span style="color: gray; font-size: 8px">发表于-{{postTheme.time}}</span>
                 </div>
               </el-card>
-              </el-row>
             </el-col>
             <el-col :span="8" :offset="2" class="right-information">
               <el-card shadow="hover" style="width: 100%">

@@ -25,7 +25,10 @@
                 circle></el-button>
             </el-col>
           </el-row>
-          <el-card v-for="(course, index) in showMyCourseList" :key="index" shadow="hover" style="margin-bottom: 2%">
+          <el-card v-for="(course, index) in showMyCourseList" :key="index"
+                   v-loading="loading"
+                   shadow="hover"
+                   style="margin-bottom: 2%">
             <el-row>
               <el-col :offset="2" :span="2">
                 <el-image :src="courseImg" lazy></el-image>

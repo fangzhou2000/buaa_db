@@ -9,16 +9,13 @@
           <TeacherHeading></TeacherHeading>
         </el-header>
         <el-main style="padding-left: 30%; padding-right: 10%">
-        <el-form label-position="top" v-loading="loading" >
+        <el-form label-position="top" v-loading="loading">
           <el-form-item label="课程名称">
             <el-col :span="12">
               <el-input v-model="course.name"></el-input>
             </el-col>
           </el-form-item>
           <el-form-item label="学习材料ID (如有多个请用','隔开)">
-<!--            <el-col :span="6">-->
-<!--              <el-input v-model="materialIdString"></el-input>-->
-<!--            </el-col>-->
             <el-select v-model="materialIdString" multiple placeholder="请选择" style="width: 50%">
               <el-option
                 v-for="(item, index) in materialList"
