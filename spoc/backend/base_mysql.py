@@ -396,9 +396,9 @@ class MySQL:
     def getCommentList(self, courseId):
         connection, cursor = self.connectDatabase()
         try:
-            instruction = "SELECT s.id, s.name, cc.c, cc.time, cc.id FROM " \
-                          "(SELECT `time`, content, id FROM comment, course_comment as cc " \
-                          "WHERE cc.course_id=%s and cc.comment_id=comment.id) AS cc(time,c,id), " \
+            instruction = "SELECT s.id, s.name, cc.c, cc.time, cc.id, cc.d FROM " \
+                          "(SELECT `time`, content, id, `degree` FROM comment, course_comment as cc " \
+                          "WHERE cc.course_id=%s and cc.comment_id=comment.id) AS cc(time,c,id,d), " \
                           "student_comment as sc, student AS s " \
                           "WHERE cc.id=sc.comment_id AND sc.student_id=s.id "
             # "ORDER BY cc.time desc"
