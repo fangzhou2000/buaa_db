@@ -681,7 +681,7 @@ class MySQL:
     def registerStudent(self, student_id, password, student_name):
         connection, cursor = self.connectDatabase()
         try:
-            instruction = "INSERT INTO student " \
+            instruction = "INSERT INTO student(id, password, name) " \
                           "values(%s, %s, %s)"
 
             cursor.execute(instruction, [student_id, password, student_name])
@@ -695,7 +695,7 @@ class MySQL:
     def registerTeacher(self, teacher_id, password, teacher_name):
         connection, cursor = self.connectDatabase()
         try:
-            instruction = "INSERT INTO teacher " \
+            instruction = "INSERT INTO teacher(id, password, name) " \
                           "values(%s, %s, %s)"
 
             cursor.execute(instruction, [teacher_id, password, teacher_name])
@@ -815,6 +815,17 @@ class MySQL:
             instruction = "DELETE FROM comment " \
                       "WHERE id=%s"
             cursor.execute(instruction, [i[0]])
+        print(1)
+
+        instruction = "SELECT student_id from student_course where course_id=%s"
+        cursor.execute(instruction, [course_id])
+        result = cursor.fetchall()
+        print(result)
+        for i in result:
+            instruction = "UPDATE student set count_course = count_course - 1" \
+                          " where id=%s"
+            cursor.execute(instruction, [i[0]])
+
         instruction = "DELETE FROM course " \
                       "WHERE id=%s"
         cursor.execute(instruction, [course_id])

@@ -24,7 +24,7 @@
             <el-row class="content" style="color: black">
               {{comment.content}}
             </el-row>
-            <el-row class="delete">
+            <el-row class="delete" :span="1" style="float: right">
               <el-link type="danger" v-on:click="deleteComment(comment.id)">删除</el-link>
             </el-row>
             <el-divider></el-divider>
@@ -65,18 +65,18 @@ export default {
   components: {AdminNav, AdminHeading},
   data: function () {
     return {
-      userName: '前端测试用户名',
-      userNickName: '前端测试姓名',
-      courseId: '前端测试课程id',
-      courseName: '前端测试课程名称',
+      userName: '',
+      userNickName: '',
+      courseId: '',
+      courseName: '',
       contentInput: '',
       time: '',
       commentList: [{
         id: 1,
-        userName: '学号1',
-        userNickName: '学生1',
-        content: '课程评价内容1',
-        time: '2021-11-19 11:11:11'
+        userName: '',
+        userNickName: '',
+        content: '',
+        time: ''
       }
       ]
     }

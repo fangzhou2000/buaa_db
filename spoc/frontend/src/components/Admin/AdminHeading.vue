@@ -25,8 +25,8 @@ export default {
   components: {AdminNav},
   data: function () {
     return {
-      userName: 'admin',
-      userNickName: 'admin',
+      userName: '',
+      userNickName: '',
       show: false
     }
   },

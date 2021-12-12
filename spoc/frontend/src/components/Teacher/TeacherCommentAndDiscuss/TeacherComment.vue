@@ -71,7 +71,7 @@
                 </el-row>
                 <el-row class="delete">
                   <div v-if="comment.userName === userName">
-                    <el-link type="danger" v-on:click="deleteComment(comment.id)">删除</el-link>
+                    <el-link type="danger">删除</el-link>
                   </div>
                 </el-row>
               </el-col>
@@ -117,23 +117,23 @@ export default {
   data: function () {
     return {
       loading: true,
-      userName: '前端测试用户名',
-      userNickName: '前端测试姓名',
-      courseId: '前端测试课程id',
-      courseName: '前端测试课程名称',
-      courseIntroduction: '前端测试课程介绍',
+      userName: '',
+      userNickName: '',
+      courseId: '',
+      courseName: '',
+      courseIntroduction: '',
       courseMaterialList: [],
-      courseAvgDegree: 3.0,
+      courseAvgDegree: 1.0,
       contentInput: '',
       courseImg: CourseImg,
       studentImg: StudentImg,
       time: '',
       commentList: [{
         id: 1,
-        userName: '学号1',
-        userNickName: '学生1',
-        content: '课程评价内容1',
-        time: '2021-11-19 11:11:11'
+        userName: '',
+        userNickName: '',
+        content: '',
+        time: ''
       }
       ]
     }
@@ -203,6 +203,9 @@ export default {
       }).then(function (response) {
         console.log(response.data)
         that.courseAvgDegree = response.data.avgDegree
+        if (that.courseAvgDegree !== 5) {
+          that.courseAvgDegree = Number(that.courseAvgDegree).toFixed(1)
+        }
       })
     },
     returnStudentAllComment: function () {

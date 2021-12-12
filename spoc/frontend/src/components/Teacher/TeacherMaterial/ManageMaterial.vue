@@ -52,12 +52,12 @@ export default {
       userNickName: '',
       userName: '',
       myMaterialList: [{
-        id: '1',
-        name: '前端测试学习材料'
+        id: '',
+        name: ''
       }],
       showMyMaterialList: [{
-        id: '1',
-        name: '前端测试学习材料'
+        id: '',
+        name: ''
       }],
       inputSearch: ''
     }

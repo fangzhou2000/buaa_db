@@ -103,25 +103,11 @@ export default {
       userNickName: '',
       userName: '',
       myCourseList: [{
-        id: '1',
-        name: '课程1',
+        id: '',
+        name: '',
         materialList: [{
-          id: '01',
-          name: '材料01'
-        }, {
-          id: '02',
-          name: '材料02'
-        }],
-        introduction: ''
-      }, {
-        id: '2',
-        name: '课程2',
-        materialList: [{
-          id: '03',
-          name: '材料03'
-        }, {
-          id: '04',
-          name: '材料03'
+          id: '',
+          name: ''
         }],
         introduction: ''
       }],
@@ -163,22 +149,12 @@ export default {
       console.log(index)
       let that = this
       let materialIdString = that.showMyCourseList[index].materialIdString
-      // for (var i = 0; i < that.showMyCourseList[index].materialList.length; i++) {
-      //   if (i === 0) {
-      //     materialIdString = (that.showMyCourseList[index].materialList[i].id)
-      //   } else {
-      //     materialIdString = materialIdString + ',' + (that.showMyCourseList[index].materialList[i].id)
-      //   }
-      // }
       this.$router.push({
         path: '/TeacherCourse/ChangeCourse',
         // 这里不能使用params传递参数，详见：
         // https://blog.csdn.net/qq_37548296/article/details/90446430
         query: {
           id: that.showMyCourseList[index].id,
-          name: that.showMyCourseList[index].name,
-          materialIdString: materialIdString,
-          introduction: that.showMyCourseList[index].introduction
         }
       })
     },
