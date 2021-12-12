@@ -779,24 +779,22 @@ class MySQL:
         #               ")"
         # cursor.execute(instruction, [course_id])
         # connection.commit()
-        try:
+        print(course_id)
+
+
+        instruction = "SELECT comment_id from course_comment WHERE course_id=%s"
+        cursor.execute(instruction, [course_id])
+        result = cursor.fetchall()
+        print(result)
+        for i in result:
             instruction = "DELETE FROM comment " \
-                          "WHERE id in (" \
-                          "SELECT comment_id from course_comment WHERE course_id=%s" \
-                          ")"
-            cursor.execute(instruction, [course_id])
-            connection.commit()
-
-            instruction = "DELETE FROM course " \
-                          "WHERE id=%s"
-
-            cursor.execute(instruction, [course_id])
-            connection.commit()
-
-            self.closeDatabase(connection, cursor)
-        except Exception as e:
-            connection.rollback()
-            print("执行MySQL错误")
+                      "WHERE id=%s"
+            cursor.execute(instruction, [i[0]])
+        instruction = "DELETE FROM course " \
+                      "WHERE id=%s"
+        cursor.execute(instruction, [course_id])
+        connection.commit()
+        self.closeDatabase(connection, cursor)
         return
 
     def teacherPasswordChange(self, teacher_id, password):

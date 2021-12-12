@@ -551,7 +551,6 @@ class ChangeCourse(APIView):
 
 class CancelCourse(APIView):
     def get(self, request):
-        print(111)
         userName = str(request.GET.get('userName', None))
         id = str(request.GET.get('id', None))
         # 教师停课，只能停自己开的课，成功返回0
