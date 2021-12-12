@@ -10,21 +10,24 @@
         </el-header>
         <el-main style="padding-left: 10%; padding-right: 10%">
           <el-page-header @back="returnStudentAllComment" :content="courseName" style="margin-bottom: 2%"></el-page-header>
-<!--          <el-row class="buttons">评价 {{courseName}}</el-row>-->
-          <el-card shadow="hover" style="margin-bottom: 2%">
+          <el-card shadow="hover" style="margin-bottom: 1%">
             <el-row>
-              <el-col :offset="1" :span="2">
+              <el-col :offset="1" :span="3">
                 <el-image :src="courseImg" lazy></el-image>
                 <el-row>
+                  &nbsp;
+                </el-row>
+                <el-row style="text-align: center; font-size: medium">
                   课程评分
                 </el-row>
                 <el-rate
-                  v-model="originDegree.avgDegree"
+                  align="center"
+                  v-model="courseAvgDegree"
                   disabled
                   show-score
                   text-color="#ff9900"></el-rate>
               </el-col>
-              <el-col :offset="2" :span="18">
+              <el-col :offset="2" :span="17">
                 <el-row>
                   <el-col :span="18">
                     <strong>{{courseName}}</strong>
@@ -35,10 +38,10 @@
                   </el-divider>
                 </el-row>
                 <el-row>
-                  <div style="font-size: 12px">
-                    <h4>课程概述</h4>
+                  <div style="font-size: small">
+                    <h3>课程概述</h3>
                     {{ courseIntroduction }}
-                    <h4>课程资料</h4>
+                    <h3>课程资料</h3>
                     <p>{{ courseMaterial }}</p>
                   </div>
                 </el-row>
@@ -49,15 +52,19 @@
             <el-divider></el-divider>
           </el-row>
           <el-row>
-            <el-col>
-              请您对课程进行评分（默认为5分），分数越高代表您对课程越满意
-            </el-col>
-            <el-col>
-              <el-rate
-                v-model="degree"
-                show-text>
-              </el-rate>
-            </el-col>
+            <div style="font-size: medium">
+              评分
+            </div>
+            <el-rate
+              style="font-size: medium"
+              v-model="degree"
+              show-text>
+            </el-rate>
+          </el-row>
+          <el-row>
+            &nbsp;
+          </el-row>
+          <el-row>
             <el-col>
               <el-input class="input" v-model="contentInput" type="textarea" :rows="3" placeholder="对于课程内容、讲课质量、考核方式等的评价">
               </el-input>
@@ -103,7 +110,7 @@
     margin-bottom: 10px;
   }
   .input {
-    font-size: large;
+    font-size: medium;
   }
   .time {
     font-size: small;
@@ -137,9 +144,7 @@ export default {
       courseId: '前端测试课程id',
       courseName: '前端测试课程名称',
       courseIntroduction: '前端测试课程介绍',
-      originDegree: {
-        avgDegree: 3.4
-      },
+      courseAvgDegree: 3.0,
       degree: 5,
       courseMaterial: '前端测试学习资料',
       contentInput: '',
@@ -164,8 +169,7 @@ export default {
     this.courseName = this.$route.query.courseName
     this.courseIntroduction = this.$route.query.courseIntroduction
     this.courseMaterial = this.$route.query.courseMaterial
-    this.OriginDegree = this.$route.query.OriginDegree
-    console.log(this.$route.query)
+    this.courseAvgDegree = 
     this.getCommentList()
   },
   methods: {
@@ -192,6 +196,19 @@ export default {
         that.commentList = response.data
       }).catch(function (error) {
         console.log(error)
+      })
+    },
+    getDegree: function () {
+      let that = this
+      this.$http.request({
+        url: that.$url + 'GetDegree/',
+        method: 'get',
+        params: {
+          id: that.courseId
+        }
+      }).then(function (response) {
+        console.log(response.data)
+        that.courseAvgDegree = response.data.avgDegree
       })
     },
     commentCourse: function () {

@@ -114,15 +114,7 @@ export default {
           name: '材料02'
         }],
         introduction: '',
-        degree: [{
-          1: 2,
-          2: 2,
-          3: 2,
-          4: 2,
-          5: 2,
-          totalNum: 10,
-          avgDegree: 3
-        }]
+        avgDegree: 2.0
       }],
       showCourseList: this.courseList,
       inputSearch: ''

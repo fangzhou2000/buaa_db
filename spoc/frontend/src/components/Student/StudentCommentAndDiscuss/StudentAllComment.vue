@@ -34,19 +34,20 @@
                   </el-col>
                   <el-col :offset="2" :span="18">
                     <el-row>
-                      <el-col :span="18">
+                      <el-col :span="14">
                         <strong>{{course.name}}</strong>
                       </el-col>
-                      <el-col :span="4" :offset="2">
+                      <el-col :span="8" :offset="2">
                         <el-row>
-                          <span>综合评分&nbsp;</span>
+                          <span style="font-size: 15px;">综合评分&nbsp;</span>
                           <el-rate
-                            v-model="course.degree.avgDegree"
+                            v-model="course.avgDegree"
                             disabled
                             show-score
-                            text-color="#ff9900"></el-rate>
+                            text-color="#ff9900">
+                          </el-rate>
+                          <el-button v-on:click="commentCourse(index)" type="text" >进入评价</el-button>
                         </el-row>
-                        <el-button v-on:click="commentCourse(index)" type="text" style="float: right">查看</el-button>
                       </el-col>
                     </el-row>
                     <el-row>
@@ -126,23 +127,23 @@ export default {
         introduction: '前端介绍测试1',
         materialIdString: '1,2',
         materialNameString: 'book1,book2',
-        degree: {
-          1: 1,
-          2: 1,
-          3: 1,
-          4: 1,
-          5: 1,
-          totalNum: 5,
-          avgDegree: 3.0
-        }
+        avgDegree: 3.0
       }, {
         id: '2',
         name: '前端测试课程2',
         introduction: '前端测试介绍2',
         materialIdString: '1,2',
-        materialNameString: 'book1,book2'
+        materialNameString: 'book1,book2',
+        avgDegree: 3.0
       }],
-      showCourseList: this.courseList
+      showCourseList: [{
+        id: '1',
+        name: '前端测试课程1',
+        introduction: '前端介绍测试1',
+        materialIdString: '1,2',
+        materialNameString: 'book1,book2',
+        avgDegree: 3.0
+      }]
     }
   },
   mounted: function () {
@@ -151,6 +152,7 @@ export default {
     this.getCourseList()
     this.getStudentCommentNum()
     this.getStudentCourseNum()
+    this.showCourseList = this.courseList
   },
   methods: {
     getStudentCourseNum: function () {
@@ -207,9 +209,8 @@ export default {
           courseId: that.showCourseList[index].id,
           courseName: that.showCourseList[index].name,
           courseIntroduction: that.showCourseList[index].introduction,
-          // courseAssessment: that.courseList[index].courseAssessment,
           courseMaterial: that.showCourseList[index].materialNameString,
-          OriginDegree: that.showCourseList[index].degree
+          courseAvgDegree: that.showCourseList[index].avgDegree
         }
       })
     },

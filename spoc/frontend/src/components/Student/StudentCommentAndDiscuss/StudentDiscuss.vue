@@ -17,9 +17,6 @@
           <el-card shadow="hover" style="margin-bottom: 2%">
             <el-row>
               <el-col :offset="2" :span="2">
-<!--                <el-row>-->
-<!--                  <el-empty :image-size="80" style="margin: 0 !important; padding: 0 !important;"></el-empty>-->
-<!--                </el-row>-->
                 <el-row class="time">
                   {{postTheme.time}}
                 </el-row>
@@ -84,7 +81,6 @@
                 </el-row>
               </el-col>
               <el-col class="content" :span="18" v-html="post.content">
-<!--                {{post.content}}-->
               </el-col>
               <el-col class="delete" :span="1" style="float: right">
                 <div v-if="post.userName === userName">
