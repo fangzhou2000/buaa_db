@@ -39,6 +39,15 @@
                 <el-row>
                   <el-tag type="primary">课程编号<span>&nbsp;&nbsp;{{course.id}}</span></el-tag>
                 </el-row>
+                <el-row>
+                  <span>综合评分&nbsp;</span>
+                  <el-rate
+                    v-model="course.degree['avgDegree']"
+                    disabled
+                    show-score
+                    text-color="#ff9900"
+                    score-template="{course.degree['avgDegree']}"></el-rate>
+                </el-row>
               </el-col>
               <el-col :span="2">
                 <el-button-group style="margin-top: 2%">
@@ -163,8 +172,27 @@ export default {
     this.userName = this.cookie.getCookie('userName')
     this.userNickName = this.cookie.getCookie('userNickName')
     this.getStudentCourseList()
+    for (var i = 0; i < this.myCourseList.length; i ++) {
+      this.getDegree(i, this.myCourseList[i].id)
+    }
   },
   methods: {
+    getDegree: function (index, identity) {
+      let that = this
+      this.$http.request({
+        url: that.$url + 'GetDegree/',
+        method: 'get',
+        params: {
+          id: identity
+        }
+      }).then(function (response) {
+        console.log(response.data)
+        that.myCourseList[index]['degree'] = response.data
+        that.showMyCourseList[index]['degree'] = response.data
+      }).catch(function (error) {
+        console.log(error)
+      })
+    },
     getCourseInfo: function (index) {
       let that = this
       that.courseInfo = that.showMyCourseList[index]
