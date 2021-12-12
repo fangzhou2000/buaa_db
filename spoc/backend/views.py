@@ -2,6 +2,16 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .base_mysql import MySQL
 
+class GetPostTheme(APIView):
+    def get(self, request):
+        postThemeId = str(request.GET.get('postThemeId', None))
+        sql = MySQL()
+        r = sql.getPostTheme(postThemeId)
+        dic = {"id": r[0][0], "userName": r[1][0], "userNickName": r[1][1],
+               "title": r[0][1], "content": r[0][2], "time": r[0][3],
+               "isTeacher": r[0][4]}
+        print(dic)
+        return Response(dic)
 
 class AdminChange(APIView):
     def get(self, request):

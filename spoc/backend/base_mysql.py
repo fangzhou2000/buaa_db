@@ -21,11 +21,39 @@ import pymysql
 
 class MySQL:
 
+    def getPostTheme(self, postthemeId):
+        connection, cursor = self.connectDatabase()
+        result = ""
+        try:
+            instruction = "SELECT id, title, content, `time`, isTeacher FROM posttheme " \
+                          "where id=%s"
+            cursor.execute(instruction, [postthemeId])
+            result = cursor.fetchall()
+            type = result[0][4]
+            # print(type)
+            if type == 0:
+                instruction = "SELECT id, `name` FROM student, student_posttheme as sp where " \
+                              "sp.student_id=student.id and sp.posttheme_id=%s"
+            elif type == 1:
+                instruction = "SELECT id, `name` FROM teacher, teacher_posttheme as tp where " \
+                              "tp.teacher_id=teacher.id and tp.posttheme_id=%s"
+            else:
+                instruction = "SELECT id, `name` FROM `admin`, admin_posttheme as ap where " \
+                              "ap.admin_id=`admin`.id and ap.posttheme_id=%s"
+            cursor.execute(instruction, [postthemeId])
+            result += cursor.fetchall()
+            # print(result)
+        except Exception as e:
+            connection.rollback()
+            print("error")
+        self.closeDatabase(connection, cursor)
+        return result
+
     def getCourseDegree(self, courseID):
         connection, cursor = self.connectDatabase()
         result = ""
         try:
-            cursor.callproc('COMMENT_DEGREE', args=(courseID, 0,0,0,0,0,0,0))
+            cursor.callproc('COMMENT_DEGREE', args=(courseID, 0, 0, 0, 0, 0, 0, 0))
             cursor.execute(query='select @_COMMENT_DEGREE_0, @_COMMENT_DEGREE_1,@_COMMENT_DEGREE_2,@_COMMENT_DEGREE_3,'
                                  '@_COMMENT_DEGREE_4,@_COMMENT_DEGREE_5,@_COMMENT_DEGREE_6, @_COMMENT_DEGREE_7;')
             result = cursor.fetchall()
@@ -241,35 +269,36 @@ class MySQL:
     def buildPost(self, postThemeId, userName, content, ti, isTeacher):
         connection, cursor = self.connectDatabase()
         try:
-            instruction = "INSERT INTO post( content, time, isTeacher) " \
-                          "values(%s, %s, %s)"
-            cursor.execute(instruction, [content, ti, isTeacher])
-            connection.commit()
-
-            instruction = "SELECT MAX(id) FROM post"
-
-            cursor.execute(instruction)
-            result = cursor.fetchall();
-            result = result[0][0]
-
-            if isTeacher == 0 or isTeacher == "0":
-                instruction = "INSERT INTO student_post(student_id, post_id) " \
-                              "VALUES (%s, %s)"
-            elif isTeacher == 2 or isTeacher == "2":
-                instruction = "INSERT INTO admin_post(admin_id, post_id) " \
-                              "VALUES (%s, %s)"
-            else:
-                instruction = "INSERT INTO teacher_post(teacher_id, post_id) " \
-                              "VALUES (%s, %s)"
-            cursor.execute(instruction, [userName, result])
-
-            connection.commit()
-
-            instruction = "INSERT INTO post_posttheme(posttheme_id, post_id) " \
-                          "VALUES (%s, %s)"
-            cursor.execute(instruction, [postThemeId, result])
-
-            connection.commit()
+            cursor.callproc("BUILDP", args=(postThemeId, userName, content, ti, isTeacher))
+            # instruction = "INSERT INTO post( content, time, isTeacher) " \
+            #               "values(%s, %s, %s)"
+            # cursor.execute(instruction, [content, ti, isTeacher])
+            # connection.commit()
+            #
+            # instruction = "SELECT MAX(id) FROM post"
+            #
+            # cursor.execute(instruction)
+            # result = cursor.fetchall();
+            # result = result[0][0]
+            #
+            # if isTeacher == 0 or isTeacher == "0":
+            #     instruction = "INSERT INTO student_post(student_id, post_id) " \
+            #                   "VALUES (%s, %s)"
+            # elif isTeacher == 2 or isTeacher == "2":
+            #     instruction = "INSERT INTO admin_post(admin_id, post_id) " \
+            #                   "VALUES (%s, %s)"
+            # else:
+            #     instruction = "INSERT INTO teacher_post(teacher_id, post_id) " \
+            #                   "VALUES (%s, %s)"
+            # cursor.execute(instruction, [userName, result])
+            #
+            # connection.commit()
+            #
+            # instruction = "INSERT INTO post_posttheme(posttheme_id, post_id) " \
+            #               "VALUES (%s, %s)"
+            # cursor.execute(instruction, [postThemeId, result])
+            #
+            # connection.commit()
         except Exception as e:
             connection.rollback()
             print("执行MySQL错误")
@@ -359,33 +388,36 @@ class MySQL:
 
     def commentCourse(self, courseId, userName, content, ti, degree):
         connection, cursor = self.connectDatabase()
+        if degree == "None":
+            degree = 5
         try:
-            instruction = "INSERT INTO comment(content, time, degree) " \
-                          "values(%s, %s, %s)"
-
-            cursor.execute(instruction, [content, ti, degree])
-
-            connection.commit()
-
-            instruction = "SELECT MAX(id) FROM comment"
-
-            cursor.execute(instruction)
-            result = cursor.fetchall();
-            result = result[0][0]
-
-            instruction = "INSERT INTO student_comment(student_id, comment_id) " \
-                          "VALUES (%s, %s)"
-
-            cursor.execute(instruction, [userName, result])
-
-            connection.commit()
-
-            instruction = "INSERT INTO course_comment(course_id, comment_id) " \
-                          "VALUES (%s, %s)"
-
-            cursor.execute(instruction, [courseId, result])
-
-            connection.commit()
+            cursor.callproc("COMMENT", args=(courseId, userName, content, ti, degree))
+            # instruction = "INSERT INTO comment(content, time) " \
+            #               "values(%s, %s)"
+            #
+            # cursor.execute(instruction, [content, ti])
+            #
+            # connection.commit()
+            #
+            # instruction = "SELECT MAX(id) FROM comment"
+            #
+            # cursor.execute(instruction)
+            # result = cursor.fetchall()
+            # result = result[0][0]
+            #
+            # instruction = "INSERT INTO student_comment(student_id, comment_id) " \
+            #               "VALUES (%s, %s)"
+            #
+            # cursor.execute(instruction, [userName, result])
+            #
+            # connection.commit()
+            #
+            # instruction = "INSERT INTO course_comment(course_id, comment_id, degree) " \
+            #               "VALUES (%s, %s, %s)"
+            #
+            # cursor.execute(instruction, [courseId, result, degree])
+            #
+            # connection.commit()
         except Exception as e:
             connection.rollback()
             print("执行MySQL错误")
@@ -798,11 +830,16 @@ class MySQL:
 
 if __name__ == "__main__":
     sql = MySQL()
+    # r = sql.getPostTheme(42)
+    # dic = {"id": r[0][0], "userName": r[1][0], "userNickName": r[1][1],
+    #        "title": r[0][1], "content": r[0][2], "time": r[0][3],
+    #        "isTeacher": r[0][4]}
+    # print(dic)
     # sql.test()
     # result = sql.getStudentCourseNum("19373136")
     # print(result[0][0])
-
-    sql.getCourseDegree(26)
+    #
+    # sql.getCourseDegree(26)
     #
     # sql.commentCourse(1, 19373136, 1, "2021-20-22 11:12:22")
     #
