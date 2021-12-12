@@ -48,10 +48,10 @@
             <el-col :span="8" :offset="2" class="right-information">
               <el-card shadow="hover" style="width: 100%">
                 <el-row>
-                  <el-col :span="12">
-                    <el-empty :image-size="80" style="margin: 0 !important; padding: 0 !important;"></el-empty>
+                  <el-col :span="11">
+                    <el-image :src="studentImg" lazy></el-image>
                   </el-col>
-                  <el-col :span="12">
+                  <el-col :span="12" :offset="1">
                     <el-descriptions :column="1">
                       <el-descriptions-item label="用户名">{{userNickName}}</el-descriptions-item>
                       <el-descriptions-item label="学号">{{userName}}</el-descriptions-item>
@@ -98,6 +98,7 @@ import {quillEditor} from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
+import StudentImg from '../../../assets/img/student.png'
 export default {
   name: 'StudentAllDiscuss',
   components: {StudentNav, StudentHeading, quillEditor},
@@ -107,6 +108,7 @@ export default {
       userName: '',
       userNickName: '',
       discussNum: '1',
+      studentImg: StudentImg,
       input: {
         title: '',
         content: ''

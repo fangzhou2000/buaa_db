@@ -55,9 +55,9 @@
           <div v-for="(comment) in commentList" v-bind:key="comment">
             <el-row class="time">
               <el-col :span="1">
-                <el-avatar></el-avatar>
+                <el-image :src="studentImg" fit="contain" lazy></el-image>
               </el-col>
-              <el-col :span="3">
+              <el-col :span="3" :offset="1">
 
                 <el-row class="userName">
                   {{comment.userNickName}}({{comment.userName}}) :
@@ -65,7 +65,7 @@
                 <el-row>{{comment.time}}</el-row>
 
               </el-col>
-              <el-col :span="20" class="content">
+              <el-col :span="19" class="content">
                 <el-row class="content-of-comment">
                 {{comment.content}}
                 </el-row>
@@ -124,10 +124,7 @@
 import StudentNav from '../StudentNav'
 import StudentHeading from '../StudentHeading'
 import CourseImg from '../../../assets/img/buaa_class_img.jpg'
-// import {quillEditor} from 'vue-quill-editor'
-// import 'quill/dist/quill.core.css'
-// import 'quill/dist/quill.snow.css'
-// import 'quill/dist/quill.bubble.css'
+import StudentImg from '../../../assets/img/student.png'
 export default {
   name: 'StudentComment',
   components: {StudentNav, StudentHeading},
@@ -142,6 +139,7 @@ export default {
       courseMaterial: '前端测试学习资料',
       contentInput: '',
       courseImg: CourseImg,
+      studentImg: StudentImg,
       time: '',
       commentList: [{
         id: 1,

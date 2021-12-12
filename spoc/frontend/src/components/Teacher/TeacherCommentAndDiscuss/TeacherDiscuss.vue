@@ -57,7 +57,9 @@
           <div v-for="(post, index) in postList" v-bind:key="index">
             <el-row>
               <el-col :span="1">
-                <el-avatar></el-avatar>
+                <el-avatar v-if="post.isTeacher === 1" :src="teacherImg"></el-avatar>
+                <el-avatar v-else-if="post.isTeacher === 2" :src="adminImg"></el-avatar>
+                <el-avatar v-else :src="studentImg"></el-avatar>
               </el-col>
               <el-col :span="3">
                 <el-row class="time">
@@ -116,6 +118,9 @@
 <script>
 import TeacherNav from '../TeacherNav'
 import TeacherHeading from '../TeacherHeading'
+import TeacherImg from '../../../assets/img/teacher.png'
+import StudentImg from '../../../assets/img/student.png'
+import AdminIng from '../../../assets/img/admin.jpg'
 export default {
   name: 'TeacherDiscuss',
   components: {TeacherNav, TeacherHeading},
@@ -123,6 +128,9 @@ export default {
     return {
       dialogFormVisible: false,
       userName: '前端测试教师',
+      studentImg: StudentImg,
+      teacherImg: TeacherImg,
+      adminImg: AdminIng,
       postTheme: {
         id: '测试id',
         userName: 'admin',
