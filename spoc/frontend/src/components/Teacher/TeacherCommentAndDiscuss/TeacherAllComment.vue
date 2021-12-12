@@ -136,8 +136,24 @@ export default {
     this.userName = this.cookie.getCookie('userName')
     this.userNickName = this.cookie.getCookie('userNickName')
     this.getCourseList()
+    this.getTeacherCourseNum()
   },
   methods: {
+    getTeacherCourseNum: function () {
+      let that = this
+      this.$http.request({
+        url: that.$url + 'GetTeacherCourseNum/',
+        method: 'get',
+        params: {
+          userName: that.userName
+        }
+      }).then(function (response) {
+        console.log(response.data)
+        that.courseNum = response.data
+      }).catch(function (error) {
+        console.log(error)
+      })
+    },
     getCourseList: function () {
       let that = this
       that.loading = true
