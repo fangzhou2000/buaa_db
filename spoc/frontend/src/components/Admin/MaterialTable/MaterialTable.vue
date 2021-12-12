@@ -12,7 +12,7 @@
           <el-row>
             <el-col :span="23">
               <el-input
-                placeholder="查找学生"
+                placeholder="查找学习材料"
                 prefix-icon="el-icon-search" v-model="inputSearch"
                 style="margin-bottom: 5%"></el-input>
             </el-col>
@@ -25,7 +25,7 @@
                 circle></el-button>
             </el-col>
           </el-row>
-          <el-table :data="materialList" v-loading="loading">
+          <el-table :data="showMaterialList" v-loading="loading">
             <el-table-column label="学习材料ID" prop="id"></el-table-column>
             <el-table-column label="学习材料名称" prop="name"></el-table-column>
             <el-table-column label="删除">
@@ -57,7 +57,8 @@ export default {
         id: '1',
         name: '前端测试课程材料'
       }],
-      inputSearch: ''
+      inputSearch: '',
+      showMaterialList: this.materialList
     }
   },
   mounted: function () {
@@ -76,6 +77,7 @@ export default {
         console.log(response.data)
         that.loading = false
         that.materialList = response.data
+        that.showMaterialList = response.data
       }).catch(function (error) {
         console.log(error)
         that.loading = false
@@ -113,7 +115,7 @@ export default {
       })
     },
     searchCourse: function (inputSearch) {
-      this.showCourseList = this.searchByIndexOf(inputSearch, this.courseList)
+      this.showMaterialList = this.searchByIndexOf(inputSearch, this.materialList)
     },
     searchByIndexOf: function (keyWord, list) {
       if (!(list instanceof Array)) {

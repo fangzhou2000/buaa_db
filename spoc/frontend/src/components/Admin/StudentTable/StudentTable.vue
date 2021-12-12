@@ -25,7 +25,7 @@
                 circle></el-button>
             </el-col>
           </el-row>
-          <el-card v-for="(student, index) in studentList" :key="index">
+          <el-card v-for="(student, index) in showStudentList" :key="index" style="margin-bottom: 2%">
             <el-row>
               <el-col :offset="2" :span="2">
                 <el-empty :image-size="40" style="margin: 0 !important; padding: 0 !important;"></el-empty>
@@ -61,6 +61,7 @@ export default {
       loading: true,
       userName: '',
       userNickName: '',
+      showStudentList: this.studentList,
       studentList: [
         {
           id: 19373686,
@@ -94,13 +95,14 @@ export default {
         console.log(response.data)
         that.loading = false
         that.studentList = response.data
+        that.showStudentList = response.data
       }).catch(function (error) {
         console.log(error)
         that.loading = false
       })
     },
     searchCourse: function (inputSearch) {
-      this.showCourseList = this.searchByIndexOf(inputSearch, this.courseList)
+      this.showStudentList = this.searchByIndexOf(inputSearch, this.studentList)
     },
     searchByIndexOf: function (keyWord, list) {
       if (!(list instanceof Array)) {

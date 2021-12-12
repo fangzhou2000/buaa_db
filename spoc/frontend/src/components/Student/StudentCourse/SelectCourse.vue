@@ -61,7 +61,7 @@
                 <a v-for="(m) in courseInfo.materialList" v-bind:key="m.id">{{ m.name }}({{ m.id }})，</a>
               </el-descriptions-item>
               <el-descriptions-item label="课程介绍">&nbsp;&nbsp;
-                {{ courseInfo.introduction }}
+                <span v-html="courseInfo.introduction"></span>
               </el-descriptions-item>
             </el-descriptions>
             <div slot="footer" class="dialog-footer">

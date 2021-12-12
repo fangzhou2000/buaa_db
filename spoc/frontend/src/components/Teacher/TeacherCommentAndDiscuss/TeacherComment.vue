@@ -39,11 +39,19 @@
                   </el-divider>
                 </el-row>
                 <el-row>
+<<<<<<< HEAD
                   <div style="font-size: small">
                     <h3>课程介绍</h3>
                     {{ courseIntroduction }}
                     <h3>课程资料</h3>
                     <p><a v-for="(m) in courseMaterialList" v-bind:key="m.id">{{ m.name }}，</a></p>
+=======
+                  <div style="font-size: 12px">
+                    <h4>课程概述</h4>
+                    <p v-html="courseIntroduction"></p>
+                    <h4>课程资料</h4>
+                    <p>{{courseMaterial}}</p>
+>>>>>>> cd30ff0e9da60cd030c7dc4e1de4ead6ce7f5f06
                   </div>
                 </el-row>
               </el-col>
@@ -66,8 +74,8 @@
                 <el-row>{{comment.time}}</el-row>
               </el-col>
               <el-col :span="20" class="content">
-                <el-row class="content-of-comment">
-                {{comment.content}}
+                <el-row class="content-of-comment" style="color: black">
+                  <span v-html="comment.content"></span>
                 </el-row>
                 <el-row class="delete">
                   <div v-if="comment.userName === userName">

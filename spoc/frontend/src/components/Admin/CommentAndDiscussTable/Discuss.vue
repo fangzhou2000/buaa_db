@@ -38,7 +38,7 @@
               </div>
             </el-row>
             <el-row class="content">
-              {{postTheme.content}}
+              <span v-html="postTheme.content"></span>
             </el-row>
             <el-row class="delete">
               <el-link type="danger" v-on:click="deletePostTheme">删除</el-link>
@@ -60,7 +60,7 @@
               </div>
             </el-row>
             <el-row class="content">
-              {{post.content}}
+              <span v-html="post.content"></span>
             </el-row>
             <el-row class="delete">
               <el-link type="danger" v-on:click="deletePost(post.id)">删除</el-link>

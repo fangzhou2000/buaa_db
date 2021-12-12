@@ -12,7 +12,7 @@
           <el-row>
             <el-col :span="23">
               <el-input
-                placeholder="查找学生"
+                placeholder="查找教师"
                 prefix-icon="el-icon-search" v-model="inputSearch"
                 style="margin-bottom: 5%"></el-input>
             </el-col>
@@ -25,7 +25,7 @@
                 circle></el-button>
             </el-col>
           </el-row>
-          <el-card v-for="(teacher, index) in teacherList" :key="index">
+          <el-card v-for="(teacher, index) in showTeacherList" :key="index" style="margin-bottom: 2%">
             <el-row>
               <el-col :offset="2" :span="2">
                 <el-empty :image-size="40" style="margin: 0 !important; padding: 0 !important;"></el-empty>
@@ -75,6 +75,7 @@ export default {
           name: '郭老师'
         }
       ],
+      showTeacherList: this.teacherList,
       inputSearch: ''
     }
   },
@@ -94,13 +95,14 @@ export default {
         console.log(response.data)
         that.loading = false
         that.teacherList = response.data
+        that.showTeacherList = response.data
       }).catch(function (error) {
         console.log(error)
         that.loading = false
       })
     },
     searchCourse: function (inputSearch) {
-      this.showCourseList = this.searchByIndexOf(inputSearch, this.courseList)
+      this.showTeacherList = this.searchByIndexOf(inputSearch, this.teacherList)
     },
     searchByIndexOf: function (keyWord, list) {
       if (!(list instanceof Array)) {

@@ -12,7 +12,7 @@
           <el-row>
             <el-col :span="23">
               <el-input
-                placeholder="查找学生"
+                placeholder="查找课程"
                 prefix-icon="el-icon-search" v-model="inputSearch"
                 style="margin-bottom: 5%"></el-input>
             </el-col>
@@ -57,7 +57,7 @@
               </el-descriptions-item>
               <el-descriptions-item label="课程介绍">
                 &nbsp;&nbsp;
-                {{ courseInfo.introduction }}
+                <span v-html="courseInfo.introduction"></span>
               </el-descriptions-item>
             </el-descriptions>
             <div slot="footer" class="dialog-footer">

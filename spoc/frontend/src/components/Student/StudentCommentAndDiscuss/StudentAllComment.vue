@@ -36,6 +36,7 @@
                   <el-col :span="2">
                     <el-image :src="courseImg" lazy></el-image>
                   </el-col>
+<<<<<<< HEAD
                   {{ course.name }}
                   <el-button v-on:click="commentCourse(index)" type="text" style="font-size: smaller; float: right">
                     进入评价
@@ -51,6 +52,36 @@
                   style="font-size: x-small; text-overflow: ellipsis ;max-height: 50px; overflow: hidden; white-space: nowrap;">
                   {{ course.introduction }}
                 </div>
+=======
+                  <el-col :offset="2" :span="18">
+                    <el-row>
+                      <el-col :span="18">
+                        <strong>{{course.name}}</strong>
+                      </el-col>
+                      <el-col :span="4" :offset="2">
+                        <el-row>
+                          <span>综合评分&nbsp;</span>
+                          <el-rate
+                            v-model="course.degree.avgDegree"
+                            disabled
+                            show-score
+                            text-color="#ff9900"></el-rate>
+                        </el-row>
+                        <el-button v-on:click="commentCourse(index)" type="text" style="float: right">查看</el-button>
+                      </el-col>
+                    </el-row>
+                    <el-row>
+                      <el-divider>
+                      </el-divider>
+                    </el-row>
+                    <el-row>
+                      <div style="font-size: 12px; text-overflow: ellipsis ;max-height: 100px; overflow: hidden; white-space: nowrap;">
+                        <span v-html="course.introduction"></span>
+                      </div>
+                    </el-row>
+                  </el-col>
+                </el-row>
+>>>>>>> cd30ff0e9da60cd030c7dc4e1de4ead6ce7f5f06
               </el-card>
             </el-col>
             <el-col :span="8" :offset="2" class="right-information">

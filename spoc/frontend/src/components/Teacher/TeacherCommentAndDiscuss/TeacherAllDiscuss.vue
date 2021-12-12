@@ -79,7 +79,7 @@
                         <quill-editor ref="text" v-model="input.content" style="height: 300px"></quill-editor>
                       </el-col>
                     </el-row>
-                    <div slot="footer" class="dialog-footer">
+                    <div slot="footer" class="dialog-footer" style="margin-top: 10%">
                       <el-button @click="buildThemeVisible = false">取消</el-button>
                       <el-button type="primary" @click="buildPostTheme">确定</el-button>
                     </div>
@@ -260,7 +260,7 @@ export default {
           that.buildThemeVisible = false
           that.getTeacherDiscussNum()
           that.getPostThemeList()
-          that.postThemeInput = {
+          that.input = {
             title: '',
             content: ''
           }

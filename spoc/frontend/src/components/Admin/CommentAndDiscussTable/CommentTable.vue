@@ -35,6 +35,7 @@
                   <el-col :span="2">
                     <el-image :src="courseImg" lazy></el-image>
                   </el-col>
+<<<<<<< HEAD
                   {{ course.name }}
                   <el-button v-on:click="commentCourse(index)" type="text" style="font-size: small; float: right">
                     查看评价
@@ -50,6 +51,38 @@
                   style="font-size: smaller; text-overflow: ellipsis ;max-height: 50px; overflow: hidden; white-space: nowrap;">
                   {{ course.introduction }}
                 </div>
+=======
+                  <el-col :offset="2" :span="18">
+                    <el-row>
+                      <el-col :span="18">
+                        <strong>{{course.name}}</strong>
+                      </el-col>
+                      <el-col :span="4" :offset="2">
+                        <el-button v-on:click="commentCourse(index)" type="text" style="float: right">查看</el-button>
+                      </el-col>
+                    </el-row>
+                    <el-row>
+                      <el-divider>
+                      </el-divider>
+                    </el-row>
+                    <el-row>
+                      <div style="font-size: 12px; text-overflow: ellipsis ;max-height: 100px; overflow: hidden; white-space: nowrap;">
+                        <span v-html="course.introduction"></span>
+                      </div>
+                    </el-row>
+                  </el-col>
+<!--                  <el-col :offset="1" :span="3">-->
+<!--                    <div><strong>评分</strong></div>-->
+<!--                    <el-rate-->
+<!--                      v-model="course.assessment"-->
+<!--                      disabled-->
+<!--                      show-score-->
+<!--                      text-color="#ff9900"-->
+<!--                      score-template="{course.assessment}">-->
+<!--                    </el-rate>-->
+<!--                  </el-col>-->
+                </el-row>
+>>>>>>> cd30ff0e9da60cd030c7dc4e1de4ead6ce7f5f06
               </el-card>
             </el-col>
           </el-row>
