@@ -19,11 +19,10 @@
                   课程评分
                 </el-row>
                 <el-rate
-                  v-model="originDegree['avgDegree']"
+                  v-model="originDegree.avgDegree"
                   disabled
                   show-score
-                  text-color="#ff9900"
-                  score-template="{originDegree['avgDegree']}"></el-rate>
+                  text-color="#ff9900"></el-rate>
               </el-col>
               <el-col :offset="2" :span="18">
                 <el-row>
@@ -65,10 +64,6 @@
             </el-col>
             <el-button v-on:click="commentCourse" type="primary" size="small" style="float: right">添加评价</el-button>
           </el-row>
-<!--          <el-row>-->
-<!--            <quill-editor ref="text" v-model="contentInput" style="height: 100px"></quill-editor>-->
-<!--          </el-row>-->
-
           <el-divider></el-divider>
           <div v-for="(comment) in commentList" v-bind:key="comment">
             <el-row class="time">
@@ -94,17 +89,6 @@
                 </el-row>
               </el-col>
             </el-row>
-<!--            <el-row class="userName">-->
-<!--              {{comment.userNickName}}({{comment.userName}}) :-->
-<!--            </el-row>-->
-<!--            <el-row class="content">-->
-<!--              {{comment.content}}-->
-<!--            </el-row>-->
-<!--            <el-row class="delete">-->
-<!--              <div v-if="comment.userName === userName">-->
-<!--                <el-link type="danger" v-on:click="deleteComment(comment.id)">删除</el-link>-->
-<!--              </div>-->
-<!--            </el-row>-->
             <el-divider></el-divider>
           </div>
       </el-main>
@@ -153,7 +137,9 @@ export default {
       courseId: '前端测试课程id',
       courseName: '前端测试课程名称',
       courseIntroduction: '前端测试课程介绍',
-      originDegree: 5,
+      originDegree: {
+        avgDegree: 3.4
+      },
       degree: 5,
       courseMaterial: '前端测试学习资料',
       contentInput: '',
@@ -177,27 +163,12 @@ export default {
     this.courseId = this.$route.query.courseId
     this.courseName = this.$route.query.courseName
     this.courseIntroduction = this.$route.query.courseIntroduction
-    // this.courseAssessment = this.$route.query.courseAssessment
     this.courseMaterial = this.$route.query.courseMaterial
+    this.OriginDegree = this.$route.query.OriginDegree
     console.log(this.$route.query)
     this.getCommentList()
   },
   methods: {
-    getOriginDegree: function (identity) {
-      let that = this
-      this.$http.request({
-        url: that.$url + 'GetDegree/',
-        method: 'get',
-        params: {
-          id: identity
-        }
-      }).then(function (response) {
-        console.log(response.data)
-        that.originDegree = response.data
-      }).catch(function (error) {
-        console.log(error)
-      })
-    },
     getTime: function () {
       let dt = new Date()
       let yyyy = dt.getFullYear()
@@ -219,7 +190,6 @@ export default {
       }).then(function (response) {
         console.log(response.data)
         that.commentList = response.data
-        that.getOriginDegree(that.courseId)
       }).catch(function (error) {
         console.log(error)
       })

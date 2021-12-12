@@ -39,15 +39,6 @@
                 <el-row>
                   <el-tag type="primary">课程编号<span>&nbsp;&nbsp;{{course.id}}</span></el-tag>
                 </el-row>
-                <el-row>
-                  <span>综合评分&nbsp;</span>
-                  <el-rate
-                    v-model="course.degree['avgDegree']"
-                    disabled
-                    show-score
-                    text-color="#ff9900"
-                    score-template="{course.degree['avgDegree']}"></el-rate>
-                </el-row>
               </el-col>
               <el-col :span="2">
                 <el-button-group style="margin-top: 2%">
@@ -124,13 +115,13 @@ export default {
         }],
         introduction: '',
         degree: [{
-          '1': 2,
-          '2': 2,
-          '3': 2,
-          '4': 2,
-          '5': 2,
-          'totalNum': 10,
-          'avgDegree': 3
+          1: 2,
+          2: 2,
+          3: 2,
+          4: 2,
+          5: 2,
+          totalNum: 10,
+          avgDegree: 3
         }]
       }],
       showCourseList: this.courseList,
@@ -141,27 +132,8 @@ export default {
     this.userName = this.cookie.getCookie('userName')
     this.userNickName = this.cookie.getCookie('userNickName')
     this.getCourseList()
-    for (var i = 0; i < this.courseList.length; i ++) {
-      this.getDegree(i, this.courseList[i].id)
-    }
   },
   methods: {
-    getDegree: function (index, identity) {
-      let that = this
-      this.$http.request({
-        url: that.$url + 'GetDegree/',
-        method: 'get',
-        params: {
-          id: identity
-        }
-      }).then(function (response) {
-        console.log(response.data)
-        that.courseList[index]['degree'] = response.data
-        that.showCourseList[index]['degree'] = response.data
-      }).catch(function (error) {
-        console.log(error)
-      })
-    },
     getCourseInfo: function (index) {
       let that = this
       that.courseInfo = that.courseList[index]
