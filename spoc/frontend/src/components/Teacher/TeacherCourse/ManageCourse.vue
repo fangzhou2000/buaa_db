@@ -45,7 +45,7 @@
                   <el-button type="primary" icon="el-icon-edit" v-on:click="changeCourse(index)">编辑</el-button>
                 </el-button-group>
                 <el-button-group>
-                  <el-button type="primary" icon="el-icon-delete" v-on:click="cancelCourse(index)">停课</el-button>
+                  <el-button type="danger" icon="el-icon-delete" v-on:click="cancelCourse(index)">停课</el-button>
                 </el-button-group>
               </el-col>
             </el-row>

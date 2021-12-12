@@ -21,7 +21,7 @@
             <el-row class="userName">
               {{comment.userNickName}}({{comment.userName}}) :
             </el-row>
-            <el-row class="content">
+            <el-row class="content" style="color: black">
               {{comment.content}}
             </el-row>
             <el-row class="delete">

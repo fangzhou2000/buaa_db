@@ -55,7 +55,10 @@ export default {
         id: '1',
         name: '前端测试学习材料'
       }],
-      showMyMaterialList: this.myMaterialList,
+      showMyMaterialList: [{
+        id: '1',
+        name: '前端测试学习材料'
+      }],
       inputSearch: ''
     }
   },
@@ -122,7 +125,7 @@ export default {
     },
     searchCourse: function (inputSearch) {
       let that = this
-      that.showMyMaterailList = this.searchByIndexOf(inputSearch, that.myMaterialList)
+      that.showMyMaterialList = that.searchByIndexOf(inputSearch, that.myMaterialList)
     },
     searchByIndexOf: function (keyWord, list) {
       if (!(list instanceof Array)) {

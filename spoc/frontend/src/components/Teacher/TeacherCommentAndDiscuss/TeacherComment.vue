@@ -41,7 +41,7 @@
                 <el-row>
                   <div style="font-size: 12px">
                     <h4>课程概述</h4>
-                    <p>{{courseIntroduction}}</p>
+                    <p v-html="courseIntroduction"></p>
                     <h4>课程资料</h4>
                     <p>{{courseMaterial}}</p>
                   </div>
@@ -66,8 +66,8 @@
                 <el-row>{{comment.time}}</el-row>
               </el-col>
               <el-col :span="20" class="content">
-                <el-row class="content-of-comment">
-                {{comment.content}}
+                <el-row class="content-of-comment" style="color: black">
+                  <span v-html="comment.content"></span>
                 </el-row>
                 <el-row class="delete">
                   <div v-if="comment.userName === userName">

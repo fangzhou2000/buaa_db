@@ -47,7 +47,7 @@
                     </el-row>
                     <el-row>
                       <div style="font-size: 12px; text-overflow: ellipsis ;max-height: 100px; overflow: hidden; white-space: nowrap;">
-                        {{course.introduction}}
+                        <span v-html="course.introduction"></span>
                       </div>
                     </el-row>
                   </el-col>
