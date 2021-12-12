@@ -38,6 +38,14 @@
                         <strong>{{course.name}}</strong>
                       </el-col>
                       <el-col :span="4" :offset="2">
+                        <el-row>
+                          <span>综合评分&nbsp;</span>
+                          <el-rate
+                            v-model="course.degree.avgDegree"
+                            disabled
+                            show-score
+                            text-color="#ff9900"></el-rate>
+                        </el-row>
                         <el-button v-on:click="commentCourse(index)" type="text" style="float: right">查看</el-button>
                       </el-col>
                     </el-row>
@@ -117,7 +125,16 @@ export default {
         name: '前端测试课程1',
         introduction: '前端介绍测试1',
         materialIdString: '1,2',
-        materialNameString: 'book1,book2'
+        materialNameString: 'book1,book2',
+        degree: {
+          1: 1,
+          2: 1,
+          3: 1,
+          4: 1,
+          5: 1,
+          totalNum: 5,
+          avgDegree: 3.0
+        }
       }, {
         id: '2',
         name: '前端测试课程2',
@@ -136,6 +153,26 @@ export default {
     this.getStudentCourseNum()
   },
   methods: {
+    getDegree: function (index, identity) {
+      console.log(index)
+      console.log(identity)
+      let that = this
+      this.$http.request({
+        url: that.$url + 'GetDegree/',
+        method: 'get',
+        params: {
+          id: identity
+        }
+      }).then(function (response) {
+        console.log(response.data)
+        that.courseList[index].degree = response.data
+        console.log(that.courseList[index])
+        that.showCourseList[index].degree = response.data
+        console.log(that.showCourseList[index])
+      }).catch(function (error) {
+        console.log(error)
+      })
+    },
     getStudentCourseNum: function () {
       let that = this
       this.$http.request({

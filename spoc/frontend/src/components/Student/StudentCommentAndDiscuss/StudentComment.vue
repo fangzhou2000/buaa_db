@@ -15,6 +15,15 @@
             <el-row>
               <el-col :offset="1" :span="2">
                 <el-image :src="courseImg" lazy></el-image>
+                <el-row>
+                  课程评分
+                </el-row>
+                <el-rate
+                  v-model="originDegree['avgDegree']"
+                  disabled
+                  show-score
+                  text-color="#ff9900"
+                  score-template="{originDegree['avgDegree']}"></el-rate>
               </el-col>
               <el-col :offset="2" :span="18">
                 <el-row>
@@ -41,6 +50,15 @@
             <el-divider></el-divider>
           </el-row>
           <el-row>
+            <el-col>
+              请您对课程进行评分（默认为5分），分数越高代表您对课程越满意
+            </el-col>
+            <el-col>
+              <el-rate
+                v-model="degree"
+                show-text>
+              </el-rate>
+            </el-col>
             <el-col>
               <el-input class="input" v-model="contentInput" type="textarea" :rows="3" placeholder="对于课程内容、讲课质量、考核方式等的评价">
               </el-input>
@@ -135,7 +153,8 @@ export default {
       courseId: '前端测试课程id',
       courseName: '前端测试课程名称',
       courseIntroduction: '前端测试课程介绍',
-      courseAssessment: '5',
+      originDegree: 5,
+      degree: 5,
       courseMaterial: '前端测试学习资料',
       contentInput: '',
       courseImg: CourseImg,
@@ -164,6 +183,21 @@ export default {
     this.getCommentList()
   },
   methods: {
+    getOriginDegree: function (identity) {
+      let that = this
+      this.$http.request({
+        url: that.$url + 'GetDegree/',
+        method: 'get',
+        params: {
+          id: identity
+        }
+      }).then(function (response) {
+        console.log(response.data)
+        that.originDegree = response.data
+      }).catch(function (error) {
+        console.log(error)
+      })
+    },
     getTime: function () {
       let dt = new Date()
       let yyyy = dt.getFullYear()
@@ -185,6 +219,7 @@ export default {
       }).then(function (response) {
         console.log(response.data)
         that.commentList = response.data
+        that.getOriginDegree(that.courseId)
       }).catch(function (error) {
         console.log(error)
       })
@@ -200,7 +235,8 @@ export default {
           userName: that.userName,
           userNickName: that.userNickName,
           content: that.contentInput,
-          time: that.time
+          time: that.time,
+          degree: that.degree
         }
       }).then(function (response) {
         console.log(response.data)
