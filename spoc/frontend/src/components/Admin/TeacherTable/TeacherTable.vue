@@ -25,10 +25,25 @@
                 circle></el-button>
             </el-col>
           </el-row>
-          <el-table :data="teacherList" v-loading="loading">
-            <el-table-column label="教师工号" prop="id"></el-table-column>
-            <el-table-column label="教师名称" prop="name"></el-table-column>
-          </el-table>
+          <el-card v-for="(teacher, index) in teacherList" :key="index">
+            <el-row>
+              <el-col :offset="2" :span="2">
+                <el-empty :image-size="40" style="margin: 0 !important; padding: 0 !important;"></el-empty>
+              </el-col>
+              <el-col :offset="2" :span="16">
+                <el-row style="margin-bottom: 3%">
+                  <span style="font-size: 16px"><strong>{{ teacher.name }}</strong></span>
+                </el-row>
+                <el-row>
+                  <el-tag type="info">工号</el-tag><span style="color: gray">&nbsp;&nbsp;{{teacher.id}}</span>
+                </el-row>
+              </el-col>
+            </el-row>
+          </el-card>
+<!--          <el-table :data="teacherList" v-loading="loading">-->
+<!--            <el-table-column label="教师工号" prop="id"></el-table-column>-->
+<!--            <el-table-column label="教师名称" prop="name"></el-table-column>-->
+<!--          </el-table>-->
         </el-main>
       </el-container>
     </el-container>

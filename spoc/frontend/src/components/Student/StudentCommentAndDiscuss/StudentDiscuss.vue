@@ -74,7 +74,7 @@
                     {{post.userNickName}}({{post.userName}}) (教师) :
                   </div>
                   <div v-else-if="post.isTeacher === 2">
-                    {{postTheme.userNickName}}({{postTheme.userName}}) (管理员) :
+                    {{post.userNickName}}({{post.userName}}) (管理员) :
                   </div>
                   <div v-else>
                     {{post.userNickName}}({{post.userName}}) :

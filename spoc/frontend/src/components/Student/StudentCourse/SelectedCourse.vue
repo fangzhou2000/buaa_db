@@ -28,7 +28,7 @@
           <el-card v-for="(course, index) in showMyCourseList" :key="index" shadow="hover" style="margin-bottom: 2%">
             <el-row>
               <el-col :offset="2" :span="2">
-                <el-empty :image-size="50" style="margin: 0 !important; padding: 0 !important;"></el-empty>
+                <el-image :src="courseImg" lazy></el-image>
               </el-col>
               <el-col :offset="2" :span="14">
                 <el-row style="margin-bottom: 3%">
@@ -37,7 +37,7 @@
                   </el-link>
                 </el-row>
                 <el-row>
-                  <el-tag type="info">课程编号</el-tag><span style="color: gray">&nbsp;&nbsp;{{course.id}}</span>
+                  <el-tag type="primary">课程编号<span>&nbsp;&nbsp;{{course.id}}</span></el-tag>
                 </el-row>
               </el-col>
               <el-col :span="2">
@@ -111,7 +111,7 @@
 <script>
 import StudentNav from '../StudentNav'
 import StudentHeading from '../StudentHeading'
-
+import CourseImg from '../../../assets/img/buaa_class_img.jpg'
 export default {
   /* eslint-disable */
   name: 'StudentCourse',
@@ -128,6 +128,7 @@ export default {
         }],
         introduction: ''
       },
+      courseImg: CourseImg,
       loading: true,
       userName: '',
       userNickName: '',

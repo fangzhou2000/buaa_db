@@ -37,8 +37,8 @@
           </el-row>
           <el-card v-for="(course, index) in showCourseList" :key="index" shadow="hover" style="margin-bottom: 2%">
             <el-row>
-              <el-col :offset="2" :span="2">
-                <el-empty :image-size="50" style="margin: 0 !important; padding: 0 !important;"></el-empty>
+              <el-col :offset="1" :span="2">
+                <el-image :src="courseImg" lazy></el-image>
               </el-col>
               <el-col :offset="2" :span="16">
                 <el-row style="margin-bottom: 3%">
@@ -47,13 +47,13 @@
                   </el-link>
                 </el-row>
                 <el-row>
-                  <el-tag type="info">课程编号</el-tag><span style="color: gray">&nbsp;&nbsp;{{course.id}}</span>
+                  <el-tag type="primary">课程编号<span>&nbsp;&nbsp;{{course.id}}</span></el-tag>
                 </el-row>
               </el-col>
             </el-row>
           </el-card>
           <el-dialog title="提示" :visible.sync="courseInfoVisible" width="40%">
-            <el-descriptions class="info" direction="vertical">
+            <el-descriptions class="info">
               <el-descriptions-item label="课程名称(ID)">
                 &nbsp;&nbsp;
                 {{courseInfo.name}}({{courseInfo.id}})
@@ -64,7 +64,7 @@
               </el-descriptions-item>
               <el-descriptions-item label="课程介绍">
                 &nbsp;&nbsp;
-                {{ courseInfo.introduction }}
+                <span v-html="courseInfo.introduction"></span>
               </el-descriptions-item>
             </el-descriptions>
             <div slot="footer" class="dialog-footer">
@@ -80,7 +80,7 @@
 <script>
 import TeacherNav from '../TeacherNav'
 import TeacherHeading from '../TeacherHeading'
-
+import CourseImg from '../../../assets/img/buaa_class_img.jpg'
 export default {
   /* eslint-disable */
   name: 'AllCourse',
@@ -88,6 +88,7 @@ export default {
   data: function () {
     return {
       courseInfoVisible: false,
+      courseImg: CourseImg,
       courseInfo: {
         id: '',
         name: '',
@@ -101,17 +102,6 @@ export default {
       userNickName: '',
       userName: '',
       courseList: [{
-        id: '1',
-        name: '课程1',
-        materialList: [{
-          id: '01',
-          name: '材料01'
-        }, {
-          id: '02',
-          name: '材料02'
-        }],
-        introduction: ''
-      }, {
         id: '2',
         name: '课程2',
         materialList: [{

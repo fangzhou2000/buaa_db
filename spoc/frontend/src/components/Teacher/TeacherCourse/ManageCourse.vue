@@ -28,7 +28,7 @@
           <el-card v-for="(course, index) in showMyCourseList" :key="index" shadow="hover" style="margin-bottom: 2%">
             <el-row>
               <el-col :offset="2" :span="2">
-                <el-empty :image-size="50" style="margin: 0 !important; padding: 0 !important;"></el-empty>
+                <el-image :src="courseImg" lazy></el-image>
               </el-col>
               <el-col :offset="2" :span="16">
                 <el-row style="margin-bottom: 3%">
@@ -37,7 +37,7 @@
                   </el-link>
                 </el-row>
                 <el-row>
-                  <el-tag type="info">课程编号</el-tag>&nbsp;&nbsp;<span style="color: gray">{{course.id}}</span>
+                  <el-tag type="primary">课程编号&nbsp;&nbsp;<span>{{course.id}}</span></el-tag>
                 </el-row>
               </el-col>
               <el-col :span="2">
@@ -62,7 +62,7 @@
               </el-descriptions-item>
               <el-descriptions-item label="课程介绍">
                 &nbsp;&nbsp;
-                {{ courseInfo.introduction }}
+                <span v-html="courseInfo.introduction"></span>
               </el-descriptions-item>
             </el-descriptions>
 
@@ -79,7 +79,7 @@
 <script>
 import TeacherNav from '../TeacherNav'
 import TeacherHeading from '../TeacherHeading'
-
+import CourseImg from '../../../assets/img/buaa_class_img.jpg'
 export default {
   /* eslint-disable */
   name: 'ManageCourse',
@@ -96,6 +96,7 @@ export default {
         }],
         introduction: ''
       },
+      courseImg: CourseImg,
       loading: true,
       userNickName: '',
       userName: '',
@@ -159,14 +160,14 @@ export default {
     changeCourse: function (index) {
       console.log(index)
       let that = this
-      let materialIdString = ''
-      for (var i = 0; i < that.showMyCourseList[index].materialList.length; i++) {
-        if (i === 0) {
-          materialIdString = (that.showMyCourseList[index].materialList[i].id)
-        } else {
-          materialIdString = materialIdString + ',' + (that.showMyCourseList[index].materialList[i].id)
-        }
-      }
+      let materialIdString = that.showMyCourseList[index].materialIdString
+      // for (var i = 0; i < that.showMyCourseList[index].materialList.length; i++) {
+      //   if (i === 0) {
+      //     materialIdString = (that.showMyCourseList[index].materialList[i].id)
+      //   } else {
+      //     materialIdString = materialIdString + ',' + (that.showMyCourseList[index].materialList[i].id)
+      //   }
+      // }
       this.$router.push({
         path: '/TeacherCourse/ChangeCourse',
         // 这里不能使用params传递参数，详见：

@@ -29,8 +29,8 @@
               </el-row>
               <el-card v-for="(course, index) in showCourseList" :key="index" shadow="hover" style="margin-bottom: 2%">
                 <el-row>
-                  <el-col :offset="2" :span="2">
-                    <el-empty :image-size="50" style="margin: 0 !important; padding: 0 !important;"></el-empty>
+                  <el-col :offset="1" :span="2">
+                    <el-image :src="courseImg" lazy></el-image>
                   </el-col>
                   <el-col :offset="2" :span="18">
                     <el-row>
@@ -105,6 +105,7 @@
 <script>
 import TeacherNav from '../TeacherNav'
 import TeacherHeading from '../TeacherHeading'
+import CourseImg from '../../../assets/img/buaa_class_img.jpg'
 export default {
   name: 'TeacherAllComment',
   components: {TeacherNav, TeacherHeading},
@@ -116,6 +117,7 @@ export default {
       courseNum: '1',
       inputSearch: '',
       showIt: false,
+      courseImg: CourseImg,
       courseList: [{
         id: '1',
         name: '前端测试课程1',

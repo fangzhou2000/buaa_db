@@ -13,9 +13,9 @@
           </el-page-header>
           <el-card shadow="hover" style="margin-bottom: 2%">
             <el-row>
-              <el-col :offset="2" :span="2">
+              <el-col :offset="1" :span="2">
                 <el-row>
-                  <el-empty :image-size="100" style="margin: 0 !important; padding: 0 !important;"></el-empty>
+                  <el-image :src="courseImg" lazy></el-image>
                 </el-row>
 <!--                <el-row>-->
 <!--                  <div><strong>评分</strong></div>-->
@@ -108,6 +108,7 @@
 <script>
 import TeacherNav from '../TeacherNav'
 import TeacherHeading from '../TeacherHeading'
+import CourseImg from '../../../assets/img/buaa_class_img.jpg'
 export default {
   name: 'TeacherComment',
   components: {TeacherNav, TeacherHeading},
@@ -121,6 +122,7 @@ export default {
       courseAssessment: '5',
       courseMaterial: '前端测试学习资料',
       contentInput: '',
+      courseImg: CourseImg,
       time: '',
       commentList: [{
         id: 1,
