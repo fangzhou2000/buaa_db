@@ -94,7 +94,7 @@
               <el-timeline-item timestamp="2021/11/?" placement="top">
                 <el-card>
                   <strong style="font-size: 20px">HomeWork Two Completed</strong>
-                  <p>Submitted on <i>2021/11/? ??:??</i>></p>
+                  <p>Submitted on <i>2021/12/12 20:08</i>></p>
                 </el-card>
               </el-timeline-item>
               <el-timeline-item timestamp="202?/?/?" placement="top">
