@@ -39,19 +39,11 @@
                   </el-divider>
                 </el-row>
                 <el-row>
-<<<<<<< HEAD
                   <div style="font-size: small">
                     <h3>课程介绍</h3>
-                    {{ courseIntroduction }}
+                    <span v-html="courseIntroduction"></span>
                     <h3>课程资料</h3>
                     <p><a v-for="(m) in courseMaterialList" v-bind:key="m.id">{{ m.name }}，</a></p>
-=======
-                  <div style="font-size: 12px">
-                    <h4>课程概述</h4>
-                    <p v-html="courseIntroduction"></p>
-                    <h4>课程资料</h4>
-                    <p>{{courseMaterial}}</p>
->>>>>>> cd30ff0e9da60cd030c7dc4e1de4ead6ce7f5f06
                   </div>
                 </el-row>
               </el-col>
