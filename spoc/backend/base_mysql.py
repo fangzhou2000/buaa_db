@@ -21,6 +21,16 @@ import pymysql
 
 class MySQL:
 
+    def GetCourseDegree(self, id):
+        result = self.getCourseDegree(id)
+        # 返回课程对应的评价表，计算平均值交给前端
+        # 评价表为{1：float， 2：float， 3：float， 4：float， 5：float, totalNum: number, avgDegree(平均分): float}
+        # print(result)
+        dic = {"1": result[0][1], "2": result[0][2], "3": result[0][3],
+               "4": result[0][4], "5": result[0][5], "totalNum": result[0][6],
+               "avgDegree": result[0][7]}
+        print(dic)
+
     def getPostTheme(self, postthemeId):
         connection, cursor = self.connectDatabase()
         result = ""

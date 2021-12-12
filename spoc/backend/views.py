@@ -336,7 +336,8 @@ class GetCourseList(APIView):
                 courseList.pop(i + 1)
                 i -= 1
             i += 1
-
+        for item in courseList:
+            item["degree"] = sql.GetCourseDegree(item['id'])
         for item in courseList:
             print(item['materialList'], end=" ")
             print(item['id'], item['name'], item['teacherName'], item['introduction'])
