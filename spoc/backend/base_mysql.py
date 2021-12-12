@@ -598,11 +598,11 @@ class MySQL:
     def getCourseList(self):
         connection, cursor = self.connectDatabase()
 
-        instruction = "SELECT ans.id, ans.n, teacher.name, ans.mid, ans.mn, ans.i " \
+        instruction = "SELECT ans.id, ans.n, teacher.name, ans.mid, ans.mn, ans.i, ans.degree " \
                       "FROM " \
-                      " (SELECT c.id, c.introduction, c.name, cm.material_id, cm.name " \
+                      " (SELECT c.id, c.introduction, c.name, cm.material_id, cm.name, c.degree " \
                       "FROM course as c LEFT OUTER JOIN (select * from material, course_material where course_material.material_id=material.id) AS cm " \
-                      "ON (c.id=cm.course_id) ) AS ans(id, i, n,mid, mn), teacher_course AS tc, teacher " \
+                      "ON (c.id=cm.course_id) ) AS ans(id, i, n,mid, mn, degree), teacher_course AS tc, teacher " \
                       "WHERE tc.course_id=ans.id AND tc.teacher_id=teacher.id "
         # "ORDER BY ans.id"
 

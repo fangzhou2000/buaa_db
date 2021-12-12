@@ -322,7 +322,7 @@ class GetCourseList(APIView):
 
         for item in result:
             courseList.append({'id': item[0], 'name': item[1], 'teacherName': item[2], 'introduction': item[5] if
-            item[5] is not None else '', 'materialList': [], 'm_id': item[3] if item[3] is not None else '',
+            item[5] is not None else '', "avgDegree": item[6], 'materialList': [], 'm_id': item[3] if item[3] is not None else '',
                                'm_name': item[4] if item[4] is not None else ''})
         courseList.sort(key=lambda x: x['id'], reverse=False)
         i = 0
@@ -336,11 +336,11 @@ class GetCourseList(APIView):
                 courseList.pop(i + 1)
                 i -= 1
             i += 1
-        for item in courseList:
-            item["degree"] = sql.GetCourseDegree(item['id'])
+        # for item in courseList:
+        #     item["avgDegree"] = sql.getAvgDegree(item['id']);
         for item in courseList:
             print(item['materialList'], end=" ")
-            print(item['id'], item['name'], item['teacherName'], item['introduction'])
+            print(item['id'], item['name'], item['teacherName'], item['introduction'], item["avgDegree"])
 
         return Response(courseList)
 
