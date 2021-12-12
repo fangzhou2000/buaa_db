@@ -40,7 +40,7 @@
                 <el-row>
                   <div style="font-size: small">
                     <h3>课程介绍</h3>
-                    {{ courseIntroduction }}
+                    <span v-html="courseIntroduction"></span>
                     <h3>课程资料</h3>
                     <p><a v-for="(m) in courseMaterialList" v-bind:key="m.id">{{ m.name }}，</a></p>
                   </div>
