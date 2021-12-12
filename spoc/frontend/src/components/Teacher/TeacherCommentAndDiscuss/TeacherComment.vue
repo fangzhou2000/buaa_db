@@ -56,7 +56,8 @@
           <div v-for="(comment) in commentList" v-bind:key="comment">
             <el-row class="time">
               <el-col :span="1">
-                <el-avatar></el-avatar>
+                <el-avatar :src="studentImg">
+                </el-avatar>
               </el-col>
               <el-col :span="3">
                 <el-row class="userName">
@@ -109,6 +110,7 @@
 import TeacherNav from '../TeacherNav'
 import TeacherHeading from '../TeacherHeading'
 import CourseImg from '../../../assets/img/buaa_class_img.jpg'
+import StudentImg from '../../../assets/img/student.png'
 export default {
   name: 'TeacherComment',
   components: {TeacherNav, TeacherHeading},
@@ -123,6 +125,7 @@ export default {
       courseMaterial: '前端测试学习资料',
       contentInput: '',
       courseImg: CourseImg,
+      studentImg: StudentImg,
       time: '',
       commentList: [{
         id: 1,

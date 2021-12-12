@@ -62,8 +62,10 @@
           <el-divider>跟贴</el-divider>
           <div v-for="(post, index) in postList" v-bind:key="index">
             <el-row>
-              <el-col :span="1">
-                <el-avatar></el-avatar>
+              <el-col :span="1" :offset="1">
+                <el-image v-if="post.isTeacher === 1" :src="teacherImg" lazy></el-image>
+                <el-image v-else-if="post.isTeacher === 2" :src="adminImg" lazy></el-image>
+                <el-image v-else :src="studentImg" lazy></el-image>
               </el-col>
               <el-col :span="3">
                 <el-row class="time">
@@ -81,7 +83,7 @@
                   </div>
                 </el-row>
               </el-col>
-              <el-col class="content" :span="19" v-html="post.content">
+              <el-col class="content" :span="18" v-html="post.content">
 <!--                {{post.content}}-->
               </el-col>
               <el-col class="delete" :span="1" style="float: right">
@@ -123,6 +125,9 @@
 <script>
 import StudentNav from '../StudentNav'
 import StudentHeading from '../StudentHeading'
+import StudentImg from '../../../assets/img/student.png'
+import TeacherImg from '../../../assets/img/teacher.png'
+import AdminImg from '../../../assets/img/admin.jpg'
 export default {
   name: 'StudentDiscuss',
   components: {StudentNav, StudentHeading},
@@ -131,6 +136,9 @@ export default {
       userName: '前端测试用户名',
       userNickName: '前端测试姓名',
       dialogFormVisible: false,
+      studentImg: StudentImg,
+      teacherImg: TeacherImg,
+      adminImg: AdminImg,
       postThemeId: 0,
       postTheme: {
         id: '测试id',
