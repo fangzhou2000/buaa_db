@@ -3,23 +3,23 @@
              router
              :collapse="isCollapsed" class="el-head-menu">
       <el-menu-item class="item" index="/TeacherHead">
-        <i class="el-icon-headset"></i>
+        <i class="el-icon-s-home"></i>
         <span class="item">首页</span>
       </el-menu-item>
       <el-submenu index="1">
-        <template slot="title"><i class="el-icon-location-information"></i><span class="item">课程信息</span></template>
+        <template slot="title"><i class="el-icon-reading"></i><span class="item">课程信息</span></template>
         <el-menu-item class="subitem" index="/TeacherCourse/AllCourse">查看课程</el-menu-item>
         <el-menu-item class="subitem" index="/TeacherCourse/BuildCourse">开设课程</el-menu-item>
         <el-menu-item class="subitem" index="/TeacherCourse/ManageCourse">管理课程</el-menu-item>
       </el-submenu>
       <el-submenu index="2">
-        <template slot="title"><i class="el-icon-s-marketing"></i><span class="item">学习材料</span></template>
+        <template slot="title"><i class="el-icon-s-data"></i><span class="item">学习材料</span></template>
         <el-menu-item class="subitem" index="/TeacherMaterial/AllMaterial">查看学习材料</el-menu-item>
         <el-menu-item class="subitem" index="/TeacherMaterial/BuildMaterial">新建学习材料</el-menu-item>
         <el-menu-item class="subitem" index="/TeacherMaterial/ManageMaterial">管理学习材料</el-menu-item>
       </el-submenu>
       <el-submenu index="3">
-        <template slot="title"><i class="el-icon-s-platform"></i><span class="item">留言板</span></template>
+        <template slot="title"><i class="el-icon-share"></i><span class="item">留言板</span></template>
         <el-menu-item class="subitem" index="/TeacherCommentAndDiscuss/TeacherAllComment">课程评价</el-menu-item>
         <el-menu-item class="subitem" index="/TeacherCommentAndDiscuss/TeacherAllDiscuss">自由讨论</el-menu-item>
       </el-submenu>

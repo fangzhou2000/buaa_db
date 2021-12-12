@@ -79,8 +79,7 @@
 
               </el-col>
               <el-col :span="19" class="content">
-                <el-row class="content-of-comment">
-                {{comment.content}}
+                <el-row class="content-of-comment" v-html="comment.content">
                 </el-row>
                 <el-row class="delete">
                   <div v-if="comment.userName === userName">

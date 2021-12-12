@@ -48,7 +48,7 @@
             </el-row>
           </el-card>
           <el-dialog title="提示" :visible.sync="courseInfoVisible" width="40%">
-            <el-descriptions class="info" direction="vertical">
+            <el-descriptions class="info">
               <el-descriptions-item label="课程名称(ID)">
                 &nbsp;&nbsp;
                 {{courseInfo.name}}({{courseInfo.id}})
