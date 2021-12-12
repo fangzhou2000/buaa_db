@@ -17,9 +17,6 @@
           <el-card shadow="hover" style="margin-bottom: 2%">
             <el-row>
               <el-col :offset="2" :span="2">
-<!--                <el-row>-->
-<!--                  <el-empty :image-size="80" style="margin: 0 !important; padding: 0 !important;"></el-empty>-->
-<!--                </el-row>-->
                 <el-row class="time">
                   {{postTheme.time}}
                 </el-row>
@@ -61,7 +58,7 @@
           </el-dialog>
           <el-divider>跟贴</el-divider>
           <div v-for="(post, index) in postList" v-bind:key="index">
-            <el-row>
+            <el-row v-loading="loading">
               <el-col :span="1" :offset="1">
                 <el-image v-if="post.isTeacher === 1" :src="teacherImg" lazy></el-image>
                 <el-image v-else-if="post.isTeacher === 2" :src="adminImg" lazy></el-image>
@@ -84,7 +81,6 @@
                 </el-row>
               </el-col>
               <el-col class="content" :span="18" v-html="post.content">
-<!--                {{post.content}}-->
               </el-col>
               <el-col class="delete" :span="1" style="float: right">
                 <div v-if="post.userName === userName">
@@ -133,6 +129,7 @@ export default {
   components: {StudentNav, StudentHeading},
   data: function () {
     return {
+      loading: true,
       userName: '前端测试用户名',
       userNickName: '前端测试姓名',
       dialogFormVisible: false,
@@ -264,6 +261,7 @@ export default {
     },
     getPostList: function () {
       let that = this
+      that.loading = true
       this.$http.request({
         url: that.$url + 'GetPostList/',
         method: 'get',
@@ -272,9 +270,11 @@ export default {
         }
       }).then(function (response) {
         console.log(response.data)
+        that.loading = false
         that.postList = response.data
       }).catch(function (error) {
         console.log(error)
+        that.loading = false
       })
     },
     buildPost: function () {

@@ -27,11 +27,32 @@
                     circle></el-button>
                 </el-col>
               </el-row>
-              <el-card v-for="(course, index) in showCourseList" :key="index" shadow="hover" style="margin-bottom: 2%">
-                <el-row>
-                  <el-col :offset="1" :span="2">
+              <el-card
+                v-for="(course, index) in showCourseList" :key="index"
+                v-loading="loading"
+                shadow="hover"
+                style="font-size: small; margin-bottom: 2%;">
+                <div slot="header" class="clearfix">
+                  <el-col :span="2">
                     <el-image :src="courseImg" lazy></el-image>
                   </el-col>
+<<<<<<< HEAD
+                  {{ course.name }}
+                  <el-button v-on:click="commentCourse(index)" type="text" style="font-size: small; float: right">
+                    查看评价
+                  </el-button>
+                  <el-rate
+                    v-model="course.avgDegree"
+                    disabled
+                    show-score
+                    text-color="#ff9900">
+                  </el-rate>
+                </div>
+                <div
+                  style="font-size: smaller; text-overflow: ellipsis ;max-height: 50px; overflow: hidden; white-space: nowrap;">
+                  {{ course.introduction }}
+                </div>
+=======
                   <el-col :offset="2" :span="18">
                     <el-row>
                       <el-col :span="18">
@@ -62,6 +83,7 @@
 <!--                    </el-rate>-->
 <!--                  </el-col>-->
                 </el-row>
+>>>>>>> cd30ff0e9da60cd030c7dc4e1de4ead6ce7f5f06
               </el-card>
             </el-col>
             <el-col :span="8" :offset="2" class="right-information">

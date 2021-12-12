@@ -25,7 +25,10 @@
                 circle></el-button>
             </el-col>
           </el-row>
-          <el-card v-for="(course, index) in showCourseList" :key="index" shadow="hover" style="margin-bottom: 2%">
+          <el-card v-for="(course, index) in showCourseList" :key="index"
+                   v-loading="loading"
+                   shadow="hover"
+                   style="margin-bottom: 2%">
             <el-row>
               <el-col :offset="1" :span="2">
                 <el-image :src="courseImg" lazy></el-image>
@@ -114,15 +117,7 @@ export default {
           name: '材料02'
         }],
         introduction: '',
-        degree: [{
-          1: 2,
-          2: 2,
-          3: 2,
-          4: 2,
-          5: 2,
-          totalNum: 10,
-          avgDegree: 3
-        }]
+        avgDegree: 2.0
       }],
       showCourseList: this.courseList,
       inputSearch: ''
