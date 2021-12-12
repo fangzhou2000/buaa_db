@@ -233,6 +233,7 @@ export default {
       this.$router.push({
         name: 'Discuss',
         query: {
+          postThemeId: that.postThemeList[index].id,
           postTheme: {
             id: that.showPostThemeList[index].id,
             userName: that.showPostThemeList[index].userName,

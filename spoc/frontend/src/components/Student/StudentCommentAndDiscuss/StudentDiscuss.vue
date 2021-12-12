@@ -139,6 +139,7 @@ export default {
       studentImg: StudentImg,
       teacherImg: TeacherImg,
       adminImg: AdminImg,
+      postThemeId: 0,
       postTheme: {
         id: '测试id',
         userName: 'admin',
@@ -201,11 +202,28 @@ export default {
     this.userName = this.cookie.getCookie('userName')
     this.userNickName = this.cookie.getCookie('userNickName')
     this.postTheme = this.$route.query.newPostTheme
+    this.postThemeId = this.$route.query.postThemeId
+    this.getPostTheme()
     this.getPostList()
     console.log('Checking...')
     console.log(this.postTheme)
   },
   methods: {
+    getPostTheme: function () {
+      let that = this
+      this.$http.request({
+        url: that.$url + 'GetPostTheme/',
+        method: 'get',
+        params: {
+          postThemeId: that.postThemeId
+        }
+      }).then(function (response) {
+        console.log(response.data)
+        that.postTheme = response.data
+      }).catch(function (error) {
+        console.log(error)
+      })
+    },
     getTime: function () {
       let that = this
       let dt = new Date()
@@ -250,7 +268,7 @@ export default {
         url: that.$url + 'GetPostList/',
         method: 'get',
         params: {
-          postThemeId: that.postTheme.id
+          postThemeId: that.postThemeId
         }
       }).then(function (response) {
         console.log(response.data)
