@@ -73,7 +73,7 @@
                     <el-row style="margin-bottom: 10px">
                       <el-col>
 <!--                        <el-input v-model="input.content" placeholder="请输入贴子的主题" type="textarea" :rows="10"></el-input>-->
-                        <quill-editor ref="text" v-model="input.content" style="height: 400px"></quill-editor>
+                        <quill-editor ref="text" v-model="input.content" style="height: 300px"></quill-editor>
                       </el-col>
                     </el-row>
                     <div slot="footer" class="dialog-footer">
@@ -235,7 +235,7 @@ export default {
       this.time = yyyy + '-' + MM + '-' + dd + ' ' + h + ':' + m + ':' + s
     },
     buildPostTheme: function () {
-      this.buildThemeVisible = false
+      // this.buildThemeVisible = false
       let that = this
       that.getTime()
       this.$http.request({

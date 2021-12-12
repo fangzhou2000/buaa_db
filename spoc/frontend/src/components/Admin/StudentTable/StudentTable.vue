@@ -25,11 +25,25 @@
                 circle></el-button>
             </el-col>
           </el-row>
-
-          <el-table :data="studentList" v-loading="loading">
-            <el-table-column label="学号" prop="id"></el-table-column>
-            <el-table-column label="姓名" prop="name"></el-table-column>
-          </el-table>
+          <el-card v-for="(student, index) in studentList" :key="index">
+            <el-row>
+              <el-col :offset="2" :span="2">
+                <el-empty :image-size="40" style="margin: 0 !important; padding: 0 !important;"></el-empty>
+              </el-col>
+              <el-col :offset="2" :span="16">
+                <el-row style="margin-bottom: 3%">
+                  <span style="font-size: 16px"><strong>{{ student.name }}</strong></span>
+                </el-row>
+                <el-row>
+                  <el-tag type="info">学号</el-tag><span style="color: gray">&nbsp;&nbsp;{{student.id}}</span>
+                </el-row>
+              </el-col>
+            </el-row>
+          </el-card>
+<!--          <el-table :data="studentList" v-loading="loading">-->
+<!--            <el-table-column label="学号" prop="id"></el-table-column>-->
+<!--            <el-table-column label="姓名" prop="name"></el-table-column>-->
+<!--          </el-table>-->
         </el-main>
       </el-container>
     </el-container>
@@ -61,7 +75,7 @@ export default {
           name: '郭明明'
         }
       ],
-      inputSearch: '',
+      inputSearch: ''
     }
   },
   mounted: function () {

@@ -13,8 +13,8 @@
 <!--          <el-row class="buttons">评价 {{courseName}}</el-row>-->
           <el-card shadow="hover" style="margin-bottom: 2%">
             <el-row>
-              <el-col :offset="2" :span="2">
-                <el-empty :image-size="100" style="margin: 0 !important; padding: 0 !important;"></el-empty>
+              <el-col :offset="1" :span="2">
+                <el-image :src="courseImg" lazy></el-image>
               </el-col>
               <el-col :offset="2" :span="18">
                 <el-row>
@@ -123,6 +123,7 @@
 <script>
 import StudentNav from '../StudentNav'
 import StudentHeading from '../StudentHeading'
+import CourseImg from '../../../assets/img/buaa_class_img.jpg'
 // import {quillEditor} from 'vue-quill-editor'
 // import 'quill/dist/quill.core.css'
 // import 'quill/dist/quill.snow.css'
@@ -140,6 +141,7 @@ export default {
       courseAssessment: '5',
       courseMaterial: '前端测试学习资料',
       contentInput: '',
+      courseImg: CourseImg,
       time: '',
       commentList: [{
         id: 1,

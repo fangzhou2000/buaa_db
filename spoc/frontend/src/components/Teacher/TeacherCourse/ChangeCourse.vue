@@ -35,7 +35,7 @@
               <quill-editor ref="text" v-model="introduction" style="height: 200px"></quill-editor>
             </el-col>
           </el-form-item>
-          <el-form-item style="margin-top: 10%">
+          <el-form-item style="margin-top: 20%">
             <el-col :span="6">
               <el-button v-on:click="changeCourse" type="primary">确认</el-button>
 <!--              <el-button v-on:click="returnManageCourse">返回</el-button>-->
@@ -105,9 +105,10 @@ export default {
     },
     changeCourse: function () {
       let that = this
-      that.loading = true
+      // that.loading = true
       // that.materialIdList = that.materialIdString.split(',')
       console.log(that.materialIdList)
+      console.log(that.materialIdString)
       this.$http.request({
         url: that.$url + 'ChangeCourse/',
         method: 'get',
