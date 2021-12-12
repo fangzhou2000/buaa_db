@@ -125,23 +125,38 @@ export default {
         id: '1',
         name: '前端测试课程1',
         introduction: '前端介绍测试1',
-        materialIdString: '1,2',
-        materialNameString: 'book1,book2',
+        materialList: [{
+          id: '03',
+          name: '材料03'
+        }, {
+          id: '04',
+          name: '材料04'
+        }],
         avgDegree: 3.0
       }, {
         id: '2',
         name: '前端测试课程2',
+        materialList: [{
+          id: '03',
+          name: '材料03'
+        }, {
+          id: '04',
+          name: '材料04'
+        }],
         introduction: '前端测试介绍2',
-        materialIdString: '1,2',
-        materialNameString: 'book1,book2',
         avgDegree: 3.0
       }],
       showCourseList: [{
         id: '1',
         name: '前端测试课程1',
+        materialList: [{
+          id: '03',
+          name: '材料03'
+        }, {
+          id: '04',
+          name: '材料04'
+        }],
         introduction: '前端介绍测试1',
-        materialIdString: '1,2',
-        materialNameString: 'book1,book2',
         avgDegree: 3.0
       }]
     }

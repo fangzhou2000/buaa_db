@@ -39,10 +39,10 @@
                 </el-row>
                 <el-row>
                   <div style="font-size: small">
-                    <h3>课程概述</h3>
+                    <h3>课程介绍</h3>
                     {{ courseIntroduction }}
                     <h3>课程资料</h3>
-                    <p>{{ courseMaterial }}</p>
+                    <p><a v-for="(m) in courseMaterialList" v-bind:key="m.id">{{ m.name }}，</a></p>
                   </div>
                 </el-row>
               </el-col>
@@ -144,9 +144,12 @@ export default {
       courseId: '前端测试课程id',
       courseName: '前端测试课程名称',
       courseIntroduction: '前端测试课程介绍',
+      courseMaterialList: [{
+        id: '1',
+        name: 'book1'
+      }],
       courseAvgDegree: 3.0,
       degree: 5,
-      courseMaterial: '前端测试学习资料',
       contentInput: '',
       courseImg: CourseImg,
       studentImg: StudentImg,
@@ -166,10 +169,8 @@ export default {
     this.userName = this.cookie.getCookie('userName')
     this.userNickName = this.cookie.getCookie('userNickName')
     this.courseId = this.$route.query.courseId
-    this.courseName = this.$route.query.courseName
-    this.courseIntroduction = this.$route.query.courseIntroduction
-    this.courseMaterial = this.$route.query.courseMaterial
-    this.courseAvgDegree = 
+    this.getCourseInfo()
+    this.getDegree()
     this.getCommentList()
   },
   methods: {
@@ -182,6 +183,23 @@ export default {
       let m = dt.getMinutes().toString().padStart(2, '0')
       let s = dt.getSeconds().toString().padStart(2, '0')
       this.time = yyyy + '-' + MM + '-' + dd + ' ' + h + ':' + m + ':' + s
+    },
+    getCourseInfo: function () {
+      let that = this
+      this.$http.request({
+        url: that.$url + 'GetCourseInfo/',
+        method: 'get',
+        params: {
+          courseId: that.courseId
+        }
+      }).then(function (response) {
+        console.log(response.data)
+        that.courseName = response.data.name
+        that.courseIntroduction = response.data.introduction
+        that.courseMaterialList = response.data.materialList
+      }).catch(function (error) {
+        console.log(error)
+      })
     },
     getCommentList: function () {
       let that = this
@@ -230,6 +248,7 @@ export default {
         if (response.data === 0) {
           that.$message.success('评价成功')
           that.getCommentList()
+          that.getDegree()
           that.contentInput = ''
         } else {
           that.$message.error('未知错误')
@@ -256,6 +275,7 @@ export default {
           if (response.data === 0) {
             that.$message.success('删除成功')
             that.getCommentList()
+            that.getDegree()
           } else {
             that.$message.error('未知错误')
           }
