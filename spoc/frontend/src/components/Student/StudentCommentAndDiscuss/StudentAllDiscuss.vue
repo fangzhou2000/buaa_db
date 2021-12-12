@@ -158,8 +158,24 @@ export default {
     this.userName = this.cookie.getCookie('userName')
     this.userNickName = this.cookie.getCookie('userNickName')
     this.getPostThemeList()
+    this.getStudentDiscussNum()
   },
   methods: {
+    getStudentDiscussNum: function () {
+      let that = this
+      this.$http.request({
+        url: that.$url + 'GetStudentDisCussNum/',
+        method: 'get',
+        params: {
+          userName: that.userName
+        }
+      }).then(function (response) {
+        console.log(response.data)
+        that.discussNum = response.data
+      }).catch(function (error) {
+        console.log(error)
+      })
+    },
     getPostThemeList: function () {
       let that = this
       that.loading = true
@@ -205,6 +221,7 @@ export default {
           that.$message.success('创建成功')
           that.buildThemeVisible = false
           that.getPostThemeList()
+          that.getStudentDiscussNum()
           that.postThemeInput = {
             title: '',
             content: ''
