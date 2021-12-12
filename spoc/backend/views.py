@@ -311,9 +311,8 @@ class TeacherRegister(APIView):
             sql.registerTeacher(userName, userPassWord, userNickName)
             return Response(0)
 
-
 class GetCourseList(APIView):
-    def get(self, requset):
+    def get(self, request):
         # 从课程表里查询所有课程，返回一个字典的列表，字典中key值为 'id' 和 'name', id为主码
         print("GetCourseList请求得到所有课程")
         sql = MySQL()
@@ -492,7 +491,29 @@ class GetTeacherCourseList(APIView):
 
 class GetCourseInfo(APIView):
     def get(self, request):
-        return
+        courseId = str(request.GET.get('courseId', None))
+        # name, intro, material, avgdegre
+        sql = MySQL()
+        result = sql.getCourseInfo(courseId)
+        CourseList = []
+        for item in result:
+            CourseList.append({'id': item[0], 'name': item[1], 'teacherName': item[2], 'introduction': item[5] if
+            item[5] is not None else '', 'materialList': [], 'm_id': item[3] if item[3] is not None else '',
+                                      'm_name': item[4] if item[4] is not None else ''})
+        i = 0
+        while i < len(CourseList):
+            if CourseList[i]['m_id'] != '' and len(CourseList[i]['materialList']) == 0:
+                CourseList[i]['materialList'].append(
+                    {'id': CourseList[i]['m_id'], 'name': CourseList[i]['m_name']});
+
+            if i != len(CourseList) - 1 and CourseList[i]['id'] == CourseList[i + 1]['id']:
+                CourseList[i]['materialList'].append(
+                    {'id': CourseList[i + 1]['m_id'], 'name': CourseList[i + 1]['m_name']});
+                CourseList.pop(i + 1)
+                i -= 1
+            i += 1
+
+        return Response(CourseList[0])
 
 
 class BuildCourse(APIView):
