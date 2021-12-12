@@ -48,14 +48,14 @@ export default {
       userName: '',
       inputSearch: '',
       materialList: [{
-        id: '1',
-        name: '前端测试课程材料'
+        id: '',
+        name: ''
       }, {
-        id: '1',
-        name: '前端测试课程材料'
+        id: '',
+        name: ''
       }, {
-        id: '1',
-        name: '前端测试课程材料'
+        id: '',
+        name: ''
       }],
       showMaterialList: this.materialList
     }

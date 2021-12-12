@@ -72,7 +72,6 @@
                     </el-row>
                     <el-row style="margin-bottom: 10px">
                       <el-col>
-<!--                        <el-input v-model="input.content" placeholder="请输入贴子的主题" type="textarea" :rows="10"></el-input>-->
                         <quill-editor ref="text" v-model="input.content" style="height: 300px"></quill-editor>
                       </el-col>
                     </el-row>
@@ -107,7 +106,7 @@ export default {
       loading: true,
       userName: '',
       userNickName: '',
-      discussNum: '1',
+      discussNum: '',
       studentImg: StudentImg,
       input: {
         title: '',
@@ -115,41 +114,23 @@ export default {
       },
       inputSearch: '',
       postThemeList: [{
-        id: '1',
-        userName: 'admin',
-        userNickName: '学生1',
-        title: '前端测试贴标题',
-        content: '前端测试贴内容',
-        time: 'xxxx',
-        isTeacher: 1
-      },
-      {
-        id: '2',
-        userName: '学号1',
-        userNickName: '学生1',
-        title: '前端测试贴标题',
-        content: '前端测试贴内容',
-        time: 'xxxx',
+        id: '',
+        userName: '',
+        userNickName: '',
+        title: '',
+        content: '',
+        time: '',
         isTeacher: 0
       }],
       showPostThemeList: [
         {
-          id: '1',
-          userName: 'admin',
-          userNickName: '学生1',
-          title: '前端测试贴标题',
-          content: '前端测试贴内容',
-          time: 'xxxx',
+          id: '',
+          userName: '',
+          userNickName: '',
+          title: '',
+          content: '',
+          time: '',
           isTeacher: 1
-        },
-        {
-          id: '2',
-          userName: '学号1',
-          userNickName: '学生1',
-          title: '前端测试贴标题',
-          content: '前端测试贴内容',
-          time: 'xxxx',
-          isTeacher: 0
         }
       ],
       buildThemeVisible: false,

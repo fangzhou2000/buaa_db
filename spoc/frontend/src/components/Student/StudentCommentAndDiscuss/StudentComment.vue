@@ -86,7 +86,7 @@
               <el-col :span="19" class="content">
                 <el-row class="content-of-comment" v-html="comment.content">
                 </el-row>
-                <el-row class="delete">
+                <el-row class="delete" :span="1" style="float: right">
                   <div v-if="comment.userName === userName">
                     <el-link type="danger" v-on:click="deleteComment(comment.id)">删除</el-link>
                   </div>
@@ -137,14 +137,14 @@ export default {
   data: function () {
     return {
       loading: true,
-      userName: '前端测试用户名',
-      userNickName: '前端测试姓名',
-      courseId: '前端测试课程id',
-      courseName: '前端测试课程名称',
-      courseIntroduction: '前端测试课程介绍',
+      userName: '',
+      userNickName: '',
+      courseId: '',
+      courseName: '',
+      courseIntroduction: '',
       courseMaterialList: [{
-        id: '1',
-        name: 'book1'
+        id: '',
+        name: ''
       }],
       courseAvgDegree: 3.0,
       degree: 5,
@@ -154,11 +154,10 @@ export default {
       time: '',
       commentList: [{
         id: 1,
-        userName: '学号1',
-        userNickName: '学生1',
-        content: '课程评价内容1课程评价内容1课程评价内容1课程评价内容1课程评价内容1课程评价内容1课程评价内容1课程评价内容1课程评价内容1' +
-          '课程评价内容1课程评价内容1课程评价内容1课程评价内容1课程评价内容1课程评价内容1课程评价内容1',
-        time: '2021-11-19 11:11:11'
+        userName: '',
+        userNickName: '',
+        content: '',
+        time: ''
       }
       ]
     }

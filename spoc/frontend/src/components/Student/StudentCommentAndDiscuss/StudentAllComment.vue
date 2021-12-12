@@ -112,48 +112,30 @@ export default {
       loading: true,
       userName: '',
       userNickName: '',
-      commentNum: '1',
-      courseNum: '1',
+      commentNum: '',
+      courseNum: '',
       courseImg: CourseImg,
       studentImg: StudentImg,
       inputSearch: '',
       showIt: false,
       courseList: [{
-        id: '1',
-        name: '前端测试课程1',
-        introduction: '前端介绍测试1',
+        id: '',
+        name: '',
+        introduction: '',
         materialList: [{
-          id: '03',
-          name: '材料03'
-        }, {
-          id: '04',
-          name: '材料04'
+          id: '',
+          name: ''
         }],
-        avgDegree: 3.6
-      }, {
-        id: '2',
-        name: '前端测试课程2',
-        materialList: [{
-          id: '03',
-          name: '材料03'
-        }, {
-          id: '04',
-          name: '材料04'
-        }],
-        introduction: '前端测试介绍2',
         avgDegree: 3.0
       }],
       showCourseList: [{
-        id: '1',
-        name: '前端测试课程1',
+        id: '',
+        name: '',
         materialList: [{
-          id: '03',
-          name: '材料03'
-        }, {
-          id: '04',
-          name: '材料04'
+          id: '',
+          name: ''
         }],
-        introduction: '前端介绍测试1',
+        introduction: '',
         avgDegree: 3.0
       }]
     }
@@ -218,11 +200,7 @@ export default {
       this.$router.push({
         path: '/StudentCommentAndDiscuss/StudentComment',
         query: {
-          courseId: that.showCourseList[index].id,
-          courseName: that.showCourseList[index].name,
-          courseIntroduction: that.showCourseList[index].introduction,
-          courseMaterial: that.showCourseList[index].materialNameString,
-          courseAvgDegree: that.showCourseList[index].avgDegree
+          courseId: that.showCourseList[index].id
         }
       })
     },

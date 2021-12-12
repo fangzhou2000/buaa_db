@@ -35,7 +35,7 @@
               <el-col :offset="2" :span="16">
                 <el-row class="content" v-html="postTheme.content">
                 </el-row>
-                <el-row class="delete">
+                <el-row class="delete" :span="1" style="float: right">
                   <div v-if="postTheme.userName === userName">
                     <el-link type="danger" v-on:click="deletePostTheme">删除</el-link>
                   </div>
@@ -130,66 +130,31 @@ export default {
   data: function () {
     return {
       loading: true,
-      userName: '前端测试用户名',
-      userNickName: '前端测试姓名',
+      userName: '',
+      userNickName: '',
       dialogFormVisible: false,
       studentImg: StudentImg,
       teacherImg: TeacherImg,
       adminImg: AdminImg,
       postThemeId: 0,
       postTheme: {
-        id: '测试id',
-        userName: 'admin',
-        userNickName: '学生1',
-        title: '前端测试贴标题',
-        content: '前端测试贴内容',
-        time: '111',
+        id: '',
+        userName: '',
+        userNickName: '',
+        title: '',
+        content: '',
+        time: '',
         isTeacher: 1
       },
       input: {
         content: ''
       },
       postList: [{
-        id: '1',
-        userName: '学号1',
-        userNickName: '学生1',
-        content: '课程评价内容1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111',
-        time: '2021-11-19 11:11:11',
-        isTeacher: 0
-      }, {
-        id: '1',
-        userName: '学号2',
-        userNickName: '学生2',
-        content: '课程评价内容2',
-        time: '2021-11-19 11:11:11',
-        isTeacher: 1
-      }, {
-        id: '1',
-        userName: '学号3',
-        userNickName: '学生3',
-        content: '课程评价内容3',
-        time: '2021-11-19 11:11:11',
-        isTeacher: 0
-      }, {
-        id: '1',
-        userName: 'admin',
-        userNickName: '学生1',
-        content: '课程评价内容1',
-        time: '2021-11-19 11:11:11',
-        isTeacher: 0
-      }, {
-        id: '1',
-        userName: '学号2',
-        userNickName: '学生2',
-        content: '课程评价内容2',
-        time: '2021-11-19 11:11:11',
-        isTeacher: 0
-      }, {
-        id: '1',
-        userName: '学号3',
-        userNickName: '学生3',
-        content: '课程评价内容3',
-        time: '2021-11-19 11:11:11',
+        id: '',
+        userName: '',
+        userNickName: '',
+        content: '',
+        time: '',
         isTeacher: 0
       }],
       time: ''
