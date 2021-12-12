@@ -52,7 +52,7 @@ Vue样式 (oyk)
 |          `student(id, password, name)`           | `id` |  学生信息   |
 |          `teacher(id, password, name)`           | `id` |  教师信息   |
 |               `material(id, name)`               | `id` |  学习材料   |
-|         `course(id, name, introduction)`         | `id` |  课程信息   |
+|     `course(id, name, introduction，degree)`     | `id` |  课程信息   |
 |           `comment(id, content, time)`           | `id` |    评论     |
 | `posttheme(id, title, content, time, isTeacher)` | `id` |   主题帖    |
 |       `post(id, content, time, isTeacher)`       | `id` |    跟帖     |
