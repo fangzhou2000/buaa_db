@@ -33,7 +33,7 @@
               <el-col :offset="2" :span="2">
                 <el-image :src="courseImg" lazy></el-image>
               </el-col>
-              <el-col :offset="2" :span="16">
+              <el-col :offset="2" :span="14">
                 <el-row style="margin-bottom: 3%">
                   <el-link type="primary" v-on:click="getCourseInfo(index)">
                     <span style="font-size: 16px"><strong>{{ course.name }}</strong></span>
@@ -42,6 +42,9 @@
                 <el-row>
                   <el-tag type="primary">课程编号<span>&nbsp;&nbsp;{{course.id}}</span></el-tag>
                 </el-row>
+              </el-col>
+              <el-col :span="2">
+                <el-button v-on:click="cancelCourse(index)" type="danger" size="small">删除</el-button>
               </el-col>
             </el-row>
           </el-card>
