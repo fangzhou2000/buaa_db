@@ -178,7 +178,8 @@ class GetCommentList(APIView):
                                 "userName": item[0],
                                 "userNickName": item[1],
                                 "content": item[2],
-                                "time": item[3]})
+                                "time": item[3],
+                                "degree": item[5]})
         commentList.sort(key=lambda x: x['time'], reverse=True)
         return Response(commentList)
 
