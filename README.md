@@ -34,10 +34,10 @@ Vue样式 (oyk)
 ## DataBase
 
 ```
-'HOST': 'rm-2zeu3f7e1n5yt10v0co.mysql.rds.aliyuncs.com',
+'HOST': '*',
 'NAME': 'spoc',
 'USER': 'root',
-'PASSWORD': 'myja&*$4X579cKr',
+'PASSWORD': '*',
 'PORT': '3306'
 ```
 
@@ -86,7 +86,7 @@ full img: [e-r](./img/1211_er_full.svg), [db](./img/1211_db.svg)
 ### Plan Design
 
 ```
-Entity
+Entity:
 
 teacher(id, name, password, sex, department, telephone, email)
 student(id, name, password, sex, department, orientation)
@@ -95,7 +95,7 @@ course(id, name, department, volume, credit)
 material(id, name, department, obtain)
 group(id, orientation, department, volume)
 
-Relation 
+Relation: 
 
 courseEvaluation(id, content)
 courseSelection(student_id, course_id)
@@ -103,7 +103,7 @@ groupJoin(student_id, group_id)
 studentMaterialObtain(student_id, material_id)
 groupMaterialObtain(group_id, material_id)
 courseCreate(course_id, teacher_id, time)
-groupTutor(course_id, teacher_id) //no time
+groupTutor(course_id, teacher_id)
 grade() //打分
 ```
 
